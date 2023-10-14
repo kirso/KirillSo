@@ -23,6 +23,9 @@ dependencies:
   astro:
     specifier: 3.0.8
     version: 3.0.8
+  astro-google-analytics:
+    specifier: ^1.0.3
+    version: 1.0.3
   astro-icon:
     specifier: ^0.8.1
     version: 0.8.1
@@ -1670,6 +1673,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /astro-google-analytics@1.0.3:
+    resolution: {integrity: sha512-5bD7jA15yxVaUFVVEFG6KKMphYJ4AKP4+HSqCVBpTBnqh8LL0giTdAHpG9KJs3JaFbGQUTWP5Pqt8+twz7f55Q==}
+    dev: false
 
   /astro-icon@0.8.1:
     resolution: {integrity: sha512-APk+fbFnoyGdIVSPFrdrOW9YBK96/1fYuVe7ULTGW92+z00RKB8GfLJiUvzNVXUAX2rZJCFmruGVF4rrhcTYsg==}

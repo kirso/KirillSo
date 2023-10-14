@@ -20,7 +20,7 @@ The reason this corner of the internet exists is due to continuously seeking gre
 
 **2012** - Moved to Berlin during the boom of start-up copycat models and joined a growing [venture studio](https://ioniq.com/portfolio/) that is now spanning fintech, adtech and healthech portfolio. This has been a fantastic experience in understanding shifting technology cycles. We saw mobile overtaking web traffic from the front-row seats and opportunities it brought.
 
-![berlin-lake](./../assets/img/about/berlin.jpeg)
+![Paddling on the lake in Berlin, Germany](./../assets/img/about/berlin.jpeg)
 
 **2014** - Started a mobile-first user acquisition agency and reached **$30k in revenue the first month**. It was the first digital nomad experience whilst living and travelling in Thailand. A year later my bank sent me a cease and desist letter and I had to close down. I learned a lot about perseverance and stress but also independence and non-default paths.
 
@@ -30,13 +30,13 @@ The reason this corner of the internet exists is due to continuously seeking gre
 
 **2018** - Made a move to Singapore and worked with the largest C2C marketplace in SEA on a platform utilising blockchain and external data to identify bad actors. Met some of the most amazing entrepreneurs in the region and engraved myself in the VC ecosystem.
 
-![coindesk-conference-singapore](/static/img/personal/singapore-coindesk.jpeg)
+![Conference talk at Coindesk Singapore](/src/assets/img/about/singapore-coindesk.jpeg)
 
 **2020** - Got accepted into an [early-stage start-up programme](https://www.antler.co/) and worked on a machine learning ops product to help push models into production faster. This was a breaking point in my own mental model of how the world works, probability and why venture model is not a good fit for majority of the founders. It was such a great experience though that again provided a chance to learn from the best in the industry.
 
 **2021** - A complete professional fiasco. I got a chance to interview for my dream job, completely messed it up and ended up in a toxic environment, followed by a stint in a feature factory.
 
-**2022** - Recovered and balanced, focusing on upskilling and maintaining
+**2022** - Recovered and balanced, focusing on upskilling and cementing my way as product manager. Learned a lot at a scale where every decision can potentially result in millions of revenue (or losses).
 
 ## NOW (updated: 2023-10-01)
 
