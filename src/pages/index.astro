@@ -3,67 +3,43 @@ import PageLayout from "@/layouts/Base";
 import PostPreview from "@/components/blog/PostPreview";
 import SocialList from "@/components/SocialList";
 import { getAllPosts, sortMDByDate } from "@/utils";
+import { Image } from "astro:assets";
+import profileImg from "@/assets/img/kirill-profile-picture.jpg";
+import Cards from "@/components/Cards";
 
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
 const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
-
-const cactusTech: Array<{ title: string; desc: string; href: string }> = [
-	{
-		title: "Astro",
-		desc: "Build fast websites, faster.",
-		href: "https://astro.build",
-	},
-	{
-		title: "Astro Assets",
-		desc: "Built-in optimized asset support.",
-		href: "https://docs.astro.build/en/guides/assets/",
-	},
-	{
-		title: "Tailwind CSS",
-		desc: "Rapidly build modern websites without ever leaving your HTML.",
-		href: "https://tailwindcss.com",
-	},
-	{
-		title: "Markdown",
-		desc: "Simple and easy-to-use markup language.",
-		href: "https://www.markdownguide.org/",
-	},
-	{
-		title: "MDX",
-		desc: "Markdown for the component era.",
-		href: "https://mdxjs.com/",
-	},
-	{
-		title: "Satori",
-		desc: "Generating png Open Graph images for blog posts.",
-		href: "https://github.com/vercel/satori",
-	},
-	{
-		title: "Pagefind",
-		desc: "A fully static search library.",
-		href: "https://pagefind.app/",
-	},
-	{
-		title: "Astro Icon",
-		desc: "An easy to use Icon component for Astro.",
-		href: "https://github.com/natemoo-re/astro-icon#readme",
-	},
-];
 ---
 
 <PageLayout meta={{ title: "Home" }}>
 	<section>
-		<h1 class="title mb-6">Hello World!</h1>
-		<p class="mb-4">
-			Hi, I’m a theme for Astro, an example of how you can use this starter to create a personal
-			blog. If you want to know more about how you can customise me, add more posts, and make it
-			your own, click on one the github icon link below which will take you to my repo.
-		</p>
-		<SocialList />
+		<div class="flex flex-col items-center justify-center sm:flex-row">
+			<div class="mr-4 flex flex-col">
+				<Image
+					src={profileImg}
+					alt="A profile picture of Kirill So"
+					loading="eager"
+					width={125}
+					height={125}
+					class="mb-3 rounded-full"
+				/>
+				<SocialList />
+			</div>
+
+			<div class="flex grow flex-col">
+				<h1 class="title">Kirill So</h1>
+				<p>
+					I’m a principal product manager based in Singapore. Previously, I worked on various tech
+					products, co-founded a startup and ran a profitable agency. At nights & weekends I like to
+					tinker with web apps, write essays, study new disciplines and teach others about making
+					sense of the world. I currently live in Singapore but left my heart in Czechia.
+				</p>
+			</div>
+		</div>
 	</section>
-	<section aria-label="Blog post list" class="mt-16">
-		<h2 class="title mb-4 text-xl">Posts</h2>
+	<section aria-label="Blog posts" class="mt-5">
+		<h2 class="title mb-2 text-xl">Posts</h2>
 		<ul class="space-y-4 sm:space-y-2">
 			{
 				allPostsByDate.map((p) => (
@@ -74,24 +50,36 @@ const cactusTech: Array<{ title: string; desc: string; href: string }> = [
 			}
 		</ul>
 	</section>
-	<section class="mt-16">
-		<h2 class="title mb-4 text-xl">Technologies</h2>
-		<ul class="space-y-4 sm:space-y-2">
-			{
-				cactusTech.map(({ href, title, desc }) => (
-					<li>
-						<a
-							href={href}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="cactus-link inline-block"
-						>
-							{title}
-						</a>: 
-						<p class="inline-block sm:mt-2">{desc}</p>
-					</li>
-				))
-			}
-		</ul>
+	<section class="mt-5">
+		<h2 class="title mb-2 text-xl">Projects</h2>
+		<Cards
+			cards={[
+				{
+					title: "Google clone",
+					to: "/projects/google-clone/",
+					description: "Search with Google API",
+					gradientFrom: "#818cf8",
+					gradientTo: "#d8b4fe",
+				},
+				{
+					title: "Panic theme",
+					to: "https://www.github.com/kirso/logseq-panic-theme",
+					description: "Make Logseq PKM pretty",
+					gradientFrom: "#fde68a",
+					gradientTo: "#fca5a5",
+				},
+				{
+					title: "Schwiftyverse",
+					to: "https://schwiftyverse.vercel.app/",
+					description: "GIFs on Solana blockchain",
+					gradientFrom: "#6ee7b7",
+					gradientTo: "#9333ea",
+				},
+			]}
+		/>
 	</section>
+
+	<!-- <section class="mt-5">
+		<SignupForm />
+	</section> -->
 </PageLayout>

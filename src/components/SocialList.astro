@@ -1,37 +1,36 @@
 ---
 import { Icon } from "astro-icon";
 
-/** 
+/**
 	Uses https://github.com/natemoo-re/astro-icon#readme
 	Find icons @ https://icones.js.org/
 */
 const socialLinks = [
 	{
-		name: "mdi:github",
+		name: "simple-icons:twitter",
+		friendlyName: "Twitter",
+		link: "https://twitter.com/kirso_",
+	},
+	{
+		name: "simple-icons:github",
 		friendlyName: "Github",
-		link: "https://github.com/chrismwilliams/astro-cactus",
+		link: "https://github.com/kirso",
 	},
 	{
-		name: "mdi:mastodon",
-		friendlyName: "Mastodon",
-		link: "#",
-	},
-	{
-		name: "mdi:linkedin",
+		name: "simple-icons:linkedin",
 		friendlyName: "LinkedIn",
-		link: "#",
+		link: "https://www.linkedin.com/in/kirso/",
 	},
 	{
-		name: "mdi:email",
-		friendlyName: "email",
-		link: "mailto:astro-cactus@chriswilliams.dev",
+		name: "simple-icons:substack",
+		friendlyName: "Substack",
+		link: "https://kirill.substack.com",
 	},
 ];
 ---
 
 <div class="flex flex-wrap items-end gap-x-4">
-	<p>Find me on</p>
-	<ul class="flex flex-1 items-center gap-x-2 sm:flex-initial">
+	<ul class="flex flex-1 items-center gap-x-0.5 sm:flex-initial">
 		{
 			socialLinks.map(({ link, name, friendlyName }) => {
 				const isEmail = name.includes("email") || friendlyName.toLowerCase().includes("email");
@@ -43,7 +42,7 @@ const socialLinks = [
 							target="_blank"
 							rel={`noopener noreferrer me ${isEmail ? "authn" : ""}`}
 						>
-							<Icon class="h-6 w-6" name={name} aria-hidden="true" focusable="false" />
+							<Icon class="h-5 w-5" name={name} aria-hidden="true" focusable="false" />
 							<span class="sr-only">{friendlyName}</span>
 						</a>
 					</li>

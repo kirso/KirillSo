@@ -3,6 +3,7 @@ title: "A post of Markdown elements"
 description: "This post is for testing and listing a number of different markdown elements"
 publishDate: "22 Feb 2023"
 tags: ["test", "markdown"]
+draft: true
 ---
 
 ## This is a H2 Heading
@@ -16,10 +17,6 @@ tags: ["test", "markdown"]
 ###### This is a H6 Heading
 
 ## Horizontal Rules
-
----
-
----
 
 ---
 
@@ -66,17 +63,13 @@ Unordered
 
 Ordered
 
-1. Lorem ipsum dolor sit amet
-2. Consectetur adipiscing elit
-3. Integer molestie lorem at massa
-
-4. You can use sequential numbers...
-5. ...or keep all the numbers as `1.`
+1. You can use sequential numbers...
+2. ...or keep all the numbers as `1.`
 
 Start numbering with offset:
 
-57. foo
-1. bar
+1. foo
+2. bar
 
 ## Code
 
@@ -99,7 +92,7 @@ Syntax highlighting
 
 ```js
 var foo = function (bar) {
- return bar++;
+	return bar++;
 };
 
 console.log(foo(5));
@@ -125,11 +118,7 @@ Right aligned columns
 
 Image in the same folder: `src/content/post/markdown-elements/logo.png`
 
-![Astro theme cactus logo](./logo.png)
-
 Image in the aliased assets folder: `src/assets/about-astro.png`
-
-![A cartoon cactus looking at the Astro.build logo](@/assets/about-astro.png)
 
 ## Links
 

@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+	/* https://tailwindcss.com/docs/customizing-colors#using-css-variables */
 	:root {
 		color-scheme: light;
-		/* https://tailwindcss.com/docs/customizing-colors#using-css-variables */
 		--theme-bg: 0deg 0% 98%;
 		--theme-link: 172deg 18% 41%;
 		--theme-text: 203deg 11% 15%;
@@ -29,6 +29,9 @@
 	}
 
 	html body {
-		@apply mx-auto flex min-h-screen max-w-3xl flex-col bg-bgColor px-8 pt-16 font-mono text-sm font-normal text-textColor antialiased;
+		@apply mx-auto flex min-h-screen max-w-3xl flex-col bg-bgColor px-8 pt-16 font-sans text-base font-normal text-textColor antialiased;
+	}
+	p > a {
+		@apply cactus-link no-underline;
 	}
 }

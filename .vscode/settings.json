@@ -16,5 +16,11 @@
 		"astro", // Enable .astro
 		"typescript", // Enable .ts
 		"typescriptreact"
+	],
+	"grammarly.selectors": [
+		{
+			"language": "markdown",
+			"scheme": "file"
+		}
 	]
 }

@@ -1,0 +1,19 @@
+---
+// Import the Card component
+import Card from "./Card.astro";
+// Import the Card Props type
+import type { Props as CardProp } from "./Card.astro";
+
+// Define the Props for this component
+type Props = {
+	cards: CardProp[]; // accepts an array of CardProps
+};
+
+// Retrieve the cards prop
+const { cards } = Astro.props;
+---
+
+<div class="flex flex-col gap-4 sm:flex-row">
+	<!-- Dynamically render multiple Card components and spread the required card props -->
+	{cards.map((card) => <Card {...card} />)}
+</div>

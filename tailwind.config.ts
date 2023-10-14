@@ -29,7 +29,7 @@ export default {
 			},
 			fontFamily: {
 				// Add any custom fonts here
-				sans: [...fontFamily.sans],
+				sans: ["Inter", ...fontFamily.sans],
 				serif: [...fontFamily.serif],
 			},
 			transitionProperty: {
@@ -48,7 +48,7 @@ export default {
 						"--tw-prose-bullets": theme("colors.textColor / 1"),
 						"--tw-prose-quotes": theme("colors.quote / 1"),
 						"--tw-prose-code": theme("colors.textColor / 1"),
-						"--tw-prose-hr": "0.5px dashed #666",
+						"--tw-prose-hr": "0.5px solid #666",
 						"--tw-prose-th-borders": "#666",
 					},
 				},
@@ -67,21 +67,19 @@ export default {
 						blockquote: {
 							borderLeftWidth: "0",
 						},
-						hr: {
-							borderTopStyle: "dashed",
-						},
+						hr: {},
 						thead: {
 							borderBottomWidth: "none",
 						},
 						"thead th": {
 							fontWeight: "700",
-							borderBottom: "1px dashed #666",
+							borderBottom: "1px solid #666",
 						},
 						"tbody tr": {
 							borderBottomWidth: "none",
 						},
 						tfoot: {
-							borderTop: "1px dashed #666",
+							borderTop: "1px solid #666",
 						},
 						sup: {
 							"@apply ms-0.5": "",
@@ -117,13 +115,7 @@ export default {
 		plugin(function ({ addComponents }) {
 			addComponents({
 				".cactus-link": {
-					"@apply bg-[size:100%_6px] bg-bottom bg-repeat-x": {},
-					backgroundImage:
-						"linear-gradient(transparent,transparent 5px,hsl(var(--theme-text)) 5px,hsl(var(--theme-text)))",
-					"&:hover": {
-						backgroundImage:
-							"linear-gradient(transparent,transparent 4px,hsl(var(--theme-link)) 4px,hsl(var(--theme-link)))",
-					},
+					"@apply hover:opacity-70 hover:underline text-accent": {},
 				},
 				".title": {
 					"@apply text-2xl font-semibold text-accent-2": {},
