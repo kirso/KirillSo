@@ -29,7 +29,9 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 					fetchpriority="high"
 				/>
 			</div>
-			<figcaption class="mt-1 text-sm">Photo credit:{data.coverImage.credit}</figcaption>
+			<figcaption class=" mt-1 text-sm font-semibold">
+				Photo credit: <span class="font-light">{data.coverImage.credit}</span>
+			</figcaption>
 		</>
 	)
 }

@@ -1,5 +1,5 @@
 ---
-title: "Google clone"
+title: "Next.js Google Clone Web App"
 publishDate: "26 Oct 2021"
 description: "Google clone web application built with Next.js, Tailwind, Google Search API"
 draft: false

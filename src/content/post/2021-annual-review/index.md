@@ -7,7 +7,7 @@ draft: false
 coverImage:
   src: "./plant.jpg"
   alt: "Astro build wallpaper"
-  credit: "Photo by Sarah Dorweiler on Unsplash"
+  credit: "Sarah Dorweiler"
 ---
 
 ## Intro
