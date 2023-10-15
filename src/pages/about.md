@@ -4,7 +4,7 @@ title: "About"
 description: "Kiril So - About"
 ---
 
-![Kirill So attending a conference in Singapore](/src/assets/img/about/conference-singapore.jpeg)
+![Kirill So networking with people at a conference](../assets/img/about/conference-singapore.jpeg)
 
 Hey there 👋, thanks for checking a more extensive version of my humble brag page!
 
@@ -27,7 +27,7 @@ I identify myself mostly in professional terms since it is what the internet wor
 
 **2012** - Moved to Berlin during the start-up boom and joined a [venture studio](https://ioniq.com/portfolio/). The company portfolio now spans FinTech, AdTech and HealthTech companies. This has been an interesting experience looking back based on the macro and micro lens of technology cycles. We saw mobile overtaking web traffic from the front-row seats.
 
-![Paddling on the lake in Berlin, Germany](./../assets/img/about/berlin.jpeg)
+![Paddling on the lake in Berlin, Germany](../assets/img/about/berlin.jpeg)
 
 **2014** - Started a mobile-first user acquisition agency and reached **$30k in revenue in the first month**. It was my first digital nomad experience whilst living and travelling in Thailand. Unfortunately, my bank sent me a cease and desist letter a year later and I had to shut down. I learned a lot about perseverance, stress, independence, and non-default paths.
 
@@ -37,7 +37,7 @@ I identify myself mostly in professional terms since it is what the internet wor
 
 **2018** - Made a move to Singapore and worked with the largest C2C marketplace in SEA on a platform utilising blockchain and external data to identify threats and bad actors. Met some of the most amazing entrepreneurs in the region and engraved myself in the start-up ecosystem.
 
-![Conference talk at Coindesk Singapore](/src/assets/img/about/singapore-coindesk.jpeg)
+![Singapore coindesk conference with people talking on the stage](../assets/img/about/singapore-coindesk.jpeg)
 
 **2020** - Got accepted into an [early-stage start-up program](https://www.antler.co/) and worked on a machine learning product to help push models into production faster. I learned a lot. Not only about the economics of VCs, which is a very popular topic these days, but also about intrinsic motivation and being able to quit.
 
