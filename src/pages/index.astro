@@ -78,6 +78,34 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
 			]}
 		/>
 	</section>
+	<section class="mt-5">
+		<h2 class="title mb-2 text-xl">Clients</h2>
+		<Cards
+			cards={[
+				{
+					title: "Google clone",
+					to: "/projects/google-clone/",
+					description: "Search with Google API",
+					gradientFrom: "#818cf8",
+					gradientTo: "#d8b4fe",
+				},
+				{
+					title: "Panic theme",
+					to: "https://www.github.com/kirso/logseq-panic-theme",
+					description: "Make Logseq PKM pretty",
+					gradientFrom: "#fde68a",
+					gradientTo: "#fca5a5",
+				},
+				{
+					title: "Schwiftyverse",
+					to: "https://schwiftyverse.vercel.app/",
+					description: "GIFs on Solana blockchain",
+					gradientFrom: "#6ee7b7",
+					gradientTo: "#9333ea",
+				},
+			]}
+		/>
+	</section>
 
 	<!-- <section class="mt-5">
 		<SignupForm />

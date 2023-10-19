@@ -15,7 +15,7 @@ This corner of the internet exists because of continuously seeking greater under
 ## Who
 
 Hey, I am Kirill and this is a unique twist on my bio on the homepage.
-I identify myself mostly in professional terms since it is what the internet world expects. We are supposed to show the side of us that is pitch-perfect and full of achievements. However, I primarily identify myself as a curious human being, a tinkerer, an occasional writer, a citizen of the world, and a person of integrity.
+I identify myself mostly in professional terms since it is what the internet world expects. We are supposed to show the side of us that is pitch-perfect and full of achievements. However, I primarily think of myself as a curious human being, a husband, a tinkerer, an occasional writer, a citizen of the world, and a person of integrity.
 
 ## What
 
