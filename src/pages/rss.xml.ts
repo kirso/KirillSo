@@ -1,7 +1,8 @@
 import rss from "@astrojs/rss";
 import { siteConfig } from "@/site-config";
-import { getAllPosts } from "@/utils";
+import { getAllPosts, getAllProjects } from "@/utils";
 
+// TODO add projects to RSS
 export const GET = async () => {
 	const posts = await getAllPosts();
 
