@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/Page.astro
 title: "About"
-description: "Kiril So - About"
+description: "Kiril So - About page that outlines a longer bio and life milestones"
 ---
 
 ![Kirill So networking with people at a conference](../assets/img/about/conference-singapore.jpeg)

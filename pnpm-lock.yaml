@@ -29,6 +29,9 @@ dependencies:
   astro-icon:
     specifier: ^0.8.1
     version: 0.8.1
+  default-ui:
+    specifier: link:@types/pagefind/default-ui
+    version: link:@types/pagefind/default-ui
   satori:
     specifier: 0.10.4
     version: 0.10.4
@@ -124,6 +127,9 @@ devDependencies:
   typescript:
     specifier: ^5.2.2
     version: 5.2.2
+  ui.css:
+    specifier: link:@types/pagefind/default-ui/css/ui.css
+    version: link:@types/pagefind/default-ui/css/ui.css
 
 packages:
 

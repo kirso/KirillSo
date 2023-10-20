@@ -4,7 +4,7 @@ import type { CollectionEntry } from "astro:content";
 import FormattedDate from "../FormattedDate.astro";
 
 interface Props {
-	content: CollectionEntry<"post">;
+	content: CollectionEntry<"post"> | CollectionEntry<"project">;
 }
 const {
 	content: { data, render },
@@ -29,7 +29,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 					fetchpriority="high"
 				/>
 			</div>
-			<figcaption class=" mt-1 text-sm font-semibold">
+			<figcaption class=" mt-1 text-sm font-light">
 				Photo credit: <span class="font-light">{data.coverImage.credit}</span>
 			</figcaption>
 		</>

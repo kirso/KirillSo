@@ -38,7 +38,8 @@
     "reading-time": "^1.5.0",
     "remark-unwrap-images": "^3.0.1",
     "tailwindcss": "^3.3.3",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "ui.css": "link:@types/pagefind/default-ui/css/ui.css"
   },
   "dependencies": {
     "@astrojs/mdx": "^1.1.2",
@@ -49,6 +50,7 @@
     "astro": "3.0.8",
     "astro-google-analytics": "^1.0.3",
     "astro-icon": "^0.8.1",
+    "default-ui": "link:@types/pagefind/default-ui",
     "satori": "0.10.4",
     "satori-html": "^0.3.2",
     "sharp": "^0.32.6"

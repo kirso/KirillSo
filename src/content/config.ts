@@ -25,7 +25,7 @@ const post = defineCollection({
 				.object({
 					src: image(),
 					alt: z.string(),
-					credit: z.string().optional(),
+					credit: z.string(),
 				})
 				.optional(),
 			draft: z.boolean().default(false),
@@ -51,6 +51,7 @@ const project = defineCollection({
 				.object({
 					src: image(),
 					alt: z.string(),
+					credit: z.string(),
 				})
 				.optional(),
 			draft: z.boolean().default(false),
