@@ -117,10 +117,10 @@ I found that the signs of maturity are even the ability to come-up with such que
 
 #### Shipped this year
 
-- [Personal website](http://www.kirillso.com) - I used a template for the site, but I also developed a few of my own components and managed to add some sections and elements that helped me to customise the very own site you are reading right now, including the highlighter effect on the front-page.
+- [Personal website](/) - I used a template for the site, but I also developed a few of my own components and managed to add some sections and elements that helped me to customise the very own site you are reading right now, including the highlighter effect on the front-page.
 - [Logseq theme](https://github.com/kirso/logseq-panic-theme) - I am very proud of this one, because it was my first pull request to contribute to a real-world project. Albeit being small in scope (just some CSS).
 - [Open-source calendar](https://calendar.kirillso.com/) - I used [Cal.com](http://Cal.com) self-hosted solution to host my own booking app on the domain. Although Ahrefs audit is constantly complaining about it, it’s a neat thing to send to people to book time with me. UPDATE 2022: I moved form self-hosted version of cal.com to a cloud one since the free tier is very generous and I kepth having ahrefs errors.
-- [Google clone](https://www.kirillso.com/blog/google-clone-project) - this was based on a Next.js tutorial but I experimented with fetching APIs for the first time.
+- [Google clone](/projects/google-clone/) - this was based on a Next.js tutorial but I experimented with fetching APIs for the first time.
 - [Schwiftyverse](https://schwiftyverse-kirso.vercel.app/) - ok, this was more of a fun project to test out development with React and connect Solana wallet called Phantom. You can then submit the GIF on devnet with fake SOL, but make sure its Rick & Morty related! The website then reads from the blockchain and renders the submitted data on the front-end. The cool part is that I learned that Solana distinguishes between the submitted data (immutable) and execution code when deployed that can be changed. I also wrote a [twitter thread](https://twitter.com/kirso_/status/1463049522876071940) about the experience.
 
 ![solana-rust](./rust.png)
