@@ -47,7 +47,7 @@
     "@astrojs/rss": "^3.0.0",
     "@astrojs/sitemap": "^3.0.2",
     "@astrojs/tailwind": "^5.0.2",
-    "astro": "3.0.8",
+    "astro": "3.4.0",
     "astro-google-analytics": "^1.0.3",
     "astro-icon": "^0.8.1",
     "default-ui": "link:@types/pagefind/default-ui",
