@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/Page.astro
 title: "About"
-description: "Kiril So - About page that outlines a longer bio and life milestones"
+description: "An about page that outlines various life milestones. It also delves into my principles, hobbies, what I am doing now and overall philosophy of life."
 ---
 
 ![Kirill So networking with people at a conference](../assets/img/about/conference-singapore.jpeg)

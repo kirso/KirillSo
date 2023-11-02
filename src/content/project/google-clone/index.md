@@ -1,7 +1,7 @@
 ---
 title: "Next.js Google Clone Web App"
 publishDate: "26 Oct 2021"
-description: "Google clone web application built with Next.js, Tailwind, Google Search API"
+description: "A Google clone that I've built for learning purpose which replicates the homepage functionality and is built with Next.js, Tailwind, Google Search API"
 draft: false
 ---
 
