@@ -10,15 +10,15 @@ Inspired by [Nick Ang's](www.nickang.com) essays about living in Berlin,
 
 ## Prologue
 
-Last month it has been 5 years since I arrived in Singapore. Being born in USSR and raised in Czech Republic, as well as travelling around the world
+Last month it has been 5 years since I arrived in Singapore. Being born in the USSR and raised in the Czech Republic, as well as traveling around the world
 
-The title is slightly misleading. This is because I've lived in Singapore before but not for an extensive period of time.
+The title is slightly misleading. This is because I've lived in Singapore before but not for an extensive period.
 
 ## 1. Weathering the temperature conditions reflects the
 
 ## 2. Different mental models
 
-## 3. The island diversity and culture
+## 3. Island diversity and culture
 
 ## 4. Sports and well-being at the heart
 
