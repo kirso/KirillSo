@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/Page.astro
 title: "Privacy policy"
-description: "The legal stuff that nobody reads and that covers how I collect, use and share your data that is captured by this website."
+description: "The legal stuff that nobody reads and that covers how I collect, use and share your data based on this website."
 ---
 
 ## Introduction
