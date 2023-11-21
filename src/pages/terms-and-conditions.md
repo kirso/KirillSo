@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/Page.Astro
+layout: ../layouts/Page.astro
 title: "Terms & Conditions"
 description: "The legal stuff that nobody reads and that covers terms of use and things like liability, copyright, and governing law."
 ---
