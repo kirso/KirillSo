@@ -35,6 +35,36 @@ export default defineConfig({
 			exclude: ["@resvg/resvg-js"],
 		},
 	},
+	redirects: {
+		"/blog/app-retargeting-vs-user-acquisition": {
+			status: 301,
+			destination: "/posts/app-retargeting-vs-user-acquisition",
+		},
+		"/blog/annual-review": {
+			status: 301,
+			destination: "/posts/2021-annual-review",
+		},
+		"/blog/google-clone-project": {
+			status: 301,
+			destination: "/projects/google-clone",
+		},
+		"/tags/project": {
+			status: 301,
+			destination: "/projects",
+		},
+		"/tags/next-js": {
+			status: 301,
+			destination: "/projects/google-clone",
+		},
+		"/blog": {
+			status: 301,
+			destination: "/posts",
+		},
+		"/tags/marketing": {
+			status: 301,
+			destination: "/tags/adtech",
+		},
+	},
 });
 
 function rawFonts(ext: Array<string>) {
