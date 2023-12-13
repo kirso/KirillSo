@@ -12,7 +12,7 @@ Last updated November 02, 2023
 
 We are Kirill So ('**Company**', '**we**', '**us**', or '**our**').
 
-We operate the website [http://www.KirillSo.com](http://www.KirillSo.com) (the '**Site**'), as well as any other related products and services that refer or link to these legal terms (the '**Legal Terms**') (collectively, the '**Services**').
+We operate the website [www.KirillSo.com](/) (the '**Site**'), as well as any other related products and services that refer or link to these legal terms (the '**Legal Terms**') (collectively, the '**Services**').
 
 A personal website and blog.
 

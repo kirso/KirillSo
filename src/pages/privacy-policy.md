@@ -9,9 +9,9 @@ description: "The legal stuff that nobody reads and that covers how I collect, u
 Welcome to Kirill So (“Person”, “I”, “my”, “me”)!
 As you have just clicked my Terms of Service, please pause, grab a cup of coffee and carefully read the following pages. It will take you approximately 20 minutes.
 
-These Terms of Service (“Terms”, “Terms of Service”) govern your use of my web pages located at <https://www.KirillSo.com> operated by Kirill So .
+These Terms of Service (“Terms”, “Terms of Service”) govern your use of my web pages located at [www.KirillSo.com](/) operated by Kirill So .
 
-My Privacy Policy also governs your use of my Service and explains how I collect, safeguard and disclose information that results from your use of my web pages. Please read it here <https://www.KirillSo.com/privacy-policy>.
+My Privacy Policy also governs your use of my Service and explains how I collect, safeguard and disclose information that results from your use of my web pages. Please read it [here](/terms-and-conditions).
 
 Your agreement with me includes these Terms and my Privacy Policy (“Agreements”). You acknowledge that you have read and understood Agreements, and agree to be bound of them.
 
