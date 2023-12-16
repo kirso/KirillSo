@@ -20,13 +20,13 @@ export default defineConfig({
 			wrap: true,
 		},
 	},
+	prefetch: true,
 	integrations: [
 		mdx({}),
 		tailwind({
 			applyBaseStyles: false,
 		}),
 		sitemap(),
-		prefetch(),
 	],
 	vite: {
 		plugins: [rawFonts([".ttf"])],

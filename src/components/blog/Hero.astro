@@ -35,7 +35,10 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 		</>
 	)
 }
-<h1 class="title mb-1 mt-5 sm:mb-1">{data.title}</h1>
+{data.draft ? <span class="text-base text-red-500">(Draft)</span> : null}
+<h1 class="title mb-3 sm:mb-1">
+	{data.title}
+</h1>
 <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm italic">
 	<p class="text-sm italic">
 		<FormattedDate date={data.publishDate} dateTimeOptions={dateTimeOptions} /> /{" "}
