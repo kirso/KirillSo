@@ -3,7 +3,6 @@ import fs from "fs";
 import mdx from "@astrojs/mdx";
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
-import prefetch from "@astrojs/prefetch";
 import remarkUnwrapImages from "remark-unwrap-images";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore:next-line
