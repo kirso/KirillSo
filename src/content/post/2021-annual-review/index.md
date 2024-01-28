@@ -271,15 +271,8 @@ An animated masterpiece is definitely the highlight for me. There are not a lot 
 
 ### 🎶 Music
 
-<iframe
-  width="560"
-  height="315"
-  src="<https://www.youtube.com/embed/MEzU1HvBo6Y>"
-  title="YouTube video player"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-
-> </iframe>
+The amazing Above and Beyond set with a view.
+[![Above & Beyond set with Cercle](https://img.youtube.com/vi/MEzU1HvBo6Y/0.jpg)](https://www.youtube.com/watch?v=MEzU1HvBo6Y)
 
 ## Habits and things I want to do in 2022
 

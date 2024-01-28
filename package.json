@@ -55,5 +55,12 @@
     "satori-html": "^0.3.2",
     "sharp": "^0.32.6"
   },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "rollup"
+      ]
+    }
+  },
   "packageManager": "pnpm@8.6.1"
 }

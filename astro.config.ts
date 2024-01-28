@@ -14,10 +14,6 @@ export default defineConfig({
 	markdown: {
 		remarkPlugins: [remarkUnwrapImages, remarkReadingTime],
 		remarkRehype: { footnoteLabelProperties: { className: [""] } },
-		shikiConfig: {
-			theme: "monokai",
-			wrap: true,
-		},
 	},
 	prefetch: true,
 	integrations: [
