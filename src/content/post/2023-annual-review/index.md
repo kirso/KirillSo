@@ -9,5 +9,3 @@ coverImage:
   alt: "A wall with standing matryoshka dolls"
   credit: "Alberto Triano"
 ---
-
-There are plenty of articles
