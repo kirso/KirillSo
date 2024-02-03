@@ -14,8 +14,7 @@ This corner of the internet exists because of continuously seeking greater under
 
 ## Who
 
-Hey, I am Kirill and this is a unique twist on my bio on the homepage.
-I identify myself mostly in professional terms since it is what the internet world expects. We are supposed to show the side of us that is pitch-perfect and full of achievements. However, I primarily think of myself as a curious human being, a husband, a tinkerer, an occasional writer, a citizen of the world, and a person of integrity.
+Hey, I am Kirill and this is a unique twist on my bio on the homepage. Beyond professional achievements and trying to showa pitch-perfect picture of our identities, I primarily think of myself as a curious human being, a husband, a tinkerer, an occasional writer, a citizen of the world, and a person of integrity.
 
 ## What
 
@@ -62,17 +61,17 @@ Public:
 
 #### Code
 
-I am currently in the middle of studying part-time. A lot of my friends raised eyebrows and asked why would I do that in the era of ChatGPT and the possibility of hiring others. I plan to write an article on why I think learning to code in 2023 is still worth it. But TL;DR is that there is to cultivate a [builder's mindset](https://builders.genagorlin.com/p/the-builders-mindset-a-way-out-of) to generate things that AI won't ever be able to do.
+I am currently in the middle of studying part-time. A lot of my friends raised eyebrows and asked why would I do that in the era of ChatGPT and the possibility of hiring others. I plan to write an article on why I think learning is worth it. But TL;DR is that there is to cultivate a [builder's mindset](https://builders.genagorlin.com/p/the-builders-mindset-a-way-out-of) to generate things that AI won't ever be able to do.
 
 #### Design
 
-In combination with the above, I am also learning about UX/UI and accessibility. I think design is a really underrated moat for a lot of products and is taken as a default trust factor into whether users will even consider usage.
+In combination with the above, I am also learning about UX/UI and accessibility. I think design is a really underrated moat for a lot of products and is taken as a default trust factor into whether the product is worth it.
 
 #### Communities
 
-In 2023, I am shifting away from online and towards offline and proximity-based communities. I don't feel like X or online forums really made me feel to belong and I am working on something small to make this happen.
+In 2023, I am shifting away from online and towards offline and proximity-based communities. I don't feel like X or online forums really sparked a feeling of belonging and I am working on something small to make this happen.
 
-I am obsessed with the idea of [French Salons a "rave for intellect"](https://thesalonhost.com/what-is-a-salon/). My belief is that a lot of loneliness and mental health issues come from the lack of 3rd places in the world and support systems, particularly for males. I am exploring how can I be helpful.
+I am obsessed with the idea of [French Salons a "rave for intellect"](https://thesalonhost.com/what-is-a-salon/). My belief is that a lot of loneliness and mental health issues come from the lack of 3rd places in the world and support systems, particularly for males. I am exploring how this can be fixed.
 
 #### Calm companies
 
