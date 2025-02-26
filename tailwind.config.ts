@@ -3,6 +3,10 @@ import type { Config } from "tailwindcss";
 export default {
 	plugins: [require("@tailwindcss/typography")],
 	theme: {
+		fontFamily: {
+				// Add any custom fonts here
+				sans: ["Atkinson Hyperlegible", "sans-serif"],
+			},
 		extend: {
 			typography: () => ({
 				DEFAULT: {

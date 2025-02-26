@@ -16,6 +16,22 @@
 	--color-quote: oklch(55.27% 0.195 19.06);
 }
 
+@font-face {
+	font-family: "Atkinson Hyperlegible";
+	src: url("/fonts/AtkinsonHyperlegible-Regular.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Atkinson Hyperlegible";
+	src: url("/fonts/AtkinsonHyperlegible-Bold.ttf") format("truetype");
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
 @layer base {
 	html {
 		color-scheme: light dark;
