@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 
-/** 
+/**
 	Uses https://www.astroicon.dev/getting-started/
 	Find icons via guide: https://www.astroicon.dev/guides/customization/#open-source-icon-sets
 	Only installed pack is: @iconify-json/mdi
@@ -13,9 +13,28 @@ const socialLinks: {
 	name: string;
 }[] = [
 	{
+		friendlyName: "X",
+		link: "https://x.com/kirso_",
+		name: "mdi:twitter",
+		isWebmention: true,
+	},
+	{
 		friendlyName: "Github",
-		link: "https://github.com/chrismwilliams/astro-cactus",
+		link: "https://github.com/kirso",
 		name: "mdi:github",
+		isWebmention: true,
+	},
+	{
+		friendlyName: "LinkedIn",
+		link: "https://www.linkedin.com/in/kirso_",
+		name: "mdi:linkedin",
+		isWebmention: true,
+	},
+	{
+		friendlyName: "Substack",
+		link: "https://kirill.substack.com/",
+		name: "mdi:post",
+		isWebmention: true,
 	},
 ];
 ---
