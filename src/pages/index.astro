@@ -6,7 +6,8 @@ import Note from "@/components/note/Note.astro";
 import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import { collectionDateSort } from "@/utils/date";
-
+import Cards from "../components/Cards.astro";
+import { Tech } from "@/data/tech";
 // Posts
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
@@ -61,5 +62,60 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 				</section>
 			)
 		}
+	</section>
+	<section class="mt-10">
+		<h2 class="title text-accent mb-6 text-xl">Projects</h2>
+		<Cards
+			cards={[
+				{
+					title: "Google clone",
+					to: "/posts/google-clone/",
+					description: "Search with Google API",
+					gradientFrom: "#818cf8",
+					gradientTo: "#d8b4fe",
+				},
+				{
+					title: "Panic theme",
+					to: "https://github.com/kirso/logseq-panic-theme",
+					description: "Make Logseq PKM pretty",
+					gradientFrom: "#fde68a",
+					gradientTo: "#fca5a5",
+				},
+				{
+					title: "Schwiftyverse",
+					to: "https://schwiftyverse.vercel.app/",
+					description: "GIFs on Solana blockchain",
+					gradientFrom: "#6ee7b7",
+					gradientTo: "#9333ea",
+				},
+				{
+					title: "ToDo",
+					to: "https://github.com/kirso/bun-elysia-tailwind-htmx-todo-app",
+					description: "Tasks on the edge",
+					gradientFrom: "#a15",
+					gradientTo: "#F51",
+				},
+			]}
+		/>
+	</section>
+	<section class="mt-10">
+		<h2 class="title text-accent mb-6 text-xl">Tech</h2>
+		<dl class="space-y-4">
+			{
+				Tech.map(({ href, title, desc }) => (
+					<div class="flex flex-col gap-2 md:flex-row">
+						<dt>
+							<span class="flex">
+								<a href={href} target="_blank" rel="noopener noreferrer" class="cactus-link">
+									{title}
+								</a>
+								:
+							</span>
+						</dt>
+						<dd>{desc}</dd>
+					</div>
+				))
+			}
+		</dl>
 	</section>
 </PageLayout>

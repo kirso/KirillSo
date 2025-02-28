@@ -1,6 +1,4 @@
 <script>
-	import { onMount } from "svelte";
-	import { fade } from "svelte/transition";
 
 	let isOpen = false;
 	let input = "";
@@ -90,7 +88,7 @@
 <div class="fixed bottom-4 right-4 z-50">
 	<button
 		class="bg-accent text-bgColor hover:opacity-80 px-4 py-2 rounded-full font-bold transition-opacity"
-		on:click={() => (isOpen = !isOpen)}
+		onclick={() => (isOpen = !isOpen)}
 		aria-label={isOpen ? "Close chat" : "Open chat"}
 	>
 		{isOpen ? "Close" : "Chat"}
