@@ -1,0 +1,23 @@
+---
+// import the type utility for the markdown layout props
+// import the base layout: Main.astro
+import BaseLayout from "./Base.astro";
+import type { MarkdownLayoutProps } from "astro";
+type Props = MarkdownLayoutProps<{
+	// Define the expected frontmatter props here
+	title: string;
+	description: string;
+}>;
+
+const { title, description } = Astro.props.frontmatter;
+---
+
+<BaseLayout meta={{ title, description }}>
+	<!-- This needs to go into tailwind.config as a default for prose and prose dark and all headings aligned for size -->
+	<div
+		class="prose prose-lg prose-cactus prose-headings:font-semibold prose-headings:text-accent-2 prose-headings:before:absolute prose-headings:before:-ms-4 prose-headings:before:text-accent prose-th:before:content-none"
+	>
+		<h1 class="title">{title}</h1>
+		<slot />
+	</div>
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+/** Export the Props type alias **/
+const { title, description, to, gradientFrom, gradientTo } = Astro.props;
+export type Props = {
+	to: string;
+	title: string;
+	description: string;
+	gradientFrom: string;
+	gradientTo: string;
+};
+// Get component props from Astro.pages
+---
+
+<a href={to} class="card">
+	<div class="flex flex-col rounded-md bg-bgColor p-5">
+		<div class="text-lg font-bold leading-7 text-textColor">{title}</div>
+		<div class="text-base text-textColor">{description}</div>
+		<!-- Render the arrow via HTML entity name: → = &rarr;  -->
+		<div class="mb-auto ml-0 mr-0 mt-auto pt-8 text-lg text-textColor">&rarr;</div>
+	</div>
+</a>
+
+<style define:vars={{ gradientFrom, gradientTo }}>
+	.card {
+		background-image: linear-gradient(to right, var(--gradientFrom), var(--gradientTo));
+		/** local CSS variable reused below */
+		--radius: 10px;
+
+		padding: 4px;
+		border-radius: var(--radius);
+		text-decoration: none;
+		transition: all 0.2s ease-in-out;
+	}
+
+	.card:hover {
+		transform: scale(0.95);
+	}
+</style>
