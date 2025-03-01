@@ -138,7 +138,7 @@ This probably also deserves a separate blog post, which I am planning to write b
 
 It took a lot of psychological conditioning and dissatisfaction to take action. Nevertheless, its totally possible with some key elements like calorie counting and strength training whilst eating enough protein in order to maintain muscle mass (which was the main challenge). The most important part is that despite losing so much weight, most of it was fat % and that is the trickiest.
 
-### Working on thyself and couple relationshp
+### Working on myself and couple relationship
 
 This year I’ve started a journey to uncover my blind spots. I’ve struggled to find a coach and a mentor to guide me through all of my uncertainties and questions and eventually randomly stumbled upon [Sasha](https://www.sashachapin.com/) (ironically by looking for a writing coach for my wife). We’ve worked through various challenges I was having, touching on personality, enneagram types, IFS and parts work, feeling of safety, inertia and meditation. It has been a new thing me, and I really enjoyed it. There is something deeply uncomfortable trying to look inwards to untangle the tension. I am still at the beginning of this journey, combined with the couple counseling it however uncovered things I’ve never known about myself.
 
@@ -181,11 +181,11 @@ I struggle with accepting average outcomes, which leads to seeking patterns in s
 | ------------- | ----- | ------------------------------------------------------- |
 | Work          | 2/5   | Overworked and burned out                               |
 | Money         | 4/5   | Saved but should have invested more                     |
-| Health        | 2.5/5 | In good shape, but mental health took a dip             |
+| Health        | 3/5   | In good shape, but mental health took a dip             |
 | Relationships | 4/5   | Thriving, but less face to face time                    |
 | Growth        | 3/5   | Worked on myself, but with limited energy and time      |
-| Play          | 3.5/5 | Revisited old hobbies such as tennis and video games    |
-| Spirituality  | 2/5   | Mediated inconsistently, without deepening the practice |
+| Play          | 2.5/5 | Revisited old hobbies such as tennis and video games    |
+| Spirituality  | 1/5   | Mediated inconsistently, without deepening the practice |
 
 ## Consumption
 

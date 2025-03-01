@@ -28,6 +28,9 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 				loading="eager"
 				src={data.coverImage.src}
 			/>
+			{data.coverImage.credit && (
+				<p class="text-base text-gray-500">Photo credit: {data.coverImage.credit}</p>
+			)}
 		</div>
 	)
 }
