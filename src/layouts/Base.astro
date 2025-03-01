@@ -6,6 +6,9 @@ import Footer from "@/components/layout/Footer.astro";
 import Header from "@/components/layout/Header.astro";
 import { siteConfig } from "@/site.config";
 import type { SiteMeta } from "@/types";
+import Chat from "../components/Chat.astro";
+
+const showChat = import.meta.env.PUBLIC_ENABLE_CHAT === "true";
 
 interface Props {
 	meta: SiteMeta;
@@ -28,6 +31,7 @@ const {
 		<Header />
 		<main id="main">
 			<slot />
+			{showChat && <Chat />}
 		</main>
 		<Footer />
 	</body>

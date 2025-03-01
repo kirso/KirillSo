@@ -23,6 +23,17 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 		<div
 			class="chat-window bg-bgColor border-textColor absolute right-0 bottom-16 flex hidden max-h-96 w-80 flex-col overflow-hidden rounded-lg border shadow-lg"
 		>
+			<div class="border-textColor flex items-center justify-between border-b p-2">
+				<span class="font-bold">Chat with me</span>
+				<button class="chat-close text-textColor hover:opacity-80" aria-label="Close chat">
+					<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+						<path
+							d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
+						></path>
+					</svg>
+				</button>
+			</div>
+
 			<div class="messages-container flex-grow space-y-2 overflow-y-auto p-4">
 				<div class="text-textColor mr-auto max-w-[80%] rounded-lg bg-gray-100 p-2 dark:bg-gray-800">
 					{initialMessage}
@@ -30,13 +41,18 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 			</div>
 
 			<form class="border-textColor border-t p-2" method="POST" action="/api/chat" data-streaming>
-				<input
-					type="text"
-					name="message"
-					placeholder="Type your message..."
-					class="border-textColor bg-bgColor text-textColor focus:ring-accent mb-2 w-full rounded-lg border p-2 focus:ring-2 focus:outline-none"
-					required
-				/>
+				<div class="relative">
+					<input
+						type="text"
+						name="message"
+						placeholder="Type your message..."
+						class="border-textColor bg-bgColor text-textColor focus:ring-accent mb-2 w-full rounded-lg border p-2 pr-10 focus:ring-2 focus:outline-none disabled:opacity-50"
+						required
+					/>
+					<div class="typing-indicator absolute top-3 right-3 hidden">
+						<div class="dot-flashing"></div>
+					</div>
+				</div>
 				<button
 					type="submit"
 					class="bg-accent text-bgColor w-full rounded-lg px-4 py-2 font-bold transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
@@ -48,8 +64,78 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 	</chat-component>
 </div>
 
+<style>
+	.messages-container::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	.messages-container::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.messages-container::-webkit-scrollbar-thumb {
+		background-color: rgba(155, 155, 155, 0.5);
+		border-radius: 20px;
+	}
+
+	.dot-flashing {
+		position: relative;
+		width: 6px;
+		height: 6px;
+		border-radius: 3px;
+		background-color: currentColor;
+		animation: dot-flashing 1s infinite linear alternate;
+		animation-delay: 0.5s;
+	}
+
+	.dot-flashing::before,
+	.dot-flashing::after {
+		content: "";
+		display: inline-block;
+		position: absolute;
+		top: 0;
+	}
+
+	.dot-flashing::before {
+		left: -10px;
+		width: 6px;
+		height: 6px;
+		border-radius: 3px;
+		background-color: currentColor;
+		animation: dot-flashing 1s infinite alternate;
+		animation-delay: 0s;
+	}
+
+	.dot-flashing::after {
+		left: 10px;
+		width: 6px;
+		height: 6px;
+		border-radius: 3px;
+		background-color: currentColor;
+		animation: dot-flashing 1s infinite alternate;
+		animation-delay: 1s;
+	}
+
+	@keyframes dot-flashing {
+		0% {
+			background-color: currentColor;
+		}
+		50%,
+		100% {
+			background-color: rgba(155, 155, 155, 0.2);
+		}
+	}
+</style>
+
 <script>
 	class ChatComponent extends HTMLElement {
+		private isStreaming = false;
+		private form: HTMLFormElement | null = null;
+		private input: HTMLInputElement | null = null;
+		private submitBtn: HTMLButtonElement | null = null;
+		private typingIndicator: HTMLElement | null = null;
+		private chatWindow: HTMLElement | null = null;
+
 		constructor() {
 			super();
 			this.setupChat();
@@ -57,23 +143,45 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 
 		private setupChat() {
 			const toggleBtn = this.querySelector(".chat-toggle");
-			const chatWindow = this.querySelector(".chat-window");
+			const closeBtn = this.querySelector(".chat-close");
+
+			// Store elements as class properties with type assertions
+			this.chatWindow = this.querySelector(".chat-window");
 			const form = this.querySelector("form");
+			if (!form) return;
+			this.form = form;
+
+			const input = form.querySelector("input");
+			const submitBtn = form.querySelector("button");
+			const typingIndicator = this.querySelector(".typing-indicator") as HTMLElement;
+
+			if (input && submitBtn && typingIndicator) {
+				this.input = input;
+				this.submitBtn = submitBtn;
+				this.typingIndicator = typingIndicator;
+			}
 
 			toggleBtn?.addEventListener("click", () => {
-				chatWindow?.classList.toggle("hidden");
+				this.chatWindow?.classList.toggle("hidden");
+				this.input?.focus();
 			});
 
-			form?.addEventListener("submit", async (e) => {
+			closeBtn?.addEventListener("click", () => {
+				this.chatWindow?.classList.add("hidden");
+			});
+
+			this.form.addEventListener("submit", async (e) => {
 				e.preventDefault();
-				const formData = new FormData(form);
+				if (this.isStreaming || !this.form) return;
+
+				const formData = new FormData(this.form);
 				const message = formData.get("message")?.toString();
 
 				if (!message) return;
 
-				// Add user message
+				this.setLoading(true);
 				this.addMessage(message, true);
-				(form as HTMLFormElement).reset();
+				this.form?.reset();
 
 				try {
 					const response = await fetch("/api/chat", {
@@ -81,12 +189,22 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 						body: formData,
 					});
 
+					if (response.status === 429) {
+						this.addMessage(
+							"You've sent too many messages. Please wait a minute and try again.",
+							false,
+						);
+						return;
+					}
+
 					if (!response.ok) throw new Error("Failed to send message");
 
 					const reader = response.body?.getReader();
 					if (!reader) throw new Error("No response stream");
 
+					this.isStreaming = true;
 					let accumulatedMessage = "";
+
 					while (true) {
 						const { done, value } = await reader.read();
 						if (done) break;
@@ -95,11 +213,27 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 						accumulatedMessage += chunk;
 						this.updateStreamingMessage(accumulatedMessage);
 					}
+
+					this.isStreaming = false;
 				} catch (error) {
 					console.error("Chat error:", error);
 					this.addMessage("Sorry, there was an error processing your request.", false);
+				} finally {
+					this.setLoading(false);
 				}
 			});
+		}
+
+		private setLoading(loading: boolean) {
+			if (loading) {
+				this.input?.setAttribute("disabled", "");
+				this.submitBtn?.setAttribute("disabled", "");
+				this.typingIndicator?.classList.remove("hidden");
+			} else {
+				this.input?.removeAttribute("disabled");
+				this.submitBtn?.removeAttribute("disabled");
+				this.typingIndicator?.classList.add("hidden");
+			}
 		}
 
 		private addMessage(text: string, isUser: boolean) {
@@ -131,18 +265,3 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 
 	customElements.define("chat-component", ChatComponent);
 </script>
-
-<style>
-	.messages-container::-webkit-scrollbar {
-		width: 6px;
-	}
-
-	.messages-container::-webkit-scrollbar-track {
-		background: transparent;
-	}
-
-	.messages-container::-webkit-scrollbar-thumb {
-		background-color: rgba(155, 155, 155, 0.5);
-		border-radius: 20px;
-	}
-</style>

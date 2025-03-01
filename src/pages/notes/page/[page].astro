@@ -7,6 +7,8 @@ import { collectionDateSort } from "@/utils/date";
 import type { GetStaticPaths, Page } from "astro";
 import { Icon } from "astro-icon/components";
 
+export const prerender = true;
+
 export const getStaticPaths = (async ({ paginate }) => {
 	const MAX_NOTES_PER_PAGE = 10;
 	const allNotes = await getCollection("note");

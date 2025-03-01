@@ -1,3 +1,5 @@
+export const prerender = true;
+
 import RobotoMonoBold from "@/assets/roboto-mono-700.ttf";
 import RobotoMono from "@/assets/roboto-mono-regular.ttf";
 import { getAllPosts } from "@/data/post";
