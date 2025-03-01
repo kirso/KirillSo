@@ -1,0 +1,148 @@
+---
+import { ClientRouter } from "astro:transitions";
+export const prerender = false;
+
+interface Props {
+	initialMessage?: string;
+}
+
+const { initialMessage = "Hi! Ask me anything about my experience and background." } = Astro.props;
+---
+
+<ClientRouter />
+
+<div class="fixed right-4 bottom-4 z-50" transition:persist>
+	<chat-component data-initial-message={initialMessage}>
+		<button
+			class="chat-toggle bg-accent text-bgColor rounded-full px-4 py-2 font-bold transition-opacity hover:opacity-80"
+			aria-label="Toggle chat"
+		>
+			Chat
+		</button>
+
+		<div
+			class="chat-window bg-bgColor border-textColor absolute right-0 bottom-16 flex hidden max-h-96 w-80 flex-col overflow-hidden rounded-lg border shadow-lg"
+		>
+			<div class="messages-container flex-grow space-y-2 overflow-y-auto p-4">
+				<div class="text-textColor mr-auto max-w-[80%] rounded-lg bg-gray-100 p-2 dark:bg-gray-800">
+					{initialMessage}
+				</div>
+			</div>
+
+			<form class="border-textColor border-t p-2" method="POST" action="/api/chat" data-streaming>
+				<input
+					type="text"
+					name="message"
+					placeholder="Type your message..."
+					class="border-textColor bg-bgColor text-textColor focus:ring-accent mb-2 w-full rounded-lg border p-2 focus:ring-2 focus:outline-none"
+					required
+				/>
+				<button
+					type="submit"
+					class="bg-accent text-bgColor w-full rounded-lg px-4 py-2 font-bold transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
+				>
+					Send
+				</button>
+			</form>
+		</div>
+	</chat-component>
+</div>
+
+<script>
+	class ChatComponent extends HTMLElement {
+		constructor() {
+			super();
+			this.setupChat();
+		}
+
+		private setupChat() {
+			const toggleBtn = this.querySelector(".chat-toggle");
+			const chatWindow = this.querySelector(".chat-window");
+			const form = this.querySelector("form");
+
+			toggleBtn?.addEventListener("click", () => {
+				chatWindow?.classList.toggle("hidden");
+			});
+
+			form?.addEventListener("submit", async (e) => {
+				e.preventDefault();
+				const formData = new FormData(form);
+				const message = formData.get("message")?.toString();
+
+				if (!message) return;
+
+				// Add user message
+				this.addMessage(message, true);
+				(form as HTMLFormElement).reset();
+
+				try {
+					const response = await fetch("/api/chat", {
+						method: "POST",
+						body: formData,
+					});
+
+					if (!response.ok) throw new Error("Failed to send message");
+
+					const reader = response.body?.getReader();
+					if (!reader) throw new Error("No response stream");
+
+					let accumulatedMessage = "";
+					while (true) {
+						const { done, value } = await reader.read();
+						if (done) break;
+
+						const chunk = new TextDecoder().decode(value);
+						accumulatedMessage += chunk;
+						this.updateStreamingMessage(accumulatedMessage);
+					}
+				} catch (error) {
+					console.error("Chat error:", error);
+					this.addMessage("Sorry, there was an error processing your request.", false);
+				}
+			});
+		}
+
+		private addMessage(text: string, isUser: boolean) {
+			const messagesContainer = this.querySelector(".messages-container");
+			const messageDiv = document.createElement("div");
+			messageDiv.className = `max-w-[80%] p-2 rounded-lg ${
+				isUser ? "ml-auto text-accent" : "mr-auto bg-gray-100 dark:bg-gray-800 text-textColor"
+			}`;
+			messageDiv.textContent = text;
+			messagesContainer?.appendChild(messageDiv);
+			messagesContainer?.scrollTo(0, messagesContainer.scrollHeight);
+		}
+
+		private updateStreamingMessage(text: string) {
+			const messagesContainer = this.querySelector(".messages-container");
+			let streamingMessage = messagesContainer?.querySelector(".streaming-message");
+
+			if (!streamingMessage) {
+				streamingMessage = document.createElement("div");
+				streamingMessage.className =
+					"streaming-message max-w-[80%] p-2 rounded-lg mr-auto bg-gray-100 dark:bg-gray-800 text-textColor";
+				messagesContainer?.appendChild(streamingMessage);
+			}
+
+			streamingMessage.textContent = text;
+			messagesContainer?.scrollTo(0, messagesContainer.scrollHeight);
+		}
+	}
+
+	customElements.define("chat-component", ChatComponent);
+</script>
+
+<style>
+	.messages-container::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	.messages-container::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.messages-container::-webkit-scrollbar-thumb {
+		background-color: rgba(155, 155, 155, 0.5);
+		border-radius: 20px;
+	}
+</style>
