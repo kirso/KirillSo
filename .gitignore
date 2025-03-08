@@ -23,3 +23,9 @@ pnpm-debug.log*
 *.pem
 .cache
 .astro
+
+.vercel
+.vercel/
+
+# exclude example environment variables
+!.env.example
