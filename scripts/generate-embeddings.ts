@@ -1,41 +1,25 @@
-import { readFileSync } from 'fs';
-import { marked, type TokensList, type Token } from 'marked';
-import { initDb } from '../src/lib/db';
 import { generateEmbeddings } from '../src/lib/embeddings';
-
-type ListItem = {
-  type: 'list_item';
-  text: string;
-  tokens: Token[];
-};
-
-type ListToken = Token & {
-  type: 'list';
-  items: ListItem[];
-};
-
-type ParagraphToken = Token & {
-  type: 'paragraph';
-  text: string;
-};
+import fs from 'fs';
+import path from 'path';
+import { marked } from 'marked';
 
 async function main() {
-  await initDb();
+  try {
+    // Read resume content
+    const resumePath = path.join(process.cwd(), 'src', 'assets', 'cv', 'resume.md');
+    const resumeContent = fs.readFileSync(resumePath, 'utf-8');
 
-  const resumeContent = readFileSync('./src/assets/cv/resume.md', 'utf-8');
-  const tokens = marked.lexer(resumeContent) as TokensList;
+    // Convert markdown to plain text
+    const plainText = await marked.parse(resumeContent);
 
-  // Split content into chunks and generate embeddings
-  for (const token of tokens) {
-    if (token.type === 'paragraph') {
-      await generateEmbeddings((token as ParagraphToken).text);
-    } else if (token.type === 'list') {
-      const listToken = token as ListToken;
-      for (const item of listToken.items) {
-        await generateEmbeddings(item.text);
-      }
-    }
+    // Generate embeddings
+    await generateEmbeddings(plainText);
+
+    console.log('Embeddings generated successfully!');
+  } catch (error) {
+    console.error('Failed to generate embeddings:', error);
+    process.exit(1);
   }
 }
 
-main().catch(console.error);
+main();

@@ -1,13 +1,8 @@
 import { OpenAI } from 'openai';
-import { db } from './db';
-import type { Row } from '@libsql/client';
+import fs from 'fs';
+import path from 'path';
 
-// Define all necessary types
-interface EmbeddingRow extends Row {
-  content: string;
-  embedding: Buffer;
-}
-
+// Define types
 type EmbeddingVector = number[];
 
 interface EmbeddingResult {
@@ -15,13 +10,24 @@ interface EmbeddingResult {
   similarity: number;
 }
 
-const openai = new OpenAI({
-  apiKey: import.meta.env.OPENAI_API_KEY
-});
+interface StoredEmbedding {
+  content: string;
+  embedding: number[];
+}
 
 const EMBEDDING_MODEL = "text-embedding-3-small" as const;
+const EMBEDDINGS_FILE = path.join(process.cwd(), 'src', 'data', 'embeddings', 'resume-embeddings.json');
+
+function getOpenAIClient() {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    throw new Error('OPENAI_API_KEY environment variable is not set');
+  }
+  return new OpenAI({ apiKey });
+}
 
 export async function generateEmbeddings(content: string): Promise<void> {
+  const openai = getOpenAIClient();
   const response = await openai.embeddings.create({
     input: content,
     model: EMBEDDING_MODEL
@@ -32,13 +38,27 @@ export async function generateEmbeddings(content: string): Promise<void> {
     throw new Error('Failed to generate embedding');
   }
 
-  // Store embedding directly as Buffer
-  const buffer = Buffer.from(new Float32Array(embedding).buffer);
+  // Create embeddings directory if it doesn't exist
+  const dir = path.dirname(EMBEDDINGS_FILE);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
 
-  await db.execute({
-    sql: "INSERT INTO embeddings (content, embedding) VALUES (?, ?)",
-    args: [content, buffer]
+  // Read existing embeddings or create new array
+  let embeddings: StoredEmbedding[] = [];
+  if (fs.existsSync(EMBEDDINGS_FILE)) {
+    const fileContent = fs.readFileSync(EMBEDDINGS_FILE, 'utf-8');
+    embeddings = JSON.parse(fileContent);
+  }
+
+  // Add new embedding
+  embeddings.push({
+    content,
+    embedding
   });
+
+  // Write back to file
+  fs.writeFileSync(EMBEDDINGS_FILE, JSON.stringify(embeddings, null, 2));
 }
 
 function cosineSimilarity(vecA: EmbeddingVector, vecB: EmbeddingVector): number {
@@ -69,6 +89,7 @@ function cosineSimilarity(vecA: EmbeddingVector, vecB: EmbeddingVector): number 
 }
 
 export async function findSimilarContent(query: string): Promise<EmbeddingResult[]> {
+  const openai = getOpenAIClient();
   const response = await openai.embeddings.create({
     input: query,
     model: EMBEDDING_MODEL
@@ -79,23 +100,19 @@ export async function findSimilarContent(query: string): Promise<EmbeddingResult
     throw new Error('Failed to generate query embedding');
   }
 
-  const results = await db.execute('SELECT content, embedding FROM embeddings');
-  const rows = results.rows as unknown as EmbeddingRow[];
+  // Read stored embeddings
+  if (!fs.existsSync(EMBEDDINGS_FILE)) {
+    throw new Error('No embeddings found. Please generate embeddings first.');
+  }
 
-  // Calculate similarities in memory
-  const similarities: EmbeddingResult[] = rows.map(row => {
-    // Convert stored buffer back to array
-    const float32Array = new Float32Array(row.embedding);
-    const embedding = Array.from(float32Array);
+  const fileContent = fs.readFileSync(EMBEDDINGS_FILE, 'utf-8');
+  const storedEmbeddings: StoredEmbedding[] = JSON.parse(fileContent);
 
-    console.log('Query vector length:', queryVector.length);
-    console.log('Stored vector length:', embedding.length);
-
-    return {
-      content: row.content,
-      similarity: cosineSimilarity(embedding, queryVector)
-    };
-  });
+  // Calculate similarities
+  const similarities: EmbeddingResult[] = storedEmbeddings.map(stored => ({
+    content: stored.content,
+    similarity: cosineSimilarity(stored.embedding, queryVector)
+  }));
 
   return similarities
     .sort((a, b) => b.similarity - a.similarity)

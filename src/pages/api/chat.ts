@@ -3,9 +3,13 @@ import { OpenAI } from 'openai';
 import { findSimilarContent } from '../../lib/embeddings';
 import { chatRateLimiter } from '../../lib/rateLimit';
 
-const openai = new OpenAI({
-  apiKey: import.meta.env.OPENAI_API_KEY
-});
+function getOpenAIClient() {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    throw new Error('OPENAI_API_KEY environment variable is not set');
+  }
+  return new OpenAI({ apiKey });
+}
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   try {
@@ -45,6 +49,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     const similarContent = await findSimilarContent(message);
 
     // Generate streaming response
+    const openai = getOpenAIClient();
     const stream = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
