@@ -21,11 +21,16 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 		</button>
 
 		<div
-			class="chat-window bg-bgColor border-textColor absolute right-0 bottom-16 flex hidden max-h-96 w-80 flex-col overflow-hidden rounded-lg border shadow-lg"
+			class="chat-window absolute right-0 bottom-16 flex hidden max-h-96 w-80 flex-col overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-900"
 		>
-			<div class="border-textColor flex items-center justify-between border-b p-2">
-				<span class="font-bold">Chat with me</span>
-				<button class="chat-close text-textColor hover:opacity-80" aria-label="Close chat">
+			<div
+				class="flex items-center justify-between border-b border-gray-300 bg-gray-50 p-2 dark:border-gray-700 dark:bg-gray-800"
+			>
+				<span class="font-bold text-gray-900 dark:text-white">Chat with me</span>
+				<button
+					class="chat-close text-gray-700 hover:opacity-80 dark:text-gray-300"
+					aria-label="Close chat"
+				>
 					<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
 						<path
 							d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
@@ -34,24 +39,30 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 				</button>
 			</div>
 
-			<div class="messages-container flex-grow space-y-2 overflow-y-auto p-4">
-				<div class="text-textColor mr-auto max-w-[80%] rounded-lg bg-gray-100 p-2 dark:bg-gray-800">
+			<div
+				class="messages-container flex-grow space-y-2 overflow-y-auto bg-white p-4 dark:bg-gray-900"
+			>
+				<div
+					class="mr-auto max-w-[80%] rounded-lg bg-gray-100 p-2 text-gray-800 dark:bg-gray-800 dark:text-gray-200"
+				>
 					{initialMessage}
 				</div>
 			</div>
 
-			<form class="border-textColor border-t p-2" method="POST" action="/api/chat" data-streaming>
+			<form
+				class="border-t border-gray-300 bg-white p-2 dark:border-gray-700 dark:bg-gray-900"
+				method="POST"
+				action="/api/chat"
+				data-streaming
+			>
 				<div class="relative">
 					<input
 						type="text"
 						name="message"
 						placeholder="Type your message..."
-						class="border-textColor bg-bgColor text-textColor focus:ring-accent mb-2 w-full rounded-lg border p-2 pr-10 focus:ring-2 focus:outline-none disabled:opacity-50"
+						class="focus:ring-accent mb-2 w-full rounded-lg border border-gray-300 bg-white p-2 pr-10 text-gray-900 focus:ring-2 focus:outline-none disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
 						required
 					/>
-					<div class="typing-indicator absolute top-3 right-3 hidden">
-						<div class="dot-flashing"></div>
-					</div>
 				</div>
 				<button
 					type="submit"
@@ -133,7 +144,7 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 		private form: HTMLFormElement | null = null;
 		private input: HTMLInputElement | null = null;
 		private submitBtn: HTMLButtonElement | null = null;
-		private typingIndicator: HTMLElement | null = null;
+		private messagesContainer: HTMLElement | null = null;
 		private chatWindow: HTMLElement | null = null;
 
 		constructor() {
@@ -147,18 +158,17 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 
 			// Store elements as class properties with type assertions
 			this.chatWindow = this.querySelector(".chat-window");
+			this.messagesContainer = this.querySelector(".messages-container");
 			const form = this.querySelector("form");
 			if (!form) return;
 			this.form = form;
 
 			const input = form.querySelector("input");
 			const submitBtn = form.querySelector("button");
-			const typingIndicator = this.querySelector(".typing-indicator") as HTMLElement;
 
-			if (input && submitBtn && typingIndicator) {
+			if (input && submitBtn) {
 				this.input = input;
 				this.submitBtn = submitBtn;
-				this.typingIndicator = typingIndicator;
 			}
 
 			toggleBtn?.addEventListener("click", () => {
@@ -205,6 +215,9 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 					this.isStreaming = true;
 					let accumulatedMessage = "";
 
+					// Add loading indicator to chat
+					this.addLoadingIndicator();
+
 					while (true) {
 						const { done, value } = await reader.read();
 						if (done) break;
@@ -220,6 +233,8 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 					this.addMessage("Sorry, there was an error processing your request.", false);
 				} finally {
 					this.setLoading(false);
+					// Remove loading indicator if it exists
+					this.removeLoadingIndicator();
 				}
 			});
 		}
@@ -228,38 +243,72 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 			if (loading) {
 				this.input?.setAttribute("disabled", "");
 				this.submitBtn?.setAttribute("disabled", "");
-				this.typingIndicator?.classList.remove("hidden");
 			} else {
 				this.input?.removeAttribute("disabled");
 				this.submitBtn?.removeAttribute("disabled");
-				this.typingIndicator?.classList.add("hidden");
+			}
+		}
+
+		private addLoadingIndicator() {
+			// Remove existing loading indicator if any
+			this.removeLoadingIndicator();
+
+			// Create and add loading indicator in the messages area
+			const loadingDiv = document.createElement("div");
+			loadingDiv.className =
+				"loading-indicator max-w-[80%] p-2 rounded-lg mr-auto bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300";
+
+			const typingIndicator = document.createElement("div");
+			typingIndicator.className = "typing-indicator";
+
+			const dotFlashing = document.createElement("div");
+			dotFlashing.className = "dot-flashing";
+
+			typingIndicator.appendChild(dotFlashing);
+			loadingDiv.appendChild(typingIndicator);
+
+			this.messagesContainer?.appendChild(loadingDiv);
+			this.messagesContainer?.scrollTo(0, this.messagesContainer.scrollHeight);
+		}
+
+		private removeLoadingIndicator() {
+			const loadingIndicator = this.messagesContainer?.querySelector(".loading-indicator");
+			if (loadingIndicator) {
+				loadingIndicator.remove();
 			}
 		}
 
 		private addMessage(text: string, isUser: boolean) {
-			const messagesContainer = this.querySelector(".messages-container");
+			if (!this.messagesContainer) return;
+
 			const messageDiv = document.createElement("div");
 			messageDiv.className = `max-w-[80%] p-2 rounded-lg ${
-				isUser ? "ml-auto text-accent" : "mr-auto bg-gray-100 dark:bg-gray-800 text-textColor"
+				isUser
+					? "ml-auto bg-accent text-white"
+					: "mr-auto bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200"
 			}`;
 			messageDiv.textContent = text;
-			messagesContainer?.appendChild(messageDiv);
-			messagesContainer?.scrollTo(0, messagesContainer.scrollHeight);
+			this.messagesContainer?.appendChild(messageDiv);
+			this.messagesContainer?.scrollTo(0, this.messagesContainer.scrollHeight);
 		}
 
 		private updateStreamingMessage(text: string) {
-			const messagesContainer = this.querySelector(".messages-container");
-			let streamingMessage = messagesContainer?.querySelector(".streaming-message");
+			if (!this.messagesContainer) return;
+
+			// Remove the loading indicator before updating streaming message
+			this.removeLoadingIndicator();
+
+			let streamingMessage = this.messagesContainer?.querySelector(".streaming-message");
 
 			if (!streamingMessage) {
 				streamingMessage = document.createElement("div");
 				streamingMessage.className =
-					"streaming-message max-w-[80%] p-2 rounded-lg mr-auto bg-gray-100 dark:bg-gray-800 text-textColor";
-				messagesContainer?.appendChild(streamingMessage);
+					"streaming-message max-w-[80%] p-2 rounded-lg mr-auto bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200";
+				this.messagesContainer?.appendChild(streamingMessage);
 			}
 
 			streamingMessage.textContent = text;
-			messagesContainer?.scrollTo(0, messagesContainer.scrollHeight);
+			this.messagesContainer?.scrollTo(0, this.messagesContainer.scrollHeight);
 		}
 	}
 

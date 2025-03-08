@@ -1,28 +1,31 @@
 <div align="center">
-  <img alt="Astro Cactus logo" src="https://github.com/chrismwilliams/astro-theme-cactus/assets/12715988/85aa0d3c-ef6a-44e2-954d-ef035b4f4315" width="70" />
+  <img alt="Kirill So logo" src="https://github.com/kirso/kirillso/assets/" width="70" />
 </div>
 <h1 align="center">
-  Astro Cactus
+  Kirill So - Personal website & blog
 </h1>
 
-Astro Cactus is a simple opinionated starter built with [Astro](https://astro.build). Use it to create an easy-to-use blog or website.
+This is a personal website and blog that uses [Cactus theme](https://github.com/chrismwilliams/astro-theme-cactus/) based on [Astro](https://astro.build).
 
 ## Table Of Contents
 
-1. [Key Features](#key-features)
-2. [Demo](#demo-💻)
-3. [Quick start](#quick-start)
-4. [Preview](#preview)
-5. [Commands](#commands)
-6. [Configure](#configure)
-7. [Updating](#updating)
-8. [Adding Posts](#adding-posts)
-   - [Frontmatter](#frontmatter)
-   - [Frontmatter Snippet](#frontmatter-snippet)
-9. [Pagefind search](#pagefind-search)
-10. [Analytics](#analytics)
-11. [Deploy](#deploy)
-12. [Acknowledgment](#acknowledgment)
+- [Table Of Contents](#table-of-contents)
+- [Key Features](#key-features)
+- [Demo 💻](#demo-)
+- [Quick start](#quick-start)
+- [Preview](#preview)
+- [Commands](#commands)
+- [Configure](#configure)
+- [Updating](#updating)
+- [Adding posts and notes](#adding-posts-and-notes)
+  - [Post Frontmatter](#post-frontmatter)
+  - [Note Frontmatter](#note-frontmatter)
+  - [Frontmatter snippets](#frontmatter-snippets)
+- [Pagefind search](#pagefind-search)
+- [Analytics](#analytics)
+- [Deploy](#deploy)
+- [Acknowledgment](#acknowledgment)
+- [License](#license)
 
 ## Key Features
 

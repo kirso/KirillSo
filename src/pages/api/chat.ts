@@ -4,7 +4,7 @@ import { findSimilarContent } from '../../lib/embeddings';
 import { chatRateLimiter } from '../../lib/rateLimit';
 
 const openai = new OpenAI({
-  apiKey: import.meta.env.OPENAI_API_KEY ?? ''
+  apiKey: import.meta.env.OPENAI_API_KEY
 });
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
