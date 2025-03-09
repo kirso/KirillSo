@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import type { APIRoute } from 'astro';
 import { OpenAI } from 'openai';
 import { findSimilarContent } from '../../lib/embeddings';

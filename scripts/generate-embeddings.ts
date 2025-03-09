@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { generateEmbeddings } from '../src/lib/embeddings';
 import fs from 'fs';
 import path from 'path';
