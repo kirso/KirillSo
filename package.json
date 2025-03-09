@@ -28,6 +28,7 @@
 		"astro-robots-txt": "^1.0.0",
 		"astro-webmanifest": "^1.0.0",
 		"cssnano": "^7.0.6",
+		"gray-matter": "^4.0.3",
 		"hastscript": "^9.0.0",
 		"marked": "^15.0.7",
 		"mdast-util-directive": "^3.0.0",

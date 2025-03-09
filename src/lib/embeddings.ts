@@ -9,11 +9,13 @@ type EmbeddingVector = number[];
 interface EmbeddingResult {
   content: string;
   similarity: number;
+  source: string;
 }
 
 interface StoredEmbedding {
   content: string;
   embedding: number[];
+  source: string;
 }
 
 const EMBEDDING_MODEL = "text-embedding-3-small" as const;
@@ -27,7 +29,7 @@ function getOpenAIClient() {
   return new OpenAI({ apiKey });
 }
 
-export async function generateEmbeddings(content: string): Promise<void> {
+export async function generateEmbeddings(content: string, source: string): Promise<void> {
   const openai = getOpenAIClient();
   const response = await openai.embeddings.create({
     input: content,
@@ -55,7 +57,8 @@ export async function generateEmbeddings(content: string): Promise<void> {
   // Add new embedding
   embeddings.push({
     content,
-    embedding
+    embedding,
+    source
   });
 
   // Write back to file
@@ -91,31 +94,47 @@ function cosineSimilarity(vecA: EmbeddingVector, vecB: EmbeddingVector): number 
 
 export async function findSimilarContent(query: string): Promise<EmbeddingResult[]> {
   const openai = getOpenAIClient();
-  const response = await openai.embeddings.create({
-    input: query,
-    model: EMBEDDING_MODEL
-  });
 
-  const queryVector = response.data[0]?.embedding;
-  if (!queryVector || !Array.isArray(queryVector)) {
-    throw new Error('Failed to generate query embedding');
+  try {
+    // Read stored embeddings
+    if (!fs.existsSync(EMBEDDINGS_FILE)) {
+      console.error('No embeddings file found at:', EMBEDDINGS_FILE);
+      throw new Error('No embeddings found. Please generate embeddings first.');
+    }
+
+    const fileContent = fs.readFileSync(EMBEDDINGS_FILE, 'utf-8');
+    const storedEmbeddings: StoredEmbedding[] = JSON.parse(fileContent);
+
+    // Filter out embeddings without sources
+    const validEmbeddings = storedEmbeddings.filter(e => e.source);
+    console.log('Found stored embeddings:', validEmbeddings.map(e => e.source));
+
+    const response = await openai.embeddings.create({
+      input: query,
+      model: EMBEDDING_MODEL
+    });
+
+    const queryVector = response.data[0]?.embedding;
+    if (!queryVector || !Array.isArray(queryVector)) {
+      throw new Error('Failed to generate query embedding');
+    }
+
+    // Calculate similarities only for valid embeddings
+    const similarities: EmbeddingResult[] = validEmbeddings.map(stored => ({
+      content: stored.content,
+      similarity: cosineSimilarity(stored.embedding, queryVector),
+      source: stored.source
+    }));
+
+    // Sort by similarity and get top 5
+    const results = similarities
+      .sort((a, b) => b.similarity - a.similarity)
+      .slice(0, 5);
+
+    console.log('Top matches:', results.map(r => ({ source: r.source, similarity: r.similarity })));
+    return results;
+  } catch (error) {
+    console.error('Error finding similar content:', error);
+    throw error;
   }
-
-  // Read stored embeddings
-  if (!fs.existsSync(EMBEDDINGS_FILE)) {
-    throw new Error('No embeddings found. Please generate embeddings first.');
-  }
-
-  const fileContent = fs.readFileSync(EMBEDDINGS_FILE, 'utf-8');
-  const storedEmbeddings: StoredEmbedding[] = JSON.parse(fileContent);
-
-  // Calculate similarities
-  const similarities: EmbeddingResult[] = storedEmbeddings.map(stored => ({
-    content: stored.content,
-    similarity: cosineSimilarity(stored.embedding, queryVector)
-  }));
-
-  return similarities
-    .sort((a, b) => b.similarity - a.similarity)
-    .slice(0, 5);
 }

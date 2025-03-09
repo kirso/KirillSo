@@ -48,6 +48,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
     // Get relevant context from embeddings
     const similarContent = await findSimilarContent(message);
+    console.log('Found similar content:', similarContent.map(c => ({ source: c.source, similarity: c.similarity })));
 
     // Generate streaming response
     const openai = getOpenAIClient();
@@ -56,8 +57,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       messages: [
         {
           role: "system",
-          content: `You are a helpful assistant answering questions about the resume.
-                   Use the following context to answer questions: ${similarContent.map(r => r.content).join('\n')}`
+          content: `You are a helpful assistant answering questions about Kirill So's experience, background, and blog posts.
+                   When referencing blog posts, always mention them by name.
+                   Use the following context to answer questions:
+                   ${similarContent.map(r => `[Source: ${r.source}]\n${r.content}`).join('\n\n')}`
         },
         { role: "user", content: message }
       ],

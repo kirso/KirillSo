@@ -40,10 +40,10 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 			</div>
 
 			<div
-				class="messages-container flex-grow space-y-2 overflow-y-auto bg-white p-4 dark:bg-gray-900"
+				class="messages-container flex-grow space-y-4 overflow-y-auto bg-white p-4 dark:bg-gray-900"
 			>
 				<div
-					class="mr-auto max-w-[80%] rounded-lg bg-gray-100 p-2 text-gray-800 dark:bg-gray-800 dark:text-gray-200"
+					class="message assistant max-w-[80%] rounded-lg bg-gray-100 p-3 text-gray-800 dark:bg-gray-800 dark:text-gray-200"
 				>
 					{initialMessage}
 				</div>
@@ -87,6 +87,35 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 	.messages-container::-webkit-scrollbar-thumb {
 		background-color: rgba(155, 155, 155, 0.5);
 		border-radius: 20px;
+	}
+
+	.messages-container {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.messages-container .message {
+		opacity: 0;
+		transform: translateY(20px);
+		animation: messageAppear 0.3s ease forwards;
+		position: relative;
+		word-break: break-word;
+	}
+
+	.messages-container .message.user {
+		border-top-right-radius: 0;
+	}
+
+	.messages-container .message.assistant {
+		border-top-left-radius: 0;
+	}
+
+	@keyframes messageAppear {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 
 	.dot-flashing {
@@ -136,6 +165,54 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 			background-color: rgba(155, 155, 155, 0.2);
 		}
 	}
+
+	/* Chat window styles */
+	.chat-window {
+		background-color: rgb(var(--background));
+		border-color: rgb(var(--border));
+		resize: vertical;
+		min-height: 24rem; /* 384px */
+		max-height: 80vh;
+		overflow: hidden;
+	}
+
+	.chat-window .messages-container {
+		background-color: rgb(var(--background));
+		height: calc(100% - 6rem); /* Subtract header and form height */
+	}
+
+	/* Add resize handle styling */
+	.chat-window::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 4px;
+		cursor: ns-resize;
+		background: transparent;
+	}
+
+	.chat-window form {
+		border-color: rgb(var(--border));
+		background-color: rgb(var(--background));
+	}
+
+	.chat-window form input {
+		background-color: rgb(var(--background));
+		border-color: rgb(var(--border));
+		color: rgb(var(--foreground));
+	}
+
+	/* Update header colors */
+	.chat-window .header {
+		background-color: rgb(var(--muted));
+		border-color: rgb(var(--border));
+	}
+
+	.chat-window .header span {
+		color: rgb(var(--foreground));
+	}
 </style>
 
 <script>
@@ -146,10 +223,14 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 		private submitBtn: HTMLButtonElement | null = null;
 		private messagesContainer: HTMLElement | null = null;
 		private chatWindow: HTMLElement | null = null;
+		private isResizing = false;
+		private startHeight = 0;
+		private startY = 0;
 
 		constructor() {
 			super();
 			this.setupChat();
+			this.setupResize();
 		}
 
 		private setupChat() {
@@ -239,6 +320,41 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 			});
 		}
 
+		private setupResize() {
+			const chatWindow = this.chatWindow;
+			if (!chatWindow) return;
+
+			const startResize = (e: MouseEvent) => {
+				if (e.target !== chatWindow) return;
+				if (e.clientY > chatWindow.getBoundingClientRect().top + 10) return; // Only allow resize from top edge
+
+				this.isResizing = true;
+				this.startHeight = chatWindow.offsetHeight;
+				this.startY = e.clientY;
+				document.addEventListener("mousemove", resize);
+				document.addEventListener("mouseup", stopResize);
+			};
+
+			const resize = (e: MouseEvent) => {
+				if (!this.isResizing) return;
+				const delta = this.startY - e.clientY;
+				const newHeight = Math.min(
+					Math.max(this.startHeight + delta, 384),
+					window.innerHeight * 0.8,
+				);
+				chatWindow.style.height = `${newHeight}px`;
+				this.scrollToBottom();
+			};
+
+			const stopResize = () => {
+				this.isResizing = false;
+				document.removeEventListener("mousemove", resize);
+				document.removeEventListener("mouseup", stopResize);
+			};
+
+			chatWindow.addEventListener("mousedown", startResize);
+		}
+
 		private setLoading(loading: boolean) {
 			if (loading) {
 				this.input?.setAttribute("disabled", "");
@@ -249,14 +365,23 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 			}
 		}
 
+		private findLastUserMessage(container: HTMLElement): Element | null {
+			const messages = Array.from(container.children);
+			for (let i = messages.length - 1; i >= 0; i--) {
+				const message = messages[i];
+				if (message && message.classList.contains("user")) {
+					return message;
+				}
+			}
+			return null;
+		}
+
 		private addLoadingIndicator() {
-			// Remove existing loading indicator if any
 			this.removeLoadingIndicator();
 
-			// Create and add loading indicator in the messages area
 			const loadingDiv = document.createElement("div");
 			loadingDiv.className =
-				"loading-indicator max-w-[80%] p-2 rounded-lg mr-auto bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300";
+				"loading-indicator message assistant max-w-[80%] rounded-lg bg-gray-100 p-3 text-gray-800 dark:bg-gray-800 dark:text-gray-200";
 
 			const typingIndicator = document.createElement("div");
 			typingIndicator.className = "typing-indicator";
@@ -267,8 +392,9 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 			typingIndicator.appendChild(dotFlashing);
 			loadingDiv.appendChild(typingIndicator);
 
+			// Always append to the end
 			this.messagesContainer?.appendChild(loadingDiv);
-			this.messagesContainer?.scrollTo(0, this.messagesContainer.scrollHeight);
+			this.scrollToBottom();
 		}
 
 		private removeLoadingIndicator() {
@@ -278,37 +404,69 @@ const { initialMessage = "Hi! Ask me anything about my experience and background
 			}
 		}
 
+		private async updateStreamingMessage(text: string) {
+			if (!this.messagesContainer) return;
+
+			this.removeLoadingIndicator();
+
+			let streamingMessage = this.messagesContainer?.querySelector(".streaming-message");
+			const lastUserMessage = this.findLastUserMessage(this.messagesContainer);
+
+			if (!streamingMessage) {
+				// Remove any existing streaming message first
+				const existingStreaming = this.messagesContainer.querySelector(".streaming-message");
+				if (existingStreaming) {
+					existingStreaming.remove();
+				}
+
+				streamingMessage = document.createElement("div");
+				streamingMessage.className =
+					"message assistant streaming-message max-w-[80%] rounded-lg bg-gray-100 p-3 text-gray-800 dark:bg-gray-800 dark:text-gray-200";
+
+				if (lastUserMessage) {
+					lastUserMessage.after(streamingMessage);
+				} else {
+					this.messagesContainer.appendChild(streamingMessage);
+				}
+			}
+
+			streamingMessage.textContent = text;
+			this.scrollToBottom();
+		}
+
 		private addMessage(text: string, isUser: boolean) {
 			if (!this.messagesContainer) return;
 
 			const messageDiv = document.createElement("div");
-			messageDiv.className = `max-w-[80%] p-2 rounded-lg ${
-				isUser
-					? "ml-auto bg-accent text-white"
-					: "mr-auto bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200"
-			}`;
-			messageDiv.textContent = text;
-			this.messagesContainer?.appendChild(messageDiv);
-			this.messagesContainer?.scrollTo(0, this.messagesContainer.scrollHeight);
-		}
 
-		private updateStreamingMessage(text: string) {
-			if (!this.messagesContainer) return;
+			if (isUser) {
+				messageDiv.className = `message user max-w-[80%] rounded-lg bg-accent p-3 text-accent-foreground ml-auto`;
 
-			// Remove the loading indicator before updating streaming message
-			this.removeLoadingIndicator();
+				// Convert existing streaming message to permanent message before adding new user message
+				const streamingMessage = this.messagesContainer.querySelector(".streaming-message");
+				if (streamingMessage) {
+					streamingMessage.classList.remove("streaming-message");
+				}
 
-			let streamingMessage = this.messagesContainer?.querySelector(".streaming-message");
-
-			if (!streamingMessage) {
-				streamingMessage = document.createElement("div");
-				streamingMessage.className =
-					"streaming-message max-w-[80%] p-2 rounded-lg mr-auto bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200";
-				this.messagesContainer?.appendChild(streamingMessage);
+				this.messagesContainer.appendChild(messageDiv);
+			} else {
+				messageDiv.className = `message assistant max-w-[80%] rounded-lg bg-gray-100 p-3 text-gray-800 dark:bg-gray-800 dark:text-gray-200`;
+				const lastUserMessage = this.findLastUserMessage(this.messagesContainer);
+				if (lastUserMessage) {
+					lastUserMessage.after(messageDiv);
+				} else {
+					this.messagesContainer.appendChild(messageDiv);
+				}
 			}
 
-			streamingMessage.textContent = text;
-			this.messagesContainer?.scrollTo(0, this.messagesContainer.scrollHeight);
+			messageDiv.textContent = text;
+			this.scrollToBottom();
+		}
+
+		private scrollToBottom() {
+			if (this.messagesContainer) {
+				this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+			}
 		}
 	}
 
