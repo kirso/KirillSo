@@ -2,9 +2,7 @@ import type { SiteConfig } from "@/types";
 import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
 
 export const siteConfig: SiteConfig = {
-	// Used as both a meta property (src/components/BaseHead.astro L:31 + L:49) & the generated satori png (src/pages/og-image/[slug].png.ts)
 	author: "Kirill So",
-	// Date.prototype.toLocaleDateString() parameters, found in src/utils/date.ts.
 	date: {
 		locale: "en-GB",
 		options: {
@@ -14,7 +12,7 @@ export const siteConfig: SiteConfig = {
 		},
 	},
 	// Used as the default description meta property and webmanifest description
-	description: "Product manager, occasional writer and & part-time indie-maker based in Singapore. Exploring, experimenting & learning whilst building tiny products.",
+	description: "Product manager, occasional writer and & part-time indie-maker. Nomading, exploring and experimenting.",
 	// HTML lang property, found in src/layouts/Base.astro L:18 & astro.config.ts L:48
 	lang: "en-GB",
 	// Meta property, found in src/components/BaseHead.astro L:42
