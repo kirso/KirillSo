@@ -20,7 +20,7 @@
 	},
 	"dependencies": {
 		"@astrojs/markdown-remark": "6.2.0",
-		"@astrojs/mdx": "4.1.0",
+		"@astrojs/mdx": "4.2.3",
 		"@astrojs/rss": "4.0.11",
 		"@astrojs/sitemap": "3.2.1",
 		"@astrojs/vercel": "8.1.1",
