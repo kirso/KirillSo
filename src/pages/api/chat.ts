@@ -6,10 +6,17 @@ import { chatRateLimiter } from '../../lib/rateLimit';
 
 function getOpenAIClient() {
   const apiKey = process.env.OPENAI_API_KEY;
+  const client = new OpenAI({
+  apiKey: apiKey,
+  baseURL: "https://oai.helicone.ai/v1",
+  defaultHeaders: {
+    "Helicone-Auth": "Bearer sk-helicone-67ywmhy-usmubha-sl7gb4q-hsdjady"
+  }
+})
   if (!apiKey) {
     throw new Error('OPENAI_API_KEY environment variable is not set');
   }
-  return new OpenAI({ apiKey });
+  return client;
 }
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
