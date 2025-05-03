@@ -82,7 +82,7 @@ import { defineConfig } from "astro/config";
 import svelte from "@astrojs/svelte";
 
 export default defineConfig({
-	integrations: [svelte()],
+  integrations: [svelte()],
 });
 ```
 
@@ -209,7 +209,7 @@ Create a new file `src/lib/openaiClient.ts` to initialize the OpenAI client:
 import OpenAI from "openai";
 
 const openai = new OpenAI({
-	apiKey: import.meta.env.OPENAI_API_KEY,
+  apiKey: import.meta.env.OPENAI_API_KEY,
 });
 
 export default openai;
@@ -228,20 +228,20 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const openai = new OpenAI({
-	apiKey: import.meta.env.OPENAI_API_KEY,
+  apiKey: import.meta.env.OPENAI_API_KEY,
 });
 
 async function testOpenAI() {
-	try {
-		const completion = await openai.chat.completions.create({
-			model: "gpt-3.5-turbo",
-			messages: [{ role: "user", content: "Hello, OpenAI!" }],
-		});
+  try {
+    const completion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: "Hello, OpenAI!" }],
+    });
 
-		console.log("OpenAI Response:", completion.choices[0].message.content);
-	} catch (error) {
-		console.error("Error testing OpenAI:", error);
-	}
+    console.log("OpenAI Response:", completion.choices[0].message.content);
+  } catch (error) {
+    console.error("Error testing OpenAI:", error);
+  }
 }
 
 testOpenAI();
@@ -281,41 +281,41 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 const openai = new OpenAI({ apiKey: import.meta.env.OPENAI_API_KEY });
 
 async function generateEmbeddings() {
-	const cvPath = path.join(process.cwd(), "src", "assets", "resume.md");
-	const cvText = fs.readFileSync(cvPath, "utf8").trim();
+  const cvPath = path.join(process.cwd(), "src", "assets", "resume.md");
+  const cvText = fs.readFileSync(cvPath, "utf8").trim();
 
-	if (cvText.length > 0) {
-		try {
-			const response = await openai.embeddings.create({
-				input: cvText,
-				model: "text-embedding-ada-002",
-			});
+  if (cvText.length > 0) {
+    try {
+      const response = await openai.embeddings.create({
+        input: cvText,
+        model: "text-embedding-ada-002",
+      });
 
-			if (
-				response.data &&
-				response.data.length > 0 &&
-				response.data[0].embedding
-			) {
-				const embedding = response.data[0].embedding;
+      if (
+        response.data &&
+        response.data.length > 0 &&
+        response.data[0].embedding
+      ) {
+        const embedding = response.data[0].embedding;
 
-				const { data, error } = await supabase
-					.from("embeddings")
-					.insert([{ embedding, text: cvText }]);
+        const { data, error } = await supabase
+          .from("embeddings")
+          .insert([{ embedding, text: cvText }]);
 
-				if (error) {
-					console.error("Error storing embedding in Supabase:", error);
-				} else {
-					console.log("Stored embedding for the CV text.");
-				}
-			} else {
-				console.error("No embedding found in OpenAI response");
-			}
-		} catch (error) {
-			console.error("Error generating or storing embeddings:", error);
-		}
-	} else {
-		console.warn("The CV text is empty. Nothing to process.");
-	}
+        if (error) {
+          console.error("Error storing embedding in Supabase:", error);
+        } else {
+          console.log("Stored embedding for the CV text.");
+        }
+      } else {
+        console.error("No embedding found in OpenAI response");
+      }
+    } catch (error) {
+      console.error("Error generating or storing embeddings:", error);
+    }
+  } else {
+    console.warn("The CV text is empty. Nothing to process.");
+  }
 }
 
 generateEmbeddings();
@@ -356,43 +356,43 @@ If you want to generate embeddings for multiple sections or documents, you can m
 // ... (previous imports and setup)
 
 async function generateEmbedding(text) {
-	const response = await openai.embeddings.create({
-		input: text,
-		model: "text-embedding-ada-002",
-	});
-	return response.data[0].embedding;
+  const response = await openai.embeddings.create({
+    input: text,
+    model: "text-embedding-ada-002",
+  });
+  return response.data[0].embedding;
 }
 
 async function generateEmbeddings() {
-	const documents = [
-		{ name: "resume", path: "src/assets/resume.md" },
-		{ name: "about", path: "src/assets/about.md" },
-		// Add more documents as needed
-	];
+  const documents = [
+    { name: "resume", path: "src/assets/resume.md" },
+    { name: "about", path: "src/assets/about.md" },
+    // Add more documents as needed
+  ];
 
-	for (const doc of documents) {
-		const text = fs
-			.readFileSync(path.join(process.cwd(), doc.path), "utf8")
-			.trim();
-		if (text.length > 0) {
-			try {
-				const embedding = await generateEmbedding(text);
-				const { data, error } = await supabase
-					.from("embeddings")
-					.insert([{ embedding, text, document_name: doc.name }]);
+  for (const doc of documents) {
+    const text = fs
+      .readFileSync(path.join(process.cwd(), doc.path), "utf8")
+      .trim();
+    if (text.length > 0) {
+      try {
+        const embedding = await generateEmbedding(text);
+        const { data, error } = await supabase
+          .from("embeddings")
+          .insert([{ embedding, text, document_name: doc.name }]);
 
-				if (error) {
-					console.error(`Error storing embedding for ${doc.name}:`, error);
-				} else {
-					console.log(`Stored embedding for ${doc.name}.`);
-				}
-			} catch (error) {
-				console.error(`Error processing ${doc.name}:`, error);
-			}
-		} else {
-			console.warn(`The ${doc.name} text is empty. Skipping.`);
-		}
-	}
+        if (error) {
+          console.error(`Error storing embedding for ${doc.name}:`, error);
+        } else {
+          console.log(`Stored embedding for ${doc.name}.`);
+        }
+      } catch (error) {
+        console.error(`Error processing ${doc.name}:`, error);
+      }
+    } else {
+      console.warn(`The ${doc.name} text is empty. Skipping.`);
+    }
+  }
 }
 
 generateEmbeddings();
@@ -412,58 +412,58 @@ Create a new file `src/lib/utils/embedding.ts` with the following content:
 
 ```typescript
 export function cosineSimilarity(a: number[], b: number[]): number {
-	if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) {
-		throw new Error("Invalid input for cosine similarity calculation");
-	}
-	const dotProduct = a.reduce(
-		(sum, _, i) => sum + (a[i] ?? 0) * (b[i] ?? 0),
-		0,
-	);
-	const magnitudeA = Math.sqrt(
-		a.reduce((sum, val) => sum + (val ?? 0) ** 2, 0),
-	);
-	const magnitudeB = Math.sqrt(
-		b.reduce((sum, val) => sum + (val ?? 0) ** 2, 0),
-	);
-	return dotProduct / (magnitudeA * magnitudeB);
+  if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) {
+    throw new Error("Invalid input for cosine similarity calculation");
+  }
+  const dotProduct = a.reduce(
+    (sum, _, i) => sum + (a[i] ?? 0) * (b[i] ?? 0),
+    0,
+  );
+  const magnitudeA = Math.sqrt(
+    a.reduce((sum, val) => sum + (val ?? 0) ** 2, 0),
+  );
+  const magnitudeB = Math.sqrt(
+    b.reduce((sum, val) => sum + (val ?? 0) ** 2, 0),
+  );
+  return dotProduct / (magnitudeA * magnitudeB);
 }
 
 export function findBestMatch(userEmbedding: number[], embeddingData: any[]) {
-	let bestMatch = null;
-	let highestSimilarity = -1;
+  let bestMatch = null;
+  let highestSimilarity = -1;
 
-	for (const doc of embeddingData) {
-		let docEmbedding: number[];
-		if (typeof doc.embedding === "string") {
-			try {
-				docEmbedding = JSON.parse(doc.embedding);
-			} catch (error) {
-				console.error("Error parsing embedding:", error);
-				continue;
-			}
-		} else if (Array.isArray(doc.embedding)) {
-			docEmbedding = doc.embedding;
-		} else {
-			console.error("Invalid embedding format:", doc.embedding);
-			continue;
-		}
+  for (const doc of embeddingData) {
+    let docEmbedding: number[];
+    if (typeof doc.embedding === "string") {
+      try {
+        docEmbedding = JSON.parse(doc.embedding);
+      } catch (error) {
+        console.error("Error parsing embedding:", error);
+        continue;
+      }
+    } else if (Array.isArray(doc.embedding)) {
+      docEmbedding = doc.embedding;
+    } else {
+      console.error("Invalid embedding format:", doc.embedding);
+      continue;
+    }
 
-		if (
-			!Array.isArray(docEmbedding) ||
-			docEmbedding.length !== userEmbedding.length
-		) {
-			console.error("Incompatible embedding:", docEmbedding);
-			continue;
-		}
+    if (
+      !Array.isArray(docEmbedding) ||
+      docEmbedding.length !== userEmbedding.length
+    ) {
+      console.error("Incompatible embedding:", docEmbedding);
+      continue;
+    }
 
-		const similarity = cosineSimilarity(docEmbedding, userEmbedding);
-		if (similarity > highestSimilarity) {
-			highestSimilarity = similarity;
-			bestMatch = doc.text;
-		}
-	}
+    const similarity = cosineSimilarity(docEmbedding, userEmbedding);
+    if (similarity > highestSimilarity) {
+      highestSimilarity = similarity;
+      bestMatch = doc.text;
+    }
+  }
 
-	return bestMatch;
+  return bestMatch;
 }
 ```
 
@@ -500,29 +500,29 @@ dotenv.config();
 
 const openaiApiKey = import.meta.env.OPENAI_API_KEY;
 if (!openaiApiKey) {
-	throw new Error("OPENAI_API_KEY is not defined in the environment variables");
+  throw new Error("OPENAI_API_KEY is not defined in the environment variables");
 }
 
 export const openai = new OpenAI({ apiKey: openaiApiKey });
 
 export async function createEmbedding(input: string) {
-	return await openai.embeddings.create({
-		input: input,
-		model: "text-embedding-ada-002",
-	});
+  return await openai.embeddings.create({
+    input: input,
+    model: "text-embedding-ada-002",
+  });
 }
 
 export async function createChatCompletion(
-	messages: any[],
-	maxTokens: number = 200,
+  messages: any[],
+  maxTokens: number = 200,
 ) {
-	return await openai.chat.completions.create({
-		model: "gpt-3.5-turbo-16k",
-		messages: messages,
-		max_tokens: maxTokens,
-		temperature: 0.7,
-		stream: true,
-	});
+  return await openai.chat.completions.create({
+    model: "gpt-3.5-turbo-16k",
+    messages: messages,
+    max_tokens: maxTokens,
+    temperature: 0.7,
+    stream: true,
+  });
 }
 ```
 
@@ -694,73 +694,73 @@ export const prerender = false;
 const openai = new OpenAI({ apiKey: import.meta.env.OPENAI_API_KEY });
 
 export const POST: APIRoute = async ({ request }) => {
-	try {
-		const identifier = request.headers.get("x-forwarded-for") || "anonymous";
-		const result = await ratelimit.limit(identifier);
-		if (!result.success) {
-			return new Response(JSON.stringify({ error: "Rate limit exceeded" }), {
-				status: 429,
-				headers: { "Content-Type": "application/json" },
-			});
-		}
+  try {
+    const identifier = request.headers.get("x-forwarded-for") || "anonymous";
+    const result = await ratelimit.limit(identifier);
+    if (!result.success) {
+      return new Response(JSON.stringify({ error: "Rate limit exceeded" }), {
+        status: 429,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
 
-		const { input } = await request.json();
+    const { input } = await request.json();
 
-		const { data: embeddingData, error: supabaseError } = await supabase
-			.from("embeddings")
-			.select("embedding, text");
+    const { data: embeddingData, error: supabaseError } = await supabase
+      .from("embeddings")
+      .select("embedding, text");
 
-		if (supabaseError)
-			throw new Error(`Supabase error: ${supabaseError.message}`);
-		if (!embeddingData || embeddingData.length === 0)
-			throw new Error("No embedding data found");
+    if (supabaseError)
+      throw new Error(`Supabase error: ${supabaseError.message}`);
+    if (!embeddingData || embeddingData.length === 0)
+      throw new Error("No embedding data found");
 
-		const embeddingResponse = await openai.embeddings.create({
-			input: input,
-			model: "text-embedding-ada-002",
-		});
+    const embeddingResponse = await openai.embeddings.create({
+      input: input,
+      model: "text-embedding-ada-002",
+    });
 
-		const userEmbedding = embeddingResponse.data[0]?.embedding;
-		if (!userEmbedding) throw new Error("Failed to generate user embedding");
+    const userEmbedding = embeddingResponse.data[0]?.embedding;
+    if (!userEmbedding) throw new Error("Failed to generate user embedding");
 
-		const bestMatch = findBestMatch(userEmbedding, embeddingData);
-		if (!bestMatch) throw new Error("No matching embedding found");
+    const bestMatch = findBestMatch(userEmbedding, embeddingData);
+    if (!bestMatch) throw new Error("No matching embedding found");
 
-		const stream = await openai.chat.completions.create({
-			model: "gpt-3.5-turbo-16k",
-			messages: [
-				{
-					role: "system",
-					content: `You are an AI assistant with knowledge about Kirill. Use the following context to answer questions about him: "${bestMatch}". Provide concise but complete answers. Aim for responses between 100-150 words. If the context doesn't provide enough information to answer the question directly, use it as a starting point and provide a relevant response based on general knowledge about product managers.`,
-				},
-				{ role: "user", content: input },
-			],
-			max_tokens: 200,
-			temperature: 0.7,
-			stream: true,
-		});
+    const stream = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo-16k",
+      messages: [
+        {
+          role: "system",
+          content: `You are an AI assistant with knowledge about Kirill. Use the following context to answer questions about him: "${bestMatch}". Provide concise but complete answers. Aim for responses between 100-150 words. If the context doesn't provide enough information to answer the question directly, use it as a starting point and provide a relevant response based on general knowledge about product managers.`,
+        },
+        { role: "user", content: input },
+      ],
+      max_tokens: 200,
+      temperature: 0.7,
+      stream: true,
+    });
 
-		return new Response(
-			new ReadableStream({
-				async start(controller) {
-					for await (const chunk of stream) {
-						const content = chunk.choices[0]?.delta?.content || "";
-						controller.enqueue(new TextEncoder().encode(content));
-					}
-					controller.close();
-				},
-			}),
-			{ headers: { "Content-Type": "text/plain; charset=utf-8" } },
-		);
-	} catch (error) {
-		console.error("Error in serverless function:", error);
-		const errorMessage =
-			error instanceof Error ? error.message : "An unknown error occurred";
-		return new Response(JSON.stringify({ error: errorMessage }), {
-			status: 500,
-			headers: { "Content-Type": "application/json" },
-		});
-	}
+    return new Response(
+      new ReadableStream({
+        async start(controller) {
+          for await (const chunk of stream) {
+            const content = chunk.choices[0]?.delta?.content || "";
+            controller.enqueue(new TextEncoder().encode(content));
+          }
+          controller.close();
+        },
+      }),
+      { headers: { "Content-Type": "text/plain; charset=utf-8" } },
+    );
+  } catch (error) {
+    console.error("Error in serverless function:", error);
+    const errorMessage =
+      error instanceof Error ? error.message : "An unknown error occurred";
+    return new Response(JSON.stringify({ error: errorMessage }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 };
 ```
 

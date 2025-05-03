@@ -6,14 +6,15 @@ import type { Props as CardProp } from "./Card.astro";
 
 // Define the Props for this component
 type Props = {
-	cards: CardProp[]; // accepts an array of CardProps
+  cards: CardProp[]; // accepts an array of CardProps
 };
 
 // Retrieve the cards prop
 const { cards } = Astro.props;
 ---
 
-<div class="grid grid-cols-1 justify-between gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
-	<!-- Dynamically render multiple Card components and spread the required card props -->
-	{cards.map((card) => <Card {...card} />)}
+<div
+  class="grid grid-cols-1 justify-between gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
+  <!-- Dynamically render multiple Card components and spread the required card props -->
+  {cards.map((card) => <Card {...card} />)}
 </div>

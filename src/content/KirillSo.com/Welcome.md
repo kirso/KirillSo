@@ -21,9 +21,13 @@ In my free time, I like to tinker with technology, read, write, and occasionally
 ## Why
 
 - To continuously seek deeper understanding about the complexities of the world and people within it.
+
 - To cultivate the qualities that encourage growth, empathy and connection.
+
 - To go beyond surface-level judgement and assumptions and open meaningful interactions.
+
 - To cope with the chaos and eternal change of the world.
+
 - To exercise open-mindedness, compassion and kindness.
 
 ## What
@@ -45,6 +49,7 @@ In my free time, I like to tinker with technology, read, write, and occasionally
 **2016** - Took a short career break and spent time with my family during which I accidentally learned about Ethereum. Took part in the first crypto wave, which was well described [in this book](https://www.amazon.com/Cryptopians-Idealism-Greed-Making-Cryptocurrency-ebook/dp/B08YD5LW8L?qid=&sr=). I also spent some time learning to code but didn’t follow through. It was also the first year of my forte in newsletters and I convinced 300 poor souls that I had something important to say.
 
 **2018** - Made a move to Singapore and worked with the largest C2C marketplace in SEA on a platform utilizing blockchain and external data to identify bad actors. Started from scratch yet again and met some amazing entrepreneurs, investors, and startup people in the ecosystem.
+
 ![Singapore coindesk conference with people talking on the stage](../assets/img/about/singapore-coindesk.jpeg)
 
 **2020** - Got accepted into an [early-stage start-up program](https://www.antler.co/) and worked on a machine learning product to help push models into production faster. Learned a lot yet again. Not only about the economics of VCs, which is a very popular topic these days but also about intrinsic motivation and quitting.
@@ -62,13 +67,17 @@ In my free time, I like to tinker with technology, read, write, and occasionally
 Private:
 
 - [Calm company fund](https://calmfund.com/)
+
 - [Replit](https://replit.com/)
 
 Public:
 
 - [$VWRA](https://www.vanguardmexico.com/en/product/etf/equity/9679/vanguard-ftse-all-world-ucits-etf-usd-accumulating)
+
 - [$COIN](https://www.google.com/finance/quote/COIN:NASDAQ?sa=X&ved=2ahUKEwjTjYvU4K6EAxWjcGwGHf3RD68Q3ecFegQIRxAf&window=MAX)
+
 - [$U](https://www.google.com/finance/quote/U:NYSE?window=MAX)
+
 - [$SE](https://www.google.com/finance/quote/SE:NYSE?window=MAX)
 
 ### Interests
@@ -104,11 +113,13 @@ Things I ponder about.
 #### Incentives
 
 - Why do we see a gap of quality when we try to maximize gains?
+
 - How can we collectively work together, despite the differences?
 
 #### Humans
 
 - With the ongoing technological progress, why does it feel that we are going backwards in terms of life satisfaction?
+
 - How can we cultivate better and more meaningful communities?
 
 ### Influences
@@ -122,6 +133,7 @@ World influences that shaped me into a person I am today
 #### Life
 
 - [This is water](https://www.youtube.com/watch?v=OsAd4HGJS4o)
+
 - [The egg](https://www.youtube.com/watch?v=h6fcK_fRYaI)
 
 #### Creativity
@@ -133,8 +145,11 @@ World influences that shaped me into a person I am today
 Humans who had a severe impact on my life which I extend my gratitude to as well as my admiration.
 
 - [Derek Sivers](https://sive.rs/)
+
 - [Charlie Munger](https://www.charlie-munger.com/)
+
 - [Bruce Lee](https://www.bruce-lee.com/)
+
 - [Edward Thorp](https://www.edwardothorp.com/about/)
 
 ### Content
@@ -142,7 +157,9 @@ Humans who had a severe impact on my life which I extend my gratitude to as well
 #### Documentaries
 
 - [Searching for Sugarman](https://www.youtube.com/watch?v=KKXewWDh1og)
+
 - [Jiro dreams of sushi](https://www.youtube.com/watch?v=0VB_DrsHDQ0)
+
 - [Dealt](https://www.youtube.com/watch?v=F__DQ1ruYck)
 
 ## Other
@@ -150,20 +167,31 @@ Humans who had a severe impact on my life which I extend my gratitude to as well
 Some projects I support with volunteering and donations:
 
 - [FreeCodeCamp](https://www.freecodecamp.org/donate)
+
 - [Logseq](https://opencollective.com/logseq)
+
 - [Charity:water](https://www.charitywater.org/kirso)
 
 ## Principles
 
 - Living an examined and calm life
+
 - Exploration & experimentation
+
 - Seeking mastery & expertise
+
 - Beginner’s mind
+
 - Lifelong learning and forever student
+
 - Non-convention and non-conformity
+
 - Simplicity and minimalism
+
 - Virtue cultivation
+
 - Individual journey and direction
+
 - Bits of hungriness and foolishness
 
 ## End

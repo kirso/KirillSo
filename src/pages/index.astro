@@ -12,8 +12,8 @@ import { Tech } from "@/data/tech";
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
 const allPostsByDate = allPosts
-	.sort(collectionDateSort)
-	.slice(0, MAX_POSTS) as CollectionEntry<"post">[];
+  .sort(collectionDateSort)
+  .slice(0, MAX_POSTS) as CollectionEntry<"post">[];
 
 // Notes
 const MAX_NOTES = 5;
@@ -22,100 +22,122 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 ---
 
 <PageLayout meta={{ title: "Home" }}>
-	<section>
-		<h1 class="title mb-6">Hey I'm Kirill So</h1>
-		<p class="mb-4">
-			I’m a principal product manager based in Singapore. Previously, I co-founded a startup and ran
-			a <a href="https://www.huffpost.com/entry/what-to-do-about-fraud-in_b_5809200"
-				>profitable agency</a
-			>. During nights & weekends I prototype MVPs, learning new things and write essays.
-			<a href="https://twitter.com/kirso_">DMs</a> are always open, so as <a
-				href="https://cal.com/kirso">coffee chats</a
-			>.
-			<SocialList />
-		</p>
-		<section class="mt-10">
-			<h2 class="title text-accent mb-6 text-xl"><a href="/posts/">Posts</a></h2>
-			<ul class="space-y-4" role="list">
-				{
-					allPostsByDate.map((p) => (
-						<li class="grid gap-2 sm:grid-cols-[auto_1fr]">
-							<PostPreview post={p} />
-						</li>
-					))
-				}
-			</ul>
-		</section>
-		{
-			latestNotes.length > 0 && (
-				<section class="mt-10">
-					<h2 class="title text-accent mb-6 text-xl">
-						<a href="/notes/">Notes</a>
-					</h2>
-					<ul class="space-y-4" role="list">
-						{latestNotes.map((note) => (
-							<li>
-								<Note note={note} as="h3" isPreview />
-							</li>
-						))}
-					</ul>
-				</section>
-			)
-		}
-	</section>
-	<section class="mt-10">
-		<h2 class="title text-accent mb-6 text-xl">Projects</h2>
-		<Cards
-			cards={[
-				{
-					title: "Google clone",
-					to: "/posts/google-clone/",
-					description: "Search with Google API",
-					gradientFrom: "#818cf8",
-					gradientTo: "#d8b4fe",
-				},
-				{
-					title: "Panic theme",
-					to: "https://github.com/kirso/logseq-panic-theme",
-					description: "Make Logseq PKM pretty",
-					gradientFrom: "#fde68a",
-					gradientTo: "#fca5a5",
-				},
-				{
-					title: "Schwiftyverse",
-					to: "https://schwiftyverse.vercel.app/",
-					description: "GIFs on Solana blockchain",
-					gradientFrom: "#6ee7b7",
-					gradientTo: "#9333ea",
-				},
-				{
-					title: "ToDo",
-					to: "https://github.com/kirso/bun-elysia-tailwind-htmx-todo-app",
-					description: "Tasks on the edge",
-					gradientFrom: "#a15",
-					gradientTo: "#F51",
-				},
-			]}
-		/>
-	</section>
-	<section class="mt-10">
-		<h2 class="title text-accent mb-6 text-xl">Tech</h2>
-		<dl class="space-y-4">
-			{
-				Tech.map(({ href, title, desc }) => (
-					<div class="flex flex-col gap-2 md:flex-row">
-						<dt>
-							<span class="flex">
-								<a href={href} target="_blank" rel="noopener noreferrer" class="cactus-link">
-									{title}
-								</a>
-								:
-							</span>
-						</dt>
-						<dd>{desc}</dd>
-					</div>
-				))
-			}
-		</dl>
-	</section>
+  <section>
+    <p>Hi, I'm Kirill. Currently on sabbatical and in exploration mode.</p>
+    <br />
+    <p>
+      Previously, I was a principal product manager at Delivery Hero, where I
+      contributed to millions in revenue by shipping growth features. In the
+      past I also ran a mobile marketing agency, took part in VC accelerator,
+      drove GTM at early-stage startups & invested in renewable energy.
+    </p>
+    <br />
+    <p>
+      Occasionally, I write about my life experiences and digital products as
+      well as support founders of early-stage startups with growth, product and
+      hiring. If you are building cool stuff, don't hesitate to reach out!
+    </p>
+    <br />
+    <p>
+      In my free time I usually weightlift, play tennis, consume scif-fi and
+      travel with my wife. <a
+        class="cactus-link"
+        href="https://twitter.com/kirso_">DMs</a
+      > are always open, so as <a
+        class="cactus-link"
+        href="https://calendar.notion.so/meet/kirso/9f8o4l6f">coffee chats</a
+      >.
+    </p>
+    <br />
+    <SocialList />
+  </section>
+
+  <section class="mt-10">
+    <h2 class="title text-accent mb-6 text-xl"><a href="/posts/">Posts</a></h2>
+    <ul class="space-y-4" role="list">
+      {
+        allPostsByDate.map((p) => (
+          <li class="grid gap-2 sm:grid-cols-[auto_1fr]">
+            <PostPreview post={p} />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+  {
+    latestNotes.length > 0 && (
+      <section class="mt-10">
+        <h2 class="title text-accent mb-6 text-xl">
+          <a href="/notes/">Notes</a>
+        </h2>
+        <ul class="space-y-4" role="list">
+          {latestNotes.map((note) => (
+            <li>
+              <Note note={note} as="h3" isPreview />
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+  <section class="mt-10">
+    <h2 class="title text-accent mb-6 text-xl">Projects</h2>
+    <Cards
+      cards={[
+        {
+          title: "Google clone",
+          to: "/posts/google-clone/",
+          description: "Search with Google API",
+          gradientFrom: "#818cf8",
+          gradientTo: "#d8b4fe",
+        },
+        {
+          title: "Panic theme",
+          to: "https://github.com/kirso/logseq-panic-theme",
+          description: "Make Logseq PKM pretty",
+          gradientFrom: "#fde68a",
+          gradientTo: "#fca5a5",
+        },
+        {
+          title: "Schwiftyverse",
+          to: "https://schwiftyverse.vercel.app/",
+          description: "GIFs on Solana blockchain",
+          gradientFrom: "#6ee7b7",
+          gradientTo: "#9333ea",
+        },
+        {
+          title: "ToDo",
+          to: "https://github.com/kirso/bun-elysia-tailwind-htmx-todo-app",
+          description: "Tasks on the edge",
+          gradientFrom: "#a15",
+          gradientTo: "#F51",
+        },
+      ]}
+    />
+  </section>
+  <section class="mt-10">
+    <h2 class="title text-accent mb-6 text-xl">Tech</h2>
+    <dl class="space-y-4">
+      {
+        Tech.map(({ href, title, desc }) => (
+          <div class="flex flex-col gap-2 md:flex-row">
+            <dt>
+              <span class="flex">
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="cactus-link"
+                >
+                  {title}
+                </a>
+                :
+              </span>
+            </dt>
+            <dd>{desc}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
 </PageLayout>

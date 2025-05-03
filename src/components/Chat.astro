@@ -3,381 +3,387 @@ import { ClientRouter } from "astro:transitions";
 export const prerender = false;
 
 interface Props {
-	initialMessage?: string;
+  initialMessage?: string;
 }
 
-const { initialMessage = "Hi! Ask me anything about my experience and background." } = Astro.props;
+const {
+  initialMessage = "Hi! Ask me anything about my experience and background.",
+} = Astro.props;
 ---
 
 <ClientRouter />
 
 <div class="fixed right-4 bottom-4 z-50" transition:persist>
-	<chat-component data-initial-message={initialMessage}>
-		<button
-			class="chat-toggle bg-accent text-bgColor rounded-full px-4 py-2 font-bold transition-opacity hover:opacity-80"
-			aria-label="Toggle chat"
-		>
-			Chat
-		</button>
+  <chat-component data-initial-message={initialMessage}>
+    <button
+      class="chat-toggle bg-accent text-bgColor rounded-full px-4 py-2 font-bold transition-opacity hover:opacity-80"
+      aria-label="Toggle chat">
+      Chat
+    </button>
 
-		<div
-			class="chat-window absolute right-0 bottom-16 flex hidden h-96 max-h-[80vh] min-h-[24rem] w-80 flex-col overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg transition-all dark:border-gray-700 dark:bg-gray-900"
-		>
-			<div
-				class="flex items-center justify-between border-b border-gray-300 bg-gray-50 p-2 dark:border-gray-700 dark:bg-gray-800"
-			>
-				<span class="font-bold text-gray-900 dark:text-white">Chat with me</span>
-				<button
-					class="chat-close text-gray-700 hover:opacity-80 dark:text-gray-300"
-					aria-label="Close chat"
-				>
-					<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-						<path
-							d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
-						></path>
-					</svg>
-				</button>
-			</div>
+    <div
+      class="chat-window absolute right-0 bottom-16 flex hidden h-96 max-h-[80vh] min-h-[24rem] w-80 flex-col overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg transition-all dark:border-gray-700 dark:bg-gray-900">
+      <div
+        class="flex items-center justify-between border-b border-gray-300 bg-gray-50 p-2 dark:border-gray-700 dark:bg-gray-800">
+        <span class="font-bold text-gray-900 dark:text-white">Chat with me</span
+        >
+        <button
+          class="chat-close text-gray-700 hover:opacity-80 dark:text-gray-300"
+          aria-label="Close chat">
+          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
+            ></path>
+          </svg>
+        </button>
+      </div>
 
-			<div
-				class="messages-container flex flex-grow flex-col gap-4 overflow-y-auto bg-white p-4 dark:bg-gray-900 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300/50 [&::-webkit-scrollbar-track]:bg-transparent"
-			>
-				<div
-					class="message assistant animate-fade-in max-w-[80%] rounded-lg rounded-tl-none bg-gray-100 p-3 text-gray-800 dark:bg-gray-800 dark:text-gray-200"
-				>
-					{initialMessage}
-				</div>
-			</div>
+      <div
+        class="messages-container flex flex-grow flex-col gap-4 overflow-y-auto bg-white p-4 dark:bg-gray-900 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300/50 [&::-webkit-scrollbar-track]:bg-transparent">
+        <div
+          class="message assistant animate-fade-in max-w-[80%] rounded-lg rounded-tl-none bg-gray-100 p-3 text-gray-800 dark:bg-gray-800 dark:text-gray-200">
+          {initialMessage}
+        </div>
+      </div>
 
-			<form
-				class="border-t border-gray-300 bg-white p-2 dark:border-gray-700 dark:bg-gray-900"
-				method="POST"
-				action="/api/chat"
-				data-streaming
-			>
-				<div class="relative">
-					<input
-						type="text"
-						name="message"
-						placeholder="Type your message..."
-						class="focus:ring-accent mb-2 w-full rounded-lg border border-gray-300 bg-white p-2 pr-10 text-gray-900 outline-none focus:ring-2 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-						required
-					/>
-				</div>
-				<button
-					type="submit"
-					class="bg-accent text-bgColor w-full rounded-lg px-4 py-2 font-bold transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
-				>
-					Send
-				</button>
-			</form>
-		</div>
-	</chat-component>
+      <form
+        class="border-t border-gray-300 bg-white p-2 dark:border-gray-700 dark:bg-gray-900"
+        method="POST"
+        action="/api/chat"
+        data-streaming>
+        <div class="relative">
+          <input
+            type="text"
+            name="message"
+            placeholder="Type your message..."
+            class="focus:ring-accent mb-2 w-full rounded-lg border border-gray-300 bg-white p-2 pr-10 text-gray-900 outline-none focus:ring-2 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="bg-accent text-bgColor w-full rounded-lg px-4 py-2 font-bold transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50">
+          Send
+        </button>
+      </form>
+    </div>
+  </chat-component>
 </div>
 
 <style>
-	/* Only keeping the essential animations that can't be done with Tailwind */
-	@keyframes dot-flashing {
-		0% {
-			background-color: currentColor;
-		}
-		50%,
-		100% {
-			background-color: rgba(155, 155, 155, 0.2);
-		}
-	}
+  /* Only keeping the essential animations that can't be done with Tailwind */
+  @keyframes dot-flashing {
+    0% {
+      background-color: currentColor;
+    }
+    50%,
+    100% {
+      background-color: rgba(155, 155, 155, 0.2);
+    }
+  }
 
-	.dot-flashing {
-		position: relative;
-		width: 6px;
-		height: 6px;
-		border-radius: 50%;
-		background-color: currentColor;
-		animation: dot-flashing 1s infinite linear alternate;
-		animation-delay: 0.5s;
-	}
+  .dot-flashing {
+    position: relative;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+    animation: dot-flashing 1s infinite linear alternate;
+    animation-delay: 0.5s;
+  }
 
-	.dot-flashing::before,
-	.dot-flashing::after {
-		content: '';
-		display: inline-block;
-		position: absolute;
-		top: 0;
-		width: 6px;
-		height: 6px;
-		border-radius: 50%;
-		background-color: currentColor;
-	}
+  .dot-flashing::before,
+  .dot-flashing::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+  }
 
-	.dot-flashing::before {
-		left: -12px;
-		animation: dot-flashing 1s infinite alternate;
-		animation-delay: 0s;
-	}
+  .dot-flashing::before {
+    left: -12px;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 0s;
+  }
 
-	.dot-flashing::after {
-		left: 12px;
-		animation: dot-flashing 1s infinite alternate;
-		animation-delay: 1s;
-	}
+  .dot-flashing::after {
+    left: 12px;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 1s;
+  }
 </style>
 
 <script>
-	class ChatComponent extends HTMLElement {
-		private isStreaming = false;
-		private form: HTMLFormElement | null = null;
-		private input: HTMLInputElement | null = null;
-		private submitBtn: HTMLButtonElement | null = null;
-		private messagesContainer: HTMLElement | null = null;
-		private chatWindow: HTMLElement | null = null;
-		private isResizing = false;
-		private startHeight = 0;
-		private startY = 0;
+  class ChatComponent extends HTMLElement {
+    private isStreaming = false;
+    private form: HTMLFormElement | null = null;
+    private input: HTMLInputElement | null = null;
+    private submitBtn: HTMLButtonElement | null = null;
+    private messagesContainer: HTMLElement | null = null;
+    private chatWindow: HTMLElement | null = null;
+    private isResizing = false;
+    private startHeight = 0;
+    private startY = 0;
 
-		constructor() {
-			super();
-			this.setupChat();
-			this.setupResize();
-		}
+    constructor() {
+      super();
+      this.setupChat();
+      this.setupResize();
+    }
 
-		private setupChat() {
-			const toggleBtn = this.querySelector(".chat-toggle");
-			const closeBtn = this.querySelector(".chat-close");
+    private setupChat() {
+      const toggleBtn = this.querySelector(".chat-toggle");
+      const closeBtn = this.querySelector(".chat-close");
 
-			// Store elements as class properties with type assertions
-			this.chatWindow = this.querySelector(".chat-window");
-			this.messagesContainer = this.querySelector(".messages-container");
-			const form = this.querySelector("form");
-			if (!form) return;
-			this.form = form;
+      // Store elements as class properties with type assertions
+      this.chatWindow = this.querySelector(".chat-window");
+      this.messagesContainer = this.querySelector(".messages-container");
+      const form = this.querySelector("form");
+      if (!form) return;
+      this.form = form;
 
-			const input = form.querySelector("input");
-			const submitBtn = form.querySelector("button");
+      const input = form.querySelector("input");
+      const submitBtn = form.querySelector("button");
 
-			if (input && submitBtn) {
-				this.input = input;
-				this.submitBtn = submitBtn;
-			}
+      if (input && submitBtn) {
+        this.input = input;
+        this.submitBtn = submitBtn;
+      }
 
-			toggleBtn?.addEventListener("click", () => {
-				this.chatWindow?.classList.toggle("hidden");
-				this.input?.focus();
-			});
+      toggleBtn?.addEventListener("click", () => {
+        this.chatWindow?.classList.toggle("hidden");
+        this.input?.focus();
+      });
 
-			closeBtn?.addEventListener("click", () => {
-				this.chatWindow?.classList.add("hidden");
-			});
+      closeBtn?.addEventListener("click", () => {
+        this.chatWindow?.classList.add("hidden");
+      });
 
-			this.form.addEventListener("submit", async (e) => {
-				e.preventDefault();
-				if (this.isStreaming || !this.form) return;
+      this.form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (this.isStreaming || !this.form) return;
 
-				const formData = new FormData(this.form);
-				const message = formData.get("message")?.toString();
+        const formData = new FormData(this.form);
+        const message = formData.get("message")?.toString();
 
-				if (!message) return;
+        if (!message) return;
 
-				this.setLoading(true);
-				this.addMessage(message, true);
-				this.form?.reset();
+        this.setLoading(true);
+        this.addMessage(message, true);
+        this.form?.reset();
 
-				try {
-					const response = await fetch("/api/chat", {
-						method: "POST",
-						body: formData,
-					});
+        try {
+          const response = await fetch("/api/chat", {
+            method: "POST",
+            body: formData,
+          });
 
-					if (response.status === 429) {
-						this.addMessage(
-							"You've sent too many messages. Please wait a minute and try again.",
-							false,
-						);
-						return;
-					}
+          if (response.status === 429) {
+            this.addMessage(
+              "You've sent too many messages. Please wait a minute and try again.",
+              false,
+            );
+            return;
+          }
 
-					if (!response.ok) throw new Error("Failed to send message");
+          if (!response.ok) throw new Error("Failed to send message");
 
-					const reader = response.body?.getReader();
-					if (!reader) throw new Error("No response stream");
+          const reader = response.body?.getReader();
+          if (!reader) throw new Error("No response stream");
 
-					this.isStreaming = true;
-					let accumulatedMessage = "";
+          this.isStreaming = true;
+          let accumulatedMessage = "";
 
-					// Add loading indicator to chat
-					this.addLoadingIndicator();
+          // Add loading indicator to chat
+          this.addLoadingIndicator();
 
-					while (true) {
-						const { done, value } = await reader.read();
-						if (done) break;
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
 
-						const chunk = new TextDecoder().decode(value);
-						accumulatedMessage += chunk;
-						this.updateStreamingMessage(accumulatedMessage);
-					}
+            const chunk = new TextDecoder().decode(value);
+            accumulatedMessage += chunk;
+            this.updateStreamingMessage(accumulatedMessage);
+          }
 
-					this.isStreaming = false;
-				} catch (error) {
-					console.error("Chat error:", error);
-					this.addMessage("Sorry, there was an error processing your request.", false);
-				} finally {
-					this.setLoading(false);
-					// Remove loading indicator if it exists
-					this.removeLoadingIndicator();
-				}
-			});
-		}
+          this.isStreaming = false;
+        } catch (error) {
+          console.error("Chat error:", error);
+          this.addMessage(
+            "Sorry, there was an error processing your request.",
+            false,
+          );
+        } finally {
+          this.setLoading(false);
+          // Remove loading indicator if it exists
+          this.removeLoadingIndicator();
+        }
+      });
+    }
 
-		private setupResize() {
-			const chatWindow = this.chatWindow;
-			if (!chatWindow) return;
+    private setupResize() {
+      const chatWindow = this.chatWindow;
+      if (!chatWindow) return;
 
-			const startResize = (e: MouseEvent) => {
-				if (e.target !== chatWindow) return;
-				if (e.clientY > chatWindow.getBoundingClientRect().top + 10) return; // Only allow resize from top edge
+      const startResize = (e: MouseEvent) => {
+        if (e.target !== chatWindow) return;
+        if (e.clientY > chatWindow.getBoundingClientRect().top + 10) return; // Only allow resize from top edge
 
-				this.isResizing = true;
-				this.startHeight = chatWindow.offsetHeight;
-				this.startY = e.clientY;
-				document.addEventListener("mousemove", resize);
-				document.addEventListener("mouseup", stopResize);
-			};
+        this.isResizing = true;
+        this.startHeight = chatWindow.offsetHeight;
+        this.startY = e.clientY;
+        document.addEventListener("mousemove", resize);
+        document.addEventListener("mouseup", stopResize);
+      };
 
-			const resize = (e: MouseEvent) => {
-				if (!this.isResizing) return;
-				const delta = this.startY - e.clientY;
-				const newHeight = Math.min(
-					Math.max(this.startHeight + delta, 384),
-					window.innerHeight * 0.8,
-				);
-				chatWindow.style.height = `${newHeight}px`;
-				this.scrollToBottom();
-			};
+      const resize = (e: MouseEvent) => {
+        if (!this.isResizing) return;
+        const delta = this.startY - e.clientY;
+        const newHeight = Math.min(
+          Math.max(this.startHeight + delta, 384),
+          window.innerHeight * 0.8,
+        );
+        chatWindow.style.height = `${newHeight}px`;
+        this.scrollToBottom();
+      };
 
-			const stopResize = () => {
-				this.isResizing = false;
-				document.removeEventListener("mousemove", resize);
-				document.removeEventListener("mouseup", stopResize);
-			};
+      const stopResize = () => {
+        this.isResizing = false;
+        document.removeEventListener("mousemove", resize);
+        document.removeEventListener("mouseup", stopResize);
+      };
 
-			chatWindow.addEventListener("mousedown", startResize);
-		}
+      chatWindow.addEventListener("mousedown", startResize);
+    }
 
-		private setLoading(loading: boolean) {
-			if (loading) {
-				this.input?.setAttribute("disabled", "");
-				this.submitBtn?.setAttribute("disabled", "");
-			} else {
-				this.input?.removeAttribute("disabled");
-				this.submitBtn?.removeAttribute("disabled");
-			}
-		}
+    private setLoading(loading: boolean) {
+      if (loading) {
+        this.input?.setAttribute("disabled", "");
+        this.submitBtn?.setAttribute("disabled", "");
+      } else {
+        this.input?.removeAttribute("disabled");
+        this.submitBtn?.removeAttribute("disabled");
+      }
+    }
 
-		private findLastUserMessage(container: HTMLElement): Element | null {
-			const messages = Array.from(container.children);
-			for (let i = messages.length - 1; i >= 0; i--) {
-				const message = messages[i];
-				if (message && message.classList.contains("user")) {
-					return message;
-				}
-			}
-			return null;
-		}
+    private findLastUserMessage(container: HTMLElement): Element | null {
+      const messages = Array.from(container.children);
+      for (let i = messages.length - 1; i >= 0; i--) {
+        const message = messages[i];
+        if (message && message.classList.contains("user")) {
+          return message;
+        }
+      }
+      return null;
+    }
 
-		private addLoadingIndicator() {
-			this.removeLoadingIndicator();
+    private addLoadingIndicator() {
+      this.removeLoadingIndicator();
 
-			const loadingDiv = document.createElement("div");
-			loadingDiv.className =
-				"loading-indicator message assistant max-w-[80%] rounded-lg bg-gray-100 p-3 text-gray-800 dark:bg-gray-800 dark:text-gray-200";
+      const loadingDiv = document.createElement("div");
+      loadingDiv.className =
+        "loading-indicator message assistant max-w-[80%] rounded-lg bg-gray-100 p-3 text-gray-800 dark:bg-gray-800 dark:text-gray-200";
 
-			const typingIndicator = document.createElement("div");
-			typingIndicator.className = "typing-indicator";
+      const typingIndicator = document.createElement("div");
+      typingIndicator.className = "typing-indicator";
 
-			const dotFlashing = document.createElement("div");
-			dotFlashing.className = "dot-flashing";
+      const dotFlashing = document.createElement("div");
+      dotFlashing.className = "dot-flashing";
 
-			typingIndicator.appendChild(dotFlashing);
-			loadingDiv.appendChild(typingIndicator);
+      typingIndicator.appendChild(dotFlashing);
+      loadingDiv.appendChild(typingIndicator);
 
-			// Always append to the end
-			this.messagesContainer?.appendChild(loadingDiv);
-			this.scrollToBottom();
-		}
+      // Always append to the end
+      this.messagesContainer?.appendChild(loadingDiv);
+      this.scrollToBottom();
+    }
 
-		private removeLoadingIndicator() {
-			const loadingIndicator = this.messagesContainer?.querySelector(".loading-indicator");
-			if (loadingIndicator) {
-				loadingIndicator.remove();
-			}
-		}
+    private removeLoadingIndicator() {
+      const loadingIndicator =
+        this.messagesContainer?.querySelector(".loading-indicator");
+      if (loadingIndicator) {
+        loadingIndicator.remove();
+      }
+    }
 
-		private async updateStreamingMessage(text: string) {
-			if (!this.messagesContainer) return;
+    private async updateStreamingMessage(text: string) {
+      if (!this.messagesContainer) return;
 
-			this.removeLoadingIndicator();
+      this.removeLoadingIndicator();
 
-			let streamingMessage = this.messagesContainer?.querySelector(".streaming-message");
+      let streamingMessage =
+        this.messagesContainer?.querySelector(".streaming-message");
 
-			if (!streamingMessage) {
-				// Convert any existing streaming message to a permanent message
-				const existingStreaming = this.messagesContainer.querySelector(".streaming-message");
-				if (existingStreaming) {
-					existingStreaming.classList.remove("streaming-message");
-				}
+      if (!streamingMessage) {
+        // Convert any existing streaming message to a permanent message
+        const existingStreaming =
+          this.messagesContainer.querySelector(".streaming-message");
+        if (existingStreaming) {
+          existingStreaming.classList.remove("streaming-message");
+        }
 
-				streamingMessage = document.createElement("div");
-				streamingMessage.className =
-					"message assistant streaming-message max-w-[80%] rounded-lg bg-gray-100 p-3 text-gray-800 dark:bg-gray-800 dark:text-gray-200";
+        streamingMessage = document.createElement("div");
+        streamingMessage.className =
+          "message assistant streaming-message max-w-[80%] rounded-lg bg-gray-100 p-3 text-gray-800 dark:bg-gray-800 dark:text-gray-200";
 
-				// Find the last user message and insert after it
-				const lastUserMessage = this.findLastUserMessage(this.messagesContainer);
-				if (lastUserMessage) {
-					lastUserMessage.after(streamingMessage);
-				} else {
-					this.messagesContainer.appendChild(streamingMessage);
-				}
-			}
+        // Find the last user message and insert after it
+        const lastUserMessage = this.findLastUserMessage(
+          this.messagesContainer,
+        );
+        if (lastUserMessage) {
+          lastUserMessage.after(streamingMessage);
+        } else {
+          this.messagesContainer.appendChild(streamingMessage);
+        }
+      }
 
-			streamingMessage.textContent = text;
-			this.scrollToBottom();
-		}
+      streamingMessage.textContent = text;
+      this.scrollToBottom();
+    }
 
-		private addMessage(text: string, isUser: boolean) {
-			if (!this.messagesContainer) return;
+    private addMessage(text: string, isUser: boolean) {
+      if (!this.messagesContainer) return;
 
-			// First, convert any existing streaming message to permanent
-			const existingStreaming = this.messagesContainer.querySelector(".streaming-message");
-			if (existingStreaming) {
-				existingStreaming.classList.remove("streaming-message");
-			}
+      // First, convert any existing streaming message to permanent
+      const existingStreaming =
+        this.messagesContainer.querySelector(".streaming-message");
+      if (existingStreaming) {
+        existingStreaming.classList.remove("streaming-message");
+      }
 
-			const messageDiv = document.createElement("div");
+      const messageDiv = document.createElement("div");
 
-			if (isUser) {
-				messageDiv.className = `message user max-w-[80%] rounded-lg bg-accent p-3 text-accent-foreground ml-auto`;
-				// User messages always go at the end
-				this.messagesContainer.appendChild(messageDiv);
-			} else {
-				messageDiv.className = `message assistant max-w-[80%] rounded-lg bg-gray-100 p-3 text-gray-800 dark:bg-gray-800 dark:text-gray-200`;
-				// Find the last user message and insert after it
-				const lastUserMessage = this.findLastUserMessage(this.messagesContainer);
-				if (lastUserMessage) {
-					lastUserMessage.after(messageDiv);
-				} else {
-					this.messagesContainer.appendChild(messageDiv);
-				}
-			}
+      if (isUser) {
+        messageDiv.className = `message user max-w-[80%] rounded-lg bg-accent p-3 text-accent-foreground ml-auto`;
+        // User messages always go at the end
+        this.messagesContainer.appendChild(messageDiv);
+      } else {
+        messageDiv.className = `message assistant max-w-[80%] rounded-lg bg-gray-100 p-3 text-gray-800 dark:bg-gray-800 dark:text-gray-200`;
+        // Find the last user message and insert after it
+        const lastUserMessage = this.findLastUserMessage(
+          this.messagesContainer,
+        );
+        if (lastUserMessage) {
+          lastUserMessage.after(messageDiv);
+        } else {
+          this.messagesContainer.appendChild(messageDiv);
+        }
+      }
 
-			messageDiv.textContent = text;
-			this.scrollToBottom();
-		}
+      messageDiv.textContent = text;
+      this.scrollToBottom();
+    }
 
-		private scrollToBottom() {
-			if (this.messagesContainer) {
-				this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
-			}
-		}
-	}
+    private scrollToBottom() {
+      if (this.messagesContainer) {
+        this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+      }
+    }
+  }
 
-	customElements.define("chat-component", ChatComponent);
+  customElements.define("chat-component", ChatComponent);
 </script>

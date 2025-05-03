@@ -2,6 +2,7 @@
 title: "2021 Annual Review"
 description: "A review of 2021 and a letter to myself in terms of learnings, progress and what the future holds for the next chunk of the journey."
 publishDate: "2022-01-12"
+updatedDate: "2025-04-30"
 tags: ["meta", "life", "review"]
 draft: false
 coverImage:
@@ -119,7 +120,9 @@ I found that the signs of maturity are even the ability to come up with such que
 
 - [Personal website](/) - I used a template for the site, but I also developed a few of my components and managed to add some sections and elements that helped me to customize the very own site you are reading right now, including the highlighter effect on the front page.
 - [Logseq theme](https://github.com/kirso/logseq-panic-theme) - I am very proud of this one because it was my first pull request to contribute to a real-world project. Albeit being small in scope (just some CSS).
-- OSS Calendar - I used the [Cal.com](https://cal.com/) self-hosted solution to host my booking app on the domain. Although Ahrefs audit is constantly complaining about it, it’s a neat thing to send people to book time with me. **UPDATE 2022**: I moved from a self-hosted version of cal.com to a cloud one since the free tier is very generous.
+- OSS Calendar - I used the [Cal.com](https://cal.com/) self-hosted solution to host my booking app on the domain. Although Ahrefs audit is constantly complaining about it, it’s a neat thing to send people to book time with me.
+  **UPDATE 2022**: I moved from a self-hosted version of cal.com to a cloud one since the free tier is very generous.
+  **UPDATE 2025**: [Notion calendar](https://www.notion.com/product/calendar) (former Cron) introduced scheduling so I moved again.
 - [Google clone](/posts/google-clone/) - this was based on a Next.js tutorial but I experimented with fetching APIs for the first time.
 - [Schwiftyverse](https://schwiftyverse-kirso.vercel.app/) - ok, this was more of a fun project to test out development with React and connect the Solana wallet called Phantom. You can then submit the GIF on devnet with fake SOL, but make sure it’s Rick & Morty related! The website then reads from the blockchain and renders the submitted data on the front end. The cool part is that I learned that Solana distinguishes between the submitted data (immutable) and execution code when deployed that can be changed. I also wrote a [twitter thread](https://twitter.com/kirso_/status/1463049522876071940) about the experience.
 

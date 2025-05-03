@@ -7,55 +7,59 @@ import { Icon } from "astro-icon/components";
 	Only installed pack is: @iconify-json/mdi
 */
 const socialLinks: {
-	friendlyName: string;
-	isWebmention?: boolean;
-	link: string;
-	name: string;
+  friendlyName: string;
+  isWebmention?: boolean;
+  link: string;
+  name: string;
 }[] = [
-	{
-		friendlyName: "X",
-		link: "https://x.com/kirso_",
-		name: "mdi:twitter",
-		isWebmention: true,
-	},
-	{
-		friendlyName: "Github",
-		link: "https://github.com/kirso",
-		name: "mdi:github",
-		isWebmention: true,
-	},
-	{
-		friendlyName: "LinkedIn",
-		link: "https://www.linkedin.com/in/kirso_",
-		name: "mdi:linkedin",
-		isWebmention: true,
-	},
-	{
-		friendlyName: "Substack",
-		link: "https://kirill.substack.com/",
-		name: "mdi:post",
-		isWebmention: true,
-	},
+  {
+    friendlyName: "X",
+    link: "https://x.com/kirso_",
+    name: "mdi:twitter",
+    isWebmention: true,
+  },
+  {
+    friendlyName: "Github",
+    link: "https://github.com/kirso",
+    name: "mdi:github",
+    isWebmention: true,
+  },
+  {
+    friendlyName: "LinkedIn",
+    link: "https://www.linkedin.com/in/kirso_",
+    name: "mdi:linkedin",
+    isWebmention: true,
+  },
+  {
+    friendlyName: "Substack",
+    link: "https://kirill.substack.com/",
+    name: "mdi:post",
+    isWebmention: true,
+  },
 ];
 ---
 
 <div class="flex flex-wrap items-end gap-x-2">
-	<p>Find me on</p>
-	<ul class="flex flex-1 items-center gap-x-2 sm:flex-initial">
-		{
-			socialLinks.map(({ friendlyName, isWebmention, link, name }) => (
-				<li class="flex">
-					<a
-						class="hover:text-link inline-block"
-						href={link}
-						rel={`noreferrer ${isWebmention ? "me authn" : ""}`}
-						target="_blank"
-					>
-						<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
-						<span class="sr-only">{friendlyName}</span>
-					</a>
-				</li>
-			))
-		}
-	</ul>
+  <p>Find me on</p>
+  <ul class="flex flex-1 items-center gap-x-2 sm:flex-initial">
+    {
+      socialLinks.map(({ friendlyName, isWebmention, link, name }) => (
+        <li class="flex">
+          <a
+            class="hover:text-link inline-block"
+            href={link}
+            rel={`noreferrer ${isWebmention ? "me authn" : ""}`}
+            target="_blank">
+            <Icon
+              aria-hidden="true"
+              class="h-8 w-8"
+              focusable="false"
+              name={name}
+            />
+            <span class="sr-only">{friendlyName}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </div>

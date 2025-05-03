@@ -1,11 +1,11 @@
 interface RateLimitConfig {
-  maxRequests: number;  // Maximum requests allowed
-  windowMs: number;     // Time window in milliseconds
+  maxRequests: number; // Maximum requests allowed
+  windowMs: number; // Time window in milliseconds
 }
 
 interface RateLimitInfo {
-  remaining: number;    // Remaining requests
-  reset: number;       // Timestamp when the limit resets
+  remaining: number; // Remaining requests
+  reset: number; // Timestamp when the limit resets
 }
 
 // In-memory store for development
@@ -22,12 +22,12 @@ export class RateLimiter {
     if (!record || now > record.reset) {
       store.set(identifier, {
         count: 1,
-        reset: now + this.config.windowMs
+        reset: now + this.config.windowMs,
       });
 
       return {
         remaining: this.config.maxRequests - 1,
-        reset: now + this.config.windowMs
+        reset: now + this.config.windowMs,
       };
     }
 
@@ -39,13 +39,13 @@ export class RateLimiter {
     if (record.count > this.config.maxRequests) {
       return {
         remaining: 0,
-        reset: record.reset
+        reset: record.reset,
       };
     }
 
     return {
       remaining: this.config.maxRequests - record.count,
-      reset: record.reset
+      reset: record.reset,
     };
   }
 
@@ -57,6 +57,6 @@ export class RateLimiter {
 
 // Create a default rate limiter instance
 export const chatRateLimiter = new RateLimiter({
-  maxRequests: 10,      // 10 requests
-  windowMs: 60 * 1000   // per minute
+  maxRequests: 10, // 10 requests
+  windowMs: 60 * 1000, // per minute
 });

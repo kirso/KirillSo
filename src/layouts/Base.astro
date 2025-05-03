@@ -11,28 +11,32 @@ import Chat from "../components/Chat.astro";
 const showChat = import.meta.env.PUBLIC_ENABLE_CHAT === "true";
 
 interface Props {
-	meta: SiteMeta;
+  meta: SiteMeta;
 }
 
 const {
-	meta: { articleDate, description = siteConfig.description, ogImage, title },
+  meta: { articleDate, description = siteConfig.description, ogImage, title },
 } = Astro.props;
 ---
 
 <html class="scroll-smooth" lang={siteConfig.lang}>
-	<head>
-		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
-	</head>
-	<body
-		class="bg-global-bg text-global-text mx-auto flex min-h-screen max-w-3xl flex-col px-4 pt-16 text-lg font-normal antialiased sm:px-8"
-	>
-		<ThemeProvider />
-		<SkipLink />
-		<Header />
-		<main id="main">
-			<slot />
-			{showChat && <Chat />}
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead
+      articleDate={articleDate}
+      description={description}
+      ogImage={ogImage}
+      title={title}
+    />
+  </head>
+  <body
+    class="bg-global-bg text-global-text mx-auto flex min-h-screen max-w-3xl flex-col px-4 pt-16 text-lg font-normal antialiased sm:px-8">
+    <ThemeProvider />
+    <SkipLink />
+    <Header />
+    <main id="main">
+      <slot />
+      {showChat && <Chat />}
+    </main>
+    <Footer />
+  </body>
 </html>
