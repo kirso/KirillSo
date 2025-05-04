@@ -19,7 +19,7 @@ export const siteConfig: SiteConfig = {
   ogLocale: "en_GB",
   // Used to construct the meta title property found in src/components/BaseHead.astro L:11, and webmanifest name found in astro.config.ts L:42
   title: "Kirill So",
-  url: "https://kirillso.com/",
+  url: "https://www.kirillso.com/" ,
 };
 
 // Used to generate links in both the Header & Footer.

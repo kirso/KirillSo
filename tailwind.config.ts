@@ -7,15 +7,18 @@ export default {
       typography: () => ({
         DEFAULT: {
           css: {
-            a: {
-              textUnderlineOffset: "2px",
-              "&:hover": {
-                "@media (hover: hover)": {
-                  textDecorationColor: "var(--color-link)",
-                  textDecorationThickness: "2px",
-                },
-              },
-            },
+             a: {
+        color: "var(--color-accent)",
+        textDecoration: "underline",
+        textUnderlineOffset: "2px",
+        textDecorationThickness: "2px",
+        transitionProperty: "color, text-decoration-color, text-decoration-thickness",
+        transitionDuration: "150ms",
+        "&:hover": {
+          color: "var(--color-accent)", // keep link color on hover
+          textDecorationColor: "var(--color-link)",
+        },
+      },
             blockquote: {
               borderLeftWidth: "0",
             },
