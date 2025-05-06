@@ -10,8 +10,6 @@ coverImage:
   credit: "Steve Cutts"
 ---
 
-_This short-essay is part of the [Shiny dime challenge](https://writeofpassage.com/challenge)._
-
 Two years back, I wrote my first annual review. It was a daunting exercise. Not for the reasons of dreading self-reflection, I just couldn’t remember what happened last year. It made me feel poignant, as I couldn’t remember much of the past few years unless going into my Instagram feed.
 
 What’s the connection to zombies you may wonder?

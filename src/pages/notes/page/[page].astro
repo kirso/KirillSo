@@ -24,6 +24,10 @@ interface Props {
 
 const { page } = Astro.props;
 
+if (page.currentPage === 1) {
+  return Astro.redirect("/notes/", 301);
+}
+
 const meta = {
   description: "Read my collection of notes",
   title: "Notes",

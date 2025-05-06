@@ -28,6 +28,11 @@ interface Props {
 
 const { page, uniqueTags } = Astro.props;
 
+// Consider index as canonoical instead of page/1
+if (page.currentPage === 1) {
+  return Astro.redirect("/posts/", 301);
+}
+
 const meta = {
   description: "Read my collection of posts and the things that interest me",
   title: "Posts",
@@ -100,7 +105,8 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
               stroke-linejoin="round"
               stroke-width="1.5"
               viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path d="M0 0h24v24H0z" fill="none" stroke="none" />
               <path d="M7.859 6h-2.834a2.025 2.025 0 0 0 -2.025 2.025v2.834c0 .537 .213 1.052 .593 1.432l6.116 6.116a2.025 2.025 0 0 0 2.864 0l2.834 -2.834a2.025 2.025 0 0 0 0 -2.864l-6.117 -6.116a2.025 2.025 0 0 0 -1.431 -.593z" />
               <path d="M17.573 18.407l2.834 -2.834a2.025 2.025 0 0 0 0 -2.864l-7.117 -7.116" />
@@ -112,7 +118,8 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
               <li>
                 <a
                   class="cactus-link flex items-center justify-center"
-                  href={`/tags/${tag}/`}>
+                  href={`/tags/${tag}/`}
+                >
                   <span aria-hidden="true">#</span>
                   <span class="sr-only">View all posts with the tag</span>
                   {tag}
