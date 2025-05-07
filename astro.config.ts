@@ -40,7 +40,12 @@ export default defineConfig({
   integrations: [
     expressiveCode(expressiveCodeOptions),
     icon(),
-    sitemap(),
+    sitemap({
+      filter: (page) => {
+        // Exclude /notes/page/1 and /posts/page/1 from sitemap
+        return !page.includes('/notes/page/1') && !page.includes('/posts/page/1');
+      }
+    }),
     mdx(),
     robotsTxt(),
     webmanifest({
