@@ -1,9 +1,9 @@
 ---
 title: "2024 Annual Review"
-description: "2024 annual review - the year of hardship, life events and travel."
+description: "A annual review of 2024, the year of extreme highs & lows, meaningful life experiences, slow travel and learnings."
 publishDate: "2024-12-31"
 coverImage:
-  src: "./attachments/rollercoaster.jpg"
+  src: "./attachments/rollercoaster.webp"
   alt: "A yellow rollercoaster ride with a blue sky"
   credit: "Ilnur Kalimulin"
   tags: ["meta", "life", "review"]
@@ -86,7 +86,7 @@ August:
 
 September:
 
-- Frascati, Italy - staying at a country house [Erba Regina](https://www.countryhouseerbaregina.com/en/) with Sarah’s parents and enjoying post-wedding downtime.
+- Frascati, Italy - staying at a country house [Erba Regina](https://www.countryhouseerbaregina.com/en/country-house-erba-regina/) with Sarah’s parents and enjoying post-wedding downtime.
 - Ischia, Italy - a trip to the south of Italy for my moms 60th birthday and celebrating together. Also getting lost on my hike and eventually making it back home with no battery after 6 hour walk.
 - Napoli, Italy - eating our hearts away in the center of pizza land and meeting Luca in person after 3 years of random reddit encounter 😂.
 - Milan, Italy - visiting Sarah’s friend in Milan during fashion week and a day trip to lake Como.
@@ -128,7 +128,7 @@ The feeling that day was electrifying and I tend to share that being on the othe
 
 Despite us being married officially for a while, the culmination of various events in Italy has made a huge mark on this year and also followed by the period of relief after a very busy schedule. A big kudos to my wife planning the wedding remotely, in a foreign country with some vendors not speaking english, and putting all the pieces together. We wouldn’t be able to pull it off without the help of our family and friends and hence I extend huge gratitude to everyone who made the trip and supported our relationship throughout the years.
 ![sunset-wedding](attachments/sunset-wedding.png)
-![wedding-ceremony](attachments/wedding-ceremony.png)
+![wedding-ceremony](attachments/wedding-ceremony.webp)
 
 ## Other mentions
 
@@ -243,7 +243,7 @@ This mix from Simon Doty was keeping me in the deep work state throughout the ye
 
 I’ve tried many apps but none of them stuck and I got quickly overwhelmed by the sheer number of categories, lessons and wasn’t sure what is the next lesson to level up. The way completely removes the noise by having a very specific path. You can’t progress unless you finished a previous exercise, there are no other paths you can take until the retreat is done (except for online/live events). This really minimizes optionality and overwhelm. What is even more admirable, is that it is led by a zen teacher [Henry Shukman](https://henryshukman.com/), who is no stranger to awakening. [Here is an interview with Kevin Rose](https://www.kevinrose.com/p/the-path-to-awakening-meditation?publication_id=2776405&post_id=151771632&r=8qdg&triedRedirect=true) if you want a sneak peak into Henry’s thoughts and methods.
 
-[Free 30 meditation sessions](https://the-way.app.link/gift)
+[Free 30 meditation sessions](https://www.thewayapp.com/gift)
 
 ## Looking ahead to 2025
 

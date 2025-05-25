@@ -225,7 +225,7 @@ Somehow I started lacking European cuisine in Singapore (or at least dreading th
 
 ### 📚 Book
 
-[Leviathan wakes](https://www.goodreads.com/book/show/8855321-leviathan-wakes) (Expanse Series Book #1)
+[Leviathan wakes](https://app.thestorygraph.com/books/c83664bb-15bf-4404-b896-af6bbb0cfc18) (Expanse Series Book #1)
 
 If you love sci-fi, I fell in love with the Expanse TV show and started reading the books. The first one in the series is Leviathan Wakes. You can think of it as a game of Thrones with some conspiracy and a bigger world build-up in space. I am on book #4 right now which is pretty slow but it’s a good and easy read when you don’t need your brain to work too much and just relax.
 
