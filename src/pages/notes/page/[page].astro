@@ -12,9 +12,12 @@ export const prerender = true;
 export const getStaticPaths = (async ({ paginate }) => {
   const MAX_NOTES_PER_PAGE = 10;
   const allNotes = await getCollection("note");
-  return paginate(allNotes.sort(collectionDateSort), {
+  const paginatedPaths = paginate(allNotes.sort(collectionDateSort), {
     pageSize: MAX_NOTES_PER_PAGE,
   });
+
+  // Filter out page 1 since /notes/ is the canonical first page
+  return paginatedPaths.filter((path) => path.params.page !== "1");
 }) satisfies GetStaticPaths;
 
 interface Props {
@@ -23,10 +26,6 @@ interface Props {
 }
 
 const { page } = Astro.props;
-
-if (page.currentPage === 1) {
-  return Astro.redirect("/notes/", 301);
-}
 
 const meta = {
   description: "Read my collection of notes",
