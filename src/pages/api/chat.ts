@@ -19,6 +19,17 @@ function getOpenAIClient() {
   return client;
 }
 
+function createSystemMessage(similarContent: Array<{source: string, content: string}>) {
+  const formattedContent = similarContent
+    .map((r) => `[Source: ${r.source}]\n${r.content}`)
+    .join("\n\n");
+
+  return `You are a helpful assistant answering questions about Kirill So's experience, background, and blog posts.
+          When referencing blog posts, always mention them by name.
+          Use the following context to answer questions:
+          ${formattedContent}`;
+}
+
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   try {
     // Check rate limit
@@ -72,10 +83,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       messages: [
         {
           role: "system",
-          content: `You are a helpful assistant answering questions about Kirill So's experience, background, and blog posts.
-                   When referencing blog posts, always mention them by name.
-                   Use the following context to answer questions:
-                   ${similarContent.map((r) => `[Source: ${r.source}]\n${r.content}`).join("\n\n")}`,
+          content: createSystemMessage(similarContent),
         },
         { role: "user", content: message },
       ],

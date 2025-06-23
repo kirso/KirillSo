@@ -8,15 +8,13 @@ description: "An about page that outlines various life milestones. It also delve
 
 ![Kirill So networking with people at a conference](../assets/img/about/kirill-profile-picture.png)
 
-Hey there 👋, thanks for checking a more extensive version of my personality. This corner of the website is always work in progress.
+Hey there 👋, thanks for checking a more extensive about me page. This corner of the website is always work in progress.
 
 ## Who
 
-I am Kirill So, and beyond professional achievements I identify myself as a curious human being, a husband, a son, and a friend. Currently, I live in Singapore with my beautiful wife [Sarah](https://www.sarahkhanamajid.com/), and work in tech as a product manager.
+I am Kirill So, and beyond professional achievements I identify myself as a curious human being, a husband, a son, and a friend. I am currently on sabbatical and traveling with my wife [Sarah](https://www.sarahkhanamajid.com/).
 
-Born in the USSR, I grew up in places like the Czech Republic, Germany, the UK, the US, and Australia and consider myself a citizen of the world (e.g. I lost my identity of where home is).
-
-In my free time, I like to tinker with technology, read, write, and occasionally teach.
+Born in the USSR, I grew up in the Czech Republic and then lived in places like Germany, the UK, the US, Australia and Singapore. It is hard to say where home is these days so I consider myself a citizen of the world.
 
 ## Why
 
@@ -53,9 +51,11 @@ In my free time, I like to tinker with technology, read, write, and occasionally
 
 **2022** - Recovered and balanced my life. I focused on cementing myself in the organization as an expert in my domain, as well as trying to level up skills such as experimentation, technical architecture, and stakeholder management. I learned a lot, especially how different it is working at a scale where every decision can result in millions of revenue (or losses).
 
-**2023** - My identity has shifted and I started exploring what is it that I genuinely like to work on. Even 13 years after working on various things the answer is not completely clear but I see a tiny glimpse of direction.
+**2023** - A post covid year where live slowly came back to normal. Some traveling, learning technical skills and grappling with busyness of the adult life.
 
-**Now (March 2024)** - I am currently in the middle of a personal and professional transition.
+**2024** - [A year of highs and lows](/posts/2024-annual-review/). Got married, traveled a lot and worked hard.
+
+**Now (June 2025)** - I [left my job](/posts/stuff-i-learned-at-delivery-hero/) and currently on short sabbatical in exploration mode.
 
 ### Investments
 
@@ -67,13 +67,14 @@ Private:
 Public:
 
 - [$VWRA](https://www.vanguardmexico.com/en/product/etf/equity/9679/vanguard-ftse-all-world-ucits-etf-usd-accumulating)
-- [$COIN](https://www.google.com/finance/quote/COIN:NASDAQ?sa=X&ved=2ahUKEwjTjYvU4K6EAxWjcGwGHf3RD68Q3ecFegQIRxAf&window=MAX)
 - [$U](https://www.google.com/finance/quote/U:NYSE?window=MAX)
 - [$SE](https://www.google.com/finance/quote/SE:NYSE?window=MAX)
 
 ### Interests
 
-#### Code
+#### Code (vibe & non-vibe)
+
+In 2012 I started to learn Ruby on Rails but never saw it through. I even replaced my windows laptop that I used for games with mac to have a better development environment.
 
 A lot of my friends raised eyebrows and asked why would I do that in the era of ChatGPT and the possibility of hiring others. I plan to write an article on why I think learning is worth it. But TL;DR is that I am a proponent of [builder's mindset](https://builders.genagorlin.com/p/the-builders-mindset-a-way-out-of).
 

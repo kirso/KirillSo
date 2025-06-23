@@ -170,8 +170,6 @@ I didn’t proactively pursue networking with other professionals this year, but
 
 #### Community
 
-[Code in the community](https://www.saturdaykids.com/social-mission/code-in-the-community/) - I wanted to volunteer to teach kids to code but realized I needed to up-skill myself to a good level first.
-
 [Better.sg](http://Better.sg) - was supposed to join as a product manager on one of the projects but my job troubles started and I just couldn’t allocate more time.
 _Proximity_ - made friends with my neighbour whilst going to the same gym, but other than that wasn’t engaged.
 _Online_ - part of a few telegram and discord groups for topics like IndieHackers, micro SaaS, learning to code, and creator economy. Met some amazing people online and am happy to call them great community folks who help each other in the journey.
