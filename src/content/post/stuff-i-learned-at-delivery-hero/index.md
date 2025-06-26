@@ -5,7 +5,7 @@ publishDate: "2025-06-06"
 tags: ["pm", "career", "work"]
 draft: false
 coverImage:
-  src: "./rider-bicycle.jpg"
+  src: "./rider-bicycle.webp"
   alt: "A foodpanda delivery person on a bicycle"
   credit: "Shane Min Zaw"
 ---

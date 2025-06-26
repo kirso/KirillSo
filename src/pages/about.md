@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/Page.astro
 
-title: "About Kirill So"
+title: "About me"
 
 description: "An about page that outlines various life milestones. It also delves into my principles, hobbies, what I am doing now, and overall philosophy of life."
 ---
