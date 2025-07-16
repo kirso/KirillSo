@@ -184,7 +184,7 @@ I have been diligent in saving and thanks to the ability to increase income in t
 
 #### ETFs
 
-Every month I put the majority of my cash into VWRA. The only concern I have right now is that I can potentially get a better risk-adjusted return from DeFi, but I am not comfortable with the security risks posed by these platforms to put my entire retirement investments into
+Every month I put the majority of my cash into VWRA. The only concern I have right now is that I can potentially get a better risk-adjusted return from DeFi, but I am not comfortable with the security risks posed by these platforms to put my entire retirement investments into.
 
 #### Stocks
 

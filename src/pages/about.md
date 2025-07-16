@@ -156,16 +156,11 @@ Some projects I support with volunteering and donations:
 
 ## Principles
 
-- Living an examined and calm life
-- Exploration & experimentation
-- Seeking mastery & expertise
-- Beginner’s mind
-- Lifelong learning and forever student
-- Non-convention and non-conformity
-- Simplicity and minimalism
-- Virtue cultivation
-- Individual journey and direction
-- Bits of hungriness and foolishness
+- **Living a calm and examined life**
+- **Beginner’s mind focused on tiny experiments**
+- **Seeking mastery and expertise through lifelong learning**
+- **Non-conformity with bits of hungriness and foolishness**
+- **Embracing the individual journey and virtue cultivation**
 
 ## End
 
