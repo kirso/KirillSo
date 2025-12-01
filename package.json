@@ -33,7 +33,7 @@
     "cssnano": "^7.0.7",
     "gray-matter": "^4.0.3",
     "hastscript": "^9.0.1",
-    "marked": "^15.0.12",
+    "marked": "^17.0.1",
     "mdast-util-directive": "^3.1.0",
     "mdast-util-to-markdown": "^2.1.2",
     "mdast-util-to-string": "^4.0.0",
