@@ -8,7 +8,7 @@ import WebMentions from "@/components/blog/webmentions/index.astro";
 import BaseLayout from "./Base.astro";
 
 interface Props {
-  post: CollectionEntry<"post">;
+	post: CollectionEntry<"post">;
 }
 
 const { post } = Astro.props;
@@ -30,34 +30,19 @@ const readingTime: string = remarkPluginFrontmatter.readingTime;
     <div id="blog-hero" class="mb-12">
       <Masthead content={post} readingTime={readingTime} />
     </div>
-    <div class="flex flex-col gap-10 lg:flex-row lg:items-start">
-      {!!headings.length && <TOC headings={headings} />}
-      <div
-        class="prose prose-lg prose-headings:font-semibold prose-headings:text-accent-2 prose-headings:before:absolute prose-headings:before:-ms-4 prose-headings:before:text-gray-600 prose-headings:hover:before:text-accent sm:prose-th:before:content-none">
-        <slot />
-        <WebMentions />
-      </div>
+    {!!headings.length && <TOC headings={headings} />}
+    <div class="prose max-w-none">
+      <slot />
+      <WebMentions />
     </div>
   </article>
+
+  <!-- Back to top - minimal text button -->
   <button
-    class="hover:border-link fixed end-4 bottom-8 z-90 flex h-10 w-10 translate-y-28 cursor-pointer items-center justify-center rounded-full border-2 border-transparent bg-zinc-200 text-3xl opacity-0 transition-all transition-discrete duration-300 data-[show=true]:translate-y-0 data-[show=true]:opacity-100 sm:end-8 sm:h-12 sm:w-12 dark:bg-zinc-700"
+    class="fixed end-4 bottom-8 z-90 translate-y-28 cursor-pointer text-sm text-text-secondary opacity-0 transition-all duration-300 hover:text-global-text data-[show=true]:translate-y-0 data-[show=true]:opacity-100 sm:end-8"
     data-show="false"
     id="to-top-btn">
-    <span class="sr-only">Back to top</span>
-    <svg
-      aria-hidden="true"
-      class="h-6 w-6"
-      fill="none"
-      focusable="false"
-      stroke="currentColor"
-      stroke-width="2"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M4.5 15.75l7.5-7.5 7.5 7.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"></path>
-    </svg>
+    <span>↑ Top</span>
   </button>
 </BaseLayout>
 
@@ -67,7 +52,6 @@ const readingTime: string = remarkPluginFrontmatter.readingTime;
 
   function callback(entries: IntersectionObserverEntry[]) {
     entries.forEach((entry) => {
-      // only show the scroll to top button when the heading is out of view
       scrollBtn.dataset.show = (!entry.isIntersecting).toString();
     });
   }

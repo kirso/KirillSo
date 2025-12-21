@@ -3,7 +3,6 @@ import { WEBMENTION_PINGBACK, WEBMENTION_URL } from "astro:env/client";
 import { siteConfig } from "@/site.config";
 import type { SiteMeta } from "@/types";
 import "@/styles/global.css";
-import { Font } from "astro:assets";
 
 type Props = SiteMeta;
 
@@ -12,10 +11,7 @@ const { articleDate, description, ogImage, title } = Astro.props;
 const titleSeparator = "|";
 const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const socialImageURL = new URL(
-  ogImage ? ogImage : "/social-card.png",
-  Astro.url,
-).href;
+const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url).href;
 ---
 
 <meta charset="utf-8" />
@@ -93,8 +89,5 @@ const socialImageURL = new URL(
     </>
   )
 }
-
-{/* Astro Font API + Tailwind */}
-<Font cssVariable="--font-sans" preload />
 
 <meta content={Astro.generator} name="generator" />

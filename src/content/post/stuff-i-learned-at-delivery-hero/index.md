@@ -1,6 +1,6 @@
 ---
 title: "Stuff I learned at Delivery Hero"
-description: "Kirill shares key lessons from Delivery Hero, such as scaling product management, importance of details, engineering partnerships, and the value of caring deeply about your work."
+description: "Lessons from 4 years of product management at Delivery Hero such as importance of details, engineering partnerships, and the value of caring deeply about your work."
 publishDate: "2025-06-06"
 tags: ["pm", "career", "work"]
 draft: false

@@ -3,12 +3,10 @@ import { ClientRouter } from "astro:transitions";
 export const prerender = false;
 
 interface Props {
-  initialMessage?: string;
+	initialMessage?: string;
 }
 
-const {
-  initialMessage = "Hi! Ask me anything about my experience and background.",
-} = Astro.props;
+const { initialMessage = "Hi! Ask me anything about my experience and background." } = Astro.props;
 ---
 
 <ClientRouter />

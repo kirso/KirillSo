@@ -1,0 +1,170 @@
+---
+import BaseLayout from "@/layouts/Base.astro";
+
+const meta = {
+  title: "Reading",
+  description: "Books that shaped my thinking.",
+};
+
+interface Book {
+  title: string;
+  author: string;
+  url?: string;
+  note?: string;
+}
+
+interface Category {
+  title: string;
+  books: Book[];
+}
+
+const reading: Category[] = [
+  {
+    title: "Currently Reading",
+    books: [
+      {
+        title: "The Almanack of Naval Ravikant",
+        author: "Eric Jorgenson",
+        url: "https://www.navalmanack.com/",
+        note: "Wealth and happiness principles",
+      },
+    ],
+  },
+  {
+    title: "Favorites",
+    books: [
+      {
+        title: "The Psychology of Money",
+        author: "Morgan Housel",
+        note: "Timeless lessons on wealth and behavior",
+      },
+      {
+        title: "Thinking, Fast and Slow",
+        author: "Daniel Kahneman",
+        note: "Two systems of thought",
+      },
+      {
+        title: "The Mom Test",
+        author: "Rob Fitzpatrick",
+        note: "How to talk to customers",
+      },
+      {
+        title: "Atomic Habits",
+        author: "James Clear",
+        note: "Small changes, remarkable results",
+      },
+      {
+        title: "The Courage to Be Disliked",
+        author: "Ichiro Kishimi",
+        note: "Adlerian psychology for modern life",
+      },
+      {
+        title: "Inspired",
+        author: "Marty Cagan",
+        note: "How to create products customers love",
+      },
+    ],
+  },
+  {
+    title: "Philosophy & Life",
+    books: [
+      {
+        title: "Meditations",
+        author: "Marcus Aurelius",
+        note: "Stoic wisdom",
+      },
+      {
+        title: "Man's Search for Meaning",
+        author: "Viktor Frankl",
+        note: "Finding purpose in suffering",
+      },
+      {
+        title: "The Subtle Art of Not Giving a F*ck",
+        author: "Mark Manson",
+        note: "Counterintuitive life advice",
+      },
+    ],
+  },
+  {
+    title: "Business & Strategy",
+    books: [
+      {
+        title: "Zero to One",
+        author: "Peter Thiel",
+        note: "Notes on startups",
+      },
+      {
+        title: "The Hard Thing About Hard Things",
+        author: "Ben Horowitz",
+        note: "Building a business when there are no easy answers",
+      },
+      {
+        title: "Good Strategy Bad Strategy",
+        author: "Richard Rumelt",
+        note: "The difference and why it matters",
+      },
+    ],
+  },
+  {
+    title: "Technology & Future",
+    books: [
+      {
+        title: "The Innovator's Dilemma",
+        author: "Clayton Christensen",
+        note: "Why great companies fail",
+      },
+      {
+        title: "Superintelligence",
+        author: "Nick Bostrom",
+        note: "Paths, dangers, strategies",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout meta={meta}>
+  <article>
+    <h1 class="page-title mb-4">Reading</h1>
+    <p class="text-text-secondary mb-12">
+      Books that shaped my thinking. I read slowly and re-read often.
+    </p>
+
+    <div class="space-y-12">
+      {reading.map((category) => (
+        <section>
+          <h2 class="section-label mb-6">{category.title}</h2>
+          <ul class="space-y-4">
+            {category.books.map((book) => (
+              <li class="flex flex-col gap-0.5">
+                <div class="flex items-baseline gap-2">
+                  {book.url ? (
+                    <a
+                      href={book.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="link font-medium"
+                    >
+                      {book.title}
+                    </a>
+                  ) : (
+                    <span class="font-medium">{book.title}</span>
+                  )}
+                  <span class="text-text-tertiary">—</span>
+                  <span class="text-text-secondary">{book.author}</span>
+                </div>
+                {book.note && (
+                  <p class="text-sm text-text-tertiary">{book.note}</p>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+
+    <p class="mt-12 text-sm text-text-tertiary">
+      For more recommendations, check out my <a href="https://www.goodreads.com/kirso" class="link" target="_blank" rel="noopener">Goodreads</a>.
+    </p>
+  </article>
+</BaseLayout>

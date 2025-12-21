@@ -1,70 +1,65 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
-import Pagination from "@/components/Paginator.astro";
-import Note from "@/components/note/Note.astro";
-import PageLayout from "@/layouts/Base.astro";
-import { collectionDateSort } from "@/utils/date";
 import type { GetStaticPaths, Page } from "astro";
 import { Icon } from "astro-icon/components";
+import Note from "@/components/note/Note.astro";
+import Pagination from "@/components/Paginator.astro";
+import PageLayout from "@/layouts/Base.astro";
+import { collectionDateSort } from "@/utils/date";
 
 export const prerender = true;
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const MAX_NOTES_PER_PAGE = 10;
-  const allNotes = await getCollection("note");
-  const paginatedPaths = paginate(allNotes.sort(collectionDateSort), {
-    pageSize: MAX_NOTES_PER_PAGE,
-  });
+	const MAX_NOTES_PER_PAGE = 10;
+	const allNotes = await getCollection("note");
+	const paginatedPaths = paginate(allNotes.sort(collectionDateSort), {
+		pageSize: MAX_NOTES_PER_PAGE,
+	});
 
-  // Filter out page 1 since /notes/ is the canonical first page
-  return paginatedPaths.filter((path) => path.params.page !== "1");
+	// Filter out page 1 since /notes/ is the canonical first page
+	return paginatedPaths.filter((path) => path.params.page !== "1");
 }) satisfies GetStaticPaths;
 
 interface Props {
-  page: Page<CollectionEntry<"note">>;
-  uniqueTags: string[];
+	page: Page<CollectionEntry<"note">>;
+	uniqueTags: string[];
 }
 
 const { page } = Astro.props;
 
 const meta = {
-  description: "Read my collection of notes",
-  title: "Notes",
+	description: "Read my collection of notes",
+	title: "Notes",
 };
 
 const paginationProps = {
-  ...(page.url.prev && {
-    prevUrl: {
-      text: "← Previous Page",
-      url: page.url.prev,
-    },
-  }),
-  ...(page.url.next && {
-    nextUrl: {
-      text: "Next Page →",
-      url: page.url.next,
-    },
-  }),
+	...(page.url.prev && {
+		prevUrl: {
+			text: "← Previous Page",
+			url: page.url.prev,
+		},
+	}),
+	...(page.url.next && {
+		nextUrl: {
+			text: "Next Page →",
+			url: page.url.next,
+		},
+	}),
 };
 ---
 
 <PageLayout meta={meta}>
+  <header class="mb-12">
+    <h1 class="page-title">Notes</h1>
+    <p class="mt-2 text-text-secondary">Page {page.currentPage}</p>
+  </header>
+
   <section>
-    <h1 class="title mb-6 flex items-center gap-3">
-      Notes <a class="text-accent" href="/notes/rss.xml" target="_blank">
-        <span class="sr-only">RSS feed</span>
-        <Icon
-          aria-hidden="true"
-          class="h-6 w-6"
-          focusable="false"
-          name="mdi:rss"
-        />
-      </a>
-    </h1>
-    <ul class="mt-6 space-y-8 text-start">
+    <p class="section-label mb-6">Recent thoughts</p>
+    <ul class="space-y-8">
       {
         page.data.map((note) => (
-          <li class="">
+          <li>
             <Note note={note} as="h2" isPreview />
           </li>
         ))

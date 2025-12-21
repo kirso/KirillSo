@@ -1,39 +1,29 @@
 ---
-/** Export the Props type alias **/
-const { title, description, to, gradientFrom, gradientTo } = Astro.props;
+/**
+ * Brutalist Card - monochrome, clean
+ * Use inside a bordered container with divide-y for connected look
+ */
 export type Props = {
-  to: string;
-  title: string;
-  description: string;
-  gradientFrom: string;
-  gradientTo: string;
+	to: string;
+	title: string;
+	description: string;
 };
-// Get component props from Astro.pages
+
+const { title, description, to } = Astro.props;
+const isExternal = to?.startsWith("http") ?? false;
 ---
 
-<a href={to} class="card">
-  <div class="bg-global-bg flex flex-col rounded-md p-5">
-    <div class="prose text-lg leading-7 font-bold">{title}</div>
-    <div class="prose text-base">{description}</div>
-    <!-- Render the arrow via HTML entity name: → = &rarr;  -->
-    <div class="prose mt-auto mr-0 mb-auto ml-0 pt-8 text-lg">&rarr;</div>
-  </div>
+<a
+	class="group block p-5 transition-colors hover:bg-global-text hover:text-global-bg"
+	href={to}
+	target={isExternal ? "_blank" : undefined}
+	rel={isExternal ? "noopener noreferrer" : undefined}
+>
+	<div class="flex items-start justify-between gap-4">
+		<div>
+			<div class="font-semibold">{title}</div>
+			<div class="mt-1 text-sm opacity-70 group-hover:opacity-90">{description}</div>
+		</div>
+		<span class="text-lg transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+	</div>
 </a>
-
-<style define:vars={{ gradientFrom, gradientTo }}>
-  .card {
-    background-image: linear-gradient(
-      to right,
-      var(--gradientFrom),
-      var(--gradientTo)
-    );
-    --radius: 10px;
-    padding: 4px;
-    border-radius: var(--radius);
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-  }
-  .card:hover {
-    transform: scale(0.95);
-  }
-</style>

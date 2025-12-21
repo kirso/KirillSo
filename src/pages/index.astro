@@ -1,76 +1,116 @@
 ---
+import { Image } from "astro:assets";
 import { type CollectionEntry, getCollection } from "astro:content";
-import SocialList from "@/components/SocialList.astro";
+import Card from "@/components/Card.astro";
 import PostPreview from "@/components/blog/PostPreview.astro";
 import Note from "@/components/note/Note.astro";
 import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import { collectionDateSort } from "@/utils/date";
-import Cards from "../components/Cards.astro";
-import { Tech } from "@/data/tech";
+import headshot from "@/assets/img/headshot.png";
+
 // Posts
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
 const allPostsByDate = allPosts
-  .sort(collectionDateSort)
-  .slice(0, MAX_POSTS) as CollectionEntry<"post">[];
+	.sort(collectionDateSort)
+	.slice(0, MAX_POSTS) as CollectionEntry<"post">[];
 
 // Notes
-const MAX_NOTES = 5;
+const MAX_NOTES = 3;
 const allNotes = await getCollection("note");
 const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
+
+// Projects
+const projects = [
+	{
+		title: "Google clone",
+		to: "/posts/google-clone/",
+		description: "Search with Google API",
+	},
+	{
+		title: "Panic theme",
+		to: "https://github.com/kirso/logseq-panic-theme",
+		description: "Make Logseq PKM pretty",
+	},
+	{
+		title: "Schwiftyverse",
+		to: "https://schwiftyverse.vercel.app/",
+		description: "GIFs on Solana blockchain",
+	},
+	{
+		title: "ToDo",
+		to: "https://github.com/kirso/bun-elysia-tailwind-htmx-todo-app",
+		description: "Tasks on the edge",
+	},
+];
 ---
 
 <PageLayout meta={{ title: "Home" }}>
-  <section>
-    <p>Hi, I'm Kirill. Currently on sabbatical and in exploration mode.</p>
-    <br />
-    <p>
-      Previously, I was a principal product manager at Delivery Hero, where I
-      shipped growth features that drove millions in revenue. In the past I also
-      ran a mobile marketing agency, took part in VC accelerator, drove GTM at
-      early-stage startups & invested in renewable energy.
-    </p>
-    <br />
-    <p>
-      Occasionally, I write about my life experiences and digital products as
-      well as support founders of early-stage startups with growth, product and
-      hiring. If you are building cool stuff, don't hesitate to reach out!
-    </p>
-    <br />
-    <p>
-      In my free time I weightlift, play tennis, consume scif-fi and travel with
-      my <a class="cactus-link" href="https://sarahkhanamajid.com/">wife</a>. <a
-        class="cactus-link"
-        href="https://twitter.com/kirso_">DMs</a
-      > are always open, so as <a
-        class="cactus-link"
-        href="https://calendar.notion.so/meet/kirso/9f8o4l6f">coffee chats</a
-      >.
-    </p>
-    <br />
-    <SocialList />
-  </section>
+  <!-- Hero -->
+  <header class="mb-12">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
+      <Image
+        src={headshot}
+        alt="Kirill So"
+        width={96}
+        height={96}
+        class="h-24 w-24 rounded-full object-cover grayscale"
+      />
+      <div class="flex-1">
+        <p class="leading-relaxed">
+          Hi, I'm Kirill. Currently on sabbatical and in exploration mode. Previously, I was a principal product manager at Delivery Hero, where I shipped growth features that drove millions in revenue.
+        </p>
+        <p class="mt-4 leading-relaxed">
+          I write about life experiences and digital products. In my free time I weightlift, play tennis, and travel with my <a class="link font-medium" href="https://sarahkhanamajid.com/" target="_blank" rel="noopener">wife</a>.
+        </p>
+      </div>
+    </div>
+    <nav class="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+      <a class="link" href="https://twitter.com/kirso_" target="_blank" rel="noopener">Twitter</a>
+      <span class="text-text-tertiary">/</span>
+      <a class="link" href="https://github.com/kirso" target="_blank" rel="noopener">GitHub</a>
+      <span class="text-text-tertiary">/</span>
+      <a class="link" href="https://www.linkedin.com/in/kirso_" target="_blank" rel="noopener">LinkedIn</a>
+      <span class="text-text-tertiary">/</span>
+      <a class="link" href="https://kirill.substack.com" target="_blank" rel="noopener">Newsletter</a>
+      <span class="text-text-tertiary">/</span>
+      <a class="link" href="mailto:kirso@hey.com">Email</a>
+      <span class="text-text-tertiary">/</span>
+      <a class="link" href="/cv.pdf" download>CV ↓</a>
+    </nav>
+  </header>
 
-  <section class="mt-10">
-    <h2 class="title text-accent mb-6 text-xl"><a href="/posts/">Posts</a></h2>
-    <ul class="space-y-4" role="list">
+  <!-- Posts -->
+  <section class="mb-16">
+    <div class="mb-6 flex items-baseline justify-between">
+      <p class="section-label">Posts</p>
+      <a class="arrow-link" href="/posts/">
+        View all <span aria-hidden="true">→</span>
+      </a>
+    </div>
+    <ul class="space-y-3">
       {
         allPostsByDate.map((p) => (
-          <li class="grid gap-2 sm:grid-cols-[auto_1fr]">
+          <li class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
             <PostPreview post={p} />
           </li>
         ))
       }
     </ul>
   </section>
+
+  <!-- Notes -->
   {
     latestNotes.length > 0 && (
-      <section class="mt-10">
-        <h2 class="title text-accent mb-6 text-xl">
-          <a href="/notes/">Notes</a>
-        </h2>
-        <ul class="space-y-4" role="list">
+      <section class="mb-16">
+        <div class="mb-6 flex items-baseline justify-between">
+          <p class="section-label">Notes</p>
+          <a class="arrow-link" href="/notes/">
+            View all <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <ul class="space-y-6">
           {latestNotes.map((note) => (
             <li>
               <Note note={note} as="h3" isPreview />
@@ -80,64 +120,14 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
       </section>
     )
   }
-  <section class="mt-10">
-    <h2 class="title text-accent mb-6 text-xl">Projects</h2>
-    <Cards
-      cards={[
-        {
-          title: "Google clone",
-          to: "/posts/google-clone/",
-          description: "Search with Google API",
-          gradientFrom: "#818cf8",
-          gradientTo: "#d8b4fe",
-        },
-        {
-          title: "Panic theme",
-          to: "https://github.com/kirso/logseq-panic-theme",
-          description: "Make Logseq PKM pretty",
-          gradientFrom: "#fde68a",
-          gradientTo: "#fca5a5",
-        },
-        {
-          title: "Schwiftyverse",
-          to: "https://schwiftyverse.vercel.app/",
-          description: "GIFs on Solana blockchain",
-          gradientFrom: "#6ee7b7",
-          gradientTo: "#9333ea",
-        },
-        {
-          title: "ToDo",
-          to: "https://github.com/kirso/bun-elysia-tailwind-htmx-todo-app",
-          description: "Tasks on the edge",
-          gradientFrom: "#a15",
-          gradientTo: "#F51",
-        },
-      ]}
-    />
-  </section>
-  <section class="mt-10">
-    <h2 class="title text-accent mb-6 text-xl">Tech</h2>
-    <dl class="space-y-4">
-      {
-        Tech.map(({ href, title, desc }) => (
-          <div class="flex flex-col gap-2 md:flex-row">
-            <dt>
-              <span class="flex">
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="cactus-link"
-                >
-                  {title}
-                </a>
-                :
-              </span>
-            </dt>
-            <dd>{desc}</dd>
-          </div>
-        ))
-      }
-    </dl>
+
+  <!-- Projects -->
+  <section class="mb-16">
+    <div class="mb-6 flex items-baseline justify-between">
+      <p class="section-label">Projects</p>
+    </div>
+    <div class="divide-y divide-border border border-border">
+      {projects.map((project) => <Card {...project} />)}
+    </div>
   </section>
 </PageLayout>

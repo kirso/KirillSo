@@ -1,4 +1,5 @@
 ---
+/** Editorial Minimalism Webmentions **/
 import { getWebmentionsForUrl } from "@/utils/webmentions";
 import Comments from "./Comments.astro";
 import Likes from "./Likes.astro";
@@ -11,15 +12,19 @@ const webMentions = await getWebmentionsForUrl(`${url}`);
 if (!webMentions.length) return;
 ---
 
-<hr class="border-solid" />
-<h2 class="mb-8 before:hidden">Webmentions for this post</h2>
-<div class="space-y-10">
-  <Likes mentions={webMentions} />
-  <Comments mentions={webMentions} />
-</div>
-<p class="mt-8">
-  Responses powered by{" "}
-  <a href="https://webmention.io" rel="noreferrer" target="_blank"
-    >Webmentions</a
-  >
-</p>
+<section class="mt-12 border-t border-border pt-6">
+  <p class="section-label mb-6">Webmentions</p>
+  <div class="space-y-10">
+    <Likes mentions={webMentions} />
+    <Comments mentions={webMentions} />
+  </div>
+  <p class="mt-8 text-sm text-text-secondary">
+    Powered by{" "}
+    <a
+      class="link-muted"
+      href="https://webmention.io"
+      rel="noreferrer"
+      target="_blank">Webmention.io</a
+    >
+  </p>
+</section>

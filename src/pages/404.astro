@@ -2,12 +2,15 @@
 import PageLayout from "@/layouts/Base.astro";
 
 const meta = {
-  description: "Oops! It looks like this page is lost in space!",
-  title: "Oops! You found a missing page!",
+	description: "This page doesn't exist.",
+	title: "Page not found",
 };
 ---
 
 <PageLayout meta={meta}>
-  <h1 class="title mb-6">404 | Oops something went wrong</h1>
-  <p class="mb-8">Please use the navigation to find your way back</p>
+  <article>
+    <h1 class="page-title mb-4">404</h1>
+    <p class="text-text-secondary mb-8">This page doesn't exist. Use the navigation to find your way back.</p>
+    <a href="/" class="link">Return home</a>
+  </article>
 </PageLayout>

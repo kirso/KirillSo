@@ -6,13 +6,13 @@ import "@/styles/blocks/search.css";
 
 <site-search class="ms-auto" id="search">
   <button
-    class="hover:text-accent flex h-9 w-9 cursor-pointer items-center justify-center rounded-md"
+    class="text-text-secondary hover:text-global-text flex h-8 w-8 cursor-pointer items-center justify-center transition-colors"
     aria-keyshortcuts="Control+K Meta+K"
     data-open-modal
     disabled>
     <svg
       aria-hidden="true"
-      class="h-7 w-7"
+      class="h-5 w-5"
       fill="none"
       height="16"
       stroke="currentColor"
@@ -29,10 +29,10 @@ import "@/styles/blocks/search.css";
   </button>
   <dialog
     aria-label="search"
-    class="bg-global-bg h-full max-h-full w-full max-w-full border border-zinc-400 shadow-sm backdrop:backdrop-blur-sm open:flex sm:mx-auto sm:mt-16 sm:mb-auto sm:h-max sm:max-h-[calc(100%-8rem)] sm:min-h-[15rem] sm:w-5/6 sm:max-w-[48rem] sm:rounded-md">
+    class="bg-global-bg h-full max-h-full w-full max-w-full border border-border shadow-sm backdrop:backdrop-blur-sm open:flex sm:mx-auto sm:mt-16 sm:mb-auto sm:h-max sm:max-h-[calc(100%-8rem)] sm:min-h-[15rem] sm:w-5/6 sm:max-w-[48rem] sm:rounded-md">
     <div class="dialog-frame flex grow flex-col gap-4 p-6 pt-12 sm:pt-6">
       <button
-        class="ms-auto cursor-pointer rounded-md bg-zinc-200 p-2 font-semibold dark:bg-zinc-700"
+        class="ms-auto cursor-pointer border border-border px-3 py-1.5 text-sm transition-colors hover:border-accent"
         data-close-modal>Close</button
       >
       {

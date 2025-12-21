@@ -1,167 +1,68 @@
 ---
 layout: ../layouts/Page.astro
-
-title: "About me"
-
-description: "An about page that outlines various life milestones. It also delves into my principles, hobbies, what I am doing now, and overall philosophy of life."
+title: "About"
+description: "Product leader, explorer, lifelong learner. Building things and writing about it."
+lastUpdated: "December 2024"
 ---
 
-![Kirill So networking with people at a conference](../assets/img/about/kirill-profile-picture.png)
+I'm Kirill So. I build products, write occasionally, and try to live deliberately.
 
-Hey there 👋, thanks for checking a more extensive about me page. This corner of the website is always work in progress.
+Born in the USSR, raised in the Czech Republic, and have since called Germany, the UK, the US, Australia, and Singapore home. Currently traveling with my wife [Sarah](https://www.sarahkhanamajid.com/).
 
-## Who
+## Timeline
 
-I am Kirill So, and beyond professional achievements I identify myself as a curious human being, a husband, a son, and a friend. I am currently on sabbatical and traveling with my wife [Sarah](https://www.sarahkhanamajid.com/).
+**2024** — Left Delivery Hero after shipping growth features that drove millions in revenue. Got married. Started this sabbatical.
 
-Born in the USSR, I grew up in the Czech Republic and then lived in places like Germany, the UK, the US, Australia and Singapore. It is hard to say where home is these days so I consider myself a citizen of the world.
+**2022** — Joined Delivery Hero as Principal PM. Learned what it means when every decision affects millions of users.
 
-## Why
+**2020** — Joined [Antler](https://www.antler.co/) to work on ML tooling. Learned about VC economics and intrinsic motivation.
 
-- To continuously seek deeper understanding about the complexities of the world and people within it.
-- To cultivate the qualities that encourage growth, empathy and connection.
-- To go beyond surface-level judgement and assumptions and open meaningful interactions.
-- To cope with the chaos and eternal change of the world.
-- To exercise open-mindedness, compassion and kindness.
+**2018** — Moved to Singapore. Worked on fraud detection using blockchain and external data at SEA's largest C2C marketplace.
 
-## What
+**2015** — Joined [Remerge](https://venturebeat.com/2014/10/03/1-million-seed-funding-led-by-point-nine-capital-investing-in-remerge-was-a-no-brainer-for-us/) at 10 people. Left at 100. True 0-to-1 startup experience.
 
-### Professional milestones
+**2014** — Started a mobile UA agency. Hit $30k MRR in month one. Bank shut it down a year later. First taste of digital nomad life in Thailand.
 
-**2010** - Landed my first job in a [private equity fund](https://www.enercap.com/) and helped raise **over $200m in debt financing** for renewable energy projects in CEE. These wind, solar, and biomass projects have been saving 130,000 tonnes of carbon p.a. powering 200,000 households.
+**2012** — Moved to Berlin during the startup boom. Joined a [venture studio](https://www.ioniq.com/) and watched mobile overtake web from front-row seats.
 
-**2011** - Started my first startup that copied a [business model](https://venturebeat.com/business/a-brief-history-of-fab-from-mega-hype-to-crash-and-burn/) from the US. After incorporating, and printing business cards, we realized we had 0 customers. Turns out it’s quite important. I learned a few valuable lessons at that time.
+**2011** — First startup. Copied a US business model. Printed business cards before finding customers. Learned the hard way.
 
-**2012** - Moved to Berlin during the start-up boom and joined a [venture studio](https://www.ioniq.com/). The company portfolio now spans FinTech, AdTech and HealthTech companies. This has been an interesting experience looking back based on the macro and micro lens of technology cycles. We saw mobile overtaking web traffic from the front-row seats, the rise of ad networks, fraud, and most importantly the phase when everyone is just trying to figure out what is going to happen next.
+**2010** — First job at a [private equity fund](https://www.enercap.com/). Helped raise $200m for renewable energy projects in CEE.
 
-![Paddling on the lake in Berlin, Germany](../assets/img/about/berlin.jpeg)
+## Interests
 
-**2014** - Started a mobile-first user acquisition agency and reached **$30k in revenue in the first month**. It was my first digital nomad experience whilst living and traveling in Thailand. Unfortunately, my bank sent me a cease and desist letter a year later and I had to shut down. I learned a lot about perseverance, stress, independence, and non-default paths.
+**Building** — Learning to code since 2012 (on and off). Proponent of the [builder's mindset](https://builders.genagorlin.com/p/the-builders-mindset-a-way-out-of). Currently focused on web development and AI tooling.
 
-**2015** - Joined a [seed stage startup](https://venturebeat.com/2014/10/03/1-million-seed-funding-led-by-point-nine-capital-investing-in-remerge-was-a-no-brainer-for-us/) in Berlin and went from 0 revenue to one of the industry leaders in mobile advertising. We grew **from 10 people to 100 employees** and I was lucky to experience a true **0 to 1 startup scale-up story**, including the go-to-market in 7 different countries.
+**Design** — Believe design is an underrated moat. Inspired by Linear's philosophy of [raising the bar](https://twitter.com/karrisaarinen/status/1762980712863695118).
 
-**2016** - Took a short career break and spent time with my family during which I accidentally learned about Ethereum. Took part in the first crypto wave, which was well described [in this book](https://www.amazon.com/Cryptopians-Idealism-Greed-Making-Cryptocurrency-ebook/dp/B08YD5LW8L?qid=&sr=). I also spent some time learning to code but didn’t follow through. It was also the first year of my forte in newsletters and I convinced 300 poor souls that I had something important to say.
+**Communities** — Obsessed with [French Salons](https://thesalonhost.com/what-is-a-salon/) as "raves for the intellect." Exploring how to fix loneliness and create third places.
 
-**2018** - Made a move to Singapore and worked with the largest C2C marketplace in SEA on a platform utilizing blockchain and external data to identify bad actors. Started from scratch yet again and met some amazing entrepreneurs, investors, and startup people in the ecosystem.
-![Singapore coindesk conference with people talking on the stage](../assets/img/about/singapore-coindesk.jpeg)
+**Calm companies** — Invested in [Calm Company Fund](https://calmfund.com/). Interested in [software value investing](https://twitter.com/tylertringas/status/1763247342377979912).
 
-**2020** - Got accepted into an [early-stage start-up program](https://www.antler.co/) and worked on a machine learning product to help push models into production faster. Learned a lot yet again. Not only about the economics of VCs, which is a very popular topic these days but also about intrinsic motivation and quitting.
+## Investments
 
-**2021** - An infamous COVID year and professional fiasco. I interviewed for my dream job and managed to completely mess it up. With desperate visa needs in a foreign country, I ended up in a terrible place professionally. Pretty much a survival type of year.
+Private: [Calm Company Fund](https://calmfund.com/), [Replit](https://replit.com/)
 
-**2022** - Recovered and balanced my life. I focused on cementing myself in the organization as an expert in my domain, as well as trying to level up skills such as experimentation, technical architecture, and stakeholder management. I learned a lot, especially how different it is working at a scale where every decision can result in millions of revenue (or losses).
+Public: [$VWRA](https://www.vanguardmexico.com/en/product/etf/equity/9679/vanguard-ftse-all-world-ucits-etf-usd-accumulating), [$U](https://www.google.com/finance/quote/U:NYSE), [$SE](https://www.google.com/finance/quote/SE:NYSE)
 
-**2023** - A post covid year where live slowly came back to normal. Some traveling, learning technical skills and grappling with busyness of the adult life.
+## Influences
 
-**2024** - [A year of highs and lows](/posts/2024-annual-review/). Got married, traveled a lot and worked hard.
+[Awakening from the Meaning Crisis](https://www.meaningcrisis.co/) — [This is Water](https://www.youtube.com/watch?v=OsAd4HGJS4o) — [The Egg](https://www.youtube.com/watch?v=h6fcK_fRYaI) — [Everything is a Remix](https://www.youtube.com/watch?v=X9RYuvPCQUA)
 
-**Now (June 2025)** - I [left my job](/posts/stuff-i-learned-at-delivery-hero/) and currently on short sabbatical in exploration mode.
-
-### Investments
-
-Private:
-
-- [Calm company fund](https://calmfund.com/)
-- [Replit](https://replit.com/)
-
-Public:
-
-- [$VWRA](https://www.vanguardmexico.com/en/product/etf/equity/9679/vanguard-ftse-all-world-ucits-etf-usd-accumulating)
-- [$U](https://www.google.com/finance/quote/U:NYSE?window=MAX)
-- [$SE](https://www.google.com/finance/quote/SE:NYSE?window=MAX)
-
-### Interests
-
-#### Code (vibe & non-vibe)
-
-In 2012 I started to learn Ruby on Rails but never saw it through. I even replaced my windows laptop that I used for games with mac to have a better development environment.
-
-A lot of my friends raised eyebrows and asked why would I do that in the era of ChatGPT and the possibility of hiring others. I plan to write an article on why I think learning is worth it. But TL;DR is that I am a proponent of [builder's mindset](https://builders.genagorlin.com/p/the-builders-mindset-a-way-out-of).
-
-#### Design
-
-In combination with the above, I am also learning about UX/UI and accessibility. I think design is an underrated moat for a lot of products and is taken as a default trust factor in whether the product is worth it. I love the philosophy of Linear that reaching a certain type of user is no longer about MVP but [raising the bar of quality](https://twitter.com/karrisaarinen/status/1762980712863695118).
-
-#### Communities
-
-In 2023, I am shifting away from online and towards offline and proximity-based communities. I don’t feel like X or online forums sparked a feeling of belonging and I am working on something small to make this happen.
-
-I am obsessed with the idea of [French Salons as a "rave for the intellect"](https://thesalonhost.com/what-is-a-salon/). I believe that a lot of loneliness and mental health issues come from the lack of 3rd places in the world and support systems, particularly for males. I am exploring how this can be fixed.
-
-#### Calm companies
-
-I’ve been trying to scout for calm companies via [Calm Company Fund](https://calmfund.com/). It is challenging to find a balance where founders are either beyond profitability and don’t want to sell or too early where they are profitable. In 2023 I’ve found a great company with around $35k MRR and 90% margins in an interesting space and reasonable price. Unfortunately, I was too late and not ready.
-
-I am keeping an eye on the space of [early-stage software “value investing”](https://twitter.com/tylertringas/status/1763247342377979912).
-
-#### ~~Second brain~~
-
-This has been a major downer given that I spent so much time on it. I see people wasting time on configuration and storage instead of output and fall short in actually producing (like me). Doing is worth 50x more than organizing. [The flaws of PKM systems are clear](https://sashachapin.substack.com/p/notes-against-note-taking-systems). I am currently in the process of just simplifying things.
-
-### Open questions
-
-Things I ponder about.
-
-#### Incentives
-
-- Why do we see a gap of quality when we try to maximize gains?
-- How can we collectively work together, despite the differences?
-
-#### Humans
-
-- With the ongoing technological progress, why does it feel that we are going backwards in terms of life satisfaction?
-- How can we cultivate better and more meaningful communities?
-
-### Influences
-
-World influences that shaped me into a person I am today
-
-#### Meaning
-
-- [Awakening from the meaning crisis](https://www.meaningcrisis.co/)
-
-#### Life
-
-- [This is water](https://www.youtube.com/watch?v=OsAd4HGJS4o)
-- [The egg](https://www.youtube.com/watch?v=h6fcK_fRYaI)
-
-#### Creativity
-
-- [Everything is a remix](https://www.youtube.com/watch?v=X9RYuvPCQUA)
-
-#### People
-
-Humans who had a severe impact on my life which I extend my gratitude to as well as my admiration.
-
-- [Derek Sivers](https://sive.rs/)
-- [Charlie Munger](https://www.charlie-munger.com/)
-- [Bruce Lee](https://www.bruce-lee.com/)
-- [Edward Thorp](https://www.edwardothorp.com/about/)
-
-### Content
-
-#### Documentaries
-
-- [Searching for Sugarman](https://www.youtube.com/watch?v=KKXewWDh1og)
-- [Jiro dreams of sushi](https://www.youtube.com/watch?v=0VB_DrsHDQ0)
-- [Dealt](https://www.youtube.com/watch?v=F__DQ1ruYck)
-
-## Other
-
-Some projects I support with volunteering and donations:
-
-- [FreeCodeCamp](https://www.freecodecamp.org/donate)
-- [Logseq](https://opencollective.com/logseq)
-- [Charity:water](https://www.charitywater.org/kirso)
+People: [Derek Sivers](https://sive.rs/), [Charlie Munger](https://www.charlie-munger.com/), [Bruce Lee](https://www.bruce-lee.com/), [Edward Thorp](https://www.edwardothorp.com/)
 
 ## Principles
 
-- **Living a calm and examined life**
-- **Beginner’s mind focused on tiny experiments**
-- **Seeking mastery and expertise through lifelong learning**
-- **Non-conformity with bits of hungriness and foolishness**
-- **Embracing the individual journey and virtue cultivation**
+- Living a calm and examined life
+- Beginner's mind, tiny experiments
+- Mastery through lifelong learning
+- Non-conformity with bits of hungriness
+- Embracing the individual journey
 
-## End
+## Support
 
-[My DMs are always open](https://www.twitter.com/kirso_). Alternatively, you can [book a call](https://cal.com/kirso).
+Projects I support: [FreeCodeCamp](https://www.freecodecamp.org/donate), [Charity:water](https://www.charitywater.org/kirso)
+
+---
+
+[DMs are open](https://www.twitter.com/kirso_) or [book a call](https://cal.com/kirso).
