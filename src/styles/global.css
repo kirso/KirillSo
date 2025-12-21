@@ -1,3 +1,71 @@
+/**
+ * ============================================================================
+ * KIRILLSO.COM DESIGN SYSTEM
+ * ============================================================================
+ *
+ * DESIGN PHILOSOPHY
+ * -----------------
+ * Editorial Minimalism — Typography-first design where content breathes.
+ * Every element earns its place. Nothing decorative, everything purposeful.
+ *
+ * AESTHETIC PRINCIPLES
+ * --------------------
+ * 1. Paper-like warmth     — Warm stone palette, not sterile white
+ * 2. Typography hierarchy  — Weight and size create structure, not color
+ * 3. Generous whitespace   — Content breathes, reading feels effortless
+ * 4. Subtle interactions   — Hover states inform, never distract
+ * 5. Monochrome discipline — No accent colors, inversion for emphasis
+ *
+ * VISUAL LANGUAGE
+ * ---------------
+ * • Swiss Style grid       — Asymmetric, structured, purposeful
+ * • Catalog aesthetic      — Clean lists, consistent patterns
+ * • Directory design       — Information-dense but scannable
+ * • Anti-brutalist         — Refined edges, warm not harsh
+ *
+ * COMPONENT PATTERNS
+ * ------------------
+ * Cards:     hover:bg-global-text hover:text-global-bg (color inversion)
+ * Links:     Underlined, thicken on hover (never color change)
+ * Buttons:   Border + fill inversion on hover
+ * Tags:      Border only, subtle hover
+ * Icons:     Allowed in catalog contexts (uses, tools), not decorative
+ *
+ * COLOR SYSTEM
+ * ------------
+ * Three-tier text hierarchy:
+ *   --color-global-text     Primary content, headings
+ *   --color-text-secondary  Body text, descriptions
+ *   --color-text-tertiary   Metadata, timestamps, labels
+ *
+ * Borders:
+ *   --color-border          Visible dividers, card borders
+ *   --color-border-light    Subtle separators
+ *
+ * TYPOGRAPHY CLASSES
+ * ------------------
+ * .page-title      — H1, commanding but not aggressive
+ * .section-label   — Uppercase, letterspaced, quiet
+ * .section-title   — H2/H3, clear hierarchy
+ * .lead-text       — Intro paragraphs, larger secondary
+ * .body-text       — Optimal reading (17px, 1.75 line-height)
+ * .small-text      — Metadata, captions
+ *
+ * LINK CLASSES
+ * ------------
+ * .link            — Primary, always underlined
+ * .link-muted      — Secondary content, metadata
+ * .link-nav        — Navigation, underline on hover
+ * .arrow-link      — "View all →" actions
+ * .tag             — Metadata badges
+ *
+ * INSPIRATIONS
+ * ------------
+ * Stripe Press, Readymag, Linear, Notion, Paco Coursey, Rauno Freiberg
+ *
+ * ============================================================================
+ */
+
 /* Satoshi font - self-hosted for better performance */
 @font-face {
 	font-family: "Satoshi";

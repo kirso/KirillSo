@@ -1,0 +1,203 @@
+---
+import BaseLayout from "@/layouts/Base.astro";
+
+const meta = {
+  title: "About",
+  description: "Product leader, explorer, lifelong learner. Building things and writing about it.",
+};
+
+interface TimelineEntry {
+  year: string;
+  text: string;
+  link?: { url: string; label: string };
+}
+
+const timeline: TimelineEntry[] = [
+  { year: "2024", text: "Left Delivery Hero after shipping growth features that drove millions in revenue. Got married. Started this sabbatical." },
+  { year: "2022", text: "Joined Delivery Hero as Principal PM. Learned what it means when every decision affects millions of users." },
+  { year: "2020", text: "Joined Antler to work on ML tooling. Learned about VC economics and intrinsic motivation.", link: { url: "https://www.antler.co/", label: "Antler" } },
+  { year: "2018", text: "Moved to Singapore. Worked on fraud detection using blockchain and external data at SEA's largest C2C marketplace." },
+  { year: "2015", text: "Joined Remerge at 10 people. Left at 100. True 0-to-1 startup experience.", link: { url: "https://venturebeat.com/2014/10/03/1-million-seed-funding-led-by-point-nine-capital-investing-in-remerge-was-a-no-brainer-for-us/", label: "Remerge" } },
+  { year: "2014", text: "Started a mobile UA agency. Hit $30k MRR in month one. Bank shut it down a year later. First taste of digital nomad life in Thailand." },
+  { year: "2012", text: "Moved to Berlin during the startup boom. Joined a venture studio and watched mobile overtake web from front-row seats.", link: { url: "https://www.ioniq.com/", label: "venture studio" } },
+  { year: "2011", text: "First startup. Copied a US business model. Printed business cards before finding customers. Learned the hard way." },
+  { year: "2010", text: "First job at a private equity fund. Helped raise $200m for renewable energy projects in CEE.", link: { url: "https://www.enercap.com/", label: "private equity fund" } },
+];
+
+interface Interest {
+  title: string;
+  description: string;
+  link?: { url: string; label: string };
+}
+
+const interests: Interest[] = [
+  { title: "Building", description: "Learning to code since 2012 (on and off). Proponent of the builder's mindset. Currently focused on web development and AI tooling.", link: { url: "https://builders.genagorlin.com/p/the-builders-mindset-a-way-out-of", label: "builder's mindset" } },
+  { title: "Design", description: "Believe design is an underrated moat. Inspired by Linear's philosophy of raising the bar.", link: { url: "https://twitter.com/karrisaarinen/status/1762980712863695118", label: "raising the bar" } },
+  { title: "Communities", description: "Obsessed with French Salons as \"raves for the intellect.\" Exploring how to fix loneliness and create third places.", link: { url: "https://thesalonhost.com/what-is-a-salon/", label: "French Salons" } },
+  { title: "Calm companies", description: "Invested in Calm Company Fund. Interested in software value investing.", link: { url: "https://calmfund.com/", label: "Calm Company Fund" } },
+];
+
+const principles = [
+  "Living a calm and examined life",
+  "Beginner's mind, tiny experiments",
+  "Mastery through lifelong learning",
+  "Non-conformity with bits of hungriness",
+  "Embracing the individual journey",
+];
+
+const influences = {
+  media: [
+    { title: "Awakening from the Meaning Crisis", url: "https://www.meaningcrisis.co/" },
+    { title: "This is Water", url: "https://www.youtube.com/watch?v=OsAd4HGJS4o" },
+    { title: "The Egg", url: "https://www.youtube.com/watch?v=h6fcK_fRYaI" },
+    { title: "Everything is a Remix", url: "https://www.youtube.com/watch?v=X9RYuvPCQUA" },
+  ],
+  people: [
+    { name: "Derek Sivers", url: "https://sive.rs/" },
+    { name: "Charlie Munger", url: "https://www.charlie-munger.com/" },
+    { name: "Bruce Lee", url: "https://www.bruce-lee.com/" },
+    { name: "Edward Thorp", url: "https://www.edwardothorp.com/" },
+  ],
+};
+---
+
+<BaseLayout meta={meta}>
+  <article>
+    <!-- Hero -->
+    <header class="mb-16">
+      <h1 class="page-title mb-6">About</h1>
+      <div class="max-w-2xl space-y-4 text-text-secondary leading-relaxed">
+        <p>
+          I've spent the last decade building products at startups and scale-ups across three continents. Most of that time was spent figuring out what users actually need versus what they say they want.
+        </p>
+        <p>
+          Born in the USSR, raised in the Czech Republic, I've since called Germany, the UK, the US, Australia, and Singapore home. Each place taught me something different about how people live and work.
+        </p>
+        <p>
+          I'm drawn to the intersection of technology and human behavior. Why do some products feel inevitable while others feel forced? Why do some teams build magic while others build meetings? These questions keep me curious.
+        </p>
+      </div>
+    </header>
+
+    <!-- Timeline -->
+    <section class="mb-16">
+      <h2 class="section-label mb-8">Timeline</h2>
+      <div class="space-y-6">
+        {timeline.map((entry) => (
+          <div class="flex gap-6">
+            <span class="w-12 shrink-0 font-medium tabular-nums text-text-tertiary">{entry.year}</span>
+            <p class="text-text-secondary leading-relaxed">
+              {entry.link ? (
+                <>
+                  {entry.text.split(entry.link.label)[0]}
+                  <a href={entry.link.url} class="link" target="_blank" rel="noopener">{entry.link.label}</a>
+                  {entry.text.split(entry.link.label)[1]}
+                </>
+              ) : (
+                entry.text
+              )}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Interests -->
+    <section class="mb-16">
+      <h2 class="section-label mb-8">Interests</h2>
+      <div class="grid gap-8 sm:grid-cols-2">
+        {interests.map((interest) => (
+          <div>
+            <h3 class="font-medium mb-2">{interest.title}</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">
+              {interest.link ? (
+                <>
+                  {interest.description.split(interest.link.label)[0]}
+                  <a href={interest.link.url} class="link" target="_blank" rel="noopener">{interest.link.label}</a>
+                  {interest.description.split(interest.link.label)[1]}
+                </>
+              ) : (
+                interest.description
+              )}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Two columns: Investments + Principles -->
+    <div class="mb-16 grid gap-12 sm:grid-cols-2">
+      <!-- Investments -->
+      <section>
+        <h2 class="section-label mb-6">Investments</h2>
+        <div class="space-y-4 text-sm">
+          <div>
+            <span class="text-text-tertiary">Private</span>
+            <p class="mt-1">
+              <a href="https://calmfund.com/" class="link" target="_blank" rel="noopener">Calm Company Fund</a>,
+              <a href="https://replit.com/" class="link" target="_blank" rel="noopener">Replit</a>
+            </p>
+          </div>
+          <div>
+            <span class="text-text-tertiary">Public</span>
+            <p class="mt-1">
+              <a href="https://www.vanguardmexico.com/en/product/etf/equity/9679/vanguard-ftse-all-world-ucits-etf-usd-accumulating" class="link" target="_blank" rel="noopener">$VWRA</a>,
+              <a href="https://www.google.com/finance/quote/U:NYSE" class="link" target="_blank" rel="noopener">$U</a>,
+              <a href="https://www.google.com/finance/quote/SE:NYSE" class="link" target="_blank" rel="noopener">$SE</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Principles -->
+      <section>
+        <h2 class="section-label mb-6">Principles</h2>
+        <ul class="space-y-2 text-sm text-text-secondary">
+          {principles.map((principle) => (
+            <li class="flex gap-3">
+              <span class="text-text-tertiary">—</span>
+              {principle}
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+
+    <!-- Influences & Support -->
+    <section class="mb-16">
+      <h2 class="section-label mb-6">Influences</h2>
+      <div class="space-y-6 text-sm">
+        <div>
+          <p class="text-text-tertiary mb-2">Ideas</p>
+          <div class="flex flex-wrap gap-x-1 gap-y-1">
+            {influences.media.map((item, i) => (
+              <>
+                <a href={item.url} class="link" target="_blank" rel="noopener">{item.title}</a>
+                {i < influences.media.length - 1 && <span class="text-text-tertiary">/</span>}
+              </>
+            ))}
+          </div>
+        </div>
+        <div>
+          <p class="text-text-tertiary mb-2">People</p>
+          <div class="flex flex-wrap gap-x-1 gap-y-1">
+            {influences.people.map((person, i) => (
+              <>
+                <a href={person.url} class="link" target="_blank" rel="noopener">{person.name}</a>
+                {i < influences.people.length - 1 && <span class="text-text-tertiary">/</span>}
+              </>
+            ))}
+          </div>
+        </div>
+        <div>
+          <p class="text-text-tertiary mb-2">Supporting</p>
+          <div class="flex flex-wrap gap-x-1 gap-y-1">
+            <a href="https://www.freecodecamp.org/donate" class="link" target="_blank" rel="noopener">FreeCodeCamp</a>
+            <span class="text-text-tertiary">/</span>
+            <a href="https://www.charitywater.org/kirso" class="link" target="_blank" rel="noopener">Charity:water</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
