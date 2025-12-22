@@ -18,7 +18,7 @@ const { as: Tag = "div", post, withDesc = false } = Astro.props;
 />
 <Tag>
   {post.data.pinned && <span class="text-text-tertiary" title="Pinned">↑ </span>}
-  {post.data.draft && <span class="text-text-tertiary">(Draft) </span>}
+  {post.data.draft && <span class="text-amber-600 dark:text-amber-400">[draft] </span>}
   <a class="link" data-astro-prefetch href={`/posts/${post.id}/`}>
     {post.data.title}
   </a>

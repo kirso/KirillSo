@@ -136,6 +136,11 @@ const projects = [
                   ↑{" "}
                 </span>
               )}
+              {p.data.draft && (
+                <span class="text-amber-600 dark:text-amber-400" title="Draft">
+                  [draft]{" "}
+                </span>
+              )}
               {p.data.title}
             </a>
             <span class="post-leader" />
