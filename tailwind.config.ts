@@ -54,8 +54,6 @@ export default {
 							lineHeight: "1.3",
 							marginTop: "3rem",
 							marginBottom: "1rem",
-							paddingBottom: "0.5rem",
-							borderBottom: "1px solid var(--color-rule-light)",
 						},
 
 						h3: {

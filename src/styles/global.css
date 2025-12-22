@@ -664,12 +664,11 @@
 /* ============================================================================
    PROSE HEADING HIERARCHY — Major Third (1.25) Scale
    ============================================================================
-   Headings use extending-line pattern (like section-rule) for consistency.
-   Creates visual rhythm and catalog/editorial feel.
+   Clean hierarchy with restraint. Only H2 gets extending line treatment.
 
    H1: 32px — Page/article titles (rarely used in prose body)
    H2: 24px — Major sections, line extends right
-   H3: 18px — Subsections, subtle line extends right
+   H3: 18px — Subsections, clean without line
    H4: 15px — Inline headings, uppercase small
    ============================================================================ */
 
@@ -712,11 +711,8 @@
 	margin-top: 0;
 }
 
-/* H3 — Subsections with subtle extending line */
+/* H3 — Subsections, clean without line */
 .prose h3 {
-	display: flex;
-	align-items: center;
-	gap: var(--space-3);
 	font-size: var(--text-large);
 	font-weight: 600;
 	letter-spacing: var(--tracking-normal);
@@ -724,13 +720,6 @@
 	color: var(--color-ink);
 	margin-top: var(--space-8);
 	margin-bottom: var(--space-3);
-}
-
-.prose h3::after {
-	content: "";
-	flex: 1;
-	height: 1px;
-	background-color: var(--color-rule-light);
 }
 
 .prose h3:first-child {
