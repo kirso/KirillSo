@@ -2,6 +2,8 @@
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
+import { siteConfig } from "@/site.config";
+import headshot from "@/assets/img/headshot.png";
 
 interface Props {
 	content: CollectionEntry<"post">;
@@ -29,7 +31,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
         src={data.coverImage.src}
       />
       {data.coverImage.credit && (
-        <p class="mt-2 text-sm text-text-tertiary">
+        <p class="mt-2 text-text-tertiary" style="font-size: var(--text-micro);">
           Photo: {data.coverImage.credit}
         </p>
       )}
@@ -37,7 +39,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
   )
 }
 
-{data.draft && <span class="mb-2 inline-block text-xs uppercase tracking-wide text-text-tertiary">(Draft)</span>}
+{data.draft && <span class="mb-2 inline-block uppercase tracking-wide text-text-tertiary" style="font-size: var(--text-micro);">(Draft)</span>}
 
 <h1 class="page-title">
   {data.title}
@@ -45,42 +47,60 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 
 {
   data.description && (
-    <p class="mt-4 text-lg leading-relaxed text-text-secondary">
+    <p class="mt-4 text-text-secondary leading-relaxed">
       {data.description}
     </p>
   )
 }
 
 <div class="mt-8 flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-start sm:justify-between">
-  <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-text-tertiary">
-    <FormattedDate date={data.publishDate} dateTimeOptions={dateTimeOptions} />
-    <span aria-hidden="true">·</span>
-    <span>{readingTime}</span>
+  <!-- Author -->
+  <a href="/about/" class="group flex items-center gap-3">
+    <Image
+      src={headshot}
+      alt={siteConfig.author}
+      class="h-10 w-10 rounded-full object-cover grayscale transition-all group-hover:grayscale-0"
+      loading="eager"
+    />
+    <div>
+      <p class="font-medium leading-tight">{siteConfig.author}</p>
+      <p class="text-text-tertiary leading-tight" style="font-size: var(--text-micro);">
+        {siteConfig.authorJobTitle}
+      </p>
+    </div>
+  </a>
+
+  <!-- Meta -->
+  <div class="flex flex-col items-start gap-2 sm:items-end">
+    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-text-tertiary" style="font-size: var(--text-micro);">
+      <FormattedDate date={data.publishDate} dateTimeOptions={dateTimeOptions} />
+      <span aria-hidden="true">·</span>
+      <span>{readingTime}</span>
+      {
+        data.updatedDate && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span>
+              Updated <FormattedDate date={data.updatedDate} dateTimeOptions={dateTimeOptions} />
+            </span>
+          </>
+        )
+      }
+    </div>
     {
-      data.updatedDate && (
-        <>
-          <span aria-hidden="true">·</span>
-          <span>
-            Updated <FormattedDate date={data.updatedDate} dateTimeOptions={dateTimeOptions} />
-          </span>
-        </>
+      !!data.tags?.length && (
+        <div class="flex flex-wrap gap-2">
+          {data.tags.map((tag) => (
+            <a
+              class="tag"
+              data-pagefind-filter="tag"
+              href={`/tags/${tag}/`}
+            >
+              #{tag}
+            </a>
+          ))}
+        </div>
       )
     }
   </div>
-
-  {
-    !!data.tags?.length && (
-      <div class="flex flex-wrap gap-2">
-        {data.tags.map((tag) => (
-          <a
-            class="tag"
-            data-pagefind-filter="tag"
-            href={`/tags/${tag}/`}
-          >
-            #{tag}
-          </a>
-        ))}
-      </div>
-    )
-  }
 </div>

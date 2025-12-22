@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Note from "@/components/note/Note.astro";
 import PageLayout from "@/layouts/Base.astro";
+import Schema from "@/components/Schema.astro";
 import { collectionDateSort } from "@/utils/date";
 
 const MAX_NOTES_PER_PAGE = 10;
@@ -17,13 +18,17 @@ const meta = {
 ---
 
 <PageLayout meta={meta}>
+  <Schema type="breadcrumb" breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Notes", url: "/notes/" }
+  ]} />
   <header class="mb-12">
     <h1 class="page-title">Notes</h1>
     <p class="mt-2 text-text-secondary">{totalNotes} notes collected</p>
   </header>
 
   <section>
-    <p class="section-label mb-6">Recent thoughts</p>
+    <div class="section-rule"><span>Recent thoughts</span></div>
     <ul class="space-y-8">
       {
         sortedNotes.map((note) => (
@@ -35,7 +40,7 @@ const meta = {
     </ul>
     {
       sortedNotes.length >= MAX_NOTES_PER_PAGE && (
-        <nav class="mt-12 border-t border-border pt-6">
+        <nav class="mt-12">
           <a class="arrow-link" href="/notes/page/2/">
             More notes <span aria-hidden="true">→</span>
           </a>

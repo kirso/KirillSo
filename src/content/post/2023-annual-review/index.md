@@ -65,16 +65,16 @@ I am incredibly humbled and grateful that I have a person in my life who is kind
 Wow, this has been incredible. I’ve never travelled so much (outside of work) in one year although to similar destinations within SEA but still with enough newness to make it worthwhile!
 
 Langkawi:
-![[./attachments/langkawi.png]]
+![Beach view in Langkawi, Malaysia](./attachments/langkawi.png)
 Vietnam:
-![[./attachments/vietnam.png]]
+![Street scene in Vietnam](./attachments/vietnam.png)
 Bali:
-![[bali.png]]
+![Scenic view in Bali, Indonesia](./attachments/bali.png)
 Taiwan:
-![[taiwan1.png]]
-![[taiwan2.png]]
+![Exploring Taiwan](./attachments/taiwan1.png)
+![Taiwan landscape](./attachments/taiwan2.png)
 Thailand (Chiang Mai):
-![[chiang-mai.png]]
+![Chiang Mai, Thailand](./attachments/chiang-mai.png)
 
 ### Stability (with a caveat)
 

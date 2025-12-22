@@ -17,9 +17,9 @@ import { menuLinks } from "@/site.config";
   >
     {
       Astro.url.pathname === "/" ? (
-        <h1 class="text-lg font-semibold tracking-tight">Kirill So</h1>
+        <h1 class="font-semibold tracking-tight" style="font-size: var(--text-large);">Kirill So</h1>
       ) : (
-        <span class="text-lg font-semibold tracking-tight">Kirill So</span>
+        <span class="font-semibold tracking-tight" style="font-size: var(--text-large);">Kirill So</span>
       )
     }
   </a>
@@ -38,11 +38,12 @@ import { menuLinks } from "@/site.config";
             <a
               aria-current={Astro.url.pathname === link.path ? "page" : false}
               class:list={[
-                "text-sm transition-colors",
+                "transition-colors",
                 Astro.url.pathname === link.path
                   ? "text-global-text underline underline-offset-4"
                   : "link-nav"
               ]}
+              style="font-size: var(--text-body);"
               data-astro-prefetch
               href={link.path}
             >
@@ -93,7 +94,7 @@ import { menuLinks } from "@/site.config";
   id="mobile-menu"
 >
   <div class="flex items-center justify-between">
-    <a href="/" class="text-lg font-semibold tracking-tight">Kirill So</a>
+    <a href="/" class="font-semibold tracking-tight" style="font-size: var(--text-large);">Kirill So</a>
     <button
       class="text-text-secondary hover:text-global-text"
       id="close-mobile-menu"
@@ -118,7 +119,8 @@ import { menuLinks } from "@/site.config";
     {
       menuLinks.map((link) => (
         <a
-          class="link-nav text-lg"
+          class="link-nav"
+          style="font-size: var(--text-large);"
           href={link.path}
         >
           {link.title.toLowerCase()}

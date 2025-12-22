@@ -3,6 +3,9 @@ import type { SiteConfig } from "@/types";
 
 export const siteConfig: SiteConfig = {
 	author: "Kirill So",
+	authorImage: "/headshot.png",
+	authorEmail: "kirill.sofronov@gmail.com",
+	authorJobTitle: "Product Manager & Builder",
 	date: {
 		locale: "en-GB",
 		options: {
@@ -38,12 +41,12 @@ export const menuLinks: { path: string; title: string }[] = [
 		title: "Notes",
 	},
 	{
-		path: "/about/",
-		title: "About",
+		path: "/reading/",
+		title: "Reading",
 	},
 	{
-		path: "/now/",
-		title: "Now",
+		path: "/about/",
+		title: "About",
 	},
 	{
 		path: "/uses/",

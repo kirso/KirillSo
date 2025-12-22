@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import BaseLayout from "@/layouts/Base.astro";
+import Schema from "@/components/Schema.astro";
 
 const meta = {
   title: "Uses",
@@ -30,10 +31,19 @@ const customIcons: Record<string, string> = {
   cleanshot: "M4 4h4l2-2h4l2 2h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z",
   // Pagefind - magnifying glass with document
   pagefind: "M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM7 9h5v1H7V9z",
-  // Satoshi font - letter S stylized
-  satoshi: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.5 15h-3v-1.5h3c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5h-3c-1.66 0-3-1.34-3-3s1.34-3 3-3h3V8h-3c-.83 0-1.5.67-1.5 1.5S9.17 11 10 11h3c1.66 0 3 1.34 3 3s-1.34 3-3 3z",
   // Plain text - document icon
   plaintext: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM8 12h8v2H8v-2zm0 4h8v2H8v-2z",
+};
+
+// Flatten tools for collection schema
+const getCollectionItems = (categories: Category[]) => {
+  return categories.flatMap(cat =>
+    cat.items.map(item => ({
+      name: item.name,
+      description: item.description,
+      url: item.url,
+    }))
+  );
 };
 
 const uses: Category[] = [
@@ -126,10 +136,10 @@ const uses: Category[] = [
         icon: "simple-icons:tailwindcss",
       },
       {
-        name: "Satoshi",
-        description: "Geometric sans-serif, self-hosted.",
-        url: "https://www.fontshare.com/fonts/satoshi",
-        customIcon: "satoshi",
+        name: "Geist",
+        description: "Vercel's clean sans-serif, self-hosted.",
+        url: "https://vercel.com/font",
+        icon: "simple-icons:vercel",
       },
       {
         name: "Vercel",
@@ -208,17 +218,28 @@ const uses: Category[] = [
 ---
 
 <BaseLayout meta={meta}>
+  <Schema
+    type="collection"
+    title={meta.title}
+    description={meta.description}
+    collectionName="Tools & Setup"
+    collectionItems={getCollectionItems(uses)}
+  />
+  <Schema type="breadcrumb" breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Uses", url: "/uses/" }
+  ]} />
   <article>
     <h1 class="page-title mb-4">Uses</h1>
     <p class="text-text-secondary mb-8">
       A living document of tools I use daily. Inspired by <a href="https://uses.tech/" class="link" target="_blank" rel="noopener">uses.tech</a>.
     </p>
-    <p class="text-sm text-text-tertiary mb-12">Last updated: December 2024</p>
+    <p class="text-text-tertiary mb-12" style="font-size: var(--text-micro);">Last updated: December 2024</p>
 
     <div class="space-y-12">
       {uses.map((category) => (
         <section>
-          <h2 class="section-label mb-6">{category.title}</h2>
+          <div class="section-rule"><span>{category.title}</span></div>
           <div class="divide-y divide-border border border-border">
             {category.items.map((item) => (
               <div class="group p-4 transition-colors hover:bg-global-text hover:text-global-bg">
@@ -227,11 +248,11 @@ const uses: Category[] = [
                     {item.icon ? (
                       <Icon
                         name={item.icon}
-                        class="h-5 w-5 text-text-secondary group-hover:text-global-bg/70"
+                        class="h-5 w-5 text-text-tertiary group-hover:text-global-bg"
                       />
                     ) : item.customIcon && customIcons[item.customIcon] ? (
                       <svg
-                        class="h-5 w-5 text-text-secondary group-hover:text-global-bg/70"
+                        class="h-5 w-5 text-text-tertiary group-hover:text-global-bg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
                       >
@@ -248,12 +269,12 @@ const uses: Category[] = [
                         class="font-medium group-hover:underline"
                       >
                         {item.name}
-                        <span class="ml-1 inline-block text-text-tertiary transition-transform group-hover:translate-x-0.5 group-hover:text-global-bg/70">&nearr;</span>
+                        <span class="ml-1 inline-block text-text-tertiary transition-transform group-hover:translate-x-0.5 group-hover:text-global-bg">&nearr;</span>
                       </a>
                     ) : (
                       <span class="font-medium">{item.name}</span>
                     )}
-                    <p class="mt-0.5 text-sm text-text-secondary group-hover:text-global-bg/80">
+                    <p class="mt-0.5 text-text-secondary group-hover:text-global-bg/80" style="font-size: var(--text-micro);">
                       {item.description}
                     </p>
                   </div>
@@ -265,7 +286,7 @@ const uses: Category[] = [
       ))}
     </div>
 
-    <p class="mt-12 text-sm text-text-tertiary">
+    <p class="mt-12 text-text-tertiary" style="font-size: var(--text-micro);">
       This page is part of the <a href="https://uses.tech/" class="link" target="_blank" rel="noopener">/uses movement</a> - a collection of developer setups.
     </p>
   </article>

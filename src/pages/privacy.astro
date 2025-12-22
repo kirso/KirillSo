@@ -1,0 +1,78 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+import Schema from "@/components/Schema.astro";
+import { siteConfig } from "@/site.config";
+
+const meta = {
+  title: "Privacy Policy",
+  description: "Privacy policy for kirillso.com - how your data is handled.",
+};
+---
+
+<PageLayout meta={meta}>
+  <Schema type="breadcrumb" breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Privacy", url: "/privacy/" }
+  ]} />
+  <article class="prose max-w-none">
+    <h1 class="page-title mb-8">Privacy Policy</h1>
+
+    <p class="text-text-secondary mb-8" style="font-size: var(--text-micro);">
+      Last updated: December 2024
+    </p>
+
+    <p>
+      This site respects your privacy. Here's exactly what data is collected and why.
+    </p>
+
+    <h2>Analytics</h2>
+    <p>
+      This site uses <a href="https://vercel.com/analytics" target="_blank" rel="noopener">Vercel Web Analytics</a>,
+      a privacy-focused analytics service. It collects:
+    </p>
+    <ul>
+      <li>Page views and visitor counts (aggregated, not individual)</li>
+      <li>Referrer information</li>
+      <li>Country-level location (no precise location)</li>
+      <li>Device type and browser (general categories only)</li>
+    </ul>
+    <p>
+      Vercel Analytics does not use cookies, does not track users across sites,
+      and does not collect personal information. All data is aggregated and anonymized.
+    </p>
+
+    <h2>Webmentions</h2>
+    <p>
+      This site supports <a href="https://webmention.io" target="_blank" rel="noopener">Webmentions</a>,
+      an open standard for cross-site conversations. When you mention, reply to, or like
+      content from this site on your own website or social media, the following may be displayed:
+    </p>
+    <ul>
+      <li>Your name and profile photo</li>
+      <li>A link to your post</li>
+      <li>The content of your mention or reply</li>
+    </ul>
+    <p>
+      This information is publicly available on your original platform.
+      If you'd like a webmention removed, please contact me.
+    </p>
+
+    <h2>Cookies</h2>
+    <p>
+      This site uses one local storage item to remember your theme preference (light/dark mode).
+      No tracking cookies are used.
+    </p>
+
+    <h2>Third-Party Services</h2>
+    <p>
+      External links may lead to sites with their own privacy policies.
+      This site has no control over third-party content or practices.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Questions about this privacy policy? Reach out via the contact methods on the
+      <a href="/about/">about page</a>.
+    </p>
+  </article>
+</PageLayout>

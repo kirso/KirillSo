@@ -6,16 +6,21 @@ import "@/styles/global.css";
 
 type Props = SiteMeta;
 
-const { articleDate, description, ogImage, title } = Astro.props;
+const { articleDate, articleSection, articleTags, description, ogImage, title } = Astro.props;
 
 const titleSeparator = "|";
 const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url).href;
+// Use homepage OG image for root, otherwise use provided ogImage or fallback
+const defaultOgImage = Astro.url.pathname === "/" ? "/og-image/home.png" : "/social-card.png";
+const socialImageURL = new URL(ogImage ? ogImage : defaultOgImage, Astro.url).href;
 ---
 
 <meta charset="utf-8" />
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<meta name="theme-color" content="#faf9f6" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
+<meta name="color-scheme" content="light dark" />
 <title>{siteTitle}</title>
 
 {/* Icons */}
@@ -55,6 +60,8 @@ const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url
     <>
       <meta content={siteConfig.author} property="article:author" />
       <meta content={articleDate} property="article:published_time" />
+      {articleSection && <meta content={articleSection} property="article:section" />}
+      {articleTags?.map((tag) => <meta content={tag} property="article:tag" />)}
     </>
   )
 }

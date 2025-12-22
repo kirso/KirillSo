@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import type { GetStaticPaths, Page } from "astro";
-import PostPreview from "@/components/blog/PostPreview.astro";
+import FormattedDate from "@/components/FormattedDate.astro";
 import Pagination from "@/components/Paginator.astro";
 import { getAllPosts, getUniqueTags } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
@@ -53,21 +53,29 @@ const paginationProps = {
 
 <PageLayout meta={meta}>
   <header class="mb-12">
-    <nav class="mb-4 text-sm text-text-secondary">
+    <nav class="mb-4 text-text-tertiary" style="font-size: var(--text-micro);">
       <a class="link-muted" href="/tags/">Tags</a>
-      <span class="mx-2">→</span>
-      <span class="text-global-text">{tag}</span>
+      <span class="mx-2">/</span>
+      <span class="text-text-secondary">{tag}</span>
     </nav>
     <h1 class="page-title">{tag}</h1>
-    <p class="mt-2 text-text-secondary">{page.data.length} posts</p>
+    <p class="mt-2 text-text-secondary">{page.data.length} {page.data.length === 1 ? 'post' : 'posts'}</p>
   </header>
+
   <section aria-labelledby={`tags-${tag}`}>
-    <h2 id={`tags-${tag}`} class="sr-only">Post List</h2>
-    <ul class="space-y-3">
+    <div class="section-rule mb-6"><span>Posts</span></div>
+    <ul class="space-y-1">
       {
         page.data.map((p) => (
-          <li class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
-            <PostPreview as="h2" post={p} />
+          <li class="post-row">
+            <a class="post-title link" data-astro-prefetch href={`/posts/${p.id}/`}>
+              {p.data.pinned && <span class="text-text-tertiary" title="Pinned">↑ </span>}
+              {p.data.title}
+            </a>
+            <span class="post-leader"></span>
+            <span class="post-date mono">
+              <FormattedDate date={p.data.publishDate} />
+            </span>
           </li>
         ))
       }

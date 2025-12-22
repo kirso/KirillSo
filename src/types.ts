@@ -1,5 +1,8 @@
 export interface SiteConfig {
 	author: string;
+	authorImage: string;
+	authorEmail: string;
+	authorJobTitle: string;
 	date: {
 		locale: string | string[] | undefined;
 		options: Intl.DateTimeFormatOptions;
@@ -19,6 +22,8 @@ export interface PaginationLink {
 
 export interface SiteMeta {
 	articleDate?: string | undefined;
+	articleSection?: string | undefined;
+	articleTags?: string[] | undefined;
 	description?: string;
 	ogImage?: string | undefined;
 	title: string;

@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import { type CollectionEntry, getCollection } from "astro:content";
 import Card from "@/components/Card.astro";
-import PostPreview from "@/components/blog/PostPreview.astro";
+import FormattedDate from "@/components/FormattedDate.astro";
 import Note from "@/components/note/Note.astro";
 import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
@@ -13,8 +13,8 @@ import headshot from "@/assets/img/headshot.png";
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
 const allPostsByDate = allPosts
-	.sort(collectionDateSort)
-	.slice(0, MAX_POSTS) as CollectionEntry<"post">[];
+  .sort(collectionDateSort)
+  .slice(0, MAX_POSTS) as CollectionEntry<"post">[];
 
 // Notes
 const MAX_NOTES = 3;
@@ -23,55 +23,90 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 
 // Projects
 const projects = [
-	{
-		title: "Google clone",
-		to: "/posts/google-clone/",
-		description: "Search with Google API",
-	},
-	{
-		title: "Panic theme",
-		to: "https://github.com/kirso/logseq-panic-theme",
-		description: "Make Logseq PKM pretty",
-	},
-	{
-		title: "Schwiftyverse",
-		to: "https://schwiftyverse.vercel.app/",
-		description: "GIFs on Solana blockchain",
-	},
-	{
-		title: "ToDo",
-		to: "https://github.com/kirso/bun-elysia-tailwind-htmx-todo-app",
-		description: "Tasks on the edge",
-	},
+  {
+    title: "Keepsake",
+    to: "https://www.makekeepsake.com",
+    description: "Preserve your family memories",
+  },
+  {
+    title: "Google clone",
+    to: "/posts/google-clone/",
+    description: "Search with Google API",
+  },
+  {
+    title: "Panic theme",
+    to: "https://github.com/kirso/logseq-panic-theme",
+    description: "Make Logseq PKM pretty",
+  },
+  {
+    title: "Schwiftyverse",
+    to: "https://schwiftyverse.vercel.app/",
+    description: "GIFs on Solana blockchain",
+  },
+  {
+    title: "ToDo",
+    to: "https://github.com/kirso/bun-elysia-tailwind-htmx-todo-app",
+    description: "Tasks on the edge",
+  },
 ];
 ---
 
 <PageLayout meta={{ title: "Home" }}>
-  <!-- Hero -->
-  <header class="mb-12">
+  <!-- Hero with subtle dot-grid texture -->
+  <header class="dot-grid border-border-light mb-12 border p-6">
     <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
       <Image
         src={headshot}
         alt="Kirill So"
-        width={96}
-        height={96}
+        loading="eager"
         class="h-24 w-24 shrink-0 rounded-full object-cover grayscale"
       />
-      <div class="flex-1">
+      <div class="text-text-secondary flex-1">
         <p class="leading-relaxed">
-          Hi, I'm Kirill. Currently on sabbatical and in exploration mode. Previously, I was a principal product manager at Delivery Hero, where I shipped growth features that drove millions in revenue.
+          Hi, I'm Kirill. Currently on sabbatical and in exploration mode.
+          Previously, I was a principal product manager at Delivery Hero, where
+          I shipped growth features that drove millions in revenue.
         </p>
         <p class="mt-4 leading-relaxed">
-          I write about life experiences and digital products. In my free time I weightlift, play tennis, and travel with my <a class="link font-medium" href="https://sarahkhanamajid.com/" target="_blank" rel="noopener">wife</a>.
+          I write about life experiences and digital products. In my free time I
+          weightlift, play tennis, and travel with my <a
+            class="link font-medium"
+            href="https://sarahkhanamajid.com/"
+            target="_blank"
+            rel="noopener">wife</a
+          >.
         </p>
-        <nav class="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm">
-          <a class="link" href="https://twitter.com/kirso_" target="_blank" rel="noopener">Twitter</a>
+        <nav
+          class="mt-6 flex flex-wrap gap-x-4 gap-y-2"
+          style="font-size: var(--text-micro);"
+        >
+          <a
+            class="link"
+            href="https://twitter.com/kirso_"
+            target="_blank"
+            rel="noopener">Twitter</a
+          >
           <span class="text-text-tertiary">/</span>
-          <a class="link" href="https://github.com/kirso" target="_blank" rel="noopener">GitHub</a>
+          <a
+            class="link"
+            href="https://github.com/kirso"
+            target="_blank"
+            rel="noopener">GitHub</a
+          >
           <span class="text-text-tertiary">/</span>
-          <a class="link" href="https://www.linkedin.com/in/kirso" target="_blank" rel="noopener">LinkedIn</a>
+          <a
+            class="link"
+            href="https://www.linkedin.com/in/kirso"
+            target="_blank"
+            rel="noopener">LinkedIn</a
+          >
           <span class="text-text-tertiary">/</span>
-          <a class="link" href="https://kirill.substack.com" target="_blank" rel="noopener">Newsletter</a>
+          <a
+            class="link"
+            href="https://kirill.substack.com"
+            target="_blank"
+            rel="noopener">Newsletter</a
+          >
           <span class="text-text-tertiary">/</span>
           <a class="link" href="/cv.pdf" download>CV ↓</a>
         </nav>
@@ -81,17 +116,32 @@ const projects = [
 
   <!-- Posts -->
   <section class="mb-16">
-    <div class="mb-6 flex items-baseline justify-between">
-      <p class="section-label">Posts</p>
-      <a class="arrow-link" href="/posts/">
+    <div class="mb-6 flex items-center gap-4">
+      <div class="section-rule !mb-0 flex-1"><span>Posts</span></div>
+      <a class="arrow-link shrink-0" href="/posts/">
         View all <span aria-hidden="true">→</span>
       </a>
     </div>
-    <ul class="space-y-3">
+    <ul class="space-y-1">
       {
         allPostsByDate.map((p) => (
-          <li class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
-            <PostPreview post={p} />
+          <li class="post-row">
+            <a
+              class="post-title link"
+              data-astro-prefetch
+              href={`/posts/${p.id}/`}
+            >
+              {p.data.pinned && (
+                <span class="text-text-tertiary" title="Pinned">
+                  ↑{" "}
+                </span>
+              )}
+              {p.data.title}
+            </a>
+            <span class="post-leader" />
+            <span class="post-date mono">
+              <FormattedDate date={p.data.publishDate} />
+            </span>
           </li>
         ))
       }
@@ -102,9 +152,11 @@ const projects = [
   {
     latestNotes.length > 0 && (
       <section class="mb-16">
-        <div class="mb-6 flex items-baseline justify-between">
-          <p class="section-label">Notes</p>
-          <a class="arrow-link" href="/notes/">
+        <div class="mb-6 flex items-center gap-4">
+          <div class="section-rule !mb-0 flex-1">
+            <span>Notes</span>
+          </div>
+          <a class="arrow-link shrink-0" href="/notes/">
             View all <span aria-hidden="true">→</span>
           </a>
         </div>
@@ -120,11 +172,9 @@ const projects = [
   }
 
   <!-- Projects -->
-  <section class="mb-16">
-    <div class="mb-6 flex items-baseline justify-between">
-      <p class="section-label">Projects</p>
-    </div>
-    <div class="divide-y divide-border border border-border">
+  <section>
+    <div class="section-rule"><span>Projects</span></div>
+    <div class="divide-border border-border divide-y border">
       {projects.map((project) => <Card {...project} />)}
     </div>
   </section>

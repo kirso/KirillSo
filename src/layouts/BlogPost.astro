@@ -2,6 +2,7 @@
 import { type CollectionEntry, render } from "astro:content";
 
 import Masthead from "@/components/blog/Masthead.astro";
+import Schema from "@/components/Schema.astro";
 import TOC from "@/components/blog/TOC.astro";
 import WebMentions from "@/components/blog/webmentions/index.astro";
 
@@ -12,20 +13,49 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { ogImage, title, description, updatedDate, publishDate } = post.data;
+const { ogImage, title, description, updatedDate, publishDate, tags } = post.data;
 const socialImage = ogImage ?? `/og-image/${post.id}.png`;
 const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
 const { headings, remarkPluginFrontmatter } = await render(post);
 const readingTime: string = remarkPluginFrontmatter.readingTime;
+
+// Extract word count from reading time (format: "X min read")
+const wordCount = remarkPluginFrontmatter.words || Math.round(parseInt(readingTime) * 200);
+
+// Use first tag as article section, fallback to "Blog"
+const articleSection = tags?.[0] || "Blog";
+
+// Breadcrumbs for structured data
+const breadcrumbs = [
+  { name: "Home", url: "/" },
+  { name: "Blog", url: "/posts/" },
+  { name: title, url: Astro.url.pathname }
+];
 ---
 
 <BaseLayout
   meta={{
     articleDate,
+    articleSection,
+    articleTags: tags,
     description,
     ogImage: socialImage,
     title,
   }}>
+  <!-- Reading progress bar -->
+  <div class="reading-progress" id="reading-progress"></div>
+  <Schema
+    type="article"
+    title={title}
+    description={description}
+    publishDate={publishDate}
+    updatedDate={updatedDate}
+    image={socialImage}
+    wordCount={wordCount}
+    articleSection={articleSection}
+    keywords={tags}
+  />
+  <Schema type="breadcrumb" breadcrumbs={breadcrumbs} />
   <article class="grow break-words" data-pagefind-body>
     <div id="blog-hero" class="mb-12">
       <Masthead content={post} readingTime={readingTime} />
@@ -39,7 +69,8 @@ const readingTime: string = remarkPluginFrontmatter.readingTime;
 
   <!-- Back to top - minimal text button -->
   <button
-    class="fixed end-4 bottom-8 z-90 translate-y-28 cursor-pointer text-sm text-text-secondary opacity-0 transition-all duration-300 hover:text-global-text data-[show=true]:translate-y-0 data-[show=true]:opacity-100 sm:end-8"
+    class="fixed end-4 bottom-8 z-90 translate-y-28 cursor-pointer text-text-secondary opacity-0 transition-all duration-300 hover:text-global-text data-[show=true]:translate-y-0 data-[show=true]:opacity-100 sm:end-8"
+    style="font-size: var(--text-micro);"
     data-show="false"
     id="to-top-btn">
     <span>↑ Top</span>
@@ -49,6 +80,7 @@ const readingTime: string = remarkPluginFrontmatter.readingTime;
 <script>
   const scrollBtn = document.getElementById("to-top-btn") as HTMLButtonElement;
   const targetHeader = document.getElementById("blog-hero") as HTMLDivElement;
+  const progressBar = document.getElementById("reading-progress") as HTMLDivElement;
 
   function callback(entries: IntersectionObserverEntry[]) {
     entries.forEach((entry) => {
@@ -62,4 +94,15 @@ const readingTime: string = remarkPluginFrontmatter.readingTime;
 
   const observer = new IntersectionObserver(callback);
   observer.observe(targetHeader);
+
+  // Reading progress bar
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+    progressBar.style.setProperty("--scroll-progress", progress.toString());
+  }
+
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  updateProgress();
 </script>

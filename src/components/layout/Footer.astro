@@ -4,8 +4,12 @@ import { menuLinks, siteConfig } from "@/site.config";
 const year = new Date().getFullYear();
 ---
 
+<!-- End mark — consistent page termination -->
+<div class="end-mark"></div>
+
 <footer
-  class="mt-auto flex w-full flex-col items-center justify-center gap-y-2 border-t border-border pt-8 pb-4 text-center align-top text-sm text-text-secondary sm:flex-row sm:justify-between"
+  class="mt-8 flex flex-col items-center justify-center gap-y-2 border-t border-border pt-8 pb-4 text-center text-text-secondary sm:flex-row sm:justify-between"
+  style="font-size: var(--text-micro);"
 >
   <div class="me-0 sm:me-4">
     {siteConfig.author} &copy; {year}
@@ -25,7 +29,8 @@ const year = new Date().getFullYear();
         </a>
       ))
     }
-    <a class="link-muted" href="/reading/">Reading</a>
+    <a class="link-muted" href="/tags/">Tags</a>
     <a class="link-muted" href="/rss.xml">RSS</a>
+    <a class="link-muted" href="/privacy/">Privacy</a>
   </nav>
 </footer>

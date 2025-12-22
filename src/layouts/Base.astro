@@ -2,11 +2,14 @@
 import BaseHead from "@/components/BaseHead.astro";
 import Footer from "@/components/layout/Footer.astro";
 import Header from "@/components/layout/Header.astro";
+import Schema from "@/components/Schema.astro";
 import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
 import { siteConfig } from "@/site.config";
 import type { SiteMeta } from "@/types";
 import Chat from "../components/Chat.svelte";
+
+const isHomepage = Astro.url.pathname === "/";
 
 const showChat = import.meta.env.PUBLIC_ENABLE_CHAT === "true";
 
@@ -15,7 +18,7 @@ interface Props {
 }
 
 const {
-	meta: { articleDate, description = siteConfig.description, ogImage, title },
+	meta: { articleDate, articleSection, articleTags, description = siteConfig.description, ogImage, title },
 } = Astro.props;
 ---
 
@@ -23,10 +26,13 @@ const {
   <head>
     <BaseHead
       articleDate={articleDate}
+      articleSection={articleSection}
+      articleTags={articleTags}
       description={description}
       ogImage={ogImage}
       title={title}
     />
+    {isHomepage && <Schema type="website" />}
     <!-- Speculation Rules API for faster navigation -->
     <script type="speculationrules">
       {

@@ -1,0 +1,245 @@
+---
+/**
+ * JSON-LD Structured Data Component
+ * Provides semantic markup for search engines and generative AI platforms
+ *
+ * Supports: Website, Article, Person, Breadcrumb, Profile, FAQ, Collection
+ */
+import { siteConfig } from "@/site.config";
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface CollectionItem {
+  name: string;
+  description?: string;
+  url?: string;
+  image?: string;
+}
+
+interface Props {
+  type: "website" | "article" | "person" | "breadcrumb" | "profile" | "faq" | "collection";
+  // Article props
+  title?: string;
+  description?: string;
+  publishDate?: Date;
+  updatedDate?: Date;
+  image?: string;
+  wordCount?: number;
+  articleSection?: string;
+  keywords?: string[];
+  // Breadcrumb props
+  breadcrumbs?: { name: string; url: string }[];
+  // FAQ props
+  faqs?: FAQItem[];
+  // Collection props
+  collectionName?: string;
+  collectionItems?: CollectionItem[];
+}
+
+const {
+  type,
+  title,
+  description,
+  publishDate,
+  updatedDate,
+  image,
+  breadcrumbs,
+  wordCount,
+  articleSection,
+  keywords,
+  faqs,
+  collectionName,
+  collectionItems
+} = Astro.props;
+
+const siteUrl = siteConfig.url.replace(/\/$/, "");
+
+// Person Schema - Author/Site Owner (updated for current status)
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${siteUrl}/#person`,
+  name: siteConfig.author,
+  url: siteUrl,
+  image: `${siteUrl}${siteConfig.authorImage}`,
+  email: siteConfig.authorEmail,
+  description: "Product manager, builder & occasional writer. Exploring diverse disciplines and cultivating a beginner's mind.",
+  jobTitle: siteConfig.authorJobTitle,
+  sameAs: [
+    "https://twitter.com/kirso_",
+    "https://github.com/kirso",
+    "https://www.linkedin.com/in/kirillso/"
+  ],
+  knowsAbout: [
+    "Product Management",
+    "Growth Strategy",
+    "Startups",
+    "Technology",
+    "Software Development",
+    "Angel Investing"
+  ]
+};
+
+// Organization Schema - Site Identity
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${siteUrl}/#organization`,
+  name: siteConfig.title,
+  url: siteUrl,
+  logo: `${siteUrl}/icon.svg`,
+  description: siteConfig.description,
+  founder: {
+    "@id": `${siteUrl}/#person`
+  },
+  sameAs: [
+    "https://twitter.com/kirso_",
+    "https://github.com/kirso"
+  ]
+};
+
+// WebSite Schema - Site Structure
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  url: siteUrl,
+  name: siteConfig.title,
+  description: siteConfig.description,
+  publisher: {
+    "@id": `${siteUrl}/#organization`
+  },
+  inLanguage: siteConfig.lang,
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${siteUrl}/posts/?q={search_term_string}`
+    },
+    "query-input": "required name=search_term_string"
+  }
+};
+
+// Article Schema - Blog Posts (enhanced with wordCount, articleSection)
+const articleSchema = title ? {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": `${new URL(Astro.url.pathname, siteUrl).href}#article`,
+  headline: title,
+  description: description || siteConfig.description,
+  image: image || `${siteUrl}/og-image${Astro.url.pathname.replace(/\/$/, "")}.png`,
+  datePublished: publishDate?.toISOString(),
+  dateModified: (updatedDate || publishDate)?.toISOString(),
+  ...(wordCount && { wordCount }),
+  ...(articleSection && { articleSection }),
+  ...(keywords?.length && { keywords: keywords.join(", ") }),
+  author: {
+    "@id": `${siteUrl}/#person`
+  },
+  publisher: {
+    "@id": `${siteUrl}/#organization`
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": new URL(Astro.url.pathname, siteUrl).href
+  },
+  inLanguage: siteConfig.lang
+} : null;
+
+// Breadcrumb Schema
+const breadcrumbSchema = breadcrumbs ? {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: breadcrumbs.map((crumb, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: crumb.name,
+    item: crumb.url.startsWith("http") ? crumb.url : `${siteUrl}${crumb.url}`
+  }))
+} : null;
+
+// ProfilePage Schema - For About page (Google Knowledge Panel signals)
+const profilePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${new URL(Astro.url.pathname, siteUrl).href}#profilepage`,
+  mainEntity: {
+    "@id": `${siteUrl}/#person`
+  },
+  dateCreated: "2020-01-01T00:00:00Z",
+  dateModified: new Date().toISOString()
+};
+
+// FAQPage Schema - For Answer Engine Optimization
+const faqPageSchema = faqs?.length ? {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": `${new URL(Astro.url.pathname, siteUrl).href}#faq`,
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer
+    }
+  }))
+} : null;
+
+// CollectionPage Schema - For /uses, /reading pages
+const collectionPageSchema = collectionItems?.length ? {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${new URL(Astro.url.pathname, siteUrl).href}#collection`,
+  name: collectionName || title,
+  description: description,
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: collectionItems.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      ...(item.description && { description: item.description }),
+      ...(item.url && { url: item.url }),
+      ...(item.image && { image: item.image })
+    }))
+  }
+} : null;
+
+// Select schema based on type
+let schema;
+switch (type) {
+  case "website":
+    schema = [personSchema, organizationSchema, websiteSchema];
+    break;
+  case "article":
+    schema = articleSchema;
+    break;
+  case "person":
+    schema = personSchema;
+    break;
+  case "breadcrumb":
+    schema = breadcrumbSchema;
+    break;
+  case "profile":
+    // Profile includes person + profilePage + optional FAQ
+    schema = faqPageSchema
+      ? [personSchema, profilePageSchema, faqPageSchema]
+      : [personSchema, profilePageSchema];
+    break;
+  case "faq":
+    schema = faqPageSchema;
+    break;
+  case "collection":
+    schema = collectionPageSchema;
+    break;
+  default:
+    schema = null;
+}
+---
+
+{schema && (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+)}

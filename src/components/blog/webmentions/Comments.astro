@@ -19,7 +19,7 @@ const comments = mentions.filter(
 {
   !!comments.length && (
     <div>
-      <p class="mb-4 text-sm text-text-secondary">
+      <p class="mb-4 text-text-secondary" style="font-size: var(--text-micro);">
         {comments.length} mention{comments.length > 1 ? "s" : ""}
       </p>
       <ul class="mt-0 divide-y divide-border ps-0" role="list">
@@ -59,7 +59,8 @@ const comments = mentions.filter(
                 </p>
                 <a
                   aria-label="View source"
-                  class="u-url not-prose link-muted text-sm"
+                  class="u-url not-prose link-muted"
+                  style="font-size: var(--text-micro);"
                   href={mention.url}
                   rel="noreferrer"
                   target="_blank"
@@ -67,7 +68,7 @@ const comments = mentions.filter(
                   ↗
                 </a>
               </div>
-              <p class="comment-content mt-1 mb-0 break-words text-sm text-text-secondary [word-break:break-word]">
+              <p class="comment-content mt-1 mb-0 break-words text-text-secondary [word-break:break-word]" style="font-size: var(--text-micro);">
                 {mention.content?.text}
               </p>
             </div>

@@ -1,7 +1,8 @@
 ---
-import PostPreview from "@/components/blog/PostPreview.astro";
+import FormattedDate from "@/components/FormattedDate.astro";
 import { getAllPosts, getUniqueTags, groupPostsByYear, sortPostsByPinnedAndDate } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
+import Schema from "@/components/Schema.astro";
 
 const MAX_POSTS_PER_PAGE = 10;
 const MAX_TAGS = 10;
@@ -20,63 +21,61 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 ---
 
 <PageLayout meta={meta}>
-  <header class="mb-12">
+  <Schema type="breadcrumb" breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Blog", url: "/posts/" }
+  ]} />
+  <header class="mb-8">
     <h1 class="page-title">Posts</h1>
     <p class="mt-2 text-text-secondary">{totalPosts} posts published</p>
   </header>
 
-  <div class="grid gap-16 lg:grid-cols-[1fr_200px]">
-    <main>
-      {
-        descYearKeys.map((yearKey) => (
-          <section class="mb-12" aria-labelledby={`year-${yearKey}`}>
-            <p class="section-label mb-6" id={`year-${yearKey}`}>
-              {yearKey}
-            </p>
-            <ul class="space-y-3">
-              {groupedByYear[yearKey]?.map((p) => (
-                <li class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
-                  <PostPreview post={p} />
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))
-      }
-      {
-        sortedPosts.length >= MAX_POSTS_PER_PAGE && (
-          <nav class="mt-12 border-t border-border pt-6">
-            <a class="arrow-link" href="/posts/page/2/">
-              Next page <span aria-hidden="true">→</span>
-            </a>
-          </nav>
-        )
-      }
-    </main>
+  {/* Topics — Horizontal tag row */}
+  {
+    !!uniqueTags.length && (
+      <nav class="mb-12 flex flex-wrap items-center gap-3 border-y border-border py-4" style="font-size: var(--text-micro);">
+        <span class="text-text-tertiary uppercase tracking-wide">Topics</span>
+        {uniqueTags.map((tag) => (
+          <a class="tag" href={`/tags/${tag}/`}>#{tag}</a>
+        ))}
+        <a class="arrow-link ml-auto" href="/tags/">all →</a>
+      </nav>
+    )
+  }
 
+  {/* Posts by year */}
+  <main>
     {
-      !!uniqueTags.length && (
-        <aside class="lg:border-l lg:border-border lg:pl-8">
-          <p class="section-label mb-6">Topics</p>
-          <ul class="space-y-3">
-            {uniqueTags.map((tag) => (
-              <li>
-                <a
-                  class="link-muted"
-                  href={`/tags/${tag}/`}
-                >
-                  {tag}
+      descYearKeys.map((yearKey) => (
+        <section class="mb-12" aria-labelledby={`year-${yearKey}`}>
+          <div class="section-rule" id={`year-${yearKey}`}>
+            <span>{yearKey}</span>
+          </div>
+          <ul class="space-y-1">
+            {groupedByYear[yearKey]?.map((p) => (
+              <li class="post-row">
+                <a class="post-title link" data-astro-prefetch href={`/posts/${p.id}/`}>
+                  {p.data.pinned && <span class="text-text-tertiary" title="Pinned">↑ </span>}
+                  {p.data.title}
                 </a>
+                <span class="post-leader"></span>
+                <span class="post-date mono">
+                  <FormattedDate date={p.data.publishDate} />
+                </span>
               </li>
             ))}
           </ul>
-          <div class="mt-6">
-            <a class="arrow-link" href="/tags/">
-              All tags <span aria-hidden="true">→</span>
-            </a>
-          </div>
-        </aside>
+        </section>
+      ))
+    }
+    {
+      sortedPosts.length >= MAX_POSTS_PER_PAGE && (
+        <nav class="mt-12">
+          <a class="arrow-link" href="/posts/page/2/">
+            Next page <span aria-hidden="true">→</span>
+          </a>
+        </nav>
       )
     }
-  </div>
+  </main>
 </PageLayout>

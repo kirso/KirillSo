@@ -1,6 +1,7 @@
 ---
 import { getAllPosts, getUniqueTagsWithCount } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
+import Schema from "@/components/Schema.astro";
 
 const allPosts = await getAllPosts();
 const allTags = getUniqueTagsWithCount(allPosts);
@@ -14,34 +15,35 @@ const meta = {
 ---
 
 <PageLayout meta={meta}>
+  <Schema type="breadcrumb" breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Tags", url: "/tags/" }
+  ]} />
   <header class="mb-12">
     <h1 class="page-title">Tags</h1>
-    <p class="mt-2 text-text-secondary">{totalPosts} posts indexed</p>
+    <p class="mt-2 text-text-secondary">{allTags.length} topics across {totalPosts} posts</p>
   </header>
 
   <section>
-    <p class="section-label mb-6">Browse by topic</p>
-    <div class="catalog-grid">
+    <div class="section-rule mb-6"><span>All Topics</span></div>
+    <ul class="space-y-1">
       {
         allTags.map(([tag, count]) => (
-          <a
-            class="group block border-t border-border py-4 transition-colors first:border-t-0 sm:border-t"
-            href={`/tags/${tag}/`}
-            title={`View posts tagged "${tag}"`}
-          >
-            <div class="flex items-baseline justify-between gap-4">
-              <span class="link font-medium">{tag}</span>
-              <span class="catalog-count">{count}</span>
-            </div>
-          </a>
+          <li class="post-row">
+            <a class="post-title link" href={`/tags/${tag}/`}>
+              {tag}
+            </a>
+            <span class="post-leader"></span>
+            <span class="post-date mono">{count} {count === 1 ? 'post' : 'posts'}</span>
+          </li>
         ))
       }
-    </div>
+    </ul>
   </section>
 
-  <footer class="mt-16 border-t border-border pt-6">
+  <nav class="mt-12">
     <a class="arrow-link" href="/posts/">
       View all posts <span aria-hidden="true">→</span>
     </a>
-  </footer>
+  </nav>
 </PageLayout>

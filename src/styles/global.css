@@ -1,140 +1,165 @@
 /**
  * ============================================================================
- * KIRILLSO.COM DESIGN SYSTEM
+ * KIRILLSO.COM — QUIET ARCHIVE DESIGN SYSTEM
  * ============================================================================
  *
- * DESIGN PHILOSOPHY
- * -----------------
- * Editorial Minimalism — Typography-first design where content breathes.
- * Every element earns its place. Nothing decorative, everything purposeful.
+ * DESIGN PHILOSOPHY: QUIET ARCHIVE
+ * ================================
+ * A synthesis of Scandinavian clarity, Japanese restraint, and editorial rigor.
+ * Every element earns its place through purpose, not decoration.
  *
- * AESTHETIC PRINCIPLES
- * --------------------
- * 1. Paper-like warmth     — Warm stone palette, not sterile white
- * 2. Typography hierarchy  — Weight and size create structure, not color
- * 3. Generous whitespace   — Content breathes, reading feels effortless
- * 4. Subtle interactions   — Hover states inform, never distract
- * 5. Monochrome discipline — No accent colors, inversion for emphasis
- *
- * VISUAL LANGUAGE
+ * CORE PRINCIPLES
  * ---------------
- * • Swiss Style grid       — Asymmetric, structured, purposeful
- * • Catalog aesthetic      — Clean lists, consistent patterns
- * • Directory design       — Information-dense but scannable
- * • Anti-brutalist         — Refined edges, warm not harsh
+ * • Quiet Density      — Information-rich, but calm. No visual noise.
+ * • Ma (間)            — Intentional negative space as a design element.
+ * • Kanso (簡素)       — Simplicity through elimination, not addition.
+ * • Functional Restraint — Ornament serves function, or doesn't exist.
+ * • Nordic Index       — Catalog rigor meets Scandinavian calm.
+ * • Geometric Stillness — Sharp, precise, tranquil.
  *
- * COMPONENT PATTERNS
- * ------------------
- * Cards:     hover:bg-global-text hover:text-global-bg (color inversion)
- * Links:     Underlined, thicken on hover (never color change)
- * Buttons:   Border + fill inversion on hover
- * Tags:      Border only, subtle hover
- * Icons:     Allowed in catalog contexts (uses, tools), not decorative
+ * AESTHETIC REFERENCES
+ * --------------------
+ * • Vercel             — Clean neutrals, modern professional
+ * • Stripe Press       — Editorial elegance, geometric quotes
+ * • Linear             — Dense but breathable UI
+ * • Aesthete           — Catalog minimalism, index typography
+ * • Kinfolk            — Nordic restraint, generous white space
  *
- * COLOR SYSTEM
- * ------------
- * Three-tier text hierarchy:
- *   --color-global-text     Primary content, headings
- *   --color-text-secondary  Body text, descriptions
- *   --color-text-tertiary   Metadata, timestamps, labels
+ * COMPONENT VOCABULARY
+ * --------------------
+ * Core Elements:
+ * • Note cards with № markers    — Catalog aesthetic
+ * • Inline dates (Title · Date)  — Compact metadata
+ * • Uppercase section labels     — Editorial structure
+ * • Vertical bar blockquotes     — Minimal, functional
+ * • Sharp corners everywhere     — Precise, intentional
  *
- * Borders:
- *   --color-border          Visible dividers, card borders
- *   --color-border-light    Subtle separators
+ * Geometric Dividers:
+ * • Section rules (——— LABEL)    — Header dividers with label
+ * • Post rows with leaders       — Title ···· Date dotted line
+ * • Double rule (══════════)     — Two parallel thin lines
+ * • Broken rule (———  ———)       — Ensen: line with gap
+ * • Hash divider (///)           — Diagonal marks separator
  *
- * TYPOGRAPHY CLASSES
- * ------------------
- * .page-title      — H1, commanding but not aggressive
- * .section-label   — Uppercase, letterspaced, quiet
- * .section-title   — H2/H3, clear hierarchy
- * .lead-text       — Intro paragraphs, larger secondary
- * .body-text       — Optimal reading (17px, 1.75 line-height)
- * .small-text      — Metadata, captions
+ * Japanese-Inspired:
+ * • End marks (◆)                — Section/page termination
+ * • Corner brackets (┌    ┐)     — Partial borders for featured content
+ * • Axis corner (┌)              — Graph paper style corner mark
  *
- * LINK CLASSES
- * ------------
- * .link            — Primary, always underlined
- * .link-muted      — Secondary content, metadata
- * .link-nav        — Navigation, underline on hover
- * .arrow-link      — "View all →" actions
- * .tag             — Metadata badges
+ * Scandinavian-Inspired:
+ * • Timeline connectors          — Vertical line linking entries
+ * • Index numbers (№ 01)         — Catalog numbering
+ * • Leader lines (··········)    — Connect labels to values
+ * • Chevron markers (›)          — Angular list bullets
+ * • Cross marks (+)              — Decorative section separator
+ * • Coordinate markers           — Map-style numbering (51.5° N)
  *
- * INSPIRATIONS
- * ------------
- * Stripe Press, Readymag, Linear, Notion, Paco Coursey, Rauno Freiberg
+ * Utility:
+ * • Monospace accents (.mono)    — Tabular years, codes
+ * • Reading progress bar         — Scroll indicator for articles
+ *
+ * TECHNICAL FOUNDATIONS
+ * ---------------------
+ * • Font: Geist Sans + Geist Mono (Vercel) — Clean, tight, modern
+ * • Colors: OKLCH pure neutrals (chroma = 0) — Modern black/white/gray
+ * • Typography: Fluid clamp() — Responsive scaling
+ * • Spacing: 4px grid — Vertical rhythm
+ * • Measure: 65ch max — Optimal reading width
+ *
+ * COLOR SYSTEM (OKLCH) — NEUTRAL GRAYS
+ * ------------------------------------
+ * Light: Soft white (#FAFAFA) background, dark gray text
+ * Dark: Soft dark (#141414) background, light gray text
+ * No warmth, no sepia — clean modern neutrals.
+ *
+ * TEXT COLOR HIERARCHY
+ * --------------------
+ * --color-ink           Headings, titles (darkest)
+ * --color-ink-secondary Body text, descriptions
+ * --color-ink-tertiary  Metadata, labels, dates, icons (lightest)
+ *
+ * SURFACE COLOR HIERARCHY
+ * -----------------------
+ * --color-paper           Page background (lightest/darkest)
+ * --color-surface         Cards, notes, code blocks
+ * --color-surface-nested  Elements inside surface (blockquotes in cards)
+ *
+ * HOVER STATES (inverted cards)
+ * -----------------------------
+ * On hover:bg-global-text, use:
+ * - text-global-bg        Titles, icons, arrows
+ * - text-global-bg/80     Descriptions (maintains hierarchy)
+ *
+ * TYPOGRAPHY SCALE — 1.25 ratio (Major Third)
+ * -------------------------------------------
+ * --text-hero     40px   Hero headlines (optional)
+ * --text-display  32px   Page titles (h1)
+ * --text-title    24px   Section headings (h2, h3)
+ * --text-large    18px   Emphasis, lead paragraphs
+ * --text-body     15px   ALL content (bio, posts, notes, cards)
+ * --text-micro    12px   Metadata: dates, labels, section rules
+ *
+ * SPACING RHYTHM (4px grid)
+ * -------------------------
+ * --space-1   4px    --space-8   32px
+ * --space-2   8px    --space-12  48px
+ * --space-4   16px   --space-16  64px
+ * --space-6   24px   --space-24  96px
  *
  * ============================================================================
  */
 
-/* Satoshi font - self-hosted for better performance */
+/* ============================================================================
+   GEIST — Vercel's Modern Sans-Serif
+   Clean, tight, excellent for dense UI and catalog aesthetics.
+   ============================================================================ */
+
 @font-face {
-	font-family: "Satoshi";
-	src: url("/fonts/Satoshi-Light.otf") format("opentype");
-	font-weight: 300;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Satoshi";
-	src: url("/fonts/Satoshi-LightItalic.otf") format("opentype");
-	font-weight: 300;
-	font-style: italic;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Satoshi";
-	src: url("/fonts/Satoshi-Regular.otf") format("opentype");
+	font-family: "Geist";
+	src: url("/fonts/Geist-Regular.woff2") format("woff2");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
 }
+
 @font-face {
-	font-family: "Satoshi";
-	src: url("/fonts/Satoshi-Italic.otf") format("opentype");
+	font-family: "Geist";
+	src: url("/fonts/Geist-Medium.woff2") format("woff2");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Geist";
+	src: url("/fonts/Geist-SemiBold.woff2") format("woff2");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Geist";
+	src: url("/fonts/Geist-Bold.woff2") format("woff2");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* Geist Mono — For dates, counts, code */
+@font-face {
+	font-family: "Geist Mono";
+	src: url("/fonts/GeistMono-Regular.woff2") format("woff2");
 	font-weight: 400;
-	font-style: italic;
+	font-style: normal;
 	font-display: swap;
 }
+
 @font-face {
-	font-family: "Satoshi";
-	src: url("/fonts/Satoshi-Medium.otf") format("opentype");
+	font-family: "Geist Mono";
+	src: url("/fonts/GeistMono-Medium.woff2") format("woff2");
 	font-weight: 500;
 	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Satoshi";
-	src: url("/fonts/Satoshi-MediumItalic.otf") format("opentype");
-	font-weight: 500;
-	font-style: italic;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Satoshi";
-	src: url("/fonts/Satoshi-Bold.otf") format("opentype");
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Satoshi";
-	src: url("/fonts/Satoshi-BoldItalic.otf") format("opentype");
-	font-weight: 700;
-	font-style: italic;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Satoshi";
-	src: url("/fonts/Satoshi-Black.otf") format("opentype");
-	font-weight: 900;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Satoshi";
-	src: url("/fonts/Satoshi-BlackItalic.otf") format("opentype");
-	font-weight: 900;
-	font-style: italic;
 	font-display: swap;
 }
 
@@ -144,76 +169,138 @@
 /* Dark mode selector strategy */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/*
- * S-TIER EDITORIAL MINIMALISM TYPOGRAPHY SYSTEM
- *
- * Inspired by: Stripe Press, Readymag, Notion, Linear
- *
- * Principles:
- * - Paper-like warmth (not sterile white)
- * - Generous line-height for effortless reading
- * - Clear typographic hierarchy through weight & size
- * - Optimal measure (65-75 characters per line)
- * - Rhythm through consistent spacing scale
- */
-
 @theme {
 	/* ========================================
-	   WARM PAPER COLOR PALETTE
+	   OKLCH COLOR PALETTE — MODERN NEUTRAL
+	   ========================================
+
+	   Reference: Aesthete, Vercel, Linear, Notion
+	   Soft off-white & dark gray — NOT pure white/black.
+	   Easy on the eyes while maintaining clean aesthetic.
+
+	   LIGHT MODE (on #FAFAFA / L=0.98):
+	   • Ink (L=0.18):           14:1  (AAA) — headings
+	   • Secondary (L=0.40):      7:1  (AAA) — body text
+	   • Tertiary (L=0.50):       5:1  (AA)  — metadata
+
+	   DARK MODE (on #141414 / L=0.14):
+	   • Ink (L=0.90):           12:1  (AAA) — headings
+	   • Secondary (L=0.72):      7:1  (AAA) — body text
+	   • Tertiary (L=0.58):       5:1  (AA)  — metadata
 	   ======================================== */
 
-	/* Light mode - Warm paper, soft ink */
-	--color-global-bg: #fafaf8;          /* Warm paper white */
-	--color-global-text: #1c1917;        /* Warm black (stone-900) */
-	--color-text-secondary: #57534e;     /* Warm gray (stone-600) */
-	--color-text-tertiary: #78716c;      /* Lighter warm gray (stone-500) */
-	--color-border: #e7e5e4;             /* Warm border (stone-200) */
-	--color-border-light: #f5f5f4;       /* Subtle divider (stone-100) */
-	--color-link: #1c1917;               /* Links same as text */
-	--color-accent: #1c1917;             /* Accent = text */
-	--color-accent-2: #1c1917;
-	--color-quote: #57534e;              /* Quotes in secondary */
-	--color-code-bg: #f5f5f4;            /* Code background (stone-100) */
-	--color-selection: #e7e5e4;          /* Selection highlight */
+	/* Light mode — Dimmer for reduced eye strain (2-3% adjustment) */
+	--color-paper: oklch(0.96 0 0);                    /* #F5F5F5 — dimmer white */
+	--color-ink: oklch(0.20 0 0);                      /* #262626 — softer dark gray */
+	--color-ink-secondary: oklch(0.42 0 0);            /* #636363 — body text */
+	--color-ink-tertiary: oklch(0.52 0 0);             /* #7A7A7A — metadata */
+	--color-rule: oklch(0.82 0 0);                     /* #C9C9C9 — visible borders */
+	--color-rule-light: oklch(0.89 0 0);               /* #E0E0E0 — subtle separators */
+	--color-surface: oklch(0.93 0 0);                  /* #EDEDED — cards, code bg */
+	--color-surface-nested: oklch(0.88 0 0);           /* #DFDFDF — elements inside surface */
+	--color-selection: oklch(0.85 0 0);                /* #D4D4D4 — text selection */
+
+	/* Semantic aliases for Tailwind utilities */
+	--color-global-bg: var(--color-paper);
+	--color-global-text: var(--color-ink);
+	--color-text-secondary: var(--color-ink-secondary);
+	--color-text-tertiary: var(--color-ink-tertiary);
+	--color-border: var(--color-rule);
+	--color-border-light: var(--color-rule-light);
+	--color-code-bg: var(--color-surface);
+	--color-link: var(--color-ink);
+	--color-accent: var(--color-ink);
+	--color-accent-2: var(--color-ink);
+	--color-quote: var(--color-ink-secondary);
 
 	/* ========================================
-	   TYPOGRAPHY SCALE
-	   Based on 1.25 (Major Third) ratio
+	   TYPOGRAPHY — Geist + Major Third Scale (1.25)
 	   ======================================== */
 
-	--font-sans: "Satoshi", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-	--font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+	--font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+	--font-mono: "Geist Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
-	/* Font sizes - slightly larger for reading comfort */
-	--text-xs: 0.75rem;      /* 12px */
-	--text-sm: 0.875rem;     /* 14px */
-	--text-base: 1.0625rem;  /* 17px - optimal for reading */
-	--text-lg: 1.25rem;      /* 20px */
-	--text-xl: 1.5rem;       /* 24px */
-	--text-2xl: 1.875rem;    /* 30px */
-	--text-3xl: 2.25rem;     /* 36px */
+	/*
+	   TYPE SCALE — 1.25 ratio (Major Third)
+	   Clean, intentional, no redundancy.
 
-	/* Line heights - generous for readability */
-	--leading-tight: 1.25;
-	--leading-snug: 1.375;
-	--leading-normal: 1.5;
-	--leading-relaxed: 1.75;  /* Optimal for body text */
-	--leading-loose: 2;
+	   --text-micro    12px   Metadata: dates, labels, counts
+	   --text-body     15px   ALL content: bio, posts, notes, cards
+	   --text-large    18px   Emphasis, lead paragraphs
+	   --text-title    24px   Section headings (h2, h3)
+	   --text-display  32px   Page titles (h1)
+	   --text-hero     40px   Hero headlines (optional)
+	*/
+	--text-micro: 0.75rem;      /* 12px */
+	--text-body: 0.9375rem;     /* 15px */
+	--text-large: 1.125rem;     /* 18px */
+	--text-title: 1.5rem;       /* 24px */
+	--text-display: 2rem;       /* 32px */
+	--text-hero: 2.5rem;        /* 40px */
+
+	/* Line heights */
+	--leading-none: 1;
+	--leading-tight: 1.15;      /* Headings */
+	--leading-snug: 1.3;        /* Titles */
+	--leading-normal: 1.5;      /* UI text */
+	--leading-relaxed: 1.6;     /* Body/reading */
+	--leading-loose: 1.75;
 
 	/* Letter spacing */
-	--tracking-tight: -0.02em;
+	--tracking-tighter: -0.03em;
+	--tracking-tight: -0.015em;
 	--tracking-normal: 0;
-	--tracking-wide: 0.05em;
-	--tracking-wider: 0.1em;
+	--tracking-wide: 0.025em;
+	--tracking-wider: 0.08em;
+	--tracking-widest: 0.12em;
 
 	/* ========================================
-	   SPACING RHYTHM
-	   Based on 4px grid (0.25rem)
+	   4px SPACING GRID — Vertical Rhythm
 	   ======================================== */
 
-	--spacing-section: 5rem;   /* Between major sections */
-	--spacing-block: 2rem;     /* Between paragraphs/blocks */
-	--spacing-element: 1rem;   /* Between related elements */
+	--space-px: 1px;
+	--space-0: 0;
+	--space-0-5: 0.125rem;   /* 2px */
+	--space-1: 0.25rem;      /* 4px */
+	--space-1-5: 0.375rem;   /* 6px */
+	--space-2: 0.5rem;       /* 8px */
+	--space-2-5: 0.625rem;   /* 10px */
+	--space-3: 0.75rem;      /* 12px */
+	--space-4: 1rem;         /* 16px */
+	--space-5: 1.25rem;      /* 20px */
+	--space-6: 1.5rem;       /* 24px */
+	--space-8: 2rem;         /* 32px */
+	--space-10: 2.5rem;      /* 40px */
+	--space-12: 3rem;        /* 48px */
+	--space-16: 4rem;        /* 64px */
+	--space-20: 5rem;        /* 80px */
+	--space-24: 6rem;        /* 96px */
+
+	/* Semantic spacing */
+	--spacing-section: var(--space-16);
+	--spacing-block: var(--space-6);
+	--spacing-element: var(--space-4);
+	--spacing-inline: var(--space-2);
+
+	/* ========================================
+	   BORDER RADIUS — Sharp editorial default
+	   ========================================
+	   Aesthete-style: mostly sharp corners.
+	   Use --radius-sm only for small UI elements.
+	   ======================================== */
+
+	--radius-none: 0;
+	--radius-sm: 0.25rem;                              /* 4px — buttons, inputs */
+	--radius-md: 0.375rem;                             /* 6px — rare, soft cards */
+	--radius-full: 9999px;                             /* Pills, avatars */
+
+	/* ========================================
+	   EASING CURVES — Refined Transitions
+	   ======================================== */
+
+	--ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+	--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+	--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @layer base {
@@ -221,9 +308,6 @@
 		color-scheme: light dark;
 		accent-color: var(--color-accent);
 		scrollbar-gutter: stable;
-
-		/* OpenType features for Satoshi */
-		font-feature-settings: "ss01", "ss02", "cv01";
 
 		/* Smoother font rendering */
 		text-size-adjust: 100%;
@@ -236,19 +320,33 @@
 		&[data-theme="dark"] {
 			color-scheme: dark;
 
-			/* Dark mode - Warm dark, soft light text */
-			--color-global-bg: #0c0a09;          /* Warm black (stone-950) */
-			--color-global-text: #fafaf9;        /* Warm white (stone-50) */
-			--color-text-secondary: #a8a29e;     /* Warm gray (stone-400) */
-			--color-text-tertiary: #78716c;      /* Darker warm gray (stone-500) */
-			--color-border: #292524;             /* Dark border (stone-800) */
-			--color-border-light: #1c1917;       /* Subtle divider (stone-900) */
-			--color-link: #fafaf9;
-			--color-accent: #fafaf9;
-			--color-accent-2: #fafaf9;
-			--color-quote: #a8a29e;
-			--color-code-bg: #1c1917;            /* Code background (stone-900) */
-			--color-selection: #44403c;          /* Selection (stone-700) */
+			/* ========================================
+			   Dark mode — Soft dark (not pure black)
+			   Same philosophy as light mode.
+			   ======================================== */
+
+			--color-paper: oklch(0.12 0 0);                   /* #1A1A1A — deeper dark */
+			--color-ink: oklch(0.87 0 0);                     /* #DBDBDB — softer white */
+			--color-ink-secondary: oklch(0.69 0 0);           /* #A3A3A3 — body text */
+			--color-ink-tertiary: oklch(0.55 0 0);            /* #828282 — metadata */
+			--color-rule: oklch(0.28 0 0);                    /* #3D3D3D — visible borders */
+			--color-rule-light: oklch(0.22 0 0);              /* #303030 — subtle separators */
+			--color-surface: oklch(0.18 0 0);                 /* #262626 — cards, code bg (more visible) */
+			--color-surface-nested: oklch(0.24 0 0);          /* #363636 — elements inside surface */
+			--color-selection: oklch(0.30 0 0);               /* #454545 — text selection */
+
+			/* Update semantic aliases */
+			--color-global-bg: var(--color-paper);
+			--color-global-text: var(--color-ink);
+			--color-text-secondary: var(--color-ink-secondary);
+			--color-text-tertiary: var(--color-ink-tertiary);
+			--color-border: var(--color-rule);
+			--color-border-light: var(--color-rule-light);
+			--color-code-bg: var(--color-surface);
+			--color-link: var(--color-ink);
+			--color-accent: var(--color-ink);
+			--color-accent-2: var(--color-ink);
+			--color-quote: var(--color-ink-secondary);
 		}
 	}
 
@@ -258,24 +356,28 @@
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 
-		/* Base typography */
-		font-size: var(--text-base);
+		/* Base typography — Geist optimized */
+		font-size: var(--text-body);
 		line-height: var(--leading-relaxed);
-		letter-spacing: -0.01em;
+		letter-spacing: -0.011em; /* Geist is slightly tight by default */
 
 		/* Hanging punctuation for refined typography */
 		hanging-punctuation: first last;
+
+		/* Background */
+		background-color: var(--color-paper);
+		color: var(--color-ink);
 	}
 
 	/* Text selection */
 	::selection {
 		background-color: var(--color-selection);
-		color: var(--color-global-text);
+		color: var(--color-ink);
 	}
 
-	/* Focus styles - subtle but visible */
+	/* Focus styles — subtle but visible */
 	:focus-visible {
-		outline: 2px solid var(--color-global-text);
+		outline: 2px solid var(--color-ink);
 		outline-offset: 2px;
 	}
 
@@ -324,69 +426,82 @@
 	@import "./components/github-card.css";
 }
 
-/* ========================================
-   EDITORIAL COMPONENT CLASSES
-   ======================================== */
+/* ============================================================================
+   TYPOGRAPHY COMPONENT CLASSES
+   ============================================================================
+   Clean hierarchy with three text levels:
+   - Primary (ink): Headings, titles
+   - Secondary: Body text, descriptions
+   - Tertiary: Metadata, labels, dates
+   ============================================================================ */
 
-/* Section label - uppercase, spaced, quiet */
-.section-label {
-	font-size: var(--text-xs);
-	font-weight: 500;
-	text-transform: uppercase;
-	letter-spacing: var(--tracking-wider);
-	color: var(--color-text-tertiary);
-	line-height: var(--leading-normal);
-}
-
-/* Page title - commanding but not aggressive */
+/* Page Title — Commanding, fluid scaling */
 .page-title {
-	font-size: var(--text-2xl);
+	font-size: var(--text-display);
 	font-weight: 700;
 	letter-spacing: var(--tracking-tight);
 	line-height: var(--leading-tight);
-	color: var(--color-global-text);
+	color: var(--color-ink);
 }
 
-/* Section title - clear hierarchy */
+/* Section Label — Catalog index headers (Aesthete influence) */
+.section-label {
+	font-size: var(--text-micro);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: var(--tracking-widest);
+	color: var(--color-ink-tertiary);
+	line-height: var(--leading-normal);
+}
+
+/* Section Title — Clear hierarchy for H2/H3 */
 .section-title {
-	font-size: var(--text-lg);
-	font-weight: 600;
+	font-size: var(--text-title);
+	font-weight: 700;
 	letter-spacing: var(--tracking-tight);
 	line-height: var(--leading-snug);
+	color: var(--color-ink);
 }
 
-/* Subtitle / lead text */
+/* Lead Text — Intro paragraphs, larger secondary */
 .lead-text {
-	font-size: var(--text-lg);
+	font-size: var(--text-large);
 	font-weight: 400;
-	color: var(--color-text-secondary);
+	color: var(--color-ink-secondary);
 	line-height: var(--leading-relaxed);
+	max-width: 65ch;
 }
 
-/* Body text - optimal reading */
+/* Body Text — Optimal reading */
 .body-text {
-	font-size: var(--text-base);
+	font-size: var(--text-body);
 	line-height: var(--leading-relaxed);
-	color: var(--color-global-text);
+	color: var(--color-ink);
+	max-width: 65ch;
 }
 
-/* Small text - metadata, captions */
+/* Small Text — Dense catalog items, metadata */
 .small-text {
-	font-size: var(--text-sm);
+	font-size: var(--text-micro);
 	line-height: var(--leading-normal);
-	color: var(--color-text-secondary);
+	color: var(--color-ink-secondary);
 }
 
-/* Catalog count - tabular, aligned */
+/* Micro Text — Labels, timestamps, counts */
+.micro-text {
+	font-size: var(--text-micro);
+	line-height: var(--leading-normal);
+	color: var(--color-ink-tertiary);
+}
+
+/* Catalog Count — Tabular numbers, aligned */
 .catalog-count {
-	font-size: var(--text-sm);
+	font-size: var(--text-micro);
 	font-variant-numeric: tabular-nums;
-	color: var(--color-text-tertiary);
+	color: var(--color-ink-tertiary);
 }
 
-/* Note: .catalog-card removed - unused */
-
-/* Catalog grid - responsive */
+/* Catalog Grid — Dense responsive layout (Aesthete influence) */
 .catalog-grid {
 	display: grid;
 	gap: 0;
@@ -394,7 +509,7 @@
 @media (min-width: 640px) {
 	.catalog-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 0 3rem;
+		gap: 0 var(--space-8);
 	}
 }
 @media (min-width: 1024px) {
@@ -403,95 +518,1152 @@
 	}
 }
 
-/* ========================================
+/* ============================================================================
    LINK SYSTEM
-   Three link variants for different contexts
-   ======================================== */
+   ============================================================================
+   Three variants: primary, muted, navigation.
+   Underlines visible by default — honest about what's clickable.
+   ============================================================================ */
 
-/* Primary content link - always underlined */
+/* Primary content link — Always underlined */
 .link {
-	color: var(--color-global-text);
+	color: var(--color-ink);
 	text-decoration: underline;
-	text-underline-offset: 2px;
+	text-underline-offset: 3px;
 	text-decoration-thickness: 1px;
-	transition: text-decoration-thickness 150ms ease;
+	transition: text-decoration-thickness 150ms var(--ease-out);
 }
 .link:hover {
 	text-decoration-thickness: 2px;
 }
 
-/* Muted link - for secondary content like tags, metadata */
+/* Muted link — Secondary content, tags */
 .link-muted {
-	color: var(--color-text-secondary);
+	color: var(--color-ink-secondary);
 	text-decoration: underline;
-	text-underline-offset: 2px;
+	text-underline-offset: 3px;
 	text-decoration-thickness: 1px;
-	transition: color 150ms ease, text-decoration-thickness 150ms ease;
+	transition: color 150ms var(--ease-out), text-decoration-thickness 150ms var(--ease-out);
 }
 .link-muted:hover {
-	color: var(--color-global-text);
+	color: var(--color-ink);
 	text-decoration-thickness: 2px;
 }
 
-/* Navigation link - underline on hover only */
+/* Navigation link — Underline on hover */
 .link-nav {
-	color: var(--color-text-secondary);
+	color: var(--color-ink-secondary);
 	text-decoration: none;
-	transition: color 150ms ease;
+	transition: color 150ms var(--ease-out);
 }
 .link-nav:hover {
-	color: var(--color-global-text);
+	color: var(--color-ink);
 	text-decoration: underline;
-	text-underline-offset: 2px;
+	text-underline-offset: 3px;
 }
 
-/* Arrow link - for "View all →" style actions */
+/* Arrow link — "View all →" actions */
 .arrow-link {
 	display: inline-flex;
 	align-items: center;
-	gap: 0.375rem;
-	font-size: var(--text-sm);
-	color: var(--color-text-secondary);
-	transition: color 150ms ease;
+	gap: var(--space-1-5);
+	font-size: var(--text-micro);
+	color: var(--color-ink-secondary);
+	transition: color 150ms var(--ease-out);
 }
 .arrow-link:hover {
-	color: var(--color-global-text);
+	color: var(--color-ink);
 }
 
-/* Tag/badge - for metadata labels */
+/* Tag/badge — Metadata labels (sharp corners to match cards) */
 .tag {
 	display: inline-block;
-	padding: 0.125rem 0.5rem;
-	font-size: var(--text-xs);
-	color: var(--color-text-secondary);
-	border: 1px solid var(--color-border);
-	transition: border-color 150ms ease, color 150ms ease;
+	padding: var(--space-0-5) var(--space-2);
+	font-size: var(--text-micro);
+	color: var(--color-ink-secondary);
+	border: 1px solid var(--color-rule);
+	border-radius: var(--radius-none);
+	transition: border-color 150ms var(--ease-out), color 150ms var(--ease-out);
 }
 .tag:hover {
-	border-color: var(--color-global-text);
-	color: var(--color-global-text);
+	border-color: var(--color-ink);
+	color: var(--color-ink);
 }
 
-/* ========================================
-   PROSE UTILITY OVERRIDES
-   ======================================== */
+/* ============================================================================
+   CARD SYSTEM — Unified styling for all cards
+   ============================================================================
+   Sharp corners (Aesthete-style). Consistent borders.
+   Use .card for base, add modifiers as needed.
+   ============================================================================ */
+
+/* Base card — sharp corners, visible border */
+.card {
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-rule);
+	border-radius: var(--radius-none);
+	transition: border-color 150ms var(--ease-out);
+}
+.card:hover {
+	border-color: var(--color-ink-tertiary);
+}
+
+/* Note card — catalog entry with № marker */
+.note-card {
+	position: relative;
+	padding: var(--space-4) var(--space-5);
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-rule);
+	border-radius: var(--radius-none);
+	transition: border-color 150ms var(--ease-out);
+}
+.note-card:hover {
+	border-color: var(--color-ink-tertiary);
+}
+/* № marker — catalog numbering */
+.note-card::before {
+	content: "№";
+	position: absolute;
+	top: var(--space-3);
+	right: var(--space-4);
+	font-size: var(--text-micro);
+	font-weight: 500;
+	color: var(--color-ink-tertiary);
+}
+
+/* ============================================================================
+   PROSE UTILITY — Markdown Content Styling
+   ============================================================================
+   Long-form content with optimal measure and line height.
+   Uses design system color tokens for consistency.
+   ============================================================================ */
 
 @utility prose {
-	/* Color tokens */
-	--tw-prose-body: var(--color-global-text);
-	--tw-prose-headings: var(--color-global-text);
-	--tw-prose-lead: var(--color-text-secondary);
-	--tw-prose-links: var(--color-global-text);
-	--tw-prose-bold: var(--color-global-text);
-	--tw-prose-counters: var(--color-text-tertiary);
-	--tw-prose-bullets: var(--color-text-tertiary);
-	--tw-prose-hr: var(--color-border);
-	--tw-prose-quotes: var(--color-text-secondary);
-	--tw-prose-quote-borders: var(--color-border);
-	--tw-prose-captions: var(--color-text-secondary);
-	--tw-prose-code: var(--color-global-text);
-	--tw-prose-pre-code: var(--color-global-text);
-	--tw-prose-pre-bg: var(--color-code-bg);
-	--tw-prose-th-borders: var(--color-border);
-	--tw-prose-td-borders: var(--color-border-light);
+	/* OKLCH color tokens — body uses secondary (dimmed) for readability */
+	--tw-prose-body: var(--color-ink-secondary);
+	--tw-prose-headings: var(--color-ink);
+	--tw-prose-lead: var(--color-ink-secondary);
+	--tw-prose-links: var(--color-ink);
+	--tw-prose-bold: var(--color-ink);
+	--tw-prose-counters: var(--color-ink-tertiary);
+	--tw-prose-bullets: var(--color-ink-tertiary);
+	--tw-prose-hr: var(--color-rule);
+	--tw-prose-quotes: var(--color-ink-secondary);
+	--tw-prose-quote-borders: var(--color-rule);
+	--tw-prose-captions: var(--color-ink-secondary);
+	--tw-prose-code: var(--color-ink);
+	--tw-prose-pre-code: var(--color-ink);
+	--tw-prose-pre-bg: var(--color-surface);
+	--tw-prose-th-borders: var(--color-rule);
+	--tw-prose-td-borders: var(--color-rule-light);
+
+	/* Optimal measure */
+	max-width: 65ch;
 }
+
+/* ============================================================================
+   PROSE HEADING HIERARCHY — Major Third (1.25) Scale
+   ============================================================================
+   Headings use extending-line pattern (like section-rule) for consistency.
+   Creates visual rhythm and catalog/editorial feel.
+
+   H1: 32px — Page/article titles (rarely used in prose body)
+   H2: 24px — Major sections, line extends right
+   H3: 18px — Subsections, subtle line extends right
+   H4: 15px — Inline headings, uppercase small
+   ============================================================================ */
+
+.prose h1 {
+	font-size: var(--text-display);
+	font-weight: 700;
+	letter-spacing: var(--tracking-tight);
+	line-height: var(--leading-tight);
+	color: var(--color-ink);
+	margin-top: var(--space-12);
+	margin-bottom: var(--space-6);
+}
+
+.prose h1:first-child {
+	margin-top: 0;
+}
+
+/* H2 — Major sections with extending line (section-rule pattern) */
+.prose h2 {
+	display: flex;
+	align-items: center;
+	gap: var(--space-4);
+	font-size: var(--text-title);
+	font-weight: 700;
+	letter-spacing: var(--tracking-tight);
+	line-height: var(--leading-snug);
+	color: var(--color-ink);
+	margin-top: var(--space-10);
+	margin-bottom: var(--space-4);
+}
+
+.prose h2::after {
+	content: "";
+	flex: 1;
+	height: 1px;
+	background-color: var(--color-rule);
+}
+
+.prose h2:first-child {
+	margin-top: 0;
+}
+
+/* H3 — Subsections with subtle extending line */
+.prose h3 {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	font-size: var(--text-large);
+	font-weight: 600;
+	letter-spacing: var(--tracking-normal);
+	line-height: var(--leading-snug);
+	color: var(--color-ink);
+	margin-top: var(--space-8);
+	margin-bottom: var(--space-3);
+}
+
+.prose h3::after {
+	content: "";
+	flex: 1;
+	height: 1px;
+	background-color: var(--color-rule-light);
+}
+
+.prose h3:first-child {
+	margin-top: 0;
+}
+
+/* H4 — Inline/paragraph headings, no line (too dense) */
+.prose h4 {
+	font-size: var(--text-body);
+	font-weight: 600;
+	letter-spacing: var(--tracking-wide);
+	text-transform: uppercase;
+	line-height: var(--leading-normal);
+	color: var(--color-ink-secondary);
+	margin-top: var(--space-6);
+	margin-bottom: var(--space-2);
+}
+
+.prose h4:first-child {
+	margin-top: 0;
+}
+
+/* H5/H6 — Rarely used, minimal styling */
+.prose h5,
+.prose h6 {
+	font-size: var(--text-body);
+	font-weight: 500;
+	line-height: var(--leading-normal);
+	color: var(--color-ink-secondary);
+	margin-top: var(--space-4);
+	margin-bottom: var(--space-2);
+}
+
+/* Spacing between consecutive headings */
+.prose h2 + h3 {
+	margin-top: var(--space-4);
+}
+
+.prose h3 + h4 {
+	margin-top: var(--space-3);
+}
+
+/* ============================================================================
+   UTILITY CLASSES — Measure & Rhythm
+   ============================================================================ */
+
+/* Optimal reading width */
+.measure {
+	max-width: 65ch;
+}
+
+.measure-wide {
+	max-width: 75ch;
+}
+
+.measure-narrow {
+	max-width: 45ch;
+}
+
+/* Section spacing */
+.section-gap {
+	margin-block: var(--spacing-section);
+}
+
+/* Block spacing */
+.block-gap {
+	margin-block: var(--spacing-block);
+}
+
+/* ============================================================================
+   BLOCKQUOTE — Geometric Frame with Corner Brackets
+   ============================================================================
+   Prominent pull-quote style: subtle background, L-shaped corners,
+   Japanese bracket marks. Full container width.
+   ============================================================================ */
+
+.prose blockquote,
+blockquote {
+	position: relative;
+	margin: var(--space-6) 0;
+	padding: var(--space-4);
+	font-style: normal;
+	font-size: var(--text-body);
+	line-height: var(--leading-relaxed);
+	color: var(--color-ink-secondary);
+	background-color: var(--color-surface);
+	border: none;
+}
+
+/* L-shaped corner — top-left */
+.prose blockquote::before,
+blockquote::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: var(--space-4);
+	height: var(--space-4);
+	border-top: 2px solid var(--color-ink);
+	border-left: 2px solid var(--color-ink);
+}
+
+/* L-shaped corner — bottom-right */
+.prose blockquote::after,
+blockquote::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: var(--space-4);
+	height: var(--space-4);
+	border-bottom: 2px solid var(--color-ink);
+	border-right: 2px solid var(--color-ink);
+}
+
+/* Reset margins inside blockquotes */
+.prose blockquote > :first-child,
+blockquote > :first-child {
+	margin-top: 0;
+}
+
+.prose blockquote > :last-child,
+blockquote > :last-child {
+	margin-bottom: 0;
+}
+
+/* Blockquote citation/source */
+.prose blockquote cite,
+blockquote cite {
+	display: block;
+	margin-top: var(--space-4);
+	font-size: var(--text-micro);
+	font-style: normal;
+	color: var(--color-ink-tertiary);
+}
+
+.prose blockquote cite::before,
+blockquote cite::before {
+	content: "— ";
+}
+
+/* Nested blockquotes — inside surface elements (cards, notes) use darker/lighter bg */
+.note-card blockquote,
+.card blockquote,
+[class*="bg-surface"] blockquote {
+	background-color: var(--color-surface-nested);
+}
+
+/* Blockquotes in truncated previews — simplify for line-clamp compatibility */
+.line-clamp-3 blockquote,
+.line-clamp-2 blockquote {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+}
+.line-clamp-3 blockquote::before,
+.line-clamp-3 blockquote::after,
+.line-clamp-2 blockquote::before,
+.line-clamp-2 blockquote::after {
+	display: none;
+}
+
+/* ============================================================================
+   GEOMETRIC DESIGN ELEMENTS — Quiet Archive System
+   ============================================================================
+   Scandinavian clarity + Japanese restraint + Editorial rigor.
+   Every element earns its place through purpose.
+   ============================================================================ */
+
+/* Section Rule — Label on left, horizontal line extending right
+   Usage: <div class="section-rule"><span>LABEL</span></div>
+   ============================================================================ */
+.section-rule {
+	display: flex;
+	align-items: center;
+	gap: var(--space-4);
+	margin-bottom: var(--space-6);
+}
+
+.section-rule::after {
+	content: "";
+	flex: 1;
+	height: 1px;
+	background-color: var(--color-rule);
+}
+
+.section-rule span {
+	font-size: var(--text-micro);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: var(--tracking-widest);
+	color: var(--color-ink-tertiary);
+}
+
+/* Timeline — Continuous vertical line with year markers
+   Usage: <div class="timeline">
+            <div class="timeline-entry">
+              <span class="timeline-year">2024</span>
+              <div class="timeline-node"></div>
+              <p class="timeline-text">...</p>
+            </div>
+          </div>
+   ============================================================================ */
+.timeline {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	padding-left: calc(3rem + var(--space-4) + 8px); /* year width + gap + half node */
+}
+
+/* Continuous vertical line */
+.timeline::before {
+	content: "";
+	position: absolute;
+	left: calc(3rem + var(--space-4) + 3px); /* year width + gap + center of node */
+	top: 0.6em;
+	bottom: var(--space-4);
+	width: 1px;
+	background-color: var(--color-rule);
+}
+
+.timeline-entry {
+	position: relative;
+	display: grid;
+	grid-template-columns: 3rem auto 1fr;
+	gap: var(--space-4);
+	align-items: first baseline;
+	margin-left: calc(-3rem - var(--space-4) - 8px); /* Pull back to align year */
+	padding-bottom: var(--space-4);
+}
+
+.timeline-entry:last-child {
+	padding-bottom: 0;
+}
+
+.timeline-year {
+	font-family: var(--font-mono);
+	font-size: var(--text-micro);
+	color: var(--color-ink-tertiary);
+	text-align: right;
+}
+
+/* Node marker — small circle at each entry */
+.timeline-node {
+	position: relative;
+	width: 7px;
+	height: 7px;
+	background-color: var(--color-paper);
+	border: 1px solid var(--color-rule);
+	border-radius: 50%;
+	margin-top: 0.35em;
+	z-index: 1;
+}
+
+/* Hover state — highlight the node */
+.timeline-entry:hover .timeline-node {
+	background-color: var(--color-ink-tertiary);
+	border-color: var(--color-ink-tertiary);
+}
+
+.timeline-text {
+	color: var(--color-ink-secondary);
+	line-height: var(--leading-relaxed);
+}
+
+/* Index Number — Catalog numbering (№ 01)
+   Usage: <span class="idx">01</span>
+   ============================================================================ */
+.idx {
+	font-size: var(--text-micro);
+	font-weight: 500;
+	color: var(--color-ink-tertiary);
+}
+
+.idx::before {
+	content: "№ ";
+}
+
+/* Leader Line — Dotted line connecting label to value
+   Usage: <div class="leader-line"><span>Label</span><span>Value</span></div>
+   ============================================================================ */
+.leader-line {
+	display: flex;
+	align-items: baseline;
+	gap: var(--space-2);
+}
+
+.leader-line::after {
+	content: "";
+	flex: 1;
+	border-bottom: 1px dotted var(--color-rule);
+	margin: 0 var(--space-1);
+	min-width: var(--space-4);
+}
+
+.leader-line > :first-child {
+	order: 0;
+}
+
+.leader-line > :last-child {
+	order: 2;
+}
+
+.leader-line::after {
+	order: 1;
+}
+
+/* Chevron List — Angular list markers (›)
+   Usage: <ul class="chevron-list"><li>Item</li></ul>
+   ============================================================================ */
+.chevron-list {
+	list-style: none;
+	padding-left: 0;
+}
+
+.chevron-list li {
+	display: flex;
+	gap: var(--space-3);
+	padding: var(--space-1) 0;
+}
+
+.chevron-list li::before {
+	content: "›";
+	color: var(--color-ink-tertiary);
+	flex-shrink: 0;
+}
+
+/* Monospace Accent — For years, codes, counts
+   Usage: <span class="mono">2024</span>
+   ============================================================================ */
+.mono {
+	font-family: var(--font-mono);
+	font-variant-numeric: tabular-nums;
+}
+
+/* Geometric Table — Fieldset with legend for label-in-border effect
+   ┌─ PRIVATE ─────────────────────────┐
+   │ Calm Company Fund              → │
+   │ Replit                         → │
+   └───────────────────────────────────┘
+   Usage: <fieldset class="geo-table">
+            <legend>CATEGORY</legend>
+            <a class="geo-table-row" href="...">Item <span>→</span></a>
+          </fieldset>
+   ============================================================================ */
+.geo-table {
+	border: 1px solid var(--color-rule);
+	padding: 0;
+	margin: 0 0 var(--space-4) 0;
+}
+
+.geo-table legend {
+	font-size: var(--text-micro);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: var(--tracking-widest);
+	color: var(--color-ink-tertiary);
+	padding: 0 var(--space-2);
+	margin-left: var(--space-3);
+}
+
+.geo-table-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: var(--space-3) var(--space-4);
+	color: var(--color-ink-secondary);
+	text-decoration: none;
+	border-top: 1px solid var(--color-rule-light);
+	transition: background-color 150ms var(--ease-out), color 150ms var(--ease-out);
+}
+
+.geo-table-row:first-of-type {
+	border-top: none;
+}
+
+.geo-table-row:hover {
+	background-color: var(--color-ink);
+	color: var(--color-paper);
+}
+
+.geo-table-row span {
+	color: var(--color-ink-tertiary);
+	transition: color 150ms var(--ease-out), transform 150ms var(--ease-out);
+}
+
+.geo-table-row:hover span {
+	color: var(--color-paper);
+	transform: translateX(2px);
+}
+
+/* End Mark — Subtle section/page ending marker
+   Usage: <div class="end-mark"></div>
+   ============================================================================ */
+.end-mark {
+	display: flex;
+	justify-content: center;
+	margin-top: var(--space-12);
+	color: var(--color-ink-tertiary);
+}
+
+.end-mark::before {
+	content: "◆";
+	font-size: var(--text-micro);
+}
+
+/* Separator Dot — Inline list separator
+   Usage: <span class="sep-dot"></span> between items
+   ============================================================================ */
+.sep-dot {
+	display: inline-block;
+	color: var(--color-ink-tertiary);
+}
+
+.sep-dot::before {
+	content: "/";
+}
+
+/* Post Row — Title with leader line to date
+   Usage: <li class="post-row">
+            <a class="post-title">...</a>
+            <span class="post-leader"></span>
+            <span class="post-date mono">...</span>
+          </li>
+   ============================================================================ */
+.post-row {
+	display: flex;
+	align-items: baseline;
+	gap: var(--space-2);
+}
+
+.post-row .post-title {
+	/* Uses inherited text-body size */
+	flex-shrink: 0;
+}
+
+.post-leader {
+	flex: 1;
+	min-width: var(--space-4);
+	margin: 0 var(--space-2);
+	overflow: hidden;
+	color: var(--color-ink-tertiary);
+	font-size: var(--text-micro);
+	letter-spacing: 0.15em;
+}
+
+.post-leader::before {
+	content: " · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ";
+	white-space: nowrap;
+}
+
+.post-row .post-date {
+	font-size: var(--text-micro); /* Metadata only */
+	color: var(--color-ink-tertiary);
+	white-space: nowrap;
+	flex-shrink: 0;
+}
+
+/* Responsive: stack on mobile */
+@media (max-width: 639px) {
+	.post-row {
+		flex-direction: column;
+		gap: var(--space-0-5);
+	}
+
+	.post-leader {
+		display: none;
+	}
+}
+
+/* Corner Brackets — Geometric L-bracket accent for featured content
+   Usage: <div class="corner-brackets">content</div>
+   Creates L-shaped corners top-left and bottom-right
+   ============================================================================ */
+.corner-brackets {
+	position: relative;
+	padding: var(--space-4);
+}
+
+.corner-brackets::before,
+.corner-brackets::after {
+	content: "";
+	position: absolute;
+	width: var(--space-4);
+	height: var(--space-4);
+	border-color: var(--color-rule);
+	border-style: solid;
+}
+
+/* Top-left corner */
+.corner-brackets::before {
+	top: 0;
+	left: 0;
+	border-width: 1px 0 0 1px;
+}
+
+/* Bottom-right corner */
+.corner-brackets::after {
+	bottom: 0;
+	right: 0;
+	border-width: 0 1px 1px 0;
+}
+
+/* Reading Progress Bar — Scroll progress indicator for articles
+   Usage: <div class="reading-progress"></div> at top of page
+   JavaScript required: update --scroll-progress custom property
+   ============================================================================ */
+.reading-progress {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background: var(--color-surface);
+	z-index: 100;
+}
+
+.reading-progress::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: calc(var(--scroll-progress, 0) * 100%);
+	background: var(--color-ink-secondary);
+	transition: width 50ms linear;
+}
+
+/* Hash Divider — Diagonal marks section separator (///)
+   Usage: <div class="hash-divider"></div>
+   ============================================================================ */
+.hash-divider {
+	display: flex;
+	justify-content: center;
+	margin: var(--space-8) 0;
+	color: var(--color-ink-tertiary);
+	letter-spacing: 0.25em;
+}
+
+.hash-divider::before {
+	content: "///";
+	font-size: var(--text-micro);
+}
+
+/* Double Rule — Two thin parallel lines
+   Usage: <div class="double-rule"></div>
+   ============================================================================ */
+.double-rule {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	margin: var(--space-8) 0;
+}
+
+.double-rule::before,
+.double-rule::after {
+	content: "";
+	height: 1px;
+	background: var(--color-rule);
+}
+
+/* Broken Rule — Ensen (縁線) line with intentional gap
+   Usage: <div class="broken-rule"></div>
+   ============================================================================ */
+.broken-rule {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-4);
+	margin: var(--space-8) 0;
+}
+
+.broken-rule::before,
+.broken-rule::after {
+	content: "";
+	flex: 1;
+	height: 1px;
+	background: var(--color-rule);
+}
+
+/* Axis Corner — Graph paper style corner mark ┌
+   Usage: <div class="axis-corner">content</div>
+   ============================================================================ */
+.axis-corner {
+	position: relative;
+	padding: var(--space-4) 0 0 var(--space-4);
+}
+
+.axis-corner::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: var(--space-6);
+	height: var(--space-6);
+	border-left: 1px solid var(--color-rule);
+	border-top: 1px solid var(--color-rule);
+}
+
+/* Coordinate Marker — Map-style location/numbering
+   Usage: <span class="coord">51.5° N</span>
+   ============================================================================ */
+.coord {
+	font-family: var(--font-mono);
+	font-size: var(--text-micro);
+	color: var(--color-ink-tertiary);
+	letter-spacing: 0.05em;
+}
+
+/* Cross Mark — Decorative + separator
+   Usage: <span class="cross-mark"></span>
+   ============================================================================ */
+.cross-mark {
+	display: inline-block;
+	color: var(--color-ink-tertiary);
+}
+
+.cross-mark::before {
+	content: "+";
+	font-size: var(--text-micro);
+}
+
+/* Dot Grid — Subtle engineering paper texture background
+   Usage: <div class="dot-grid">featured content</div>
+   Dots align to 16px grid, offset to center within padding.
+   Use with consistent padding (e.g., px-4/px-6) for alignment.
+   ============================================================================ */
+.dot-grid {
+	background-image: radial-gradient(circle, var(--color-rule-light) 1px, transparent 1px);
+	background-size: 16px 16px;
+	background-position: 0 0;
+	background-origin: padding-box;
+}
+
+/* Ruler Notch — Small tick mark on left edge
+   Usage: <div class="ruler-notch">item with tick</div>
+   ============================================================================ */
+.ruler-notch {
+	position: relative;
+	padding-left: var(--space-4);
+}
+
+.ruler-notch::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 6px;
+	height: 1px;
+	background: var(--color-rule);
+}
+
+/* Registration Mark — Editorial ⊕ alignment marker
+   Usage: <span class="reg-mark"></span> or <div class="reg-mark">content</div>
+   ============================================================================ */
+.reg-mark::before {
+	content: "⊕";
+	font-size: var(--text-micro);
+	color: var(--color-ink-tertiary);
+	margin-right: var(--space-2);
+}
+
+/* Author Stamp — Byline for posts with author, date, reading time
+   Usage: <div class="author-stamp">
+            <span class="author-stamp-name">Author Name</span>
+            <span class="author-stamp-sep"></span>
+            <time class="author-stamp-date">Dec 21, 2025</time>
+            <span class="author-stamp-sep"></span>
+            <span class="author-stamp-meta">5 min read</span>
+          </div>
+   ============================================================================ */
+.author-stamp {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-2);
+	font-size: var(--text-micro);
+	color: var(--color-ink-tertiary);
+}
+
+.author-stamp-name {
+	font-weight: 500;
+	color: var(--color-ink-secondary);
+}
+
+.author-stamp-date {
+	font-family: var(--font-mono);
+	font-variant-numeric: tabular-nums;
+}
+
+.author-stamp-meta {
+	font-family: var(--font-mono);
+}
+
+.author-stamp-sep::before {
+	content: "·";
+	color: var(--color-ink-tertiary);
+}
+
+/* Author Stamp with rule variant — adds subtle line below */
+.author-stamp-ruled {
+	padding-bottom: var(--space-4);
+	border-bottom: 1px solid var(--color-rule-light);
+}
+
+/* ============================================================================
+   DROPCAP — Large initial letter for article openings
+   ============================================================================
+   Japanese-influenced: bold, geometric, commanding.
+   Usage: <p class="dropcap">First paragraph of article...</p>
+   Or use .prose-dropcap on container for automatic first-letter styling.
+   ============================================================================ */
+
+.dropcap::first-letter,
+.prose-dropcap > p:first-of-type::first-letter {
+	float: left;
+	font-size: 3.5em;
+	font-weight: 700;
+	line-height: 0.8;
+	padding-right: var(--space-3);
+	padding-top: var(--space-1);
+	color: var(--color-ink);
+}
+
+/* Dropcap with background variant */
+.dropcap-boxed::first-letter {
+	float: left;
+	font-size: 2.5em;
+	font-weight: 700;
+	line-height: 1;
+	padding: var(--space-2) var(--space-3);
+	margin-right: var(--space-3);
+	margin-top: var(--space-1);
+	background-color: var(--color-ink);
+	color: var(--color-paper);
+}
+
+/* ============================================================================
+   TOMBOW — Crop marks for print-inspired corners
+   ============================================================================
+   トンボ (dragonfly) — Japanese printing registration marks.
+   Adds subtle corner marks to containers for editorial feel.
+   Usage: <div class="tombow">content</div>
+   ============================================================================ */
+
+.tombow {
+	position: relative;
+	padding: var(--space-6);
+}
+
+/* Top-left crop mark */
+.tombow::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: var(--space-4);
+	height: var(--space-4);
+	border-top: 1px solid var(--color-rule);
+	border-left: 1px solid var(--color-rule);
+}
+
+/* Bottom-right crop mark */
+.tombow::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: var(--space-4);
+	height: var(--space-4);
+	border-bottom: 1px solid var(--color-rule);
+	border-right: 1px solid var(--color-rule);
+}
+
+/* Four-corner variant using additional elements */
+.tombow-full {
+	position: relative;
+	padding: var(--space-6);
+}
+
+.tombow-full::before,
+.tombow-full::after,
+.tombow-full > .tombow-corner-tr,
+.tombow-full > .tombow-corner-bl {
+	content: "";
+	position: absolute;
+	width: var(--space-4);
+	height: var(--space-4);
+}
+
+.tombow-full::before {
+	top: 0;
+	left: 0;
+	border-top: 1px solid var(--color-rule);
+	border-left: 1px solid var(--color-rule);
+}
+
+.tombow-full::after {
+	bottom: 0;
+	right: 0;
+	border-bottom: 1px solid var(--color-rule);
+	border-right: 1px solid var(--color-rule);
+}
+
+/* ============================================================================
+   FOLIO — Page/section marker for editorial navigation
+   ============================================================================
+   Magazine-style page indicator. Can show section, page number, or date.
+   Usage: <span class="folio">01</span>
+          <span class="folio folio-section">Essays</span>
+   ============================================================================ */
+
+.folio {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	font-family: var(--font-mono);
+	font-size: var(--text-micro);
+	font-variant-numeric: tabular-nums;
+	color: var(--color-ink-tertiary);
+	letter-spacing: 0.05em;
+}
+
+/* Folio with decorative line */
+.folio-ruled {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+}
+
+.folio-ruled::before {
+	content: "";
+	width: var(--space-6);
+	height: 1px;
+	background-color: var(--color-rule);
+}
+
+/* Folio section label variant */
+.folio-section {
+	text-transform: uppercase;
+	letter-spacing: var(--tracking-widest);
+	font-family: var(--font-sans);
+	font-weight: 500;
+}
+
+/* ============================================================================
+   MARGINALIA — Side notes for annotations
+   ============================================================================
+   Editorial margin notes. Position with utility classes.
+   Usage: <aside class="marginalia">Side note content</aside>
+   ============================================================================ */
+
+.marginalia {
+	font-size: var(--text-micro);
+	line-height: var(--leading-relaxed);
+	color: var(--color-ink-tertiary);
+	padding-left: var(--space-4);
+	border-left: 1px solid var(--color-rule-light);
+}
+
+/* Marginalia on desktop: floats to the side */
+@media (min-width: 1280px) {
+	.marginalia-float {
+		position: absolute;
+		right: calc(-1 * (200px + var(--space-8)));
+		width: 200px;
+		padding-left: var(--space-4);
+		border-left: 1px solid var(--color-rule-light);
+	}
+}
+
+/* ============================================================================
+   NUMBERED LIST — Geometric bullets
+   ============================================================================
+   Scandinavian-inspired numbered/bulleted lists with geometric markers.
+   Usage: <ol class="numbered-list"><li>Item</li></ol>
+          <ul class="geometric-list"><li>Item</li></ul>
+   ============================================================================ */
+
+.numbered-list {
+	list-style: none;
+	padding-left: 0;
+	counter-reset: list-counter;
+}
+
+.numbered-list li {
+	display: flex;
+	gap: var(--space-3);
+	padding: var(--space-2) 0;
+	counter-increment: list-counter;
+}
+
+.numbered-list li::before {
+	content: counter(list-counter, decimal-leading-zero);
+	font-family: var(--font-mono);
+	font-size: var(--text-micro);
+	color: var(--color-ink-tertiary);
+	min-width: 1.5em;
+	flex-shrink: 0;
+}
+
+/* Geometric bullet list — squares */
+.geometric-list {
+	list-style: none;
+	padding-left: 0;
+}
+
+.geometric-list li {
+	display: flex;
+	align-items: baseline;
+	gap: var(--space-3);
+	padding: var(--space-1) 0;
+}
+
+.geometric-list li::before {
+	content: "";
+	width: 6px;
+	height: 6px;
+	background-color: var(--color-rule);
+	flex-shrink: 0;
+	margin-top: 0.5em;
+}
+
+/* Triangle variant */
+.geometric-list-triangle li::before {
+	width: 0;
+	height: 0;
+	background: transparent;
+	border-left: 5px solid var(--color-rule);
+	border-top: 4px solid transparent;
+	border-bottom: 4px solid transparent;
+}
+

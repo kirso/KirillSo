@@ -12,13 +12,13 @@ const webMentions = await getWebmentionsForUrl(`${url}`);
 if (!webMentions.length) return;
 ---
 
-<section class="mt-12 border-t border-border pt-6">
+<section class="mt-12">
   <p class="section-label mb-6">Webmentions</p>
   <div class="space-y-10">
     <Likes mentions={webMentions} />
     <Comments mentions={webMentions} />
   </div>
-  <p class="mt-8 text-sm text-text-secondary">
+  <p class="mt-8 text-text-secondary" style="font-size: var(--text-micro);">
     Powered by{" "}
     <a
       class="link-muted"

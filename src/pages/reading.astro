@@ -1,170 +1,155 @@
 ---
 import BaseLayout from "@/layouts/Base.astro";
+import Schema from "@/components/Schema.astro";
+import { influentialBooks, GOODREADS_RSS_URL, GOODREADS_PROFILE_URL } from "@/data/books";
 
 const meta = {
   title: "Reading",
   description: "Books that shaped my thinking.",
 };
 
-interface Book {
+// Flatten books for collection schema
+const bookCollectionItems = influentialBooks.flatMap(cat =>
+  cat.books.map(book => ({
+    name: book.title,
+    description: `by ${book.author}${book.note ? ` — ${book.note}` : ""}`,
+  }))
+);
+
+// Fetch currently reading from Goodreads RSS at build time
+interface GoodreadsBook {
   title: string;
   author: string;
-  url?: string;
-  note?: string;
+  link?: string;
 }
 
-interface Category {
-  title: string;
-  books: Book[];
+let currentlyReading: GoodreadsBook[] = [];
+
+try {
+  const response = await fetch(GOODREADS_RSS_URL);
+  if (response.ok) {
+    const xml = await response.text();
+    // Parse RSS items using string methods
+    const items = xml.split("<item>").slice(1);
+
+    for (const item of items) {
+      const endIndex = item.indexOf("</item>");
+      const itemContent = endIndex > -1 ? item.substring(0, endIndex) : item;
+
+      // Extract title from CDATA
+      const titleStart = itemContent.indexOf("<title><![CDATA[");
+      const titleEnd = itemContent.indexOf("]]></title>");
+      const title = titleStart > -1 && titleEnd > -1
+        ? itemContent.substring(titleStart + 16, titleEnd)
+        : null;
+
+      // Extract author
+      const authorStart = itemContent.indexOf("<author_name>");
+      const authorEnd = itemContent.indexOf("</author_name>");
+      const author = authorStart > -1 && authorEnd > -1
+        ? itemContent.substring(authorStart + 13, authorEnd)
+        : "Unknown";
+
+      // Extract link
+      const linkStart = itemContent.indexOf("<link>");
+      const linkEnd = itemContent.indexOf("</link>");
+      const link = linkStart > -1 && linkEnd > -1
+        ? itemContent.substring(linkStart + 6, linkEnd)
+        : undefined;
+
+      if (title) {
+        currentlyReading.push({ title, author, link });
+      }
+    }
+  }
+} catch (error) {
+  console.warn("Failed to fetch Goodreads RSS:", error);
 }
 
-const reading: Category[] = [
-  {
-    title: "Currently Reading",
-    books: [
-      {
-        title: "The Almanack of Naval Ravikant",
-        author: "Eric Jorgenson",
-        url: "https://www.navalmanack.com/",
-        note: "Wealth and happiness principles",
-      },
-    ],
-  },
-  {
-    title: "Favorites",
-    books: [
-      {
-        title: "The Psychology of Money",
-        author: "Morgan Housel",
-        note: "Timeless lessons on wealth and behavior",
-      },
-      {
-        title: "Thinking, Fast and Slow",
-        author: "Daniel Kahneman",
-        note: "Two systems of thought",
-      },
-      {
-        title: "The Mom Test",
-        author: "Rob Fitzpatrick",
-        note: "How to talk to customers",
-      },
-      {
-        title: "Atomic Habits",
-        author: "James Clear",
-        note: "Small changes, remarkable results",
-      },
-      {
-        title: "The Courage to Be Disliked",
-        author: "Ichiro Kishimi",
-        note: "Adlerian psychology for modern life",
-      },
-      {
-        title: "Inspired",
-        author: "Marty Cagan",
-        note: "How to create products customers love",
-      },
-    ],
-  },
-  {
-    title: "Philosophy & Life",
-    books: [
-      {
-        title: "Meditations",
-        author: "Marcus Aurelius",
-        note: "Stoic wisdom",
-      },
-      {
-        title: "Man's Search for Meaning",
-        author: "Viktor Frankl",
-        note: "Finding purpose in suffering",
-      },
-      {
-        title: "The Subtle Art of Not Giving a F*ck",
-        author: "Mark Manson",
-        note: "Counterintuitive life advice",
-      },
-    ],
-  },
-  {
-    title: "Business & Strategy",
-    books: [
-      {
-        title: "Zero to One",
-        author: "Peter Thiel",
-        note: "Notes on startups",
-      },
-      {
-        title: "The Hard Thing About Hard Things",
-        author: "Ben Horowitz",
-        note: "Building a business when there are no easy answers",
-      },
-      {
-        title: "Good Strategy Bad Strategy",
-        author: "Richard Rumelt",
-        note: "The difference and why it matters",
-      },
-    ],
-  },
-  {
-    title: "Technology & Future",
-    books: [
-      {
-        title: "The Innovator's Dilemma",
-        author: "Clayton Christensen",
-        note: "Why great companies fail",
-      },
-      {
-        title: "Superintelligence",
-        author: "Nick Bostrom",
-        note: "Paths, dangers, strategies",
-      },
-    ],
-  },
-];
+// Fallback if RSS fails
+if (currentlyReading.length === 0) {
+  currentlyReading = [
+    {
+      title: "The Almanack of Naval Ravikant",
+      author: "Eric Jorgenson",
+      link: "https://www.navalmanack.com/",
+    },
+  ];
+}
 ---
 
 <BaseLayout meta={meta}>
+  <Schema
+    type="collection"
+    title={meta.title}
+    description={meta.description}
+    collectionName="Book Recommendations"
+    collectionItems={bookCollectionItems}
+  />
+  <Schema type="breadcrumb" breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Reading", url: "/reading/" }
+  ]} />
   <article>
-    <h1 class="page-title mb-4">Reading</h1>
-    <p class="text-text-secondary mb-12">
-      Books that shaped my thinking. I read slowly and re-read often.
-    </p>
+    <header class="mb-12">
+      <h1 class="page-title">Reading</h1>
+      <p class="mt-2 text-text-secondary">Books that shaped my thinking. I read slowly and re-read often.</p>
+    </header>
 
-    <div class="space-y-12">
-      {reading.map((category) => (
-        <section>
-          <h2 class="section-label mb-6">{category.title}</h2>
-          <ul class="space-y-4">
-            {category.books.map((book) => (
-              <li class="flex flex-col gap-0.5">
-                <div class="flex items-baseline gap-2">
-                  {book.url ? (
-                    <a
-                      href={book.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="link font-medium"
-                    >
-                      {book.title}
-                    </a>
-                  ) : (
-                    <span class="font-medium">{book.title}</span>
-                  )}
-                  <span class="text-text-tertiary">—</span>
-                  <span class="text-text-secondary">{book.author}</span>
-                </div>
-                {book.note && (
-                  <p class="text-sm text-text-tertiary">{book.note}</p>
-                )}
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
-    </div>
+    {/* Currently Reading — from Goodreads RSS with ruler-notch */}
+    <section class="mb-12">
+      <div class="section-rule"><span>Currently Reading</span></div>
+      <ul class="space-y-2">
+        {currentlyReading.map((book) => (
+          <li class="ruler-notch">
+            <div class="post-row">
+              {book.link ? (
+                <a class="post-title link" href={book.link} target="_blank" rel="noopener noreferrer">
+                  {book.title}
+                </a>
+              ) : (
+                <span class="post-title">{book.title}</span>
+              )}
+              <span class="post-leader"></span>
+              <span class="post-date mono">{book.author}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
 
-    <p class="mt-12 text-sm text-text-tertiary">
-      For more recommendations, check out my <a href="https://www.goodreads.com/kirso" class="link" target="_blank" rel="noopener">Goodreads</a>.
-    </p>
+    {/* Influential Books — from static data with № index for Favorites */}
+    {influentialBooks.map((category, categoryIndex) => (
+      <section class="mb-12">
+        <div class="section-rule"><span>{category.title}</span></div>
+        <ul class="space-y-3">
+          {category.books.map((book, bookIndex) => (
+            <li>
+              <div class="post-row">
+                {categoryIndex === 0 ? (
+                  <span class="idx">{String(bookIndex + 1).padStart(2, "0")}</span>
+                ) : null}
+                <span class="post-title font-medium">{book.title}</span>
+                <span class="post-leader"></span>
+                <span class="post-date mono">{book.author}</span>
+              </div>
+              {book.note && (
+                <p class="mt-0.5 text-text-tertiary pl-0" style={`font-size: var(--text-micro); ${categoryIndex === 0 ? 'padding-left: 2.5rem;' : ''}`}>
+                  {book.note}
+                </p>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+
+    {/* Link to full Goodreads */}
+    <nav class="mt-12">
+      <a class="arrow-link" href={GOODREADS_PROFILE_URL} target="_blank" rel="noopener noreferrer">
+        View full library on Goodreads <span aria-hidden="true">→</span>
+      </a>
+    </nav>
+
   </article>
 </BaseLayout>

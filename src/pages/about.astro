@@ -1,10 +1,31 @@
 ---
 import BaseLayout from "@/layouts/Base.astro";
+import Schema from "@/components/Schema.astro";
 
 const meta = {
   title: "About",
   description: "Product leader, explorer, lifelong learner. Building things and writing about it.",
 };
+
+// FAQ data for Answer Engine Optimization
+const faqs = [
+  {
+    question: "What's your background?",
+    answer: "I've spent 10+ years building products at startups and scale-ups across 6 countries (Germany, UK, US, Singapore, Australia, Czech Republic). Most recently Principal PM at Delivery Hero, shipping growth features that drove millions in revenue."
+  },
+  {
+    question: "What are you doing now?",
+    answer: "Currently on sabbatical after leaving Delivery Hero. Traveling Southeast Asia with my wife, building small projects, experimenting with AI tools, and writing more consistently."
+  },
+  {
+    question: "What do you invest in?",
+    answer: "I invest in calm companies through the Calm Company Fund, focused on software value investing. I back builders who prioritize sustainable growth over hype. Also have small positions in select public tech companies."
+  },
+  {
+    question: "How can I contact you?",
+    answer: "Best ways to reach me: Twitter/X DMs (@kirso_), email (kirill.sofronov@gmail.com), or LinkedIn. I respond to thoughtful messages about product, startups, or interesting projects."
+  }
+];
 
 interface TimelineEntry {
   year: string;
@@ -46,7 +67,7 @@ const principles = [
 ];
 
 const influences = {
-  media: [
+  ideas: [
     { title: "Awakening from the Meaning Crisis", url: "https://www.meaningcrisis.co/" },
     { title: "This is Water", url: "https://www.youtube.com/watch?v=OsAd4HGJS4o" },
     { title: "The Egg", url: "https://www.youtube.com/watch?v=h6fcK_fRYaI" },
@@ -59,9 +80,31 @@ const influences = {
     { name: "Edward Thorp", url: "https://www.edwardothorp.com/" },
   ],
 };
+
+const investments = {
+  private: [
+    { name: "Calm Company Fund", url: "https://calmfund.com/" },
+    { name: "Replit", url: "https://replit.com/" },
+  ],
+  public: [
+    { name: "$VWRA", url: "https://www.vanguardmexico.com/en/product/etf/equity/9679/vanguard-ftse-all-world-ucits-etf-usd-accumulating" },
+    { name: "$U", url: "https://www.google.com/finance/quote/U:NYSE" },
+    { name: "$SE", url: "https://www.google.com/finance/quote/SE:NYSE" },
+  ],
+};
+
+const supporting = [
+  { name: "FreeCodeCamp", url: "https://www.freecodecamp.org/donate" },
+  { name: "Charity:water", url: "https://www.charitywater.org/kirso" },
+];
 ---
 
 <BaseLayout meta={meta}>
+  <Schema type="profile" faqs={faqs} />
+  <Schema type="breadcrumb" breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "About", url: "/about/" }
+  ]} />
   <article>
     <!-- Hero -->
     <header class="mb-16">
@@ -73,20 +116,35 @@ const influences = {
         <p>
           Born in the USSR, raised in the Czech Republic, I've since called Germany, the UK, the US, Australia, and Singapore home. Each place taught me something different about how people live and work.
         </p>
+      </div>
+
+      <blockquote class="mt-8">
+        Why do some products feel inevitable while others feel forced? Why do some teams build magic while others build meetings? These questions keep me curious.
+      </blockquote>
+    </header>
+
+    <!-- Currently (merged from /now) -->
+    <section class="mb-16">
+      <div class="section-rule"><span>Currently</span></div>
+      <div class="max-w-2xl space-y-4 text-text-secondary leading-relaxed">
         <p>
-          I'm drawn to the intersection of technology and human behavior. Why do some products feel inevitable while others feel forced? Why do some teams build magic while others build meetings? These questions keep me curious.
+          On sabbatical after leaving my role as Principal PM at Delivery Hero. Currently traveling through Southeast Asia with my wife <a href="https://www.sarahkhanamajid.com/" class="link" target="_blank" rel="noopener">Sarah</a> — no fixed plans, just going where curiosity takes us.
+        </p>
+        <p>
+          Experimenting with AI tools and building small projects, writing more consistently, and staying active through weightlifting, tennis, and lots of walking.
         </p>
       </div>
-    </header>
+    </section>
 
     <!-- Timeline -->
     <section class="mb-16">
-      <h2 class="section-label mb-8">Timeline</h2>
-      <div class="space-y-6">
+      <div class="section-rule"><span>Timeline</span></div>
+      <div class="timeline">
         {timeline.map((entry) => (
-          <div class="flex gap-6">
-            <span class="w-12 shrink-0 font-medium tabular-nums text-text-tertiary">{entry.year}</span>
-            <p class="text-text-secondary leading-relaxed">
+          <div class="timeline-entry">
+            <span class="timeline-year">{entry.year}</span>
+            <div class="timeline-node"></div>
+            <p class="timeline-text">
               {entry.link ? (
                 <>
                   {entry.text.split(entry.link.label)[0]}
@@ -102,14 +160,17 @@ const influences = {
       </div>
     </section>
 
-    <!-- Interests -->
+    <!-- Interests — 2 column grid -->
     <section class="mb-16">
-      <h2 class="section-label mb-8">Interests</h2>
+      <div class="section-rule"><span>Interests</span></div>
       <div class="grid gap-8 sm:grid-cols-2">
-        {interests.map((interest) => (
+        {interests.map((interest, i) => (
           <div>
-            <h3 class="font-medium mb-2">{interest.title}</h3>
-            <p class="text-sm text-text-secondary leading-relaxed">
+            <div class="flex items-baseline gap-2 mb-2">
+              <span class="idx">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="font-medium">{interest.title}</h3>
+            </div>
+            <p class="text-text-secondary leading-relaxed">
               {interest.link ? (
                 <>
                   {interest.description.split(interest.link.label)[0]}
@@ -125,79 +186,90 @@ const influences = {
       </div>
     </section>
 
-    <!-- Two columns: Investments + Principles -->
-    <div class="mb-16 grid gap-12 sm:grid-cols-2">
-      <!-- Investments -->
-      <section>
-        <h2 class="section-label mb-6">Investments</h2>
-        <div class="space-y-4 text-sm">
+    <!-- ============================================================
+         DENSE CATALOG SECTION — Editorial multi-column layout
+         ============================================================ -->
+    <div class="pt-8">
+
+      <!-- Row 1: Principles + Investments (2 columns) -->
+      <div class="grid gap-12 sm:grid-cols-2 mb-12">
+        <!-- Principles -->
+        <section>
+          <div class="section-rule"><span>Principles</span></div>
+          <ul class="chevron-list text-text-secondary leading-relaxed">
+            {principles.map((principle) => (
+              <li>{principle}</li>
+            ))}
+          </ul>
+        </section>
+
+        <!-- Investments -->
+        <section>
+          <div class="section-rule"><span>Investments</span></div>
+          <fieldset class="geo-table">
+            <legend>Private</legend>
+            {investments.private.map((inv) => (
+              <a href={inv.url} class="geo-table-row" target="_blank" rel="noopener">
+                {inv.name}
+                <span>↗</span>
+              </a>
+            ))}
+          </fieldset>
+          <fieldset class="geo-table">
+            <legend>Public</legend>
+            {investments.public.map((inv) => (
+              <a href={inv.url} class="geo-table-row" target="_blank" rel="noopener">
+                {inv.name}
+                <span>↗</span>
+              </a>
+            ))}
+          </fieldset>
+        </section>
+      </div>
+
+      <!-- Row 2: Influences — 3 columns on desktop -->
+      <section class="pt-4">
+        <div class="section-rule"><span>Influences</span></div>
+        <div class="grid gap-8 sm:grid-cols-3">
+          <!-- Ideas -->
           <div>
-            <span class="text-text-tertiary">Private</span>
-            <p class="mt-1">
-              <a href="https://calmfund.com/" class="link" target="_blank" rel="noopener">Calm Company Fund</a>,
-              <a href="https://replit.com/" class="link" target="_blank" rel="noopener">Replit</a>
-            </p>
+            <p class="text-text-tertiary mb-3">Ideas</p>
+            <ul class="space-y-2 text-text-secondary leading-relaxed">
+              {influences.ideas.map((item) => (
+                <li>
+                  <a href={item.url} class="link" target="_blank" rel="noopener">{item.title}</a>
+                </li>
+              ))}
+            </ul>
           </div>
+
+          <!-- People -->
           <div>
-            <span class="text-text-tertiary">Public</span>
-            <p class="mt-1">
-              <a href="https://www.vanguardmexico.com/en/product/etf/equity/9679/vanguard-ftse-all-world-ucits-etf-usd-accumulating" class="link" target="_blank" rel="noopener">$VWRA</a>,
-              <a href="https://www.google.com/finance/quote/U:NYSE" class="link" target="_blank" rel="noopener">$U</a>,
-              <a href="https://www.google.com/finance/quote/SE:NYSE" class="link" target="_blank" rel="noopener">$SE</a>
-            </p>
+            <p class="text-text-tertiary mb-3">People</p>
+            <ul class="space-y-2 text-text-secondary leading-relaxed">
+              {influences.people.map((person) => (
+                <li>
+                  <a href={person.url} class="link" target="_blank" rel="noopener">{person.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Supporting -->
+          <div>
+            <p class="text-text-tertiary mb-3">Supporting</p>
+            <ul class="space-y-2 text-text-secondary leading-relaxed">
+              {supporting.map((org) => (
+                <li>
+                  <a href={org.url} class="link" target="_blank" rel="noopener">{org.name}</a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      <!-- Principles -->
-      <section>
-        <h2 class="section-label mb-6">Principles</h2>
-        <ul class="space-y-2 text-sm text-text-secondary">
-          {principles.map((principle) => (
-            <li class="flex gap-3">
-              <span class="text-text-tertiary">—</span>
-              {principle}
-            </li>
-          ))}
-        </ul>
-      </section>
     </div>
 
-    <!-- Influences & Support -->
-    <section class="mb-16">
-      <h2 class="section-label mb-6">Influences</h2>
-      <div class="space-y-6 text-sm">
-        <div>
-          <p class="text-text-tertiary mb-2">Ideas</p>
-          <div class="flex flex-wrap gap-x-1 gap-y-1">
-            {influences.media.map((item, i) => (
-              <>
-                <a href={item.url} class="link" target="_blank" rel="noopener">{item.title}</a>
-                {i < influences.media.length - 1 && <span class="text-text-tertiary">/</span>}
-              </>
-            ))}
-          </div>
-        </div>
-        <div>
-          <p class="text-text-tertiary mb-2">People</p>
-          <div class="flex flex-wrap gap-x-1 gap-y-1">
-            {influences.people.map((person, i) => (
-              <>
-                <a href={person.url} class="link" target="_blank" rel="noopener">{person.name}</a>
-                {i < influences.people.length - 1 && <span class="text-text-tertiary">/</span>}
-              </>
-            ))}
-          </div>
-        </div>
-        <div>
-          <p class="text-text-tertiary mb-2">Supporting</p>
-          <div class="flex flex-wrap gap-x-1 gap-y-1">
-            <a href="https://www.freecodecamp.org/donate" class="link" target="_blank" rel="noopener">FreeCodeCamp</a>
-            <span class="text-text-tertiary">/</span>
-            <a href="https://www.charitywater.org/kirso" class="link" target="_blank" rel="noopener">Charity:water</a>
-          </div>
-        </div>
-      </div>
-    </section>
   </article>
 </BaseLayout>

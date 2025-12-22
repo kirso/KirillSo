@@ -18,7 +18,7 @@ const { title, description, lastUpdated } = Astro.props.frontmatter;
       <p class="text-text-secondary mb-8">{description}</p>
     )}
     {lastUpdated && (
-      <p class="text-sm text-text-tertiary mb-12">Last updated: {lastUpdated}</p>
+      <p class="text-text-tertiary mb-12" style="font-size: var(--text-micro);">Last updated: {lastUpdated}</p>
     )}
     <div class="prose max-w-none">
       <slot />
