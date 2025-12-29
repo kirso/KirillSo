@@ -1,0 +1,201 @@
+---
+import BaseLayout from "@/layouts/Base.astro";
+import Schema from "@/components/Schema.astro";
+import { getCollection } from "astro:content";
+import { groupHighlightsByBook, type HighlightEntry } from "@/lib/readwise";
+import { marked } from "marked";
+
+// Parse highlight text as markdown
+function parseHighlight(text: string): string {
+  // marked.parse returns the HTML string
+  const html = marked.parse(text, { async: false, breaks: true }) as string;
+  return html;
+}
+
+const meta = {
+  title: "Highlights",
+  description: "Passages and ideas worth remembering from books, articles, and podcasts.",
+};
+
+// Fetch highlights from collection
+const highlightEntries = await getCollection("highlight");
+
+// Transform to HighlightEntry format for grouping
+const highlights: HighlightEntry[] = highlightEntries.map((entry) => ({
+  id: entry.id,
+  text: entry.data.text,
+  note: entry.data.note,
+  highlightedAt: entry.data.highlightedAt ? new Date(entry.data.highlightedAt) : null,
+  bookId: entry.data.bookId,
+  bookTitle: entry.data.bookTitle,
+  bookAuthor: entry.data.bookAuthor,
+  bookCategory: entry.data.bookCategory,
+  bookCover: entry.data.bookCover,
+  tags: entry.data.tags,
+}));
+
+// Group by book
+const groupedByBook = groupHighlightsByBook(highlights);
+
+// Convert to array sorted by most recent highlight
+const books = Array.from(groupedByBook.values())
+  .map((group) => ({
+    ...group,
+    latestHighlight: group.highlights.reduce((latest, hl) => {
+      if (!hl.highlightedAt) return latest;
+      if (!latest) return hl.highlightedAt;
+      return hl.highlightedAt > latest ? hl.highlightedAt : latest;
+    }, null as Date | null),
+  }))
+  .sort((a, b) => {
+    if (!a.latestHighlight && !b.latestHighlight) return 0;
+    if (!a.latestHighlight) return 1;
+    if (!b.latestHighlight) return -1;
+    return b.latestHighlight.getTime() - a.latestHighlight.getTime();
+  });
+
+// Total counts
+const totalHighlights = highlights.length;
+const totalBooks = books.length;
+
+// Collection schema items
+const schemaItems = books.slice(0, 10).map((group) => ({
+  name: group.book.title,
+  description: `${group.highlights.length} highlights from ${group.book.author}`,
+}));
+---
+
+<BaseLayout meta={meta}>
+  <Schema
+    type="collection"
+    title={meta.title}
+    description={meta.description}
+    collectionName="Reading Highlights"
+    collectionItems={schemaItems}
+  />
+  <Schema type="breadcrumb" breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Highlights", url: "/highlights/" }
+  ]} />
+
+  <article>
+    <header class="mb-12">
+      <h1 class="page-title">Highlights</h1>
+      <p class="mt-2 text-text-secondary">
+        Passages worth remembering. Synced from Kindle, Kobo, and articles via Readwise.
+      </p>
+    </header>
+
+    {totalHighlights === 0 ? (
+      <div class="empty-state">
+        <p class="text-text-tertiary">No highlights yet. Connect Readwise to start syncing.</p>
+      </div>
+    ) : (
+      <>
+        <div class="stats-row mb-8">
+          <span class="mono text-text-tertiary text-micro">
+            {totalHighlights} highlights from {totalBooks} sources
+          </span>
+        </div>
+
+        {books.map((group) => (
+          <section class="mb-12">
+            <div class="section-rule">
+              <span>{group.book.title}</span>
+            </div>
+            <p class="text-text-tertiary text-micro mb-4 mono">
+              {group.book.author} · {group.highlights.length} highlight{group.highlights.length !== 1 ? "s" : ""}
+            </p>
+
+            <ul class="highlight-list">
+              {group.highlights.map((hl) => (
+                <li class="highlight-item prose">
+                  <blockquote class="highlight-text" set:html={parseHighlight(hl.text)} />
+                  {hl.tags.length > 0 && (
+                    <div class="highlight-tags">
+                      {hl.tags.map((tag) => (
+                        <span class="tag">#{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+
+        <nav class="mt-12">
+          <a class="arrow-link" href="/reading/">
+            <span aria-hidden="true">←</span> Back to Reading
+          </a>
+        </nav>
+      </>
+    )}
+  </article>
+</BaseLayout>
+
+<style>
+  .stats-row {
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .text-micro {
+    font-size: var(--text-micro);
+  }
+
+  .highlight-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .highlight-item {
+    /* No extra border - blockquote styling handles it */
+  }
+
+  .highlight-text {
+    /* Uses global blockquote L-bracket styling */
+  }
+
+  /* Images in highlights */
+  .highlight-text :global(img) {
+    max-width: 100%;
+    height: auto;
+    margin: var(--space-3) 0;
+    border: 1px solid var(--color-rule);
+  }
+
+  /* Links in highlights use existing link styling */
+  .highlight-text :global(a) {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--color-ink-tertiary);
+    text-underline-offset: 2px;
+  }
+
+  .highlight-text :global(a:hover) {
+    text-decoration-color: var(--color-ink);
+  }
+
+  .highlight-tags {
+    margin-top: var(--space-2);
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    color: var(--color-ink-tertiary);
+  }
+
+  .empty-state {
+    padding: var(--space-8) 0;
+    text-align: center;
+  }
+</style>

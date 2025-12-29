@@ -221,18 +221,18 @@
 	--font-mono: "Geist Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
 	/*
-	   TYPE SCALE — 1.25 ratio (Major Third)
-	   Clean, intentional, no redundancy.
+	   TYPE SCALE — 16px base for mobile readability
+	   Body anchored at browser default; hierarchy preserved above.
 
-	   --text-micro    12px   Metadata: dates, labels, counts
-	   --text-body     15px   ALL content: bio, posts, notes, cards
+	   --text-micro    13px   Metadata: dates, labels, counts
+	   --text-body     16px   ALL content: browser default, mobile-friendly
 	   --text-large    18px   Emphasis, lead paragraphs
 	   --text-title    24px   Section headings (h2, h3)
 	   --text-display  32px   Page titles (h1)
 	   --text-hero     40px   Hero headlines (optional)
 	*/
-	--text-micro: 0.75rem;      /* 12px */
-	--text-body: 0.9375rem;     /* 15px */
+	--text-micro: 0.8125rem;    /* 13px — distinct metadata hierarchy */
+	--text-body: 1rem;          /* 16px — browser default, proven readable */
 	--text-large: 1.125rem;     /* 18px */
 	--text-title: 1.5rem;       /* 24px */
 	--text-display: 2rem;       /* 32px */

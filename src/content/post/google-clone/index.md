@@ -16,8 +16,6 @@ This web app is a clone of Google search engine built with Next.js, TailwindCSS,
 
 [Github repo link](https://github.com/kirso/nextjs-google)
 
-[Project link](https://google-nextjs-kirill.vercel.app/)
-
 ## How I worked on this project
 
 I created this project to expand on the data fetching skills and learn a bit more on possibilities of Next.js especially in combination with utility design framework Tailwind.

@@ -1,5 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
+import { fetchReadwiseHighlights } from "@/lib/readwise";
 
 function removeDupsAndLowerCase(array: string[]) {
 	return [...new Set(array.map((str) => str.toLowerCase()))];
@@ -47,4 +48,59 @@ const note = defineCollection({
 	}),
 });
 
-export const collections = { post, note };
+/**
+ * Readwise highlights collection
+ * Fetches from Readwise API at build time if READWISE_TOKEN is set
+ * Falls back to empty array if token not available (dev without token)
+ */
+const highlight = defineCollection({
+	loader: async () => {
+		// Try both import.meta.env and process.env for compatibility
+		const token = import.meta.env.READWISE_TOKEN || process.env.READWISE_TOKEN;
+		if (!token) {
+			console.warn("READWISE_TOKEN not set, skipping highlights fetch");
+			return [];
+		}
+
+		try {
+			console.log("Fetching highlights from Readwise...");
+			const highlights = await fetchReadwiseHighlights(token);
+			console.log(`Fetched ${highlights.length} highlights from Readwise`);
+
+			// Filter out highlights with incomplete data and map to collection format
+			const validHighlights = highlights
+				.filter((hl) => hl.bookId && hl.bookTitle && hl.text)
+				.map((hl) => ({
+					id: hl.id,
+					text: hl.text,
+					note: hl.note || "",
+					highlightedAt: hl.highlightedAt?.toISOString() ?? null,
+					bookId: hl.bookId,
+					bookTitle: hl.bookTitle,
+					bookAuthor: hl.bookAuthor || "Unknown",
+					bookCategory: hl.bookCategory || "uncategorized",
+					bookCover: hl.bookCover || "",
+					tags: hl.tags || [],
+				}));
+
+			console.log(`Loaded ${validHighlights.length} valid highlights`);
+			return validHighlights;
+		} catch (error) {
+			console.error("Failed to fetch Readwise highlights:", error);
+			return [];
+		}
+	},
+	schema: z.object({
+		text: z.string(),
+		note: z.string(),
+		highlightedAt: z.string().nullable(),
+		bookId: z.number(),
+		bookTitle: z.string(),
+		bookAuthor: z.string(),
+		bookCategory: z.string(),
+		bookCover: z.string(),
+		tags: z.array(z.string()),
+	}),
+});
+
+export const collections = { post, note, highlight };

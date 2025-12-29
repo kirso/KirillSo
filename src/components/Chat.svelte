@@ -9,15 +9,16 @@ interface Message {
 	isStreaming?: boolean;
 }
 
-const { initialMessage = "Hi! Ask me anything about my experience and background." }: Props =
-	$props();
+const props: Props = $props();
 
 // State
 let isOpen = $state(false);
 let isStreaming = $state(false);
 let isLoading = $state(false);
 let inputValue = $state("");
-let messages = $state<Message[]>([{ text: initialMessage, isUser: false }]);
+let messages = $state<Message[]>([
+	{ text: props.initialMessage ?? "Hi! Ask me anything about my experience and background.", isUser: false }
+]);
 
 // Resize state
 let isResizing = $state(false);
@@ -190,6 +191,7 @@ async function handleSubmit(e: Event) {
 			role="dialog"
 			aria-label="Chat window"
 			aria-modal="true"
+			tabindex="-1"
 			onmousedown={startResize}
 		>
 			<!-- Resize handle indicator -->

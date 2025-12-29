@@ -114,9 +114,16 @@ export const influentialBooks: BookCategory[] = [
 ];
 
 /**
- * Goodreads RSS URL for currently reading shelf.
- * Format: https://www.goodreads.com/review/list_rss/USER_ID?shelf=currently-reading
+ * Goodreads RSS URLs
+ * Format: https://www.goodreads.com/review/list_rss/USER_ID?shelf=SHELF_NAME
+ * Note: per_page=200 to get all books (default is 100)
  */
-export const GOODREADS_RSS_URL =
-	"https://www.goodreads.com/review/list_rss/18135797?shelf=currently-reading";
+export const GOODREADS_USER_ID = "27117656";
+export const GOODREADS_CURRENTLY_READING_URL =
+	`https://www.goodreads.com/review/list_rss/${GOODREADS_USER_ID}?shelf=currently-reading`;
+export const GOODREADS_READ_URL =
+	`https://www.goodreads.com/review/list_rss/${GOODREADS_USER_ID}?shelf=read&per_page=200`;
 export const GOODREADS_PROFILE_URL = "https://www.goodreads.com/kirso";
+
+// Legacy alias for backwards compatibility
+export const GOODREADS_RSS_URL = GOODREADS_CURRENTLY_READING_URL;

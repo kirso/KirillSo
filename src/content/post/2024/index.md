@@ -1,6 +1,6 @@
 ---
 title: "2024 Annual Review"
-description: "A annual review of 2024, the year of extreme highs & lows, meaningful life experiences, slow travel and learnings."
+description: "An annual review of 2024 covering extreme highs and lows, meaningful life experiences, slow travel adventures, and personal learnings."
 publishDate: "2024-12-31"
 coverImage:
   src: "./attachments/rollercoaster.webp"
@@ -24,8 +24,8 @@ It was one of the most intense years of my life, but also one of the most meanin
 ### Family visit in Singapore and Bali
 
 My mum and her husband visited me in Singapore. It was their first time so I finally had an opportunity to do all the touristy things that I never got to during my 5 year tenure in the country. We walked, ate, talked and laughed a lot whilst letting them experience the culture shock for the first time in Asia.
-![changi-airport-family](attachments/changi-airport-family.png)
-![bali-beach](attachments/bali-beach.png)
+![changi-airport-family](./attachments/changi-airport-family.png)
+![bali-beach](./attachments/bali-beach.png)
 As we reach a certain age, it is inevitable to start thinking about our time with our family. This realization hit me just recently when my mum turned 60 this year. This really shocked me. Not that its an extreme age, but I didn’t think about it much up until now. When you try to put a number, here is a wake-up call quote from a [BigThink article](https://bigthink.com/thinking/how-many-times-will-you-see-your-parents-before-they-die/):
 
 > Let’s assume your parents are in their mid-60s, and let’s assume you see them four times a year—such as at birthdays, during the holiday season, or at special events like weddings. Working on an average life expectancy of around 80 years, that means you will only see your parents between 50 and 60 more times.
@@ -40,7 +40,7 @@ So what is the antidote? Considering the time is limited and we cannot control t
 - _What’s your biggest regret?_
 - _What did you learn the most from your own parents?_
 
-![family](attachments/family.png)
+![family](./attachments/family.png)
 
 I am proud and immensely grateful to say that I managed to squeeze in almost 4 full months with my folks this year and it has been a fragment of time I will remember forever. It is a challenge to maintain this pace with all the life responsibilities but I hope to keep reminding myself of what truly matters in life.
 
@@ -109,11 +109,11 @@ December:
 - Phuket, Thailand - settling down for a few months for an island life and downtime to reflect and write.
 
 A few photos from the trips (Bali sunset, walking the streets of Spello and smurf commando in Khao Yai)
-![bali-scooter](attachments/bali-scooter.png)
+![bali-scooter](./attachments/bali-scooter.png)
 
-![Spello](attachments/Spello.png)
+![Spello](./attachments/Spello.png)
 
-![khao-yai](attachments/khao-yai.png)
+![khao-yai](./attachments/khao-yai.png)
 
 ### Wedding
 
@@ -127,8 +127,8 @@ I wasn’t keen at the beginning and wanted to elope. Eventually I caved in and 
 The feeling that day was electrifying and I tend to share that being on the other side of the isle and seeing the bride come to you made me feel things I never thought I would ever feel. Despite a lot of stress and planning going into a few hours, seeing all our friends and family being there for us made the day special and words don’t do it justice.
 
 Despite us being married officially for a while, the culmination of various events in Italy has made a huge mark on this year and also followed by the period of relief after a very busy schedule. A big kudos to my wife planning the wedding remotely, in a foreign country with some vendors not speaking english, and putting all the pieces together. We wouldn’t be able to pull it off without the help of our family and friends and hence I extend huge gratitude to everyone who made the trip and supported our relationship throughout the years.
-![sunset-wedding](attachments/sunset-wedding.png)
-![wedding-ceremony](attachments/wedding-ceremony.webp)
+![sunset-wedding](./attachments/sunset-wedding.png)
+![wedding-ceremony](./attachments/wedding-ceremony.webp)
 
 ## Other mentions
 
@@ -277,7 +277,7 @@ I’ve tried many apps but none of them stuck and I got quickly overwhelmed by t
   - Read 12 books (1 book a month)
   - Watch Severance S2 & White Lotus S3
 - Spirituality
-  - Attend my first retreat (already planned [Cambodia](https://hariharalaya.com/yoga-retreat/) in February)
+  - Attend my first retreat (already planned [Cambodia](https://hariharalaya.com/) in February)
   - Meditate for 150 days a year
 
 ## Conclusion

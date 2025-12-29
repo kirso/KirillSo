@@ -3,7 +3,7 @@ title: "Chat component with Svelte, Supabase & OpenAI."
 description: "Implementing a Svelte-based chat component with OpenAI integration, Supabase for data storage, and streaming responses in an Astro blog."
 publishDate: "2024-07-07"
 tags: ["astro", "svelte", "openai", "supabase", "webdev", "ai"]
-draft: true
+draft: false
 coverImage:
   src: "./Web Development Almasi.jpg"
   alt: "Code written on a screen"
@@ -19,11 +19,6 @@ coverImage:
 5. [Generating and Storing Embeddings](#generating-and-storing-embeddings)
 6. [Implementing the Svelte Chat Component](#implementing-the-svelte-chat-component)
 7. [Creating the API Endpoint](#creating-the-api-endpoint)
-8. [Implementing Rate Limiting](#implementing-rate-limiting)
-9. [Integrating the Chat Component](#integrating-the-chat-component)
-10. [Testing and Debugging](#testing-and-debugging)
-11. [Deployment Considerations](#deployment-considerations)
-12. [Conclusion](#conclusion)
 
 ## Introduction
 
