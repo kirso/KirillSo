@@ -27,7 +27,7 @@
 		"@google/generative-ai": "^0.24.1",
 		"@iconify-json/simple-icons": "^1.2.63",
 		"@tailwindcss/vite": "4.1.17",
-		"astro": "5.16.3",
+		"astro": "5.16.6",
 		"astro-expressive-code": "^0.41.5",
 		"astro-icon": "^1.1.5",
 		"astro-robots-txt": "^1.0.0",
