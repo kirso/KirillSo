@@ -21,22 +21,48 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
 ---
 
 {
-  data.coverImage && (
-    <div class="mb-8 aspect-video overflow-hidden">
-      <Image
-        alt={data.coverImage.alt}
-        class="h-full w-full object-cover"
-        fetchpriority="high"
-        loading="eager"
-        src={data.coverImage.src}
-      />
-      {data.coverImage.credit && (
-        <p class="mt-2 text-text-tertiary" style="font-size: var(--text-micro);">
-          Photo: {data.coverImage.credit}
-        </p>
-      )}
-    </div>
-  )
+  data.coverImage && (() => {
+    const isUnsplash = data.coverImage.src.src?.includes('unsplash') ||
+                       String(data.coverImage.src).includes('unsplash');
+    const authorHandle = data.coverImage.credit?.toLowerCase().replace(/\s+/g, '');
+
+    return (
+      <figure class="mb-8">
+        <div class="aspect-video overflow-hidden">
+          <Image
+            alt={data.coverImage.alt}
+            class="h-full w-full object-cover"
+            fetchpriority="high"
+            loading="eager"
+            src={data.coverImage.src}
+          />
+        </div>
+        {data.coverImage.credit && (
+          <figcaption class="mt-2 text-end text-text-tertiary" style="font-size: var(--text-micro);">
+            {isUnsplash ? (
+              <>
+                Photo: <a
+                  href={`https://unsplash.com/@${authorHandle}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="link-muted"
+                >{data.coverImage.credit}</a>{" "}
+                <span class="text-text-tertiary">/</span>{" "}
+                <a
+                  href="https://unsplash.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="link-muted"
+                >Unsplash</a>
+              </>
+            ) : (
+              <>Photo: {data.coverImage.credit}</>
+            )}
+          </figcaption>
+        )}
+      </figure>
+    );
+  })()
 }
 
 {data.draft && <span class="mb-2 inline-block uppercase tracking-wide text-amber-600 dark:text-amber-400" style="font-size: var(--text-micro);">[Draft]</span>}

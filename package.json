@@ -15,8 +15,7 @@
 		"check": "astro check && biome check",
 		"lint": "biome check --write",
 		"format": "prettier -w . --cache",
-		"generate:embeddings": "bun run scripts/generate-embeddings.ts",
-		"promote-highlight": "bun run scripts/promote-highlight.ts"
+		"generate:embeddings": "bun run scripts/generate-embeddings.ts"
 	},
 	"dependencies": {
 		"@astrojs/markdown-remark": "^6.3.10",

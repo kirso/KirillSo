@@ -1,6 +1,6 @@
 ---
 title: "2021 Annual Review"
-description: "A review of 2021 and a letter to myself in terms of learnings, progress and what the future holds for the next chunk of the journey."
+description: "Surviving a nightmare job, shipping my first Solana project, quitting smoking, and finding stability in an upside-down world."
 publishDate: "2022-01-12"
 updatedDate: "2025-04-30"
 tags: ["meta", "life", "review"]
@@ -126,7 +126,7 @@ I found that the signs of maturity are even the ability to come up with such que
 - [Google clone](/posts/google-clone/) - this was based on a Next.js tutorial but I experimented with fetching APIs for the first time.
 - [Schwiftyverse](https://schwiftyverse-kirso.vercel.app/) - ok, this was more of a fun project to test out development with React and connect the Solana wallet called Phantom. You can then submit the GIF on devnet with fake SOL, but make sure it’s Rick & Morty related! The website then reads from the blockchain and renders the submitted data on the front end. The cool part is that I learned that Solana distinguishes between the submitted data (immutable) and execution code when deployed that can be changed. I also wrote a [twitter thread](https://twitter.com/kirso_/status/1463049522876071940) about the experience.
 
-![solana-rust](./rust.png)
+![Rust programming language logo representing Solana development](./rust.png)
 
 Minus points for consumption of too much media and not producing enough output
 
@@ -138,11 +138,11 @@ One of the biggest highlights of this year is that I finally stopped smoking and
 
 #### Physical health
 
-![fitbit-stats](./fitbit1.png)
+![Fitbit dashboard showing yearly activity and step statistics](./fitbit1.png)
 
 Avg. sleep **6+ hours** - definitely pretty bad and needs improvement
 
-![fitbit-stats2](./fitbit2.png)
+![Fitbit sleep tracking data showing 6+ hour average](./fitbit2.png)
 
 #### Mental health
 
@@ -252,7 +252,7 @@ An animated masterpiece is definitely the highlight for me. There are not a lot 
 >
 > It’s a sad truth that those who shine brightest often burn fastest.
 
-![arcane-jinx](./arcane.gif)
+![Animated GIF of Jinx from the Netflix series Arcane](./arcane.gif)
 
 ### 📺 Video
 
@@ -273,7 +273,7 @@ An animated masterpiece is definitely the highlight for me. There are not a lot 
 ### 🎶 Music
 
 The amazing Above and Beyond set with a view.
-[![Above & Beyond set with Cercle](https://img.youtube.com/vi/MEzU1HvBo6Y/0.jpg)](https://www.youtube.com/watch?v=MEzU1HvBo6Y)
+[![Above & Beyond live set with Cercle at scenic outdoor location](https://img.youtube.com/vi/MEzU1HvBo6Y/0.jpg)](https://www.youtube.com/watch?v=MEzU1HvBo6Y)
 
 ## Habits and things I want to do in 2022
 

@@ -1,6 +1,6 @@
 ---
 title: "2024 Annual Review"
-description: "An annual review of 2024 covering extreme highs and lows, meaningful life experiences, slow travel adventures, and personal learnings."
+description: "A wedding in Italy, four months with family, digital nomad life across 10 cities, and the burnout that came with it all."
 publishDate: "2024-12-31"
 coverImage:
   src: "./attachments/rollercoaster.webp"
@@ -24,8 +24,8 @@ It was one of the most intense years of my life, but also one of the most meanin
 ### Family visit in Singapore and Bali
 
 My mum and her husband visited me in Singapore. It was their first time so I finally had an opportunity to do all the touristy things that I never got to during my 5 year tenure in the country. We walked, ate, talked and laughed a lot whilst letting them experience the culture shock for the first time in Asia.
-![changi-airport-family](./attachments/changi-airport-family.png)
-![bali-beach](./attachments/bali-beach.png)
+![Family reunion at Changi Airport in Singapore](./attachments/changi-airport-family.png)
+![Relaxing on a sandy beach in Bali with family](./attachments/bali-beach.png)
 As we reach a certain age, it is inevitable to start thinking about our time with our family. This realization hit me just recently when my mum turned 60 this year. This really shocked me. Not that its an extreme age, but I didn’t think about it much up until now. When you try to put a number, here is a wake-up call quote from a [BigThink article](https://bigthink.com/thinking/how-many-times-will-you-see-your-parents-before-they-die/):
 
 > Let’s assume your parents are in their mid-60s, and let’s assume you see them four times a year—such as at birthdays, during the holiday season, or at special events like weddings. Working on an average life expectancy of around 80 years, that means you will only see your parents between 50 and 60 more times.
@@ -40,7 +40,7 @@ So what is the antidote? Considering the time is limited and we cannot control t
 - _What’s your biggest regret?_
 - _What did you learn the most from your own parents?_
 
-![family](./attachments/family.png)
+![Quality time spent with family during their visit](./attachments/family.png)
 
 I am proud and immensely grateful to say that I managed to squeeze in almost 4 full months with my folks this year and it has been a fragment of time I will remember forever. It is a challenge to maintain this pace with all the life responsibilities but I hope to keep reminding myself of what truly matters in life.
 
@@ -109,11 +109,11 @@ December:
 - Phuket, Thailand - settling down for a few months for an island life and downtime to reflect and write.
 
 A few photos from the trips (Bali sunset, walking the streets of Spello and smurf commando in Khao Yai)
-![bali-scooter](./attachments/bali-scooter.png)
+![Sunset scooter ride through Bali rice fields](./attachments/bali-scooter.png)
 
-![Spello](./attachments/Spello.png)
+![Walking the charming medieval streets of Spello, Italy](./attachments/Spello.png)
 
-![khao-yai](./attachments/khao-yai.png)
+![Night hike group photo at Khao Yai National Park, Thailand](./attachments/khao-yai.png)
 
 ### Wedding
 
@@ -127,8 +127,8 @@ I wasn’t keen at the beginning and wanted to elope. Eventually I caved in and 
 The feeling that day was electrifying and I tend to share that being on the other side of the isle and seeing the bride come to you made me feel things I never thought I would ever feel. Despite a lot of stress and planning going into a few hours, seeing all our friends and family being there for us made the day special and words don’t do it justice.
 
 Despite us being married officially for a while, the culmination of various events in Italy has made a huge mark on this year and also followed by the period of relief after a very busy schedule. A big kudos to my wife planning the wedding remotely, in a foreign country with some vendors not speaking english, and putting all the pieces together. We wouldn’t be able to pull it off without the help of our family and friends and hence I extend huge gratitude to everyone who made the trip and supported our relationship throughout the years.
-![sunset-wedding](./attachments/sunset-wedding.png)
-![wedding-ceremony](./attachments/wedding-ceremony.webp)
+![Golden sunset over our wedding venue in Italy](./attachments/sunset-wedding.png)
+![Wedding ceremony moment at Antico Borgo di Sutri](./attachments/wedding-ceremony.webp)
 
 ## Other mentions
 
@@ -211,7 +211,7 @@ I didn’t manage to do a lot of studying since embarking on LaunchSchool last y
 
 With a notable sci-fi mentions such as Dune: Part two and Coherence that is dealing with topics such as convergence of alternate realities, the movie that stood out the most for me was Monkey Man with incredible Dev Patel. This movie blends a John Wick style action which Indian culture references such as epic of Ramayana about Hanuman (hindu monkey god), caste and inequality, portrayal of hijras (a 3rd gender community) and taking a shot at extremism and general societal divisions.
 
-[![Monkey Man](https://img.youtube.com/vi/g8zxiB5Qhsc/0.jpg)](https://www.youtube.com/watch?v=g8zxiB5Qhsc)
+[![Monkey Man movie trailer thumbnail featuring Dev Patel](https://img.youtube.com/vi/g8zxiB5Qhsc/0.jpg)](https://www.youtube.com/watch?v=g8zxiB5Qhsc)
 
 ### TV Show
 
@@ -219,7 +219,7 @@ With a notable sci-fi mentions such as Dune: Part two and Coherence that is deal
 
 Imagine a universe where the moon landing happens but US didn’t make it first. In this alternate reality the space race continues and every season showcases the next step in progress towards exploration. I think part of what makes this show fantastic is character development and storytelling with engaging script, beyond just the typical sci-fi nerd stuff.
 
-[![For All Mankind](https://img.youtube.com/vi/HZS9M52Bd_w/0.jpg)](https://www.youtube.com/watch?v=HZS9M52Bd_w)
+[![For All Mankind TV series trailer thumbnail](https://img.youtube.com/vi/HZS9M52Bd_w/0.jpg)](https://www.youtube.com/watch?v=HZS9M52Bd_w)
 
 ### Game
 
@@ -227,7 +227,7 @@ Imagine a universe where the moon landing happens but US didn’t make it first.
 
 What could be better than a noir detective story with RPG elements. This game has almost no action and is played based on role-playing conversations (which trigger certain actions). You wake up as drunk detective with memory loss and your limbic system talking to you. The gameplay revolves around conversations with your emotions, trying to solve a murder whilst having a massive disadvantage in one of the areas of expertise (logic, sensitive and physical) and interacting with various characters in a world full of interesting lore and political opinions. ​P.S. - Cyberpunk 2077 came close second.
 
-[![Disco Elysium](https://img.youtube.com/vi/qp8llWcWrc0/0.jpg)](https://www.youtube.com/watch?v=qp8llWcWrc0)
+[![Disco Elysium game trailer thumbnail showing noir detective aesthetic](https://img.youtube.com/vi/qp8llWcWrc0/0.jpg)](https://www.youtube.com/watch?v=qp8llWcWrc0)
 
 ### Music
 
@@ -235,7 +235,7 @@ What could be better than a noir detective story with RPG elements. This game ha
 
 This mix from Simon Doty was keeping me in the deep work state throughout the year. Its a solid progressive house style set with some energetic beats and vocals to keep you company and don’t let you fall asleep whether its coding, writing or doing some generic work on a laptop.
 
-[![Simon Doty](https://img.youtube.com/vi/cWX1OlSUFhM/0.jpg)](https://www.youtube.com/watch?v=cWX1OlSUFhM)
+[![Simon Doty Universal Language album mix thumbnail](https://img.youtube.com/vi/cWX1OlSUFhM/0.jpg)](https://www.youtube.com/watch?v=cWX1OlSUFhM)
 
 ### App
 

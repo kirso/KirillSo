@@ -763,6 +763,46 @@
 }
 
 /* ============================================================================
+   PROSE IMAGES & FIGURES — Editorial Photo Styling
+   ============================================================================
+   Images in prose content with optional figcaption for credits.
+   Right-aligned captions with subtle link styling.
+   ============================================================================ */
+
+.prose img {
+	margin: var(--space-6) 0;
+	border-radius: var(--radius-none);
+}
+
+.prose figure {
+	margin: var(--space-6) 0;
+}
+
+.prose figure img {
+	margin: 0;
+}
+
+.prose figcaption {
+	margin-top: var(--space-2);
+	font-size: var(--text-micro);
+	color: var(--color-ink-tertiary);
+	text-align: end;
+}
+
+.prose figcaption a {
+	color: var(--color-ink-secondary);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	text-decoration-thickness: 1px;
+	transition: color 150ms var(--ease-out), text-decoration-thickness 150ms var(--ease-out);
+}
+
+.prose figcaption a:hover {
+	color: var(--color-ink);
+	text-decoration-thickness: 2px;
+}
+
+/* ============================================================================
    UTILITY CLASSES — Measure & Rhythm
    ============================================================================ */
 
