@@ -24,15 +24,15 @@ It was a strange year, mostly because both halves felt like two completely diffe
 
 ## 2025 goals
 
-| Area          | Score | Goals                                                                                             | Notes                                                                                                                                              |
-| :------------ | :---- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Work          | 4/5   | 🟢 Make one risky bet </br> ​🟡 Ship a paid product                                               | Started Keepsake but didn't release yet to the public                                                                                              |
-| Money         | 1/5   | 🔴 50% of income -> ETF                                                                           | No disposable income, no investments                                                                                                               |
-| Health        | 4/5   | 🟡 >20% body fat</br> ​🟢 +3kg muscle</br> ​🟡 Play tennis at least 50x</br> ​🟢 Supplements</br> | ​Went over 20%</br> Gained some weight after a bulk</br> ​​Played tennis consistently only in Q4</br> ​Magnesium, creatine, fish oil intake stable |
-| Relationships | 4/5   | 🟢 >1 meaningful connection</br> ​🟢 Keep in touch with friends</br> ​🟢 Call my mum once a month | Met new friends online by reaching out</br> ​Made an effort with core group</br> Tried to chat with mum weekly/bi-weekly​                          |
-| Growth        | 5/5   | 🔴 Write 12 articles</br> ​🟢 Soft skills </br> ​🟢 Technical skills                              | Only finished 2 posts</br> ​Attended ultraspeaking cohort</br> Learned a tonne with Claude Code                                                    |
+| Area          | Score | Goals                                                                                             | Notes                                                                                                                                                               |
+| :------------ | :---- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Work          | 4/5   | 🟢 Make one risky bet </br> ​🟡 Ship a paid product                                               | Started Keepsake but didn't release yet to the public                                                                                                               |
+| Money         | 1/5   | 🔴 50% of income -> ETF                                                                           | No disposable income, no investments                                                                                                                                |
+| Health        | 4/5   | 🟡 >20% body fat</br> ​🟢 +3kg muscle</br> ​🟡 Play tennis at least 50x</br> ​🟢 Supplements</br> | ​Went over 20%</br> Gained some weight after a bulk</br> ​​Played tennis consistently only in Q4</br> ​Magnesium, creatine, fish oil intake stable                  |
+| Relationships | 4/5   | 🟢 >1 meaningful connection</br> ​🟢 Keep in touch with friends</br> ​🟢 Call my mum once a month | Met new friends online by reaching out</br> ​Made an effort with core group</br> Tried to chat with mum weekly/bi-weekly​                                           |
+| Growth        | 5/5   | 🔴 Write 12 articles</br> ​🟢 Soft skills </br> ​🟢 Technical skills                              | Only finished 2 posts</br> ​Attended ultraspeaking cohort</br> Learned a tonne with Claude Code                                                                     |
 | Play          | 4/5   | 🟢 Attend 1 music event</br> ​🟢 Severance S2</br> ​🔴 Read 12 books                              | Saw [Ben Böhmer](https://open.spotify.com/artist/5tDjiBYUsTqzd0RkTZxK7u) at Cafe Del Mar</br> Fun goal, but disappointing content</br> Managed to read 4 books only |
-| Spirituality  | 3/5   | 🟡 Meditate for 150 days</br> ​🟢 Attend a retreat                                                | Meditated for 84 days</br> ​Attended [Hariharalaya](https://www.hariharalaya.com/) in Cambodia                                                     |
+| Spirituality  | 3/5   | 🟡 Meditate for 150 days</br> ​🟢 Attend a retreat                                                | Meditated for 84 days</br> ​Attended [Hariharalaya](https://www.hariharalaya.com/) in Cambodia                                                                      |
 
 ## Timeline
 
@@ -86,7 +86,7 @@ Getting lost in Prague, the city I grew up in, and celebrating my friend's 40th 
 
 Various work, storytelling, art and creativity that I enjoyed this year.
 
-- [Not Fade Away by Laurence Shames and Peter Barton](https://www.goodreads.com/book/show/137554.Not_Fade_Away) — I didn't read much this year, but over the past few years I've developed an appreciation for books about living life well. Not Fade Away is a story of Peter Barton, a man who tried to live his life to the fullest while fighting for his life and trying to understand what really matters.
+- [Not Fade Away by Laurence Shames and Peter Barton](https://www.goodreads.com/book/show/137554.Not_Fade_Away) — I didn't read much this year, but over the past few years I've developed an appreciation for books about living life well. Not Fade Away is a story of Peter Barton, a man who had it all and lived to the fullest, whilst fighting with an illness that severely shortened his time on this planet.
   ![Excerpt from book Not Fade Away by Laurence Shames and Peter Barton](./attachments/not-fade-away.png)
 
 - **[Ultraspeaking](https://ultraspeaking.com/)** — A bit of a mixed bag for me. I heard raving reviews online and had high expectations. I only participated in the fundamentals course and felt like a lot of learning was outsourced to async games with breakout rooms. I'd still recommend it though.
