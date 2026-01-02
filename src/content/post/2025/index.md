@@ -1,6 +1,6 @@
 ---
 title: "2025 Annual Review"
-description: "Quitting my job, attending my first silent retreat, and navigating the tension between sabbatical dreams and creative curiosity."
+description: "Quitting my job, attending my first silent retreat, establishing a routine and navigating the tension between uncertainty and safety."
 publishDate: "2025-12-31"
 coverImage:
   src: "./attachments/soheb-zaidi-yuv1FPyZdR0-unsplash.jpg"
