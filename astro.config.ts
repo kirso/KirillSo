@@ -100,7 +100,7 @@ export default defineConfig({
 		optimizeDeps: {
 			exclude: ["@resvg/resvg-js"],
 		},
-		plugins: [tailwind(), rawFonts([".ttf", ".woff"])],
+		plugins: [tailwind(), rawFonts([".ttf", ".woff"]), rawImages([".png"])],
 	},
 	env: {
 		schema: {
@@ -127,6 +127,24 @@ function rawFonts(ext: string[]) {
 				const buffer = fs.readFileSync(id);
 				return {
 					code: `export default ${JSON.stringify(buffer)}`,
+					map: null,
+				};
+			}
+		},
+	};
+}
+
+function rawImages(ext: string[]) {
+	return {
+		name: "vite-plugin-raw-images",
+		// @ts-expect-error:next-line
+		transform(_, id) {
+			if (ext.some((e) => id.endsWith(e)) && id.includes("og-headshot")) {
+				const buffer = fs.readFileSync(id);
+				const base64 = buffer.toString("base64");
+				const mimeType = id.endsWith(".png") ? "image/png" : "image/jpeg";
+				return {
+					code: `export default "data:${mimeType};base64,${base64}"`,
 					map: null,
 				};
 			}

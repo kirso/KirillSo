@@ -6,6 +6,7 @@ import satori, { type SatoriOptions } from "satori";
 import { html } from "satori-html";
 import GeistRegular from "@/assets/fonts/Geist-Regular.ttf";
 import GeistBold from "@/assets/fonts/Geist-Bold.ttf";
+import headshotBase64 from "@/assets/img/og-headshot.png";
 import { getAllPosts } from "@/data/post";
 import { siteConfig } from "@/site.config";
 import { getFormattedDate } from "@/utils/date";
@@ -43,7 +44,11 @@ const markup = (title: string, pubDate: string) =>
 			<p tw="text-2xl mb-4 text-[${colors.secondary}]">${pubDate}</p>
 			<h1 tw="text-6xl font-bold leading-tight tracking-tight">${title}</h1>
 		</div>
-		<div tw="flex items-center justify-end w-full px-16 py-8 border-t border-[${colors.border}]">
+		<div tw="flex items-center justify-between w-full px-16 py-8 border-t border-[${colors.border}]">
+			<div tw="flex items-center">
+				<img src="${headshotBase64}" tw="w-12 h-12 rounded-full" style="object-fit: cover;" />
+				<p tw="text-xl font-bold ml-4">${siteConfig.author}</p>
+			</div>
 			<p tw="text-xl text-[${colors.secondary}]">kirillso.com</p>
 		</div>
 	</div>`;

@@ -356,6 +356,10 @@
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 
+		/* OpenType features — ligatures & contextual alternates */
+		font-feature-settings: "liga" 1, "calt" 1;
+		font-variant-ligatures: common-ligatures contextual;
+
 		/* Base typography — Geist optimized */
 		font-size: var(--text-body);
 		line-height: var(--leading-relaxed);
@@ -1095,6 +1099,9 @@ blockquote cite::before {
 .mono {
 	font-family: var(--font-mono);
 	font-variant-numeric: tabular-nums;
+	/* Disable ligatures in monospace — code should be literal */
+	font-variant-ligatures: none;
+	font-feature-settings: "liga" 0, "calt" 0;
 }
 
 /* Geometric Table — Fieldset with legend for label-in-border effect

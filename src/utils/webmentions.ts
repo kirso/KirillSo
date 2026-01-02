@@ -9,7 +9,7 @@ const validWebmentionTypes = ["like-of", "mention-of", "in-reply-to"];
 
 const hostName = new URL(DOMAIN).hostname;
 
-// Calls webmention.io api.
+// Calls webmention.io api with timeout and error handling
 async function fetchWebmentions(timeFrom: string | null, perPage = 1000) {
 	if (!DOMAIN) {
 		console.warn("No domain specified. Please set in astro.config.ts");
@@ -25,14 +25,32 @@ async function fetchWebmentions(timeFrom: string | null, perPage = 1000) {
 
 	if (timeFrom) url += `&since${timeFrom}`;
 
-	const res = await fetch(url);
+	// Add timeout to prevent build failures when webmention.io is slow/unreachable
+	const controller = new AbortController();
+	const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
 
-	if (res.ok) {
-		const data = (await res.json()) as WebmentionsFeed;
-		return data;
+	try {
+		const res = await fetch(url, { signal: controller.signal });
+		clearTimeout(timeoutId);
+
+		if (res.ok) {
+			const data = (await res.json()) as WebmentionsFeed;
+			return data;
+		}
+
+		console.warn(`Webmention API returned ${res.status}: ${res.statusText}`);
+		return null;
+	} catch (error) {
+		clearTimeout(timeoutId);
+		if (error instanceof Error) {
+			if (error.name === "AbortError") {
+				console.warn("Webmention fetch timed out after 5s, using cache");
+			} else {
+				console.warn(`Webmention fetch failed: ${error.message}`);
+			}
+		}
+		return null;
 	}
-
-	return null;
 }
 
 // Merge cached entries [a] with fresh webmentions [b], merge by wm-id
