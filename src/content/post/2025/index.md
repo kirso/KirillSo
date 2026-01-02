@@ -27,7 +27,7 @@ It was a strange year, mostly because both halves felt like two completely diffe
 | Area          | Score | Goals                                                                                             | Notes                                                                                                                                                               |
 | :------------ | :---- | :------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Work          | 4/5   | 🟢 Make one risky bet </br> ​🟡 Ship a paid product                                               | Started Keepsake but didn't release yet to the public                                                                                                               |
-| Money         | 1/5   | 🔴 50% of income -> ETF                                                                           | No disposable income, no investments                                                                                                                                |
+| Money         | 1/5   | 🔴 Invest 50% of income                                                                           | No disposable income, no investments                                                                                                                                |
 | Health        | 4/5   | 🟡 >20% body fat</br> ​🟢 +3kg muscle</br> ​🟡 Play tennis at least 50x</br> ​🟢 Supplements</br> | ​Went over 20%</br> Gained some weight after a bulk</br> ​​Played tennis consistently only in Q4</br> ​Magnesium, creatine, fish oil intake stable                  |
 | Relationships | 4/5   | 🟢 >1 meaningful connection</br> ​🟢 Keep in touch with friends</br> ​🟢 Call my mum once a month | Met new friends online by reaching out</br> ​Made an effort with core group</br> Tried to chat with mum weekly/bi-weekly​                                           |
 | Growth        | 5/5   | 🔴 Write 12 articles</br> ​🟢 Soft skills </br> ​🟢 Technical skills                              | Only finished 2 posts</br> ​Attended ultraspeaking cohort</br> Learned a tonne with Claude Code                                                                     |
@@ -67,6 +67,12 @@ Slowing down and living on the outskirts of Spain. Visiting Barcelona and Valenc
 Getting lost in Prague, the city I grew up in, and celebrating my friend's 40th birthday.
 
 ![Photoshoot at Prague castle stairs](./attachments/prague.png)
+
+### Bali, Indonesia
+
+Settling in Ubud, Bali for 6 months and establishing a routine that I've missed so much.
+
+![Finishing 12 days of Christmas as crossfit exercise on the tennis court](./attachments/mahima.png)a
 
 ## Highlights
 
