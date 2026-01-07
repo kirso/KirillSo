@@ -14,8 +14,13 @@ const colors = {
 	bg: "#fafaf8", // warm paper white
 	text: "#1c1917", // warm black (stone-900)
 	secondary: "#57534e", // warm gray (stone-600)
-	border: "#e7e5e4", // warm border (stone-200)
+	border: "#d6d3d1", // warm border (stone-300)
+	accent: "#a8a29e", // subtle accent (stone-400)
+	dot: "#d6d3d1", // dot grid color (stone-300)
 };
+
+// SVG dot pattern as data URL
+const dotPattern = `url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23d6d3d1'/%3E%3C/svg%3E")`;
 
 const ogOptions: SatoriOptions = {
 	fonts: [
@@ -37,18 +42,23 @@ const ogOptions: SatoriOptions = {
 };
 
 const markup = () =>
-	html`<div tw="flex flex-col w-full h-full bg-[${colors.bg}] text-[${colors.text}]">
-		<div tw="flex flex-col flex-1 w-full p-16 justify-center">
-			<p tw="text-2xl mb-4 text-[${colors.secondary}]">Personal Site</p>
-			<h1 tw="text-6xl font-bold leading-tight tracking-tight">${siteConfig.title}</h1>
-			<p tw="text-2xl mt-6 text-[${colors.secondary}]">Thoughts on work and life.</p>
-		</div>
-		<div tw="flex items-center justify-between w-full px-16 py-8 border-t border-[${colors.border}]">
-			<div tw="flex items-center">
-				<img src="${headshotBase64}" tw="w-12 h-12 rounded-full" style="object-fit: cover;" />
-				<p tw="text-xl font-bold ml-4">${siteConfig.author}</p>
+	html`<div tw="flex w-full h-full text-[${colors.text}] p-12" style="background-color: ${colors.bg}; background-image: ${dotPattern};">
+		<!-- L-bracket frame -->
+		<div tw="flex flex-1 items-center p-10" style="position: relative;">
+			<!-- Top-left corner -->
+			<div tw="absolute flex" style="top: 0; left: 0; width: 40px; height: 40px; border-top: 3px solid ${colors.text}; border-left: 3px solid ${colors.text};"></div>
+			<!-- Bottom-right corner -->
+			<div tw="absolute flex" style="bottom: 0; right: 0; width: 40px; height: 40px; border-bottom: 3px solid ${colors.text}; border-right: 3px solid ${colors.text};"></div>
+
+			<!-- Avatar -->
+			<img src="${headshotBase64}" tw="w-56 h-56 rounded-full" style="object-fit: cover;" />
+
+			<!-- Content -->
+			<div tw="flex flex-col ml-14 flex-1">
+				<p tw="text-2xl tracking-widest text-[${colors.secondary}] mb-3">WWW.KIRILLSO.COM</p>
+				<h1 tw="text-6xl font-bold leading-tight tracking-tight">${siteConfig.title}</h1>
+				<p tw="text-2xl mt-5 text-[${colors.secondary}]">Thoughts on work and life.</p>
 			</div>
-			<p tw="text-xl text-[${colors.secondary}]">kirillso.com</p>
 		</div>
 	</div>`;
 
