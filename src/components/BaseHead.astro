@@ -18,24 +18,17 @@ const socialImageURL = new URL(ogImage ? ogImage : defaultOgImage, Astro.url).hr
 
 <meta charset="utf-8" />
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<meta name="theme-color" content="#faf9f6" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#f5f5f5" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
 <meta name="color-scheme" content="light dark" />
 <title>{siteTitle}</title>
 
-{/* Icons */}
+{/* Icons - SVG with dark mode support */}
+<link href="/icons/icon-dark.svg" rel="icon" type="image/svg+xml" media="(prefers-color-scheme: light)" />
+<link href="/icons/icon-light.svg" rel="icon" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
 <link href="/icon.svg" rel="icon" type="image/svg+xml" />
-{
-  import.meta.env.PROD && (
-    <>
-      {/* Favicon & Apple Icon */}
-      <link rel="icon" href="/favicon-32x32.png" type="image/png" />
-      <link href="/icons/apple-touch-icon.png" rel="apple-touch-icon" />
-      {/* Manifest */}
-      <link href="/manifest.webmanifest" rel="manifest" />
-    </>
-  )
-}
+<link href="/icons/apple-touch-icon.svg" rel="apple-touch-icon" />
+<link href="/manifest.webmanifest" rel="manifest" />
 
 {/* Canonical URL */}
 <link href={canonicalURL} rel="canonical" />

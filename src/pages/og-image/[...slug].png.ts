@@ -11,18 +11,18 @@ import { getAllPosts } from "@/data/post";
 import { siteConfig } from "@/site.config";
 import { getFormattedDate } from "@/utils/date";
 
-// Design system colors (warm stone palette)
+// Design system colors — Quiet Archive palette (pure OKLCH neutrals)
 const colors = {
-	bg: "#fafaf8", // warm paper white
-	text: "#1c1917", // warm black (stone-900)
-	secondary: "#57534e", // warm gray (stone-600)
-	border: "#d6d3d1", // warm border (stone-300)
-	accent: "#a8a29e", // subtle accent (stone-400)
-	dot: "#d6d3d1", // dot grid color (stone-300)
+	bg: "#f5f5f5", // --color-paper (oklch 0.96)
+	text: "#262626", // --color-ink (oklch 0.20)
+	secondary: "#636363", // --color-ink-secondary (oklch 0.42)
+	tertiary: "#7a7a7a", // --color-ink-tertiary (oklch 0.52)
+	rule: "#c9c9c9", // --color-rule (oklch 0.82)
+	surface: "#ededed", // --color-surface (oklch 0.93)
 };
 
-// SVG dot pattern as data URL
-const dotPattern = `url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23d6d3d1'/%3E%3C/svg%3E")`;
+// SVG dot pattern — 20px grid, subtle dots
+const dotPattern = `url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23c9c9c9'/%3E%3C/svg%3E")`;
 
 const ogOptions: SatoriOptions = {
 	fonts: [
@@ -44,24 +44,38 @@ const ogOptions: SatoriOptions = {
 };
 
 const markup = (title: string, pubDate: string) =>
-	html`<div tw="flex flex-col w-full h-full text-[${colors.text}] p-12" style="background-color: ${colors.bg}; background-image: ${dotPattern};">
+	html`<div tw="flex flex-col w-full h-full text-[${colors.text}]" style="background-color: ${colors.bg}; background-image: ${dotPattern};">
 		<!-- L-bracket frame -->
-		<div tw="flex flex-col flex-1 p-10" style="position: relative;">
+		<div tw="flex flex-col flex-1 m-8 p-12" style="position: relative;">
 			<!-- Top-left corner -->
-			<div tw="absolute flex" style="top: 0; left: 0; width: 40px; height: 40px; border-top: 3px solid ${colors.text}; border-left: 3px solid ${colors.text};"></div>
+			<div tw="absolute flex" style="top: 0; left: 0; width: 60px; height: 60px; border-top: 2px solid ${colors.text}; border-left: 2px solid ${colors.text};"></div>
 			<!-- Bottom-right corner -->
-			<div tw="absolute flex" style="bottom: 0; right: 0; width: 40px; height: 40px; border-bottom: 3px solid ${colors.text}; border-right: 3px solid ${colors.text};"></div>
+			<div tw="absolute flex" style="bottom: 0; right: 0; width: 60px; height: 60px; border-bottom: 2px solid ${colors.text}; border-right: 2px solid ${colors.text};"></div>
 
-			<!-- Header -->
-			<div tw="flex items-center mb-8">
-				<img src="${headshotBase64}" tw="w-16 h-16 rounded-full" style="object-fit: cover;" />
-				<p tw="text-2xl tracking-widest text-[${colors.secondary}] ml-5">WWW.KIRILLSO.COM</p>
+			<!-- Content area -->
+			<div tw="flex flex-col flex-1 justify-between">
+				<!-- Top: Metadata line -->
+				<div tw="flex items-center">
+					<p tw="text-2xl text-[${colors.tertiary}]">№ · ${pubDate}</p>
+				</div>
+
+				<!-- Center: Title -->
+				<div tw="flex flex-col justify-center py-8">
+					<h1 tw="text-6xl font-bold leading-tight tracking-tight">${title}</h1>
+				</div>
+
+				<!-- Bottom: Branding -->
+				<div tw="flex items-center">
+					<div tw="flex rounded-full" style="border: 2px solid ${colors.rule};">
+						<img src="${headshotBase64}" tw="w-16 h-16 rounded-full" style="object-fit: cover;" />
+					</div>
+					<p tw="text-2xl text-[${colors.secondary}] ml-5 font-bold tracking-wide">KIRILLSO.COM</p>
+				</div>
 			</div>
 
-			<!-- Content -->
-			<div tw="flex flex-col flex-1 justify-center">
-				<p tw="text-xl mb-3 text-[${colors.secondary}]">${pubDate}</p>
-				<h1 tw="text-5xl font-bold leading-snug tracking-tight">${title}</h1>
+			<!-- Hanko stamp - sharp, geometric, top-right -->
+			<div tw="absolute flex items-center justify-center" style="top: 32px; right: 32px; width: 64px; height: 64px; border: 2px solid ${colors.text};">
+				<p tw="text-2xl font-bold text-[${colors.text}]">KS</p>
 			</div>
 		</div>
 	</div>`;
