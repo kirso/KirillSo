@@ -1,10 +1,6 @@
 {
 	"name": "kirillso",
-	"main": "./dist/_worker.js/index.js",
 	"compatibility_date": "2024-12-01",
 	"compatibility_flags": ["nodejs_compat"],
-	"assets": {
-		"directory": "./dist",
-		"binding": "ASSETS"
-	}
+	"pages_build_output_dir": "./dist"
 }
