@@ -18,12 +18,12 @@
 		"generate:embeddings": "bun run scripts/generate-embeddings.ts"
 	},
 	"dependencies": {
+		"@astrojs/cloudflare": "^12.6.12",
 		"@astrojs/markdown-remark": "^6.3.10",
 		"@astrojs/mdx": "4.3.12",
 		"@astrojs/rss": "4.0.14",
 		"@astrojs/sitemap": "3.6.0",
 		"@astrojs/svelte": "^7.2.4",
-		"@astrojs/vercel": "^9.0.2",
 		"@google/generative-ai": "^0.24.1",
 		"@iconify-json/simple-icons": "^1.2.63",
 		"@tailwindcss/vite": "4.1.17",

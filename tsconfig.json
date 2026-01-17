@@ -3,6 +3,7 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"lib": ["es2022", "dom", "dom.iterable"],
+		"resolveJsonModule": true,
 		"paths": {
 			"@/*": ["src/*"],
 			"@/assets/*": ["src/assets/*"],

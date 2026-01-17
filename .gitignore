@@ -29,3 +29,4 @@ pnpm-debug.log*
 
 # exclude example environment variables
 !.env.example
+.env*.local

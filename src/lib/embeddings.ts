@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import fs from "fs";
-import path from "path";
+// Import embeddings statically for Cloudflare Workers compatibility
+import storedEmbeddingsData from "@/data/embeddings/resume-embeddings.json";
 
 // Define types
 type EmbeddingVector = number[];
@@ -17,13 +17,8 @@ interface StoredEmbedding {
 	source: string;
 }
 
-const EMBEDDINGS_FILE = path.join(
-	process.cwd(),
-	"src",
-	"data",
-	"embeddings",
-	"resume-embeddings.json",
-);
+// Cast imported data to proper type
+const storedEmbeddings: StoredEmbedding[] = storedEmbeddingsData as StoredEmbedding[];
 
 function getGeminiClient(apiKey?: string) {
 	const key = apiKey || process.env.GOOGLE_AI_API_KEY;
@@ -33,40 +28,8 @@ function getGeminiClient(apiKey?: string) {
 	return new GoogleGenerativeAI(key);
 }
 
-export async function generateEmbeddings(content: string, source: string): Promise<void> {
-	const genAI = getGeminiClient();
-	const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
-
-	const result = await model.embedContent(content);
-	const embedding = result.embedding.values;
-
-	if (!embedding || !Array.isArray(embedding)) {
-		throw new Error("Failed to generate embedding");
-	}
-
-	// Create embeddings directory if it doesn't exist
-	const dir = path.dirname(EMBEDDINGS_FILE);
-	if (!fs.existsSync(dir)) {
-		fs.mkdirSync(dir, { recursive: true });
-	}
-
-	// Read existing embeddings or create new array
-	let embeddings: StoredEmbedding[] = [];
-	if (fs.existsSync(EMBEDDINGS_FILE)) {
-		const fileContent = fs.readFileSync(EMBEDDINGS_FILE, "utf-8");
-		embeddings = JSON.parse(fileContent);
-	}
-
-	// Add new embedding
-	embeddings.push({
-		content,
-		embedding,
-		source,
-	});
-
-	// Write back to file
-	fs.writeFileSync(EMBEDDINGS_FILE, JSON.stringify(embeddings, null, 2));
-}
+// Note: generateEmbeddings is only available via the CLI script (scripts/generate-embeddings.ts)
+// It cannot be used at runtime in Cloudflare Workers due to filesystem access limitations
 
 function cosineSimilarity(vecA: EmbeddingVector, vecB: EmbeddingVector): number {
 	if (!Array.isArray(vecA) || !Array.isArray(vecB)) {
@@ -99,15 +62,6 @@ export async function findSimilarContent(query: string, apiKey?: string): Promis
 	const genAI = getGeminiClient(apiKey);
 
 	try {
-		// Read stored embeddings
-		if (!fs.existsSync(EMBEDDINGS_FILE)) {
-			console.error("No embeddings file found at:", EMBEDDINGS_FILE);
-			throw new Error("No embeddings found. Please generate embeddings first.");
-		}
-
-		const fileContent = fs.readFileSync(EMBEDDINGS_FILE, "utf-8");
-		const storedEmbeddings: StoredEmbedding[] = JSON.parse(fileContent);
-
 		// Filter out embeddings without sources
 		const validEmbeddings = storedEmbeddings.filter((e) => e.source);
 		console.log(

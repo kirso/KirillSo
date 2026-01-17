@@ -4,7 +4,7 @@ import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
-import vercel from "@astrojs/vercel";
+import cloudflare from "@astrojs/cloudflare";
 import tailwind from "@tailwindcss/vite";
 import { defineConfig, envField } from "astro/config";
 import expressiveCode from "astro-expressive-code";
@@ -100,6 +100,10 @@ export default defineConfig({
 		optimizeDeps: {
 			exclude: ["@resvg/resvg-js"],
 		},
+		ssr: {
+			// Externalize native Node.js modules that are only used in prerendered routes
+			external: ["@resvg/resvg-js"],
+		},
 		plugins: [tailwind(), rawFonts([".ttf", ".woff"]), rawImages([".png"])],
 	},
 	env: {
@@ -111,9 +115,15 @@ export default defineConfig({
 		},
 	},
 	output: "server",
-	adapter: vercel({
-		webAnalytics: {
-			enabled: true,
+	adapter: cloudflare({
+		platformProxy: {
+			enabled: true, // Enables local Cloudflare runtime emulation
+		},
+		imageService: "compile", // Uses sharp at build time for images
+		routes: {
+			extend: {
+				exclude: [{ pattern: "/pagefind/*" }], // Serve pagefind search statically
+			},
 		},
 	}),
 });

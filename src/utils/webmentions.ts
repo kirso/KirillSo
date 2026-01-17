@@ -1,13 +1,13 @@
 import { WEBMENTION_API_KEY } from "astro:env/server";
-import * as fs from "node:fs";
-import type { WebmentionsCache, WebmentionsChildren, WebmentionsFeed } from "@/types";
+import type { WebmentionsChildren, WebmentionsFeed } from "@/types";
 
 const DOMAIN = import.meta.env.SITE;
-const CACHE_DIR = ".data";
-const filePath = `${CACHE_DIR}/webmentions.json`;
 const validWebmentionTypes = ["like-of", "mention-of", "in-reply-to"];
 
 const hostName = new URL(DOMAIN).hostname;
+
+// In-memory cache for build-time fetching (Cloudflare Workers compatible)
+let cachedWebmentions: WebmentionsChildren[] | null = null;
 
 // Calls webmention.io api with timeout and error handling
 async function fetchWebmentions(timeFrom: string | null, perPage = 1000) {
@@ -53,15 +53,6 @@ async function fetchWebmentions(timeFrom: string | null, perPage = 1000) {
 	}
 }
 
-// Merge cached entries [a] with fresh webmentions [b], merge by wm-id
-function mergeWebmentions(a: WebmentionsCache, b: WebmentionsFeed): WebmentionsChildren[] {
-	return Array.from(
-		[...a.children, ...b.children]
-			.reduce((map, obj) => map.set(obj["wm-id"], obj), new Map())
-			.values(),
-	);
-}
-
 // filter out WebmentionChildren
 export function filterWebmentions(webmentions: WebmentionsChildren[]) {
 	return webmentions.filter((webmention) => {
@@ -77,57 +68,26 @@ export function filterWebmentions(webmentions: WebmentionsChildren[]) {
 	});
 }
 
-// save combined webmentions in cache file
-function writeToCache(data: WebmentionsCache) {
-	const fileContent = JSON.stringify(data, null, 2);
-
-	// create cache folder if it doesn't exist already
-	if (!fs.existsSync(CACHE_DIR)) {
-		fs.mkdirSync(CACHE_DIR);
+// Fetch and cache webmentions in memory (Cloudflare Workers compatible)
+async function getAndCacheWebmentions(): Promise<WebmentionsChildren[]> {
+	// Return cached data if available (within same build/request)
+	if (cachedWebmentions !== null) {
+		return cachedWebmentions;
 	}
 
-	// write data to cache json file
-	fs.writeFile(filePath, fileContent, (err) => {
-		if (err) throw err;
-		console.log(`Webmentions saved to ${filePath}`);
-	});
-}
-
-function getFromCache(): WebmentionsCache {
-	if (fs.existsSync(filePath)) {
-		const data = fs.readFileSync(filePath, "utf-8");
-		return JSON.parse(data);
-	}
-	// no cache found
-	return {
-		lastFetched: null,
-		children: [],
-	};
-}
-
-async function getAndCacheWebmentions() {
-	const cache = getFromCache();
-	const mentions = await fetchWebmentions(cache.lastFetched);
+	const mentions = await fetchWebmentions(null);
 
 	if (mentions) {
-		mentions.children = filterWebmentions(mentions.children);
-		const webmentions: WebmentionsCache = {
-			lastFetched: new Date().toISOString(),
-			// Make sure the first arg is the cache
-			children: mergeWebmentions(cache, mentions),
-		};
-
-		writeToCache(webmentions);
-		return webmentions;
+		cachedWebmentions = filterWebmentions(mentions.children);
+		return cachedWebmentions;
 	}
 
-	return cache;
+	// Return empty array if fetch failed
+	cachedWebmentions = [];
+	return cachedWebmentions;
 }
 
-let webMentions: WebmentionsCache;
-
 export async function getWebmentionsForUrl(url: string) {
-	if (!webMentions) webMentions = await getAndCacheWebmentions();
-
-	return webMentions.children.filter((entry) => entry["wm-target"] === url);
+	const webmentions = await getAndCacheWebmentions();
+	return webmentions.filter((entry) => entry["wm-target"] === url);
 }
