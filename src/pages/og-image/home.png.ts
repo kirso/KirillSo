@@ -3,7 +3,6 @@ export const prerender = true;
 import { Resvg } from "@resvg/resvg-js";
 import type { APIContext } from "astro";
 import satori, { type SatoriOptions } from "satori";
-import { html } from "satori-html";
 import GeistRegular from "@/assets/fonts/Geist-Regular.ttf";
 import GeistBold from "@/assets/fonts/Geist-Bold.ttf";
 import { headshotBase64 } from "@/assets/img/og-headshot-base64";
@@ -41,33 +40,102 @@ const ogOptions: SatoriOptions = {
 	width: 1200,
 };
 
-const markup = () =>
-	html`<div tw="flex w-full h-full text-[${colors.text}]" style="background-color: ${colors.bg}; background-image: ${dotPattern};">
-		<!-- L-bracket frame -->
-		<div tw="flex flex-1 items-center m-8 p-12" style="position: relative;">
-			<!-- Top-left corner -->
-			<div tw="absolute flex" style="top: 0; left: 0; width: 60px; height: 60px; border-top: 2px solid ${colors.text}; border-left: 2px solid ${colors.text};"></div>
-			<!-- Bottom-right corner -->
-			<div tw="absolute flex" style="bottom: 0; right: 0; width: 60px; height: 60px; border-bottom: 2px solid ${colors.text}; border-right: 2px solid ${colors.text};"></div>
+// Build the avatar image element separately to avoid template literal parsing issues with large base64
+const avatarImg = {
+	type: "img",
+	props: {
+		src: headshotBase64,
+		tw: "w-56 h-56 rounded-full",
+		style: { objectFit: "cover" },
+	},
+};
 
-			<!-- Avatar with ring -->
-			<div tw="flex rounded-full" style="border: 3px solid ${colors.rule};">
-				<img src="${headshotBase64}" tw="w-56 h-56 rounded-full" style="object-fit: cover;" />
-			</div>
-
-			<!-- Content -->
-			<div tw="flex flex-col ml-14 flex-1">
-				<p tw="text-2xl text-[${colors.tertiary}] mb-3 font-bold tracking-wide">KIRILLSO.COM</p>
-				<h1 tw="text-7xl font-bold leading-none tracking-tight">${siteConfig.title}</h1>
-				<p tw="text-3xl mt-5 text-[${colors.secondary}]">Thoughts on work and life.</p>
-			</div>
-
-			<!-- Hanko stamp - sharp, geometric, top-right -->
-			<div tw="absolute flex items-center justify-center" style="top: 32px; right: 32px; width: 72px; height: 72px; border: 2px solid ${colors.text};">
-				<p tw="text-3xl font-bold text-[${colors.text}]">KS</p>
-			</div>
-		</div>
-	</div>`;
+const markup = () => ({
+	type: "div",
+	props: {
+		tw: `flex w-full h-full text-[${colors.text}]`,
+		style: { backgroundColor: colors.bg, backgroundImage: dotPattern },
+		children: {
+			type: "div",
+			props: {
+				tw: "flex flex-1 items-center m-8 p-12",
+				style: { position: "relative" },
+				children: [
+					// Top-left corner
+					{
+						type: "div",
+						props: {
+							tw: "absolute flex",
+							style: { top: 0, left: 0, width: 60, height: 60, borderTop: `2px solid ${colors.text}`, borderLeft: `2px solid ${colors.text}` },
+						},
+					},
+					// Bottom-right corner
+					{
+						type: "div",
+						props: {
+							tw: "absolute flex",
+							style: { bottom: 0, right: 0, width: 60, height: 60, borderBottom: `2px solid ${colors.text}`, borderRight: `2px solid ${colors.text}` },
+						},
+					},
+					// Avatar with ring
+					{
+						type: "div",
+						props: {
+							tw: "flex rounded-full",
+							style: { border: `3px solid ${colors.rule}` },
+							children: avatarImg,
+						},
+					},
+					// Content
+					{
+						type: "div",
+						props: {
+							tw: "flex flex-col ml-14 flex-1",
+							children: [
+								{
+									type: "p",
+									props: {
+										tw: `text-2xl text-[${colors.tertiary}] mb-3 font-bold tracking-wide`,
+										children: "KIRILLSO.COM",
+									},
+								},
+								{
+									type: "h1",
+									props: {
+										tw: "text-7xl font-bold leading-none tracking-tight",
+										children: siteConfig.title,
+									},
+								},
+								{
+									type: "p",
+									props: {
+										tw: `text-3xl mt-5 text-[${colors.secondary}]`,
+										children: "Thoughts on work and life.",
+									},
+								},
+							],
+						},
+					},
+					// Hanko stamp
+					{
+						type: "div",
+						props: {
+							tw: "absolute flex items-center justify-center",
+							style: { top: 32, right: 32, width: 72, height: 72, border: `2px solid ${colors.text}` },
+							children: {
+								type: "p",
+								props: {
+									tw: `text-3xl font-bold text-[${colors.text}]`,
+									children: "KS",
+								},
+							},
+						},
+					},
+				],
+			},
+		},
+	},
+});
 
 export async function GET(_context: APIContext) {
 	const svg = await satori(markup(), ogOptions);

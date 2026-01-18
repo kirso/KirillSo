@@ -3,7 +3,6 @@ export const prerender = true;
 import { Resvg } from "@resvg/resvg-js";
 import type { APIContext, InferGetStaticPropsType } from "astro";
 import satori, { type SatoriOptions } from "satori";
-import { html } from "satori-html";
 import GeistRegular from "@/assets/fonts/Geist-Regular.ttf";
 import GeistBold from "@/assets/fonts/Geist-Bold.ttf";
 import { headshotBase64 } from "@/assets/img/og-headshot-base64";
@@ -43,42 +42,124 @@ const ogOptions: SatoriOptions = {
 	width: 1200,
 };
 
-const markup = (title: string, pubDate: string) =>
-	html`<div tw="flex flex-col w-full h-full text-[${colors.text}]" style="background-color: ${colors.bg}; background-image: ${dotPattern};">
-		<!-- L-bracket frame -->
-		<div tw="flex flex-col flex-1 m-8 p-12" style="position: relative;">
-			<!-- Top-left corner -->
-			<div tw="absolute flex" style="top: 0; left: 0; width: 60px; height: 60px; border-top: 2px solid ${colors.text}; border-left: 2px solid ${colors.text};"></div>
-			<!-- Bottom-right corner -->
-			<div tw="absolute flex" style="bottom: 0; right: 0; width: 60px; height: 60px; border-bottom: 2px solid ${colors.text}; border-right: 2px solid ${colors.text};"></div>
+// Build the avatar image element separately to avoid template literal parsing issues with large base64
+const avatarImg = {
+	type: "img",
+	props: {
+		src: headshotBase64,
+		tw: "w-16 h-16 rounded-full",
+		style: { objectFit: "cover" },
+	},
+};
 
-			<!-- Content area -->
-			<div tw="flex flex-col flex-1 justify-between">
-				<!-- Top: Metadata line -->
-				<div tw="flex items-center">
-					<p tw="text-2xl text-[${colors.tertiary}]">№ · ${pubDate}</p>
-				</div>
-
-				<!-- Center: Title -->
-				<div tw="flex flex-col justify-center py-8">
-					<h1 tw="text-6xl font-bold leading-tight tracking-tight">${title}</h1>
-				</div>
-
-				<!-- Bottom: Branding -->
-				<div tw="flex items-center">
-					<div tw="flex rounded-full" style="border: 2px solid ${colors.rule};">
-						<img src="${headshotBase64}" tw="w-16 h-16 rounded-full" style="object-fit: cover;" />
-					</div>
-					<p tw="text-2xl text-[${colors.secondary}] ml-5 font-bold tracking-wide">KIRILLSO.COM</p>
-				</div>
-			</div>
-
-			<!-- Hanko stamp - sharp, geometric, top-right -->
-			<div tw="absolute flex items-center justify-center" style="top: 32px; right: 32px; width: 64px; height: 64px; border: 2px solid ${colors.text};">
-				<p tw="text-2xl font-bold text-[${colors.text}]">KS</p>
-			</div>
-		</div>
-	</div>`;
+const markup = (title: string, pubDate: string) => ({
+	type: "div",
+	props: {
+		tw: `flex flex-col w-full h-full text-[${colors.text}]`,
+		style: { backgroundColor: colors.bg, backgroundImage: dotPattern },
+		children: {
+			type: "div",
+			props: {
+				tw: "flex flex-col flex-1 m-8 p-12",
+				style: { position: "relative" },
+				children: [
+					// Top-left corner
+					{
+						type: "div",
+						props: {
+							tw: "absolute flex",
+							style: { top: 0, left: 0, width: 60, height: 60, borderTop: `2px solid ${colors.text}`, borderLeft: `2px solid ${colors.text}` },
+						},
+					},
+					// Bottom-right corner
+					{
+						type: "div",
+						props: {
+							tw: "absolute flex",
+							style: { bottom: 0, right: 0, width: 60, height: 60, borderBottom: `2px solid ${colors.text}`, borderRight: `2px solid ${colors.text}` },
+						},
+					},
+					// Content area
+					{
+						type: "div",
+						props: {
+							tw: "flex flex-col flex-1 justify-between",
+							children: [
+								// Top: Metadata line
+								{
+									type: "div",
+									props: {
+										tw: "flex items-center",
+										children: {
+											type: "p",
+											props: {
+												tw: `text-2xl text-[${colors.tertiary}]`,
+												children: `№ · ${pubDate}`,
+											},
+										},
+									},
+								},
+								// Center: Title
+								{
+									type: "div",
+									props: {
+										tw: "flex flex-col justify-center py-8",
+										children: {
+											type: "h1",
+											props: {
+												tw: "text-6xl font-bold leading-tight tracking-tight",
+												children: title,
+											},
+										},
+									},
+								},
+								// Bottom: Branding
+								{
+									type: "div",
+									props: {
+										tw: "flex items-center",
+										children: [
+											{
+												type: "div",
+												props: {
+													tw: "flex rounded-full",
+													style: { border: `2px solid ${colors.rule}` },
+													children: avatarImg,
+												},
+											},
+											{
+												type: "p",
+												props: {
+													tw: `text-2xl text-[${colors.secondary}] ml-5 font-bold tracking-wide`,
+													children: "KIRILLSO.COM",
+												},
+											},
+										],
+									},
+								},
+							],
+						},
+					},
+					// Hanko stamp
+					{
+						type: "div",
+						props: {
+							tw: "absolute flex items-center justify-center",
+							style: { top: 32, right: 32, width: 64, height: 64, border: `2px solid ${colors.text}` },
+							children: {
+								type: "p",
+								props: {
+									tw: `text-2xl font-bold text-[${colors.text}]`,
+									children: "KS",
+								},
+							},
+						},
+					},
+				],
+			},
+		},
+	},
+});
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 

@@ -164,6 +164,7 @@
 }
 
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @config "../../tailwind.config.ts";
 
 /* Dark mode selector strategy */

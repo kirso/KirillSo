@@ -8,7 +8,7 @@ import type { Config } from "tailwindcss";
  * Clean, refined prose for optimal reading.
  */
 export default {
-	plugins: [require("@tailwindcss/typography")],
+	// Plugin loaded via @plugin in CSS (Tailwind v4 style)
 	theme: {
 		extend: {
 			typography: () => ({
