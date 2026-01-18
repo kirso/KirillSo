@@ -2,5 +2,10 @@
 	"name": "kirillso",
 	"compatibility_date": "2024-12-01",
 	"compatibility_flags": ["nodejs_compat", "disable_nodejs_process_v2"],
-	"pages_build_output_dir": "./dist"
+	"pages_build_output_dir": "./dist",
+	"vars": {
+		"PUBLIC_ENABLE_CHAT": "true",
+		"WEBMENTION_URL": "https://webmention.io/api/mentions.html?token=vBM9_Aa_7fG7oWOl2FiMwQ",
+		"WEBMENTION_PINGBACK": "https://webmention.io/www.kirillso.com/xmlrpc"
+	}
 }
