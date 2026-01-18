@@ -1,6 +1,6 @@
 {
 	"name": "kirillso",
 	"compatibility_date": "2024-12-01",
-	"compatibility_flags": ["nodejs_compat"],
+	"compatibility_flags": ["nodejs_compat", "disable_nodejs_process_v2"],
 	"pages_build_output_dir": "./dist"
 }

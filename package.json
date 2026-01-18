@@ -20,14 +20,14 @@
 	"dependencies": {
 		"@astrojs/cloudflare": "^12.6.12",
 		"@astrojs/markdown-remark": "^6.3.10",
-		"@astrojs/mdx": "4.3.12",
+		"@astrojs/mdx": "4.3.13",
 		"@astrojs/rss": "4.0.14",
 		"@astrojs/sitemap": "3.6.0",
 		"@astrojs/svelte": "^7.2.4",
 		"@google/generative-ai": "^0.24.1",
 		"@iconify-json/simple-icons": "^1.2.63",
-		"@tailwindcss/vite": "4.1.17",
-		"astro": "5.16.3",
+		"@tailwindcss/vite": "4.1.18",
+		"astro": "5.16.6",
 		"astro-expressive-code": "^0.41.5",
 		"astro-icon": "^1.1.5",
 		"astro-robots-txt": "^1.0.0",
@@ -68,7 +68,7 @@
 		"prettier-plugin-astro": "0.14.1",
 		"prettier-plugin-tailwindcss": "^0.7.2",
 		"reading-time": "^1.5.0",
-		"tailwindcss": "4.1.17",
+		"tailwindcss": "4.1.18",
 		"typescript": "^5.9.3"
 	},
 	"overrides": {
