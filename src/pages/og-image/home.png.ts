@@ -6,7 +6,7 @@ import satori, { type SatoriOptions } from "satori";
 import { html } from "satori-html";
 import GeistRegular from "@/assets/fonts/Geist-Regular.ttf";
 import GeistBold from "@/assets/fonts/Geist-Bold.ttf";
-import headshotBase64 from "@/assets/img/og-headshot.png";
+import { headshotBase64 } from "@/assets/img/og-headshot-base64";
 import { siteConfig } from "@/site.config";
 
 // Design system colors — Quiet Archive palette (pure OKLCH neutrals)
