@@ -122,7 +122,12 @@ export default defineConfig({
 		imageService: "compile", // Uses sharp at build time for images
 		routes: {
 			extend: {
-				exclude: [{ pattern: "/pagefind/*" }], // Serve pagefind search statically
+				exclude: [
+					{ pattern: "/pagefind/*" }, // Serve pagefind search statically
+					{ pattern: "/robots.txt" }, // Serve robots.txt statically
+					{ pattern: "/sitemap-index.xml" }, // Serve sitemap statically
+					{ pattern: "/sitemap-0.xml" }, // Serve sitemap statically
+				],
 			},
 		},
 	}),
