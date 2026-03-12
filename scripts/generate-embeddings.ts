@@ -1,9 +1,52 @@
 import "dotenv/config";
-import fs from "fs";
+import fs from "node:fs";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import matter from "gray-matter";
 import { marked } from "marked";
-import path from "path";
-import { generateEmbeddings } from "../src/lib/embeddings";
+import path from "node:path";
+
+const EMBEDDINGS_FILE = path.join(
+	process.cwd(),
+	"src",
+	"data",
+	"embeddings",
+	"resume-embeddings.json",
+);
+
+interface StoredEmbedding {
+	content: string;
+	embedding: number[];
+	source: string;
+}
+
+async function generateEmbeddings(content: string, source: string): Promise<void> {
+	const apiKey = process.env.GOOGLE_AI_API_KEY;
+	if (!apiKey) {
+		throw new Error("GOOGLE_AI_API_KEY environment variable is not set");
+	}
+	const genAI = new GoogleGenerativeAI(apiKey);
+	const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
+	const result = await model.embedContent(content);
+	const embedding = result.embedding.values;
+
+	if (!embedding || !Array.isArray(embedding)) {
+		throw new Error("Failed to generate embedding");
+	}
+
+	const dir = path.dirname(EMBEDDINGS_FILE);
+	if (!fs.existsSync(dir)) {
+		fs.mkdirSync(dir, { recursive: true });
+	}
+
+	let embeddings: StoredEmbedding[] = [];
+	if (fs.existsSync(EMBEDDINGS_FILE)) {
+		const fileContent = fs.readFileSync(EMBEDDINGS_FILE, "utf-8");
+		embeddings = JSON.parse(fileContent);
+	}
+
+	embeddings.push({ content, embedding, source });
+	fs.writeFileSync(EMBEDDINGS_FILE, JSON.stringify(embeddings, null, 2));
+}
 
 // Gemini text-embedding-004 supports up to 2048 tokens
 const MAX_CHUNK_LENGTH = 6000; // Conservative limit to account for tokens vs chars

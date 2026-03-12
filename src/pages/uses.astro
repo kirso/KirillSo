@@ -41,7 +41,7 @@ const getCollectionItems = (categories: Category[]) => {
     cat.items.map(item => ({
       name: item.name,
       description: item.description,
-      url: item.url,
+      ...(item.url && { url: item.url }),
     }))
   );
 };

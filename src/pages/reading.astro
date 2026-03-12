@@ -1,11 +1,10 @@
 ---
 import BaseLayout from "@/layouts/Base.astro";
 import Schema from "@/components/Schema.astro";
-import YearTabs from "@/components/YearTabs.svelte";
-import { influentialBooks, GOODREADS_CURRENTLY_READING_URL, GOODREADS_READ_URL, GOODREADS_PROFILE_URL } from "@/data/books";
-import { cleanTitle, parseGoodreadsRSS } from "@/utils/books";
-import type { GoodreadsBook, YearData } from "@/utils/books";
-import { fetchCachedGoodreadsXML } from "@/lib/goodreads-cache";
+import Skeleton from "@/components/Skeleton.astro";
+import CurrentlyReading from "@/components/reading/CurrentlyReading.astro";
+import BooksRead from "@/components/reading/BooksRead.astro";
+import { influentialBooks, GOODREADS_PROFILE_URL } from "@/data/books";
 
 const meta = {
   title: "Reading",
@@ -19,54 +18,6 @@ const bookCollectionItems = influentialBooks.flatMap(cat =>
     description: `by ${book.author}${book.note ? ` — ${book.note}` : ""}`,
   }))
 );
-
-// Fetch currently reading
-let currentlyReading: GoodreadsBook[] = [];
-try {
-  const xml = await fetchCachedGoodreadsXML(GOODREADS_CURRENTLY_READING_URL);
-  if (xml) {
-    currentlyReading = parseGoodreadsRSS(xml);
-  }
-} catch (error) {
-  console.warn("Failed to fetch currently reading:", error);
-}
-
-// Fallback if RSS fails
-if (currentlyReading.length === 0) {
-  currentlyReading = [
-    {
-      title: "The Almanack of Naval Ravikant",
-      author: "Eric Jorgenson",
-      link: "https://www.navalmanack.com/",
-    },
-  ];
-}
-
-// Fetch books read and group by year
-let booksReadByYear: YearData[] = [];
-try {
-  const xml = await fetchCachedGoodreadsXML(GOODREADS_READ_URL);
-  if (xml) {
-    const booksWithDates = parseGoodreadsRSS(xml, true);
-
-    // Group by year
-    const yearMap = new Map<number, GoodreadsBook[]>();
-    for (const book of booksWithDates) {
-      const year = book.readAt?.getFullYear() ?? new Date().getFullYear();
-      if (!yearMap.has(year)) {
-        yearMap.set(year, []);
-      }
-      yearMap.get(year)!.push({ title: book.title, author: book.author, link: book.link });
-    }
-
-    // Convert to array sorted by year descending
-    booksReadByYear = Array.from(yearMap.entries())
-      .map(([year, books]) => ({ year, books }))
-      .sort((a, b) => b.year - a.year);
-  }
-} catch (error) {
-  console.warn("Failed to fetch read books:", error);
-}
 ---
 
 <BaseLayout meta={meta}>
@@ -87,37 +38,27 @@ try {
       <p class="mt-2 text-text-secondary">Books that shaped my thinking. I read slowly and re-read often.</p>
     </header>
 
-    {/* Currently Reading — from Goodreads RSS with ruler-notch */}
-    <section class="mb-12">
-      <div class="section-rule"><span>Currently Reading</span></div>
-      <ul class="space-y-2">
-        {currentlyReading.map((book) => (
-          <li class="ruler-notch">
-            <div class="post-row">
-              {book.link ? (
-                <a class="post-title link" href={book.link} target="_blank" rel="noopener noreferrer" title={book.title}>
-                  {cleanTitle(book.title)}
-                </a>
-              ) : (
-                <span class="post-title" title={book.title}>{cleanTitle(book.title)}</span>
-              )}
-              <span class="post-leader"></span>
-              <span class="post-date mono">{book.author}</span>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </section>
+    {/* Currently Reading — Server Island with skeleton fallback */}
+    <CurrentlyReading server:defer>
+      <Fragment slot="fallback">
+        <section class="mb-12">
+          <div class="section-rule"><span>Currently Reading</span></div>
+          <Skeleton rows={2} />
+        </section>
+      </Fragment>
+    </CurrentlyReading>
 
-    {/* Books Read — from Goodreads with year tabs */}
-    {booksReadByYear.length > 0 && (
-      <section class="mb-12">
-        <div class="section-rule"><span>Books Read</span></div>
-        <YearTabs years={booksReadByYear} client:load />
-      </section>
-    )}
+    {/* Books Read — Server Island with skeleton fallback */}
+    <BooksRead server:defer>
+      <Fragment slot="fallback">
+        <section class="mb-12">
+          <div class="section-rule"><span>Books Read</span></div>
+          <Skeleton rows={8} />
+        </section>
+      </Fragment>
+    </BooksRead>
 
-    {/* Influential Books — from static data with № index for Favorites */}
+    {/* Influential Books — static data, renders immediately */}
     {influentialBooks.map((category, categoryIndex) => (
       <section class="mb-12">
         <div class="section-rule"><span>{category.title}</span></div>

@@ -1,0 +1,53 @@
+---
+/**
+ * Server Island: Currently Reading
+ * Fetches from Goodreads RSS, rendered via server:defer so the page
+ * loads instantly with a skeleton fallback.
+ */
+import { GOODREADS_CURRENTLY_READING_URL } from "@/data/books";
+import { cleanTitle, parseGoodreadsRSS } from "@/utils/books";
+import type { GoodreadsBook } from "@/utils/books";
+import { fetchCachedGoodreadsXML } from "@/lib/goodreads-cache";
+
+let currentlyReading: GoodreadsBook[] = [];
+try {
+  const xml = await fetchCachedGoodreadsXML(GOODREADS_CURRENTLY_READING_URL);
+  if (xml) {
+    currentlyReading = parseGoodreadsRSS(xml);
+  }
+} catch (error) {
+  console.warn("Failed to fetch currently reading:", error);
+}
+
+// Fallback if RSS fails
+if (currentlyReading.length === 0) {
+  currentlyReading = [
+    {
+      title: "The Almanack of Naval Ravikant",
+      author: "Eric Jorgenson",
+      link: "https://www.navalmanack.com/",
+    },
+  ];
+}
+---
+
+<section class="mb-12">
+  <div class="section-rule"><span>Currently Reading</span></div>
+  <ul class="space-y-2">
+    {currentlyReading.map((book) => (
+      <li class="ruler-notch">
+        <div class="post-row">
+          {book.link ? (
+            <a class="post-title link" href={book.link} target="_blank" rel="noopener noreferrer" title={book.title}>
+              {cleanTitle(book.title)}
+            </a>
+          ) : (
+            <span class="post-title" title={book.title}>{cleanTitle(book.title)}</span>
+          )}
+          <span class="post-leader"></span>
+          <span class="post-date mono">{book.author}</span>
+        </div>
+      </li>
+    ))}
+  </ul>
+</section>

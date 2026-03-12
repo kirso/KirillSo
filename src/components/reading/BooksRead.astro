@@ -1,0 +1,44 @@
+---
+/**
+ * Server Island: Books Read
+ * Fetches read shelf from Goodreads RSS, groups by year,
+ * rendered via server:defer with skeleton fallback.
+ */
+import { GOODREADS_READ_URL } from "@/data/books";
+import { parseGoodreadsRSS } from "@/utils/books";
+import type { GoodreadsBook, YearData } from "@/utils/books";
+import { fetchCachedGoodreadsXML } from "@/lib/goodreads-cache";
+import YearTabs from "@/components/YearTabs.svelte";
+
+let booksReadByYear: YearData[] = [];
+try {
+  const xml = await fetchCachedGoodreadsXML(GOODREADS_READ_URL);
+  if (xml) {
+    const booksWithDates = parseGoodreadsRSS(xml, true);
+
+    // Group by year
+    const yearMap = new Map<number, GoodreadsBook[]>();
+    for (const book of booksWithDates) {
+      const year = book.readAt?.getFullYear() ?? new Date().getFullYear();
+      if (!yearMap.has(year)) {
+        yearMap.set(year, []);
+      }
+      yearMap.get(year)!.push({ title: book.title, author: book.author, link: book.link });
+    }
+
+    // Convert to array sorted by year descending
+    booksReadByYear = Array.from(yearMap.entries())
+      .map(([year, books]) => ({ year, books }))
+      .sort((a, b) => b.year - a.year);
+  }
+} catch (error) {
+  console.warn("Failed to fetch read books:", error);
+}
+---
+
+{booksReadByYear.length > 0 && (
+  <section class="mb-12">
+    <div class="section-rule"><span>Books Read</span></div>
+    <YearTabs years={booksReadByYear} client:load />
+  </section>
+)}

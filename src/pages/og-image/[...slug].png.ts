@@ -7,7 +7,6 @@ import GeistRegular from "@/assets/fonts/Geist-Regular.ttf";
 import GeistBold from "@/assets/fonts/Geist-Bold.ttf";
 import { headshotBase64 } from "@/assets/img/og-headshot-base64";
 import { getAllPosts } from "@/data/post";
-import { siteConfig } from "@/site.config";
 import { getFormattedDate } from "@/utils/date";
 
 // Design system colors — Quiet Archive palette (pure OKLCH neutrals)
@@ -172,7 +171,7 @@ export async function GET(context: APIContext) {
 	});
 	const svg = await satori(markup(title, postDate), ogOptions);
 	const png = new Resvg(svg).render().asPng();
-	return new Response(png, {
+	return new Response(png as unknown as BodyInit, {
 		headers: {
 			"Cache-Control": "public, max-age=31536000, immutable",
 			"Content-Type": "image/png",

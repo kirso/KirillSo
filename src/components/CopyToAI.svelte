@@ -10,7 +10,6 @@ const { title, url, author }: Props = $props();
 type AIService = "chatgpt" | "claude" | "perplexity";
 
 let copied = $state<AIService | null>(null);
-let contentElement: HTMLElement | null = null;
 
 // Get the prose content from the page
 function getArticleContent(): string {
