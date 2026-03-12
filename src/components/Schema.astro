@@ -3,7 +3,7 @@
  * JSON-LD Structured Data Component
  * Provides semantic markup for search engines and generative AI platforms
  *
- * Supports: Website, Article, Person, Breadcrumb, Profile, FAQ, Collection
+ * Supports: Website, Article, Person, Breadcrumb, Profile, FAQ, Collection, HowTo
  */
 import { siteConfig } from "@/site.config";
 
@@ -20,7 +20,7 @@ interface CollectionItem {
 }
 
 interface Props {
-  type: "website" | "article" | "person" | "breadcrumb" | "profile" | "faq" | "collection";
+  type: "website" | "article" | "person" | "breadcrumb" | "profile" | "faq" | "collection" | "howto";
   // Article props
   title?: string;
   description?: string;
@@ -37,6 +37,9 @@ interface Props {
   // Collection props
   collectionName?: string;
   collectionItems?: CollectionItem[];
+  // HowTo props
+  howToSteps?: { name: string; text: string }[];
+  howToTime?: string; // ISO 8601 duration, e.g., "PT30M"
 }
 
 const {
@@ -52,7 +55,9 @@ const {
   keywords,
   faqs,
   collectionName,
-  collectionItems
+  collectionItems,
+  howToSteps,
+  howToTime
 } = Astro.props;
 
 const siteUrl = siteConfig.url.replace(/\/$/, "");
@@ -208,6 +213,25 @@ const collectionPageSchema = collectionItems?.length ? {
   }
 } : null;
 
+// HowTo Schema - For tutorial/guide posts
+const howToSchema = (type === "howto" && title && howToSteps?.length) ? {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "@id": `${new URL(Astro.url.pathname, siteUrl).href}#howto`,
+  name: title,
+  description: description,
+  ...(howToTime && { totalTime: howToTime }),
+  step: howToSteps.map((step, index) => ({
+    "@type": "HowToStep",
+    position: index + 1,
+    name: step.name,
+    text: step.text,
+  })),
+  author: {
+    "@id": `${siteUrl}/#person`
+  }
+} : null;
+
 // Select schema based on type
 let schema;
 switch (type) {
@@ -215,7 +239,7 @@ switch (type) {
     schema = [personSchema, organizationSchema, websiteSchema];
     break;
   case "article":
-    schema = articleSchema;
+    schema = articleSchema ? [articleSchema, personSchema] : null;
     break;
   case "person":
     schema = personSchema;
@@ -234,6 +258,9 @@ switch (type) {
     break;
   case "collection":
     schema = collectionPageSchema;
+    break;
+  case "howto":
+    schema = howToSchema;
     break;
   default:
     schema = null;

@@ -1,0 +1,65 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import FormattedDate from "@/components/FormattedDate.astro";
+
+interface Props {
+	currentPostId: string;
+	currentTags: string[];
+}
+
+const { currentPostId, currentTags } = Astro.props;
+
+const MAX_RELATED = 3;
+
+// Get all published posts, excluding the current one
+const allPosts = await getCollection("post", ({ data }) => !data.draft);
+const otherPosts = allPosts.filter((p) => p.id !== currentPostId);
+
+// Score posts by number of shared tags
+const currentTagSet = new Set(currentTags.map((t) => t.toLowerCase()));
+
+const scored = otherPosts.map((post) => {
+	const sharedTags = post.data.tags.filter((tag) => currentTagSet.has(tag));
+	return { post, score: sharedTags.length };
+});
+
+// Sort by score (desc), then by date (newest first) as tiebreaker
+scored.sort((a, b) => {
+	if (b.score !== a.score) return b.score - a.score;
+	return b.post.data.publishDate.getTime() - a.post.data.publishDate.getTime();
+});
+
+// Take top results; if fewer than MAX_RELATED have tags in common,
+// the rest are filled by most-recent posts (already sorted by date as tiebreaker)
+const related: CollectionEntry<"post">[] = scored
+	.slice(0, MAX_RELATED)
+	.map((s) => s.post);
+---
+
+{
+	related.length > 0 && (
+		<nav class="not-prose mt-16" aria-label="Related posts">
+			<div class="section-rule">
+				<span>Related</span>
+			</div>
+			<ul class="space-y-1">
+				{related.map((p) => (
+					<li class="post-row">
+						<a
+							class="post-title link"
+							data-astro-prefetch
+							href={`/posts/${p.id}/`}
+						>
+							{p.data.title}
+						</a>
+						<span class="post-leader" />
+						<span class="post-date mono">
+							<FormattedDate date={p.data.publishDate} />
+						</span>
+					</li>
+				))}
+			</ul>
+		</nav>
+	)
+}

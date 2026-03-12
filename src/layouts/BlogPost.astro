@@ -4,6 +4,7 @@ import { type CollectionEntry, render } from "astro:content";
 import Masthead from "@/components/blog/Masthead.astro";
 import Schema from "@/components/Schema.astro";
 import TOC from "@/components/blog/TOC.astro";
+import RelatedPosts from "@/components/blog/RelatedPosts.astro";
 import WebMentions from "@/components/blog/webmentions/index.astro";
 import CopyToAI from "@/components/CopyToAI.svelte";
 import { siteConfig } from "@/site.config";
@@ -73,6 +74,7 @@ const breadcrumbs = [
       />
       <WebMentions />
     </div>
+    <RelatedPosts currentPostId={post.id} currentTags={tags ?? []} />
   </article>
 
   <!-- Back to top - minimal text button -->

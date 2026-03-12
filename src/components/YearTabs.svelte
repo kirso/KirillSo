@@ -4,17 +4,8 @@
  * Uses a clean dropdown for many years, follows Quiet Archive design
  */
 import { onMount } from "svelte";
-
-interface Book {
-	title: string;
-	author: string;
-	link?: string;
-}
-
-interface YearData {
-	year: number;
-	books: Book[];
-}
+import { cleanTitle } from "@/utils/books";
+import type { GoodreadsBook, YearData } from "@/utils/books";
 
 interface Props {
 	years: YearData[];
@@ -45,36 +36,6 @@ const currentYear = $derived(activeYear ?? defaultYear);
 const activeBooks = $derived(
 	sortedYears.find((y) => y.year === currentYear)?.books ?? []
 );
-
-// Smart title truncation
-function cleanTitle(title: string, maxLength = 60): string {
-	if (title.length <= maxLength) return title;
-
-	const parenIndex = title.indexOf(" (");
-	if (parenIndex >= 15) {
-		const beforeParen = title.slice(0, parenIndex).trim();
-		if (beforeParen.length <= maxLength) return beforeParen;
-	}
-
-	const dashIndex = title.indexOf(" - ");
-	if (dashIndex >= 15) {
-		const beforeDash = title.slice(0, dashIndex).trim();
-		if (beforeDash.length <= maxLength) return beforeDash;
-	}
-
-	const colonIndex = title.indexOf(":");
-	if (colonIndex >= 15) {
-		const beforeColon = title.slice(0, colonIndex).trim();
-		if (beforeColon.length <= maxLength) return beforeColon;
-	}
-
-	const truncated = title.slice(0, maxLength - 1);
-	const lastSpace = truncated.lastIndexOf(" ");
-	if (lastSpace > maxLength * 0.6) {
-		return truncated.slice(0, lastSpace) + "…";
-	}
-	return truncated + "…";
-}
 </script>
 
 <div class="year-selector">

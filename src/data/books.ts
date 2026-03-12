@@ -125,5 +125,3 @@ export const GOODREADS_READ_URL =
 	`https://www.goodreads.com/review/list_rss/${GOODREADS_USER_ID}?shelf=read&per_page=200`;
 export const GOODREADS_PROFILE_URL = "https://www.goodreads.com/kirso";
 
-// Legacy alias for backwards compatibility
-export const GOODREADS_RSS_URL = GOODREADS_CURRENTLY_READING_URL;

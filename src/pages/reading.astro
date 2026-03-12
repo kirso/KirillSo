@@ -3,6 +3,9 @@ import BaseLayout from "@/layouts/Base.astro";
 import Schema from "@/components/Schema.astro";
 import YearTabs from "@/components/YearTabs.svelte";
 import { influentialBooks, GOODREADS_CURRENTLY_READING_URL, GOODREADS_READ_URL, GOODREADS_PROFILE_URL } from "@/data/books";
+import { cleanTitle, parseGoodreadsRSS } from "@/utils/books";
+import type { GoodreadsBook, YearData } from "@/utils/books";
+import { fetchCachedGoodreadsXML } from "@/lib/goodreads-cache";
 
 const meta = {
   title: "Reading",
@@ -17,84 +20,11 @@ const bookCollectionItems = influentialBooks.flatMap(cat =>
   }))
 );
 
-// Shared book interface
-interface GoodreadsBook {
-  title: string;
-  author: string;
-  link?: string;
-}
-
-// Helper to parse Goodreads RSS
-function parseGoodreadsRSS(xml: string, includeDate = false): Array<GoodreadsBook & { readAt?: Date }> {
-  const books: Array<GoodreadsBook & { readAt?: Date }> = [];
-  const items = xml.split("<item>").slice(1);
-
-  for (const item of items) {
-    const endIndex = item.indexOf("</item>");
-    const itemContent = endIndex > -1 ? item.substring(0, endIndex) : item;
-
-    // Extract title from CDATA
-    const titleStart = itemContent.indexOf("<title><![CDATA[");
-    const titleEnd = itemContent.indexOf("]]></title>");
-    const title = titleStart > -1 && titleEnd > -1
-      ? itemContent.substring(titleStart + 16, titleEnd)
-      : null;
-
-    // Extract author
-    const authorStart = itemContent.indexOf("<author_name>");
-    const authorEnd = itemContent.indexOf("</author_name>");
-    const author = authorStart > -1 && authorEnd > -1
-      ? itemContent.substring(authorStart + 13, authorEnd)
-      : "Unknown";
-
-    // Extract book_id to build book page URL (more useful than review page)
-    const bookIdStart = itemContent.indexOf("<book_id>");
-    const bookIdEnd = itemContent.indexOf("</book_id>");
-    const bookId = bookIdStart > -1 && bookIdEnd > -1
-      ? itemContent.substring(bookIdStart + 9, bookIdEnd).trim()
-      : undefined;
-    const link = bookId ? `https://www.goodreads.com/book/show/${bookId}` : undefined;
-
-    // Extract read date if requested
-    // Priority: user_read_at (date read) > user_date_created (original add date shown in Goodreads UI)
-    let readAt: Date | undefined;
-    if (includeDate) {
-      // Try user_read_at first (the "date read" field) - has CDATA wrapper when set
-      const readAtStart = itemContent.indexOf("<user_read_at><![CDATA[");
-      const readAtEnd = itemContent.indexOf("]]></user_read_at>");
-      if (readAtStart > -1 && readAtEnd > -1) {
-        const dateStr = itemContent.substring(readAtStart + 23, readAtEnd).trim();
-        if (dateStr) {
-          readAt = new Date(dateStr);
-        }
-      }
-      // Fall back to user_date_created (original date - matches "date added" in Goodreads UI)
-      if (!readAt) {
-        const createdStart = itemContent.indexOf("<user_date_created><![CDATA[");
-        const createdEnd = itemContent.indexOf("]]></user_date_created>");
-        if (createdStart > -1 && createdEnd > -1) {
-          const dateStr = itemContent.substring(createdStart + 28, createdEnd).trim();
-          if (dateStr) {
-            readAt = new Date(dateStr);
-          }
-        }
-      }
-    }
-
-    if (title) {
-      books.push({ title, author, link, readAt });
-    }
-  }
-
-  return books;
-}
-
 // Fetch currently reading
 let currentlyReading: GoodreadsBook[] = [];
 try {
-  const response = await fetch(GOODREADS_CURRENTLY_READING_URL);
-  if (response.ok) {
-    const xml = await response.text();
+  const xml = await fetchCachedGoodreadsXML(GOODREADS_CURRENTLY_READING_URL);
+  if (xml) {
     currentlyReading = parseGoodreadsRSS(xml);
   }
 } catch (error) {
@@ -113,16 +43,10 @@ if (currentlyReading.length === 0) {
 }
 
 // Fetch books read and group by year
-interface YearData {
-  year: number;
-  books: GoodreadsBook[];
-}
-
 let booksReadByYear: YearData[] = [];
 try {
-  const response = await fetch(GOODREADS_READ_URL);
-  if (response.ok) {
-    const xml = await response.text();
+  const xml = await fetchCachedGoodreadsXML(GOODREADS_READ_URL);
+  if (xml) {
     const booksWithDates = parseGoodreadsRSS(xml, true);
 
     // Group by year
@@ -142,47 +66,6 @@ try {
   }
 } catch (error) {
   console.warn("Failed to fetch read books:", error);
-}
-
-// Helper to clean titles - smart truncation that preserves meaning
-// Priority: remove parentheticals first (edition info), then subtitles
-function cleanTitle(title: string, maxLength = 60): string {
-  if (title.length <= maxLength) return title;
-
-  // First try: cut at " (" - parentheticals are usually edition/series info
-  const parenIndex = title.indexOf(" (");
-  if (parenIndex >= 15) {
-    const beforeParen = title.slice(0, parenIndex).trim();
-    if (beforeParen.length <= maxLength) {
-      return beforeParen;
-    }
-  }
-
-  // Second try: cut at " - " (common subtitle separator)
-  const dashIndex = title.indexOf(" - ");
-  if (dashIndex >= 15) {
-    const beforeDash = title.slice(0, dashIndex).trim();
-    if (beforeDash.length <= maxLength) {
-      return beforeDash;
-    }
-  }
-
-  // Third try: cut at colon (subtitle)
-  const colonIndex = title.indexOf(":");
-  if (colonIndex >= 15) {
-    const beforeColon = title.slice(0, colonIndex).trim();
-    if (beforeColon.length <= maxLength) {
-      return beforeColon;
-    }
-  }
-
-  // Fallback: truncate at word boundary
-  const truncated = title.slice(0, maxLength - 1);
-  const lastSpace = truncated.lastIndexOf(" ");
-  if (lastSpace > maxLength * 0.6) {
-    return truncated.slice(0, lastSpace) + "…";
-  }
-  return truncated + "…";
 }
 ---
 

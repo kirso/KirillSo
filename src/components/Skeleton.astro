@@ -1,0 +1,62 @@
+---
+interface Props {
+  rows?: number;
+  variant?: "post-row" | "text";
+}
+
+const { rows = 5, variant = "post-row" } = Astro.props;
+---
+
+<div class="skeleton-list">
+  {Array.from({ length: rows }).map((_, i) => (
+    <div class:list={["skeleton-row", variant === "text" && "skeleton-text"]}>
+      <span class="skeleton-title" style={`animation-delay: ${i * 0.1}s`}></span>
+      {variant === "post-row" && (
+        <span class="skeleton-author" style={`animation-delay: ${i * 0.1 + 0.05}s`}></span>
+      )}
+    </div>
+  ))}
+</div>
+
+<style>
+  .skeleton-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .skeleton-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .skeleton-title {
+    height: 1rem;
+    width: 60%;
+    background: var(--color-rule);
+    opacity: 0.5;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+  }
+
+  .skeleton-author {
+    height: 0.875rem;
+    width: 20%;
+    background: var(--color-rule);
+    opacity: 0.3;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+  }
+
+  .skeleton-text .skeleton-title {
+    width: 80%;
+  }
+
+  @keyframes skeleton-pulse {
+    0%, 100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+</style>
