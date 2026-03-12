@@ -25,7 +25,7 @@ export async function fetchCachedGoodreadsXML(url: string): Promise<string | nul
       const cacheResponse = new Response(xml, {
         headers: {
           "Content-Type": "application/xml",
-          "Cache-Control": `public, max-age=${CACHE_TTL}`,
+          "Cache-Control": `public, s-maxage=${CACHE_TTL}`,
         },
       });
       // Don't await - fire and forget
