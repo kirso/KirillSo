@@ -5,8 +5,8 @@ import Masthead from "@/components/blog/Masthead.astro";
 import Schema from "@/components/Schema.astro";
 import TOC from "@/components/blog/TOC.astro";
 import RelatedPosts from "@/components/blog/RelatedPosts.astro";
+import AuthorBio from "@/components/blog/AuthorBio.astro";
 import WebMentions from "@/components/blog/webmentions/index.astro";
-import CopyToAI from "@/components/CopyToAI.svelte";
 import { siteConfig } from "@/site.config";
 
 import BaseLayout from "./Base.astro";
@@ -66,15 +66,10 @@ const breadcrumbs = [
     {!!headings.length && <TOC headings={headings} />}
     <div class="prose max-w-none">
       <slot />
-      <CopyToAI
-        client:load
-        title={title}
-        url={`${siteConfig.url}posts/${post.id}/`}
-        author={siteConfig.author}
-      />
       <WebMentions />
     </div>
     <RelatedPosts currentPostId={post.id} currentTags={tags ?? []} />
+    <AuthorBio />
   </article>
 
   <!-- Back to top - minimal text button -->

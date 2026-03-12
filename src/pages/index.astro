@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 import Card from "@/components/Card.astro";
 import FormattedDate from "@/components/FormattedDate.astro";
 import Note from "@/components/note/Note.astro";
@@ -15,6 +15,13 @@ const allPosts = await getAllPosts();
 const allPostsByDate = allPosts
   .sort(collectionDateSort)
   .slice(0, MAX_POSTS) as CollectionEntry<"post">[];
+
+// Get reading times (runs at build time only)
+const readingTimes = new Map<string, string>();
+for (const post of allPostsByDate) {
+  const { remarkPluginFrontmatter } = await render(post);
+  readingTimes.set(post.id, remarkPluginFrontmatter.readingTime);
+}
 
 // Notes
 const MAX_NOTES = 3;
@@ -146,6 +153,8 @@ const projects = [
             <span class="post-leader" />
             <span class="post-date mono">
               <FormattedDate date={p.data.publishDate} />
+              <span class="text-text-tertiary" aria-hidden="true"> · </span>
+              {readingTimes.get(p.id)}
             </span>
           </li>
         ))

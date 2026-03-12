@@ -79,7 +79,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
   )
 }
 
-<div class="mt-8 flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-start sm:justify-between">
+<div class="mt-8 flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
   <!-- Author -->
   <a href="/about/" class="group flex items-center gap-3">
     <Image
@@ -88,12 +88,7 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
       class="h-10 w-10 rounded-full object-cover grayscale transition-all group-hover:grayscale-0"
       loading="eager"
     />
-    <div>
-      <p class="font-medium leading-tight">{siteConfig.author}</p>
-      <p class="text-text-tertiary leading-tight" style="font-size: var(--text-micro);">
-        {siteConfig.authorJobTitle}
-      </p>
-    </div>
+    <p class="font-medium leading-tight">{siteConfig.author}</p>
   </a>
 
   <!-- Meta -->

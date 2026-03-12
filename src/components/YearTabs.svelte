@@ -3,9 +3,8 @@
  * YearTabs — Year selector for book lists
  * Uses a clean dropdown for many years, follows Quiet Archive design
  */
-import { onMount } from "svelte";
 import { cleanTitle } from "@/utils/books";
-import type { GoodreadsBook, YearData } from "@/utils/books";
+import type { YearData } from "@/utils/books";
 
 interface Props {
 	years: YearData[];
@@ -13,28 +12,23 @@ interface Props {
 
 const { years }: Props = $props();
 
-// Hydration state
-let mounted = $state(false);
-onMount(() => {
-	mounted = true;
-});
-
 // Sort years descending (newest first)
 const sortedYears = $derived([...years].sort((a, b) => b.year - a.year));
 
 // Total books count
 const totalBooks = $derived(sortedYears.reduce((sum, y) => sum + y.books.length, 0));
 
-// Default year (derived to handle reactivity)
-const defaultYear = $derived(sortedYears[0]?.year ?? new Date().getFullYear());
+// Active tab state — user selection overrides the default (first year)
+let userSelection = $state<number | undefined>(undefined);
+const activeYear = $derived(userSelection ?? sortedYears[0]?.year ?? new Date().getFullYear());
 
-// Active tab state
-let activeYear = $state<number | null>(null);
-const currentYear = $derived(activeYear ?? defaultYear);
+function onYearChange(e: Event) {
+	userSelection = Number((e.target as HTMLSelectElement).value);
+}
 
 // Get books for active year
 const activeBooks = $derived(
-	sortedYears.find((y) => y.year === currentYear)?.books ?? []
+	sortedYears.find((y) => y.year === activeYear)?.books ?? []
 );
 </script>
 
@@ -47,7 +41,8 @@ const activeBooks = $derived(
 		<div class="select-wrapper">
 			<select
 				id="year-select"
-				bind:value={activeYear}
+				value={activeYear}
+				onchange={onYearChange}
 				class="year-select"
 			>
 				{#each sortedYears as { year, books } (year)}
@@ -61,18 +56,9 @@ const activeBooks = $derived(
 	</div>
 
 	<!-- Book list -->
-	<div class="book-panel" role="region" aria-label="Books from {currentYear}">
-		{#if !mounted}
-			<div class="skeleton-list">
-				{#each {length: 5} as _, i (i)}
-					<div class="skeleton-row">
-						<span class="skeleton-title"></span>
-						<span class="skeleton-author"></span>
-					</div>
-				{/each}
-			</div>
-		{:else if activeBooks.length === 0}
-			<p class="empty-state">No books recorded for {currentYear}.</p>
+	<div class="book-panel" role="region" aria-label="Books from {activeYear}">
+		{#if activeBooks.length === 0}
+			<p class="empty-state">No books recorded for {activeYear}.</p>
 		{:else}
 			<ul class="book-list">
 				{#each activeBooks as book, i (book.title + i)}
@@ -182,43 +168,4 @@ const activeBooks = $derived(
 		font-style: italic;
 	}
 
-	/* Skeleton loading */
-	.skeleton-list {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-3);
-	}
-
-	.skeleton-row {
-		display: flex;
-		align-items: center;
-		gap: var(--space-4);
-	}
-
-	.skeleton-title {
-		height: 1rem;
-		width: 60%;
-		background: var(--color-rule);
-		opacity: 0.5;
-		animation: pulse 1.5s ease-in-out infinite;
-	}
-
-	.skeleton-author {
-		height: 0.875rem;
-		width: 20%;
-		background: var(--color-rule);
-		opacity: 0.3;
-		animation: pulse 1.5s ease-in-out infinite;
-		animation-delay: 0.2s;
-	}
-
-	@keyframes pulse {
-		0%,
-		100% {
-			opacity: 0.3;
-		}
-		50% {
-			opacity: 0.6;
-		}
-	}
 </style>

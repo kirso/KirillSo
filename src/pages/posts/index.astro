@@ -1,4 +1,5 @@
 ---
+import { render } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
 import { getAllPosts, getUniqueTags, groupPostsByYear, sortPostsByPinnedAndDate } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
@@ -10,6 +11,13 @@ const allPosts = await getAllPosts();
 const uniqueTags = getUniqueTags(allPosts).slice(0, MAX_TAGS);
 const sortedPosts = sortPostsByPinnedAndDate(allPosts).slice(0, MAX_POSTS_PER_PAGE);
 const totalPosts = allPosts.length;
+
+// Get reading times (runs at build time only)
+const readingTimes = new Map<string, string>();
+for (const post of sortedPosts) {
+  const { remarkPluginFrontmatter } = await render(post);
+  readingTimes.set(post.id, remarkPluginFrontmatter.readingTime);
+}
 
 const meta = {
 	description: "Read my collection of posts and the things that interest me",
@@ -62,6 +70,8 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
                 <span class="post-leader"></span>
                 <span class="post-date mono">
                   <FormattedDate date={p.data.publishDate} />
+                  <span class="text-text-tertiary" aria-hidden="true"> · </span>
+                  {readingTimes.get(p.id)}
                 </span>
               </li>
             ))}

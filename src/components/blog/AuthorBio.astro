@@ -1,0 +1,33 @@
+---
+import { Image } from "astro:assets";
+import { siteConfig } from "@/site.config";
+import headshot from "@/assets/img/headshot.png";
+---
+
+<aside class="not-prose mt-16" aria-label="About the author">
+  <div class="section-rule"><span>Author</span></div>
+  <div class="flex flex-col items-center gap-4 text-center sm:flex-row sm:text-left sm:gap-6">
+    <a href="/about/" class="group shrink-0">
+      <Image
+        src={headshot}
+        alt={siteConfig.author}
+        class="h-16 w-16 rounded-full object-cover grayscale transition-all group-hover:grayscale-0"
+        loading="lazy"
+      />
+    </a>
+    <div>
+      <p class="font-medium">{siteConfig.author}</p>
+      <p class="text-text-secondary" style="font-size: var(--text-micro);">{siteConfig.authorJobTitle}</p>
+      <p class="mt-1" style="font-size: var(--text-micro);">
+        <a class="arrow-link inline-flex" href="/about/">About <span aria-hidden="true">→</span></a>
+        <span class="text-text-tertiary mx-1">·</span>
+        <a
+          class="arrow-link inline-flex"
+          href="https://kirill.substack.com"
+          target="_blank"
+          rel="noopener"
+        >Get new posts in your inbox <span aria-hidden="true">→</span></a>
+      </p>
+    </div>
+  </div>
+</aside>
