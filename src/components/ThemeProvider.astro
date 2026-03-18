@@ -24,6 +24,12 @@
 
     root.setAttribute("data-theme", newTheme);
 
+    // Sync favicon with theme
+    const favicon = document.querySelector('link[rel="icon"][type="image/svg+xml"]:not([media])');
+    if (favicon) {
+      favicon.setAttribute("href", newTheme === "dark" ? "/icons/icon-light.svg" : "/icons/icon-dark.svg");
+    }
+
     if (typeof localStorage !== "undefined") {
       localStorage.setItem("theme", newTheme);
     }

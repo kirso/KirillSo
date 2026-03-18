@@ -14,6 +14,7 @@ interface Tool {
   url?: string;
   icon?: string;
   customIcon?: string;
+  isNew?: boolean;
 }
 
 interface Category {
@@ -73,7 +74,7 @@ const uses: Category[] = [
       },
       {
         name: "Logitech MX Master 3",
-        description: "Best mouse for productivity. Horizontal scroll is a game changer.",
+        description: "Best mouse for productivity. Horizontal scroll alone is worth it.",
         url: "https://www.logitech.com/en-us/products/mice/mx-master-3s.html",
         icon: "simple-icons:logitech",
       },
@@ -87,12 +88,14 @@ const uses: Category[] = [
         description: "AI-assisted coding in the terminal. Agentic and powerful.",
         url: "https://docs.anthropic.com/en/docs/claude-code",
         icon: "simple-icons:anthropic",
+        isNew: true,
       },
       {
         name: "Codex CLI",
         description: "OpenAI's terminal coding assistant.",
         url: "https://github.com/openai/codex",
         icon: "simple-icons:openai",
+        isNew: true,
       },
       {
         name: "Warp",
@@ -102,9 +105,10 @@ const uses: Category[] = [
       },
       {
         name: "Dia",
-        description: "AI-native browser. Safari for general browsing.",
+        description: "AI-native browser for dev work. Safari for everything else.",
         url: "https://dia.dev/",
         customIcon: "dia",
+        isNew: true,
       },
       {
         name: "Git + GitHub",
@@ -202,7 +206,7 @@ const uses: Category[] = [
     items: [
       {
         name: "Figma",
-        description: "UI/Mockups when needed. Mostly I just code directly.",
+        description: "UI mockups when needed. Mostly code directly.",
         url: "https://figma.com/",
         icon: "simple-icons:figma",
       },
@@ -234,7 +238,7 @@ const uses: Category[] = [
     <p class="text-text-secondary mb-8">
       A living document of tools I use daily. Inspired by <a href="https://uses.tech/" class="link" target="_blank" rel="noopener">uses.tech</a>.
     </p>
-    <p class="text-text-tertiary mb-12" style="font-size: var(--text-micro);">Last updated: December 2024</p>
+    <p class="text-text-tertiary mb-12" style="font-size: var(--text-micro);">Last updated: March 2026</p>
 
     <div class="space-y-12">
       {uses.map((category) => (
@@ -273,6 +277,9 @@ const uses: Category[] = [
                       </a>
                     ) : (
                       <span class="font-medium">{item.name}</span>
+                    )}
+                    {item.isNew && (
+                      <span class="ml-2 inline-block border border-border px-1.5 py-0 align-middle text-text-tertiary group-hover:border-global-bg/40 group-hover:text-global-bg/80" style="font-size: 10px; letter-spacing: 0.05em;">NEW</span>
                     )}
                     <p class="mt-0.5 text-text-secondary group-hover:text-global-bg/80" style="font-size: var(--text-micro);">
                       {item.description}

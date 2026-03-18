@@ -7,6 +7,9 @@ const allPosts = await getAllPosts();
 const allTags = getUniqueTagsWithCount(allPosts);
 const totalPosts = allPosts.length;
 
+// Sort by count descending
+const sortedTags = [...allTags].sort((a, b) => b[1] - a[1]);
+
 const meta = {
 	description:
 		"A full index of topics and themes I've written about on life, technology, business, learning, thinking, and more",
@@ -21,24 +24,24 @@ const meta = {
   ]} />
   <header class="mb-12">
     <h1 class="page-title">Tags</h1>
-    <p class="mt-2 text-text-secondary">{allTags.length} topics across {totalPosts} posts</p>
+    <p class="mt-2 text-text-secondary">All topics I write about, sorted by frequency. {allTags.length} topics across {totalPosts} posts.</p>
   </header>
 
   <section>
     <div class="section-rule mb-6"><span>All Topics</span></div>
-    <ul class="space-y-1">
+    <div class="flex flex-wrap gap-3">
       {
-        allTags.map(([tag, count]) => (
-          <li class="post-row">
-            <a class="post-title link" href={`/tags/${tag}/`}>
-              {tag}
-            </a>
-            <span class="post-leader"></span>
-            <span class="post-date mono">{count} {count === 1 ? 'post' : 'posts'}</span>
-          </li>
+        sortedTags.map(([tag, count]) => (
+          <a
+            class="tag inline-flex items-center gap-1.5"
+            href={`/tags/${tag}/`}
+          >
+            #{tag}
+            <span class="text-text-tertiary" style="font-size: 10px;">{count}</span>
+          </a>
         ))
       }
-    </ul>
+    </div>
   </section>
 
   <nav class="mt-12">

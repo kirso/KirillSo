@@ -71,7 +71,7 @@ const {
     <ThemeProvider />
     <SkipLink />
     <Header />
-    <main id="main">
+    <main id="main" style="view-transition-name: main-content;">
       <slot />
       {showChat && <Chat client:load />}
     </main>

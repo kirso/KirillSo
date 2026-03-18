@@ -62,7 +62,7 @@
 		.gh-title .gh-avatar,
 		.gh-description,
 		.gh-chips span {
-			@apply bg-global-text/50 animate-pulse rounded-xl text-transparent;
+			@apply bg-global-text/50 dark:bg-global-text/30 animate-pulse rounded-xl text-transparent;
 		}
 		.gh-chips span:before {
 			@apply bg-transparent;

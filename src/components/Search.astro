@@ -6,7 +6,7 @@ import "@/styles/blocks/search.css";
 
 <site-search class="ms-auto" id="search">
   <button
-    class="text-text-secondary hover:text-global-text flex h-8 w-8 cursor-pointer items-center justify-center transition-colors"
+    class="text-text-secondary hover:text-global-text flex cursor-pointer items-center gap-1.5 transition-colors"
     aria-keyshortcuts="Control+K Meta+K"
     data-open-modal
     disabled>
@@ -25,6 +25,9 @@ import "@/styles/blocks/search.css";
       <path d="M0 0h24v24H0z" stroke="none"></path>
       <path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6"></path>
     </svg>
+    <kbd class="hidden border border-border px-1.5 py-0.5 text-text-tertiary sm:inline-block" style="font-size: 10px; font-family: var(--font-mono);">
+      <span class="search-shortcut-key">⌘</span>K
+    </kbd>
     <span class="sr-only">Open Search</span>
   </button>
   <dialog
@@ -55,6 +58,12 @@ import "@/styles/blocks/search.css";
 </site-search>
 
 <script>
+  // Show correct shortcut key based on platform
+  const isMac = navigator.platform?.toUpperCase().includes("MAC") || navigator.userAgent.includes("Mac");
+  document.querySelectorAll(".search-shortcut-key").forEach((el) => {
+    el.textContent = isMac ? "⌘" : "Ctrl+";
+  });
+
   class SiteSearch extends HTMLElement {
     #closeBtn: HTMLButtonElement;
     #dialog: HTMLDialogElement;

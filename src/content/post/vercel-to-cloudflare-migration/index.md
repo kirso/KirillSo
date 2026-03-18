@@ -1,5 +1,5 @@
 ---
-title: "Migrating an Astro SSR Site from Vercel to Cloudflare Pages"
+title: "Migrating Astro site from Vercel to Cloudflare Pages"
 description: "A practical guide to migrating an Astro site with server-side rendering from Vercel to Cloudflare Pages, including all the gotchas I encountered along the way."
 publishDate: "2026-01-18"
 tags: ["astro", "cloudflare", "vercel", "webdev", "devops"]

@@ -222,22 +222,23 @@
 	--font-mono: "Geist Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
 	/*
-	   TYPE SCALE — 16px base for mobile readability
-	   Body anchored at browser default; hierarchy preserved above.
+	   TYPE SCALE — 16px base, fluid clamp() for larger sizes
+	   Body anchored at browser default; hero/display/title scale
+	   smoothly between mobile and desktop using clamp().
 
-	   --text-micro    13px   Metadata: dates, labels, counts
-	   --text-body     16px   ALL content: browser default, mobile-friendly
-	   --text-large    18px   Emphasis, lead paragraphs
-	   --text-title    24px   Section headings (h2, h3)
-	   --text-display  32px   Page titles (h1)
-	   --text-hero     40px   Hero headlines (optional)
+	   --text-micro    13px           Metadata: dates, labels, counts
+	   --text-body     16px           ALL content: browser default
+	   --text-large    18px           Emphasis, lead paragraphs
+	   --text-title    20px → 24px    Section headings (h2, h3)
+	   --text-display  24px → 32px   Page titles (h1)
+	   --text-hero     28px → 40px   Hero headlines (optional)
 	*/
-	--text-micro: 0.8125rem;    /* 13px — distinct metadata hierarchy */
-	--text-body: 1rem;          /* 16px — browser default, proven readable */
-	--text-large: 1.125rem;     /* 18px */
-	--text-title: 1.5rem;       /* 24px */
-	--text-display: 2rem;       /* 32px */
-	--text-hero: 2.5rem;        /* 40px */
+	--text-micro: 0.8125rem;                        /* 13px — distinct metadata hierarchy */
+	--text-body: 1rem;                              /* 16px — browser default, proven readable */
+	--text-large: 1.125rem;                         /* 18px */
+	--text-title: clamp(1.25rem, 1rem + 1vw, 1.5rem);     /* 20px → 24px */
+	--text-display: clamp(1.5rem, 1.15rem + 1.5vw, 2rem); /* 24px → 32px */
+	--text-hero: clamp(1.75rem, 1.2rem + 2.25vw, 2.5rem); /* 28px → 40px */
 
 	/* Line heights */
 	--leading-none: 1;
@@ -301,7 +302,6 @@
 
 	--ease-out: cubic-bezier(0.33, 1, 0.68, 1);
 	--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-	--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @layer base {
@@ -392,6 +392,23 @@
 
 	@view-transition {
 		navigation: auto;
+	}
+
+	/* Subtle crossfade for main content area */
+	::view-transition-old(main-content) {
+		animation: fade-out 150ms ease-out;
+	}
+	::view-transition-new(main-content) {
+		animation: fade-in 150ms ease-in;
+	}
+
+	@keyframes fade-out {
+		from { opacity: 1; }
+		to { opacity: 0; }
+	}
+	@keyframes fade-in {
+		from { opacity: 0; }
+		to { opacity: 1; }
 	}
 
 	/* Smooth anchor scrolling */
@@ -693,6 +710,33 @@
 	color: var(--color-ink-secondary);
 	margin-top: var(--space-4);
 	margin-bottom: var(--space-2);
+}
+
+/* External link indicator — subtle arrow for links leaving the site */
+.prose a[target="_blank"]::after {
+	content: " ↗";
+	font-size: 0.75em;
+	color: var(--color-ink-tertiary);
+	text-decoration: none;
+	display: inline-block;
+}
+
+/* Heading anchor links — subtle # on hover for deep linking */
+.prose :is(h2, h3, h4) > a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.prose :is(h2, h3, h4) > a::after {
+	content: " #";
+	color: var(--color-ink-tertiary);
+	font-weight: 400;
+	opacity: 0;
+	transition: opacity 150ms var(--ease-out);
+}
+
+.prose :is(h2, h3, h4):hover > a::after {
+	opacity: 1;
 }
 
 /* Spacing between consecutive headings */
@@ -1071,6 +1115,15 @@ blockquote cite::before {
 	display: flex;
 	align-items: baseline;
 	gap: var(--space-2);
+	padding: var(--space-1) 0;
+	border-radius: var(--radius-sm);
+	transition: background-color 150ms var(--ease-out);
+}
+
+.post-row:hover {
+	background-color: var(--color-surface);
+	padding-inline: var(--space-2);
+	margin-inline: calc(-1 * var(--space-2));
 }
 
 .post-row .post-title {
@@ -1171,5 +1224,52 @@ blockquote cite::before {
 }
 
 
+/* ============================================================================
+   PRINT STYLESHEET
+   ============================================================================
+   Clean print output: hide UI chrome, preserve content.
+   ============================================================================ */
+@media print {
+	/* Hide interactive/nav elements */
+	header#main-header,
+	#mobile-menu,
+	#mobile-backdrop,
+	.reading-progress,
+	#to-top-btn,
+	site-search,
+	mobile-button,
+	.end-mark,
+	footer,
+	nav[aria-label="Breadcrumb"],
+	nav[aria-label="Related posts"],
+	aside[aria-label="About the author"] {
+		display: none !important;
+	}
 
+	/* Reset background and colors for ink */
+	body {
+		background: white;
+		color: black;
+		max-width: none;
+		padding: 0;
+		margin: 1cm;
+	}
+
+	/* Ensure links show their URL */
+	.prose a[href^="http"]::after {
+		content: " (" attr(href) ")";
+		font-size: 0.8em;
+		color: #666;
+	}
+
+	/* Avoid page breaks inside elements */
+	pre, blockquote, figure, img {
+		break-inside: avoid;
+	}
+
+	/* Keep headings with their content */
+	h1, h2, h3, h4 {
+		break-after: avoid;
+	}
+}
 

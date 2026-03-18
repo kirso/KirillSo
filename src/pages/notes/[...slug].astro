@@ -20,10 +20,13 @@ export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { note } = Astro.props;
 
+const socialImage = `/og-image/notes/${note.id}.png`;
+
 const meta = {
 	description:
 		note.data.description ||
 		`Read about my note posted on: ${note.data.publishDate.toLocaleDateString()}`,
+	ogImage: socialImage,
 	title: note.data.title,
 };
 
@@ -43,5 +46,12 @@ const breadcrumbs = [
     publishDate={note.data.publishDate}
   />
   <Schema type="breadcrumb" breadcrumbs={breadcrumbs} />
+  <nav class="mb-6 flex items-center gap-2 text-text-tertiary" style="font-size: var(--text-micro);" aria-label="Breadcrumb">
+    <a href="/" class="link-nav">Home</a>
+    <span aria-hidden="true">/</span>
+    <a href="/notes/" class="link-nav">Notes</a>
+    <span aria-hidden="true">/</span>
+    <span class="truncate text-text-secondary">{note.data.title}</span>
+  </nav>
   <Note as="h1" note={note} />
 </PageLayout>

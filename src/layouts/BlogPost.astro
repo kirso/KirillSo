@@ -7,7 +7,6 @@ import TOC from "@/components/blog/TOC.astro";
 import RelatedPosts from "@/components/blog/RelatedPosts.astro";
 import AuthorBio from "@/components/blog/AuthorBio.astro";
 import WebMentions from "@/components/blog/webmentions/index.astro";
-import { siteConfig } from "@/site.config";
 
 import BaseLayout from "./Base.astro";
 
@@ -46,7 +45,15 @@ const breadcrumbs = [
     title,
   }}>
   <!-- Reading progress bar -->
-  <div class="reading-progress" id="reading-progress"></div>
+  <div
+    class="reading-progress"
+    id="reading-progress"
+    role="progressbar"
+    aria-label="Reading progress"
+    aria-valuenow="0"
+    aria-valuemin="0"
+    aria-valuemax="100"
+  ></div>
   <Schema
     type="article"
     title={title}
@@ -60,14 +67,21 @@ const breadcrumbs = [
   />
   <Schema type="breadcrumb" breadcrumbs={breadcrumbs} />
   <article class="grow break-words" data-pagefind-body>
+    <nav class="mb-6 flex items-center gap-2 text-text-tertiary" style="font-size: var(--text-micro);" aria-label="Breadcrumb">
+      <a href="/" class="link-nav">Home</a>
+      <span aria-hidden="true">/</span>
+      <a href="/posts/" class="link-nav">Blog</a>
+      <span aria-hidden="true">/</span>
+      <span class="truncate text-text-secondary">{title}</span>
+    </nav>
     <div id="blog-hero" class="mb-12">
       <Masthead content={post} readingTime={readingTime} />
     </div>
     {!!headings.length && <TOC headings={headings} />}
     <div class="prose max-w-none">
       <slot />
-      <WebMentions />
     </div>
+    <WebMentions />
     <RelatedPosts currentPostId={post.id} currentTags={tags ?? []} />
     <AuthorBio />
   </article>
@@ -106,6 +120,7 @@ const breadcrumbs = [
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = docHeight > 0 ? scrollTop / docHeight : 0;
     progressBar.style.setProperty("--scroll-progress", progress.toString());
+    progressBar.setAttribute("aria-valuenow", Math.round(progress * 100).toString());
   }
 
   window.addEventListener("scroll", updateProgress, { passive: true });

@@ -11,7 +11,7 @@ const { headings } = Astro.props;
 const toc = generateToc(headings);
 ---
 
-<details class="mb-8 border border-border p-4">
+<details class="mb-8 border border-border p-4 sm:open" id="toc-details">
   <summary class="cursor-pointer font-medium uppercase tracking-wider text-text-tertiary hover:text-global-text" style="font-size: var(--text-micro);">
     Table of Contents
   </summary>
@@ -21,3 +21,11 @@ const toc = generateToc(headings);
     </ol>
   </nav>
 </details>
+
+<script>
+  // Open TOC by default on desktop (sm breakpoint = 640px)
+  const details = document.getElementById("toc-details") as HTMLDetailsElement;
+  if (details && window.matchMedia("(min-width: 640px)").matches) {
+    details.open = true;
+  }
+</script>

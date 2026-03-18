@@ -1,16 +1,50 @@
 ---
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "@/components/FormattedDate.astro";
+import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
+import { collectionDateSort } from "@/utils/date";
 
 const meta = {
 	description: "This page doesn't exist.",
 	title: "Page not found",
 };
+
+const MAX_POSTS = 5;
+const allPosts = await getAllPosts();
+const recentPosts = allPosts
+  .sort(collectionDateSort)
+  .slice(0, MAX_POSTS) as CollectionEntry<"post">[];
 ---
 
 <PageLayout meta={meta}>
   <article>
     <h1 class="page-title mb-4">404</h1>
-    <p class="text-text-secondary mb-8">This page doesn't exist. Use the navigation to find your way back.</p>
-    <a href="/" class="link">Return home</a>
+    <p class="text-text-secondary mb-8">This page doesn't exist. Try searching or pick a recent post.</p>
+    <div class="mb-12 flex flex-wrap gap-4">
+      <a href="/" class="link">Return home</a>
+      <span class="text-text-tertiary">/</span>
+      <button
+        class="link cursor-pointer"
+        onclick="document.querySelector('button[data-open-modal]')?.click()"
+      >Search the site</button>
+    </div>
+
+    <section>
+      <div class="section-rule"><span>Recent posts</span></div>
+      <ul class="space-y-1">
+        {recentPosts.map((p) => (
+          <li class="post-row">
+            <a class="post-title link" data-astro-prefetch href={`/posts/${p.id}/`}>
+              {p.data.title}
+            </a>
+            <span class="post-leader"></span>
+            <span class="post-date mono">
+              <FormattedDate date={p.data.publishDate} />
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
   </article>
 </PageLayout>

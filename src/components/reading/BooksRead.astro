@@ -36,9 +36,11 @@ try {
 }
 ---
 
-{booksReadByYear.length > 0 && (
-  <section class="mb-12">
-    <div class="section-rule"><span>Books Read</span></div>
+<section class="mb-12">
+  <div class="section-rule"><span>Books Read</span></div>
+  {booksReadByYear.length > 0 ? (
     <YearTabs years={booksReadByYear} client:load />
-  </section>
-)}
+  ) : (
+    <p class="text-text-tertiary" style="font-size: var(--text-micro);">Book list temporarily unavailable. Check back soon.</p>
+  )}
+</section>

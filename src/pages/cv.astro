@@ -1,0 +1,228 @@
+---
+import BaseLayout from "@/layouts/Base.astro";
+import Schema from "@/components/Schema.astro";
+
+const meta = {
+  title: "CV",
+  description: "Kirill So — product manager, builder, and occasional writer. Career history and skills.",
+};
+
+interface Role {
+  title: string;
+  company: string;
+  companyUrl?: string;
+  location: string;
+  period: string;
+  highlights: string[];
+}
+
+const experience: Role[] = [
+  {
+    title: "Founder",
+    company: "Epigraf",
+    period: "2024 — Present",
+    location: "Remote",
+    highlights: [
+      "Building a human-centric product studio",
+      "Experimenting with AI tooling and modern web development",
+    ],
+  },
+  {
+    title: "Principal Product Manager",
+    company: "Delivery Hero",
+    companyUrl: "https://www.deliveryhero.com/",
+    period: "2022 — 2024",
+    location: "Berlin / Remote",
+    highlights: [
+      "Shipped growth features across 50+ countries driving millions in revenue",
+      "Owned retention, activation, and monetization for consumer-facing products",
+      "Led cross-functional teams spanning engineering, design, data science, and marketing",
+    ],
+  },
+  {
+    title: "Product Manager",
+    company: "Antler",
+    companyUrl: "https://www.antler.co/",
+    period: "2020 — 2022",
+    location: "Singapore",
+    highlights: [
+      "Built ML tooling products for portfolio company support",
+      "Worked closely with founders on product-market fit",
+    ],
+  },
+  {
+    title: "Product Manager",
+    company: "Carousell",
+    companyUrl: "https://www.carousell.com/",
+    period: "2018 — 2020",
+    location: "Singapore",
+    highlights: [
+      "Fraud detection and trust & safety using blockchain and external data",
+      "Southeast Asia's largest C2C marketplace",
+    ],
+  },
+  {
+    title: "Business Development / Product",
+    company: "Remerge",
+    companyUrl: "https://www.remerge.io/",
+    period: "2015 — 2018",
+    location: "Berlin",
+    highlights: [
+      "Joined at 10 people, left at 100",
+      "True 0-to-1 startup experience in mobile ad tech",
+      "Helped scale revenue and client base across APAC and EMEA",
+    ],
+  },
+  {
+    title: "Founder",
+    company: "Mobile UA Agency",
+    period: "2014 — 2015",
+    location: "Berlin / Thailand",
+    highlights: [
+      "Hit $30k MRR in month one",
+      "Mobile user acquisition and performance marketing",
+    ],
+  },
+  {
+    title: "Venture Studio",
+    company: "Ioniq",
+    companyUrl: "https://www.ioniq.com/",
+    period: "2012 — 2014",
+    location: "Berlin",
+    highlights: [
+      "Joined during Berlin's startup boom",
+      "Worked on mobile-first products as mobile overtook web",
+    ],
+  },
+  {
+    title: "Analyst",
+    company: "Enercap Capital",
+    companyUrl: "https://www.enercap.com/",
+    period: "2010 — 2012",
+    location: "Prague",
+    highlights: [
+      "Helped raise $200m for renewable energy projects in CEE",
+      "Financial modeling and investor relations",
+    ],
+  },
+];
+
+const skills = {
+  product: ["Product Strategy", "Growth", "Retention", "A/B Testing", "User Research", "Roadmapping", "OKRs"],
+  technical: ["Astro", "Svelte", "TypeScript", "Tailwind CSS", "AI Tooling", "SQL", "Python"],
+  other: ["6 countries lived in", "4 languages", "Angel investing"],
+};
+
+const education = [
+  {
+    degree: "MSc Finance & Accounting",
+    school: "University of Economics, Prague",
+    period: "2008 — 2010",
+  },
+  {
+    degree: "BSc Business Administration",
+    school: "University of Economics, Prague",
+    period: "2005 — 2008",
+  },
+];
+---
+
+<BaseLayout meta={meta}>
+  <Schema type="breadcrumb" breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "CV", url: "/cv/" }
+  ]} />
+  <article>
+    <header class="mb-12">
+      <h1 class="page-title">Kirill So</h1>
+      <p class="mt-2 text-text-secondary">Product Manager & Builder</p>
+      <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-text-tertiary" style="font-size: var(--text-micro);">
+        <a class="link-muted" href="mailto:kirill.sofronov@gmail.com">kirill.sofronov@gmail.com</a>
+        <span>/</span>
+        <a class="link-muted" href="https://www.kirillso.com">kirillso.com</a>
+        <span>/</span>
+        <a class="link-muted" href="https://www.linkedin.com/in/kirso" target="_blank" rel="noopener">LinkedIn</a>
+        <span>/</span>
+        <a class="link-muted" href="https://github.com/kirso" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </header>
+
+    <!-- Experience -->
+    <section class="mb-12">
+      <div class="section-rule"><span>Experience</span></div>
+      <div class="space-y-8">
+        {experience.map((role) => (
+          <div>
+            <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+              <div>
+                <h3 class="font-medium">{role.title}</h3>
+                <p class="text-text-secondary" style="font-size: var(--text-micro);">
+                  {role.companyUrl ? (
+                    <a class="link-muted" href={role.companyUrl} target="_blank" rel="noopener">{role.company}</a>
+                  ) : (
+                    role.company
+                  )}
+                  <span class="text-text-tertiary"> · {role.location}</span>
+                </p>
+              </div>
+              <span class="mono text-text-tertiary shrink-0" style="font-size: var(--text-micro);">{role.period}</span>
+            </div>
+            <ul class="chevron-list mt-2 text-text-secondary" style="font-size: var(--text-micro);">
+              {role.highlights.map((h) => <li>{h}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="mb-12">
+      <div class="section-rule"><span>Skills</span></div>
+      <div class="grid gap-6 sm:grid-cols-3">
+        <div>
+          <p class="text-text-tertiary mb-2" style="font-size: var(--text-micro);">Product</p>
+          <div class="flex flex-wrap gap-2">
+            {skills.product.map((s) => <span class="tag">{s}</span>)}
+          </div>
+        </div>
+        <div>
+          <p class="text-text-tertiary mb-2" style="font-size: var(--text-micro);">Technical</p>
+          <div class="flex flex-wrap gap-2">
+            {skills.technical.map((s) => <span class="tag">{s}</span>)}
+          </div>
+        </div>
+        <div>
+          <p class="text-text-tertiary mb-2" style="font-size: var(--text-micro);">Other</p>
+          <div class="flex flex-wrap gap-2">
+            {skills.other.map((s) => <span class="tag">{s}</span>)}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="mb-12">
+      <div class="section-rule"><span>Education</span></div>
+      <div class="space-y-4">
+        {education.map((edu) => (
+          <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+            <div>
+              <h3 class="font-medium">{edu.degree}</h3>
+              <p class="text-text-secondary" style="font-size: var(--text-micro);">{edu.school}</p>
+            </div>
+            <span class="mono text-text-tertiary shrink-0" style="font-size: var(--text-micro);">{edu.period}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Download -->
+    <nav class="mt-12">
+      <a
+        class="arrow-link"
+        href="https://www.kirillso.com/resume.pdf"
+        download="Kirill-So-CV.pdf"
+      >Download as PDF <span aria-hidden="true">→</span></a>
+    </nav>
+  </article>
+</BaseLayout>

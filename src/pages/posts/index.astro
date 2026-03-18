@@ -20,7 +20,7 @@ for (const post of sortedPosts) {
 }
 
 const meta = {
-	description: "Read my collection of posts and the things that interest me",
+	description: "Writing on products, building, and life across three continents.",
 	title: "Posts",
 };
 
@@ -33,7 +33,7 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
     { name: "Home", url: "/" },
     { name: "Blog", url: "/posts/" }
   ]} />
-  <header class="mb-8">
+  <header class="mb-16">
     <h1 class="page-title">Posts</h1>
     <p class="mt-2 text-text-secondary">{totalPosts} posts published</p>
   </header>
@@ -70,8 +70,10 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
                 <span class="post-leader"></span>
                 <span class="post-date mono">
                   <FormattedDate date={p.data.publishDate} />
-                  <span class="text-text-tertiary" aria-hidden="true"> · </span>
-                  {readingTimes.get(p.id)}
+                  <span class="hidden sm:inline">
+                    <span class="text-text-tertiary" aria-hidden="true"> · </span>
+                    {readingTimes.get(p.id)}
+                  </span>
                 </span>
               </li>
             ))}

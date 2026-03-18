@@ -54,6 +54,16 @@ import { menuLinks } from "@/site.config";
       }
     </nav>
 
+    <a
+      href="/rss.xml"
+      class="hidden text-text-secondary transition-colors hover:text-global-text sm:block"
+      title="RSS Feed"
+    >
+      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1Z"/>
+      </svg>
+      <span class="sr-only">RSS Feed</span>
+    </a>
     <Search />
     <ThemeToggle />
 
@@ -87,10 +97,17 @@ import { menuLinks } from "@/site.config";
   </div>
 </header>
 
+<!-- Mobile backdrop -->
+<div
+  class="fixed inset-0 z-40 bg-global-text/40 opacity-0 backdrop-blur-sm transition-opacity duration-200 pointer-events-none"
+  id="mobile-backdrop"
+  aria-hidden="true"
+></div>
+
 <!-- Mobile menu (slides down) -->
 <nav
   aria-label="Mobile menu"
-  class="group fixed inset-x-0 top-0 z-50 hidden bg-global-bg px-5 py-4 shadow-sm"
+  class="group fixed inset-x-0 top-0 z-50 -translate-y-full bg-global-bg px-5 py-4 shadow-sm transition-transform duration-200 ease-out"
   id="mobile-menu"
 >
   <div class="flex items-center justify-between">
@@ -119,7 +136,13 @@ import { menuLinks } from "@/site.config";
     {
       menuLinks.map((link) => (
         <a
-          class="link-nav"
+          aria-current={Astro.url.pathname === link.path ? "page" : false}
+          class:list={[
+            "transition-colors",
+            Astro.url.pathname === link.path
+              ? "text-global-text underline underline-offset-4"
+              : "link-nav"
+          ]}
           style="font-size: var(--text-large);"
           href={link.path}
         >
@@ -135,24 +158,34 @@ import { menuLinks } from "@/site.config";
     connectedCallback() {
       const mobileButtonEl = this.querySelector<HTMLButtonElement>("button");
       const mobileMenu = document.getElementById("mobile-menu");
+      const backdrop = document.getElementById("mobile-backdrop");
       const closeBtn = document.getElementById("close-mobile-menu");
 
-      mobileButtonEl?.addEventListener("click", () => {
-        mobileMenu?.classList.remove("hidden");
+      const openMenu = () => {
+        mobileMenu?.classList.remove("-translate-y-full");
+        mobileMenu?.classList.add("translate-y-0");
+        backdrop?.classList.remove("opacity-0", "pointer-events-none");
+        backdrop?.classList.add("opacity-100", "pointer-events-auto");
+        mobileButtonEl?.setAttribute("aria-expanded", "true");
         document.body.style.overflow = "hidden";
-      });
+      };
 
-      closeBtn?.addEventListener("click", () => {
-        mobileMenu?.classList.add("hidden");
+      const closeMenu = () => {
+        mobileMenu?.classList.remove("translate-y-0");
+        mobileMenu?.classList.add("-translate-y-full");
+        backdrop?.classList.remove("opacity-100", "pointer-events-auto");
+        backdrop?.classList.add("opacity-0", "pointer-events-none");
+        mobileButtonEl?.setAttribute("aria-expanded", "false");
         document.body.style.overflow = "";
-      });
+      };
+
+      mobileButtonEl?.addEventListener("click", openMenu);
+      closeBtn?.addEventListener("click", closeMenu);
+      backdrop?.addEventListener("click", closeMenu);
 
       // Close on link click
       mobileMenu?.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-          mobileMenu?.classList.add("hidden");
-          document.body.style.overflow = "";
-        });
+        link.addEventListener("click", closeMenu);
       });
     }
   }

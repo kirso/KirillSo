@@ -1,0 +1,17 @@
+---
+/**
+ * SectionRule — Reusable section divider with label
+ * Design system: uppercase label with extending line
+ * Usage: <SectionRule label="Posts" />
+ */
+interface Props {
+  label: string;
+  class?: string;
+}
+
+const { label, class: className } = Astro.props;
+---
+
+<div class:list={["section-rule", className]}>
+  <span>{label}</span>
+</div>

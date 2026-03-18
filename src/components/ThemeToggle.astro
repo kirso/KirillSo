@@ -91,19 +91,25 @@
       button.setAttribute("role", "switch");
       button.setAttribute("aria-checked", String(rootInDarkMode()));
 
-      // button event
-      button.addEventListener("click", () => {
-        // invert theme
+      const toggleTheme = () => {
         let themeChangeEvent = new CustomEvent("theme-change", {
           detail: {
             theme: rootInDarkMode() ? "light" : "dark",
           },
         });
-        // dispatch event -> ThemeProvider.astro
         document.dispatchEvent(themeChangeEvent);
-
-        // set the aria-checked attribute
         button.setAttribute("aria-checked", String(rootInDarkMode()));
+      };
+
+      // button event
+      button.addEventListener("click", toggleTheme);
+
+      // keyboard shortcut: Cmd/Ctrl + Shift + D
+      window.addEventListener("keydown", (e: KeyboardEvent) => {
+        if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === "d") {
+          e.preventDefault();
+          toggleTheme();
+        }
       });
     }
   }
