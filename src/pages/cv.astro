@@ -20,110 +20,139 @@ const experience: Role[] = [
   {
     title: "Founder",
     company: "Epigraf",
-    period: "2024 — Present",
+    period: "2025 — Present",
     location: "Remote",
     highlights: [
-      "Building a human-centric product studio",
-      "Experimenting with AI tooling and modern web development",
+      "Building human-centric products with AI-powered development workflows",
+      "Keepsake — preserve family memories. Accepted to Iterative validation sprint with $10k grant, collected 100 beta sign-ups pre-launch. Using LLMs for transcoding and transcription of video and audio",
+      "CitizenTrail — one-stop shop for immigration data. Orchestrating scraping pipelines with LLMs for data extraction and schema normalization from public government sources",
     ],
   },
   {
-    title: "Principal Product Manager",
+    title: "Principal Product Manager (M2 / IC5)",
     company: "Delivery Hero",
     companyUrl: "https://www.deliveryhero.com/",
-    period: "2022 — 2024",
+    period: "2022 — 2025",
     location: "Berlin / Remote",
     highlights: [
-      "Shipped growth features across 50+ countries driving millions in revenue",
-      "Owned retention, activation, and monetization for consumer-facing products",
-      "Led cross-functional teams spanning engineering, design, data science, and marketing",
+      "Shipped a 0-to-1 API gateway infrastructure product that orchestrates incentive-related data and drives platform profitability across 21 markets in Europe and APAC",
+      "Shaped and executed a product roadmap for 2 teams of 20 engineers",
+      "Centralized architecture that resolved UX inconsistencies in 21 countries, affecting 50m+ users and saving 50 hours/month in engineering capacity",
+      "Launched a high-value actions initiative to lift acquisition, reactivation, and subscription metrics, on track to generate $100m/year in incremental GMV",
+      "Built a new incentive component that produced $16.5m in GMV uplift",
     ],
   },
   {
-    title: "Product Manager",
-    company: "Antler",
-    companyUrl: "https://www.antler.co/",
+    title: "Product Manager, Growth",
+    company: "Standard Chartered, Ventures",
     period: "2020 — 2022",
     location: "Singapore",
     highlights: [
-      "Built ML tooling products for portfolio company support",
-      "Worked closely with founders on product-market fit",
+      "Grew a consumer-facing mobile app to 100k MAU in 12 months via 3rd party integrations, SDKs, partnerships & cross-sell channels",
     ],
   },
   {
-    title: "Product Manager",
-    company: "Carousell",
-    companyUrl: "https://www.carousell.com/",
-    period: "2018 — 2020",
+    title: "Entrepreneur",
+    company: "Antler",
+    companyUrl: "https://www.antler.co/",
+    period: "2019 — 2020",
     location: "Singapore",
     highlights: [
-      "Fraud detection and trust & safety using blockchain and external data",
-      "Southeast Asia's largest C2C marketplace",
+      "Took part in a venture studio program and disproved the hypothesis that aimed to improve the efficacy of deploying machine learning models in production",
     ],
   },
   {
-    title: "Business Development / Product",
+    title: "Product & Venture Lead",
+    company: "Carousell",
+    companyUrl: "https://www.carousell.com/",
+    period: "2018 — 2019",
+    location: "Singapore",
+    highlights: [
+      "Collaborated with founders on a decentralized identity platform aimed at fraud prevention",
+      "Built the MVP, secured 30+ data partnerships",
+    ],
+  },
+  {
+    title: "Director, Business Development",
     company: "Remerge",
     companyUrl: "https://www.remerge.io/",
     period: "2015 — 2018",
     location: "Berlin",
     highlights: [
-      "Joined at 10 people, left at 100",
-      "True 0-to-1 startup experience in mobile ad tech",
-      "Helped scale revenue and client base across APAC and EMEA",
+      "Delivered over $50m in advertising budgets",
+      "Closed strategic accounts while working closely with cross-functional teams and leadership",
     ],
   },
   {
-    title: "Founder",
-    company: "Mobile UA Agency",
-    period: "2014 — 2015",
-    location: "Berlin / Thailand",
-    highlights: [
-      "Hit $30k MRR in month one",
-      "Mobile user acquisition and performance marketing",
-    ],
-  },
-  {
-    title: "Venture Studio",
-    company: "Ioniq",
+    title: "Business Development Manager",
+    company: "IONIQ Group",
     companyUrl: "https://www.ioniq.com/",
-    period: "2012 — 2014",
+    period: "2012 — 2015",
     location: "Berlin",
     highlights: [
-      "Joined during Berlin's startup boom",
-      "Worked on mobile-first products as mobile overtook web",
+      "Acquired and managed a sales pipeline of $1m+",
+      "Worked with game publishers, advertising networks, entertainment and media outlets, and TV stations",
     ],
   },
   {
-    title: "Analyst",
-    company: "Enercap Capital",
+    title: "Analyst, Private Equity",
+    company: "EnerCap Capital Partners",
     companyUrl: "https://www.enercap.com/",
     period: "2010 — 2012",
     location: "Prague",
     highlights: [
-      "Helped raise $200m for renewable energy projects in CEE",
-      "Financial modeling and investor relations",
+      "Supported partners in raising $450m+ debt financing for renewable energy projects",
+      "Projects provided electricity to 200,000 households and saved 130,000 tonnes of CO2 p.a.",
     ],
   },
 ];
 
-const skills = {
-  product: ["Product Strategy", "Growth", "Retention", "A/B Testing", "User Research", "Roadmapping", "OKRs"],
-  technical: ["Astro", "Svelte", "TypeScript", "Tailwind CSS", "AI Tooling", "SQL", "Python"],
-  other: ["6 countries lived in", "4 languages", "Angel investing"],
-};
+interface SkillGroup {
+  label: string;
+  items: string[];
+}
 
-const education = [
+const skills: SkillGroup[] = [
+  { label: "Fundamentals", items: ["HTML", "CSS", "JavaScript", "TypeScript", "SQL"] },
+  { label: "Frameworks", items: ["Svelte", "SvelteKit", "Astro"] },
+  { label: "Design", items: ["Figma", "Procreate", "Webflow", "Framer"] },
+  { label: "Analytics", items: ["Google Analytics", "Adjust", "AppsFlyer"] },
+  { label: "Other", items: ["Facebook Ads", "Google Ads", "Apple Search Ads", "SEO", "ASO"] },
+];
+
+const projects = [
+  { name: "Keepsake", description: "Preserve your family memories", tech: "Svelte, SvelteKit, Neon, Cloudflare, Print API" },
+  { name: "SchwiftyVerse", description: "Save GIFs on a blockchain", tech: "React, Solana" },
+  { name: "Panic theme", description: "Make Logseq pretty", tech: "CSS" },
+  { name: "The Early Adopter", description: "Discover digital products", tech: "" },
+];
+
+interface Education {
+  degree: string;
+  school: string;
+  period: string;
+}
+
+const education: Education[] = [
   {
-    degree: "MSc Finance & Accounting",
-    school: "University of Economics, Prague",
-    period: "2008 — 2010",
+    degree: "Bachelor's in Communications & Media Studies",
+    school: "Jan Amos Komensky University",
+    period: "2007 — 2010",
   },
-  {
-    degree: "BSc Business Administration",
-    school: "University of Economics, Prague",
-    period: "2005 — 2008",
-  },
+];
+
+interface OtherEducation {
+  program: string;
+  school: string;
+}
+
+const otherEducation: OtherEducation[] = [
+  { program: "Mastering Product Management", school: "Reforge" },
+  { program: "Experimentation & Testing", school: "Reforge" },
+  { program: "Finding Product-Market Fit", school: "Reforge" },
+  { program: "Software Engineering", school: "Launch School" },
+  { program: "Cybersecurity", school: "TryHackMe" },
+  { program: "Public Speaking", school: "Ultraspeaking" },
 ];
 ---
 
@@ -133,9 +162,12 @@ const education = [
     { name: "CV", url: "/cv/" }
   ]} />
   <article>
-    <header class="mb-12">
+    <header class="mb-16">
       <h1 class="page-title">Kirill So</h1>
       <p class="mt-2 text-text-secondary">Product Manager & Builder</p>
+      <p class="mt-4 max-w-2xl text-text-secondary leading-relaxed" style="font-size: var(--text-micro);">
+        Hands-on product manager with 14 years of experience in B2C & B2B, from seed-stage startups to post-IPO organizations in adtech, fintech, marketplaces, private equity, & renewable energy. In my free time, I build products, always learning & cultivating a beginner's mind.
+      </p>
       <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-text-tertiary" style="font-size: var(--text-micro);">
         <a class="link-muted" href="mailto:kirill.sofronov@gmail.com">kirill.sofronov@gmail.com</a>
         <span>/</span>
@@ -148,7 +180,7 @@ const education = [
     </header>
 
     <!-- Experience -->
-    <section class="mb-12">
+    <section class="mb-16">
       <div class="section-rule"><span>Experience</span></div>
       <div class="space-y-8">
         {experience.map((role) => (
@@ -175,33 +207,40 @@ const education = [
       </div>
     </section>
 
-    <!-- Skills -->
-    <section class="mb-12">
-      <div class="section-rule"><span>Skills</span></div>
-      <div class="grid gap-6 sm:grid-cols-3">
-        <div>
-          <p class="text-text-tertiary mb-2" style="font-size: var(--text-micro);">Product</p>
-          <div class="flex flex-wrap gap-2">
-            {skills.product.map((s) => <span class="tag">{s}</span>)}
+    <!-- Tech / Skills -->
+    <section class="mb-16">
+      <div class="section-rule"><span>Tech</span></div>
+      <div class="grid gap-6 sm:grid-cols-2">
+        {skills.map((group) => (
+          <div>
+            <p class="text-text-tertiary mb-2" style="font-size: var(--text-micro);">{group.label}</p>
+            <div class="flex flex-wrap gap-2">
+              {group.items.map((s) => <span class="tag">{s}</span>)}
+            </div>
           </div>
-        </div>
-        <div>
-          <p class="text-text-tertiary mb-2" style="font-size: var(--text-micro);">Technical</p>
-          <div class="flex flex-wrap gap-2">
-            {skills.technical.map((s) => <span class="tag">{s}</span>)}
-          </div>
-        </div>
-        <div>
-          <p class="text-text-tertiary mb-2" style="font-size: var(--text-micro);">Other</p>
-          <div class="flex flex-wrap gap-2">
-            {skills.other.map((s) => <span class="tag">{s}</span>)}
-          </div>
-        </div>
+        ))}
       </div>
     </section>
 
+    <!-- Projects -->
+    <section class="mb-16">
+      <div class="section-rule"><span>Projects</span></div>
+      <ul class="space-y-3">
+        {projects.map((p) => (
+          <li>
+            <div class="flex flex-col gap-0.5">
+              <span class="font-medium">{p.name} <span class="text-text-secondary font-normal">— {p.description}</span></span>
+              {p.tech && (
+                <span class="text-text-tertiary" style="font-size: var(--text-micro);">{p.tech}</span>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
     <!-- Education -->
-    <section class="mb-12">
+    <section class="mb-16">
       <div class="section-rule"><span>Education</span></div>
       <div class="space-y-4">
         {education.map((edu) => (
@@ -213,6 +252,19 @@ const education = [
             <span class="mono text-text-tertiary shrink-0" style="font-size: var(--text-micro);">{edu.period}</span>
           </div>
         ))}
+      </div>
+
+      {/* Other education / courses */}
+      <div class="mt-8">
+        <p class="text-text-tertiary mb-3" style="font-size: var(--text-micro);">Courses & Programs</p>
+        <div class="grid gap-2 sm:grid-cols-2">
+          {otherEducation.map((item) => (
+            <div class="flex items-baseline justify-between gap-4" style="font-size: var(--text-micro);">
+              <span class="text-text-secondary">{item.program}</span>
+              <span class="text-text-tertiary shrink-0">{item.school}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
 
