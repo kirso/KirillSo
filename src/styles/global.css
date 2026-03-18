@@ -394,21 +394,33 @@
 		navigation: auto;
 	}
 
-	/* Subtle crossfade for main content area */
-	::view-transition-old(main-content) {
-		animation: fade-out 150ms ease-out;
-	}
-	::view-transition-new(main-content) {
-		animation: fade-in 150ms ease-in;
+	/* Suppress root transition — only main-content transitions */
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
 	}
 
-	@keyframes fade-out {
-		from { opacity: 1; }
+	/* Subtle crossfade — old and new overlap to prevent flash */
+	::view-transition-old(main-content) {
+		animation: vt-fade-out 150ms ease-out both;
+	}
+	::view-transition-new(main-content) {
+		animation: vt-fade-in 150ms ease-in both;
+	}
+
+	/* Ensure old and new layers overlap (no flash of background) */
+	::view-transition-group(main-content) {
+		animation-duration: 150ms;
+	}
+	::view-transition-image-pair(main-content) {
+		isolation: auto;
+	}
+
+	@keyframes vt-fade-out {
 		to { opacity: 0; }
 	}
-	@keyframes fade-in {
+	@keyframes vt-fade-in {
 		from { opacity: 0; }
-		to { opacity: 1; }
 	}
 
 	/* Smooth anchor scrolling */

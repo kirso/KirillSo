@@ -38,7 +38,13 @@
   // initial setup
   setTheme(getUserPref());
 
-  // View Transitions hook to restore theme
+  // Apply theme to new document BEFORE swap to prevent flash
+  document.addEventListener("astro:before-swap", (e) => {
+    const theme = getUserPref();
+    e.newDocument.documentElement.setAttribute("data-theme", theme);
+  });
+
+  // Restore theme after swap (for favicon sync and other side effects)
   document.addEventListener("astro:after-swap", () => setTheme(getUserPref()));
 
   // listen for theme-change custom event, fired in src/components/ThemeToggle.astro
