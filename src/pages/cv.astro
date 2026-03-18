@@ -225,18 +225,23 @@ const otherEducation: OtherEducation[] = [
     <!-- Projects -->
     <section class="mb-16">
       <div class="section-rule"><span>Projects</span></div>
-      <ul class="space-y-3">
+      <div class="divide-y divide-border border border-border">
         {projects.map((p) => (
-          <li>
-            <div class="flex flex-col gap-0.5">
-              <span class="font-medium">{p.name} <span class="text-text-secondary font-normal">— {p.description}</span></span>
-              {p.tech && (
-                <span class="text-text-tertiary" style="font-size: var(--text-micro);">{p.tech}</span>
-              )}
+          <div class="group flex items-center justify-between gap-4 p-4 transition-colors hover:bg-global-text hover:text-global-bg">
+            <div class="min-w-0">
+              <span class="font-medium">{p.name}</span>
+              <p class="mt-0.5 text-text-secondary group-hover:text-global-bg/80" style="font-size: var(--text-micro);">{p.description}</p>
             </div>
-          </li>
+            {p.tech && (
+              <div class="hidden shrink-0 flex-wrap justify-end gap-1.5 sm:flex">
+                {p.tech.split(", ").map((t) => (
+                  <span class="tag group-hover:border-global-bg/30 group-hover:text-global-bg/70" style="font-size: 10px;">{t}</span>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
-      </ul>
+      </div>
     </section>
 
     <!-- Education -->
@@ -257,14 +262,15 @@ const otherEducation: OtherEducation[] = [
       {/* Other education / courses */}
       <div class="mt-8">
         <p class="text-text-tertiary mb-3" style="font-size: var(--text-micro);">Courses & Programs</p>
-        <div class="grid gap-2 sm:grid-cols-2">
+        <ul class="space-y-1">
           {otherEducation.map((item) => (
-            <div class="flex items-baseline justify-between gap-4" style="font-size: var(--text-micro);">
-              <span class="text-text-secondary">{item.program}</span>
-              <span class="text-text-tertiary shrink-0">{item.school}</span>
-            </div>
+            <li class="post-row">
+              <span class="post-title" style="font-size: var(--text-micro);">{item.program}</span>
+              <span class="post-leader"></span>
+              <span class="post-date mono">{item.school}</span>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
 
