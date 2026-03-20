@@ -122,6 +122,7 @@ const skills: SkillGroup[] = [
 
 const projects = [
   { name: "Keepsake", description: "Preserve your family memories", tech: "Svelte, SvelteKit, Neon, Cloudflare, Print API" },
+  { name: "AI Work Index", description: "Track how AI is changing work", tech: "Astro, Cloudflare Pages", url: "https://aiworkindex.com" },
   { name: "SchwiftyVerse", description: "Save GIFs on a blockchain", tech: "React, Solana" },
   { name: "Panic theme", description: "Make Logseq pretty", tech: "CSS" },
   { name: "The Early Adopter", description: "Discover digital products", tech: "" },
@@ -227,7 +228,11 @@ const otherEducation: OtherEducation[] = [
         {projects.map((p) => (
           <div class="group flex items-center justify-between gap-4 p-4 transition-colors hover:bg-global-text hover:text-global-bg">
             <div class="min-w-0">
-              <span class="font-medium">{p.name}</span>
+              {p.url ? (
+                <a class="font-medium link-muted" href={p.url} target="_blank" rel="noopener">{p.name}</a>
+              ) : (
+                <span class="font-medium">{p.name}</span>
+              )}
               <p class="mt-0.5 text-text-secondary group-hover:text-global-bg/80" style="font-size: var(--text-micro);">{p.description}</p>
             </div>
             {p.tech && (
