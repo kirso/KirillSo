@@ -16,7 +16,7 @@
 
 #cactus__search .pagefind-ui__search-input {
 	font-size: 1rem;
-	padding: 0.75rem 1rem;
+	padding: 0.75rem calc(70px * var(--pagefind-ui-scale)) 0.75rem calc(54px * var(--pagefind-ui-scale));
 	border-radius: 0.25rem;
 }
 
