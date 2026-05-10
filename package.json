@@ -24,7 +24,7 @@
 		"@astrojs/rss": "^4.0.14",
 		"@astrojs/sitemap": "^3.6.0",
 		"@astrojs/svelte": "^7.2.4",
-		"@google/generative-ai": "^0.24.1",
+		"@google/genai": "^2.0.1",
 		"@iconify-json/simple-icons": "^1.2.73",
 		"@tailwindcss/vite": "4.1.18",
 		"astro": "5.16.6",

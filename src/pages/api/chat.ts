@@ -1,6 +1,6 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import type { APIRoute } from "astro";
 import { GOOGLE_AI_API_KEY } from "astro:env/server";
+import { GoogleGenAI } from "@google/genai";
+import type { APIRoute } from "astro";
 import { findSimilarContent } from "../../lib/embeddings";
 import { chatRateLimiter } from "../../lib/rateLimit";
 
@@ -8,7 +8,7 @@ function getGeminiClient() {
 	if (!GOOGLE_AI_API_KEY) {
 		throw new Error("GOOGLE_AI_API_KEY environment variable is not set");
 	}
-	return new GoogleGenerativeAI(GOOGLE_AI_API_KEY);
+	return new GoogleGenAI({ apiKey: GOOGLE_AI_API_KEY });
 }
 
 function createSystemMessage(similarContent: Array<{ source: string; content: string }>) {
@@ -60,8 +60,8 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 			return new Response("Message is required", { status: 400 });
 		}
 
-		// Get relevant context from embeddings
-		const similarContent = await findSimilarContent(message, GOOGLE_AI_API_KEY);
+		// Get relevant context from the bundled content index.
+		const similarContent = await findSimilarContent(message);
 		console.log(
 			"Found similar content:",
 			similarContent.map((c) => ({
@@ -72,33 +72,20 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
 		// Generate streaming response with Gemini
 		const genAI = getGeminiClient();
-		const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
-
-		const chat = model.startChat({
-			history: [
-				{
-					role: "user",
-					parts: [{ text: "System instruction: " + createSystemMessage(similarContent) }],
-				},
-				{
-					role: "model",
-					parts: [
-						{
-							text: "Understood. I'll help answer questions about Kirill So based on the provided context.",
-						},
-					],
-				},
-			],
+		const result = await genAI.models.generateContentStream({
+			model: "gemini-2.5-flash",
+			contents: message,
+			config: {
+				systemInstruction: createSystemMessage(similarContent),
+			},
 		});
-
-		const result = await chat.sendMessageStream(message);
 
 		// Create readable stream for response
 		const readable = new ReadableStream({
 			async start(controller) {
 				try {
-					for await (const chunk of result.stream) {
-						const text = chunk.text();
+					for await (const chunk of result) {
+						const text = chunk.text;
 						if (text) {
 							controller.enqueue(new TextEncoder().encode(text));
 						}
@@ -115,7 +102,6 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 			headers: {
 				"Content-Type": "text/plain; charset=utf-8",
 				"Cache-Control": "no-cache",
-				"Transfer-Encoding": "chunked",
 			},
 		});
 	} catch (error) {
