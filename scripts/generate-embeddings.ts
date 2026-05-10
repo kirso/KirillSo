@@ -1,9 +1,9 @@
 import "dotenv/config";
 import fs from "node:fs";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import path from "node:path";
+import { GoogleGenAI } from "@google/genai";
 import matter from "gray-matter";
 import { marked } from "marked";
-import path from "node:path";
 
 const EMBEDDINGS_FILE = path.join(
 	process.cwd(),
@@ -19,15 +19,26 @@ interface StoredEmbedding {
 	source: string;
 }
 
-async function generateEmbeddings(content: string, source: string): Promise<void> {
+function getGoogleApiKey(): string {
 	const apiKey = process.env.GOOGLE_AI_API_KEY;
 	if (!apiKey) {
 		throw new Error("GOOGLE_AI_API_KEY environment variable is not set");
 	}
-	const genAI = new GoogleGenerativeAI(apiKey);
-	const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
-	const result = await model.embedContent(content);
-	const embedding = result.embedding.values;
+	return apiKey;
+}
+
+async function generateEmbeddings(content: string, source: string): Promise<void> {
+	const apiKey = getGoogleApiKey();
+	const genAI = new GoogleGenAI({ apiKey });
+	const embeddingInput = `title: ${source || "none"} | text: ${content}`;
+	const result = await genAI.models.embedContent({
+		model: "gemini-embedding-2",
+		contents: embeddingInput,
+		config: {
+			outputDimensionality: 768,
+		},
+	});
+	const embedding = result.embeddings?.[0]?.values;
 
 	if (!embedding || !Array.isArray(embedding)) {
 		throw new Error("Failed to generate embedding");
@@ -48,7 +59,7 @@ async function generateEmbeddings(content: string, source: string): Promise<void
 	fs.writeFileSync(EMBEDDINGS_FILE, JSON.stringify(embeddings, null, 2));
 }
 
-// Gemini text-embedding-004 supports up to 2048 tokens
+// Keep chunks conservative for Gemini embedding requests.
 const MAX_CHUNK_LENGTH = 6000; // Conservative limit to account for tokens vs chars
 
 function chunkContent(content: string): string[] {
@@ -97,6 +108,13 @@ function findMarkdownFiles(dir: string): string[] {
 async function generateAllEmbeddings() {
 	try {
 		console.log("🔍 Starting embeddings generation...\n");
+		getGoogleApiKey();
+
+		const dir = path.dirname(EMBEDDINGS_FILE);
+		if (!fs.existsSync(dir)) {
+			fs.mkdirSync(dir, { recursive: true });
+		}
+		fs.writeFileSync(EMBEDDINGS_FILE, "[]\n");
 
 		// Generate embeddings for resume
 		const resumePath = path.join(process.cwd(), "src", "assets", "cv", "resume.md");

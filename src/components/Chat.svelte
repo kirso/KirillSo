@@ -1,24 +1,30 @@
 <script lang="ts">
-interface Props {
-	initialMessage?: string;
-}
-
 interface Message {
+	id: string;
 	text: string;
 	isUser: boolean;
 	isStreaming?: boolean;
 }
 
-const props: Props = $props();
+const initialMessage = "Hi! Ask me anything about my experience and background.";
+let nextMessageId = 0;
+
+function createMessage(text: string, isUser: boolean, isStreaming = false): Message {
+	nextMessageId += 1;
+	return {
+		id: `message-${nextMessageId}`,
+		text,
+		isUser,
+		isStreaming,
+	};
+}
 
 // State
 let isOpen = $state(false);
 let isStreaming = $state(false);
 let isLoading = $state(false);
 let inputValue = $state("");
-let messages = $state<Message[]>([
-	{ text: props.initialMessage ?? "Hi! Ask me anything about my experience and background.", isUser: false }
-]);
+let messages = $state<Message[]>([createMessage(initialMessage, false)]);
 
 // Resize state
 let isResizing = $state(false);
@@ -49,6 +55,7 @@ $effect(() => {
 });
 
 // Keyboard handling
+// biome-ignore lint/correctness/noUnusedVariables: Used by Svelte template.
 function handleKeydown(e: KeyboardEvent) {
 	if (e.key === "Escape" && isOpen) {
 		isOpen = false;
@@ -56,15 +63,18 @@ function handleKeydown(e: KeyboardEvent) {
 }
 
 // Toggle chat
+// biome-ignore lint/correctness/noUnusedVariables: Used by Svelte template.
 function toggleChat() {
 	isOpen = !isOpen;
 }
 
+// biome-ignore lint/correctness/noUnusedVariables: Used by Svelte template.
 function closeChat() {
 	isOpen = false;
 }
 
 // Resize handling
+// biome-ignore lint/correctness/noUnusedVariables: Used by Svelte template.
 function startResize(e: MouseEvent) {
 	if (!chatWindowRef) return;
 	const rect = chatWindowRef.getBoundingClientRect();
@@ -93,6 +103,7 @@ function stopResize() {
 }
 
 // Form submission
+// biome-ignore lint/correctness/noUnusedVariables: Used by Svelte template.
 async function handleSubmit(e: Event) {
 	e.preventDefault();
 	if (!canSubmit) return;
@@ -102,21 +113,22 @@ async function handleSubmit(e: Event) {
 	isLoading = true;
 
 	// Add user message
-	messages = [...messages, { text: message, isUser: true }];
+	messages = [...messages, createMessage(message, true)];
 
 	try {
-		const formData = new FormData();
-		formData.append("message", message);
-
 		const response = await fetch("/api/chat", {
 			method: "POST",
-			body: formData,
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ message }),
 		});
 
 		if (response.status === 429) {
 			messages = [
 				...messages,
 				{
+					id: `message-${++nextMessageId}`,
 					text: "You've sent too many messages. Please wait a minute and try again.",
 					isUser: false,
 				},
@@ -124,16 +136,21 @@ async function handleSubmit(e: Event) {
 			return;
 		}
 
-		if (!response.ok) throw new Error("Failed to send message");
+		if (!response.ok) {
+			const errorBody = await response.text().catch(() => "");
+			console.error("Chat API error:", response.status, errorBody);
+			throw new Error("Chat is temporarily unavailable. Please try again later.");
+		}
 
 		const reader = response.body?.getReader();
 		if (!reader) throw new Error("No response stream");
 
 		isStreaming = true;
 		let accumulatedText = "";
+		const streamingMessage = createMessage("", false, true);
 
 		// Add streaming message placeholder
-		messages = [...messages, { text: "", isUser: false, isStreaming: true }];
+		messages = [...messages, streamingMessage];
 
 		while (true) {
 			const { done, value } = await reader.read();
@@ -143,14 +160,14 @@ async function handleSubmit(e: Event) {
 			accumulatedText += chunk;
 
 			// Update the streaming message
-			messages = messages.map((msg, i) =>
-				i === messages.length - 1 ? { ...msg, text: accumulatedText } : msg,
+			messages = messages.map((msg) =>
+				msg.id === streamingMessage.id ? { ...msg, text: accumulatedText } : msg,
 			);
 		}
 
 		// Finalize message
-		messages = messages.map((msg, i) =>
-			i === messages.length - 1 ? { ...msg, isStreaming: false } : msg,
+		messages = messages.map((msg) =>
+			msg.id === streamingMessage.id ? { ...msg, isStreaming: false } : msg,
 		);
 
 		isStreaming = false;
@@ -160,6 +177,7 @@ async function handleSubmit(e: Event) {
 		messages = [
 			...messages,
 			{
+				id: `message-${++nextMessageId}`,
 				text: `Sorry, there was an error: ${errorMsg}`,
 				isUser: false,
 			},
@@ -224,7 +242,7 @@ async function handleSubmit(e: Event) {
 				aria-live="polite"
 				aria-label="Chat messages"
 			>
-				{#each messages as message}
+				{#each messages as message (message.id)}
 					<div
 						class="max-w-[85%] p-3 {message.isUser
 							? 'ml-auto border border-[var(--color-global-text)] bg-[var(--color-global-text)] text-[var(--color-global-bg)]'
