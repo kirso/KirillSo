@@ -1,7 +1,6 @@
 export interface SiteConfig {
 	author: string;
 	authorImage: string;
-	authorEmail: string;
 	authorJobTitle: string;
 	date: {
 		locale: string | string[] | undefined;
