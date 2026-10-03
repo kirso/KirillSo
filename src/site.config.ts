@@ -4,7 +4,6 @@ import type { SiteConfig } from "@/types";
 export const siteConfig: SiteConfig = {
 	author: "Kirill So",
 	authorImage: "/headshot.png",
-	authorEmail: "kirill.sofronov@gmail.com",
 	authorJobTitle: "Product Manager & Builder",
 	date: {
 		locale: "en-GB",

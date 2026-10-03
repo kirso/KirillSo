@@ -42,7 +42,6 @@ ${sortedPosts
 
 ## Contact
 
-- Email: ${siteConfig.authorEmail}
 - Website: ${siteConfig.url}
 
 ## Usage Guidelines
