@@ -18,7 +18,7 @@
 		"generate:embeddings": "bun run scripts/generate-embeddings.ts"
 	},
 	"dependencies": {
-		"@astrojs/cloudflare": "^12.6.12",
+		"@astrojs/cloudflare": "^13.0.0",
 		"@astrojs/markdown-remark": "^6.3.10",
 		"@astrojs/mdx": "^4.3.13",
 		"@astrojs/rss": "^4.0.14",
