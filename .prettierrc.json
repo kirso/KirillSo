@@ -1,8 +1,7 @@
 {
 	"endOfLine": "lf",
 	"trailingComma": "all",
-	"printWidth": 80,
-	"tabWidth": 2,
+	"printWidth": 100,
 	"semi": true,
 	"singleQuote": false,
 	"plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
@@ -13,5 +12,6 @@
 				"parser": "astro"
 			}
 		}
-	]
+	],
+	"useTabs": true
 }
