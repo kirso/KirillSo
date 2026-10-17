@@ -1,8 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import Note from "@/components/note/Note.astro";
-import PageLayout from "@/layouts/Base.astro";
 import Schema from "@/components/Schema.astro";
+import PageLayout from "@/layouts/Base.astro";
 import { collectionDateSort } from "@/utils/date";
 
 export const prerender = true;
@@ -13,8 +13,7 @@ const sortedNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES_PER_PAG
 const totalNotes = allNotes.length;
 
 const meta = {
-	description:
-		"Brief reflections on tech, philosophy, and everything between.",
+	description: "Brief reflections on tech, philosophy, and everything between.",
 	title: "Notes",
 };
 ---

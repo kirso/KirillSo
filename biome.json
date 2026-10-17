@@ -9,7 +9,10 @@
 			"!**/.vercel",
 			"!**/.netlify",
 			"!**/.vscode",
-			"!**/.astro"
+			"!**/.astro",
+			"!**/.claude",
+			"!**/.data",
+			"!src/data/embeddings"
 		]
 	},
 	"formatter": {
@@ -19,7 +22,11 @@
 		"lineWidth": 100,
 		"expand": "auto"
 	},
-	"vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
 	"assist": {
 		"actions": {
 			"source": {
@@ -47,7 +54,9 @@
 				"noUselessElse": "error",
 				"useImportType": "error"
 			},
-			"suspicious": { "noExplicitAny": "warn" }
+			"suspicious": {
+				"noExplicitAny": "warn"
+			}
 		}
 	},
 	"javascript": {
@@ -57,7 +66,11 @@
 			"bracketSameLine": false
 		}
 	},
-	"html": { "formatter": { "selfCloseVoidElements": "always" } },
+	"html": {
+		"formatter": {
+			"selfCloseVoidElements": "always"
+		}
+	},
 	"css": {
 		"parser": {
 			"tailwindDirectives": true
@@ -72,6 +85,17 @@
 						"useConst": "off",
 						"useImportType": "off"
 					},
+					"correctness": {
+						"noUnusedVariables": "off",
+						"noUnusedImports": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": ["**/*.svelte"],
+			"linter": {
+				"rules": {
 					"correctness": {
 						"noUnusedVariables": "off",
 						"noUnusedImports": "off"

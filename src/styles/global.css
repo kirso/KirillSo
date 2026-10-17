@@ -109,6 +109,10 @@
  * ============================================================================
  */
 
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@config "../../tailwind.config.ts";
+
 /* ============================================================================
    GEIST — Vercel's Modern Sans-Serif
    Clean, tight, excellent for dense UI and catalog aesthetics.
@@ -163,10 +167,6 @@
 	font-display: swap;
 }
 
-@import "tailwindcss";
-@plugin "@tailwindcss/typography";
-@config "../../tailwind.config.ts";
-
 /* Dark mode selector strategy */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
@@ -191,15 +191,15 @@
 	   ======================================== */
 
 	/* Light mode — Dimmer for reduced eye strain (2-3% adjustment) */
-	--color-paper: oklch(0.96 0 0);                    /* #F2F2F2 — dimmer white */
-	--color-ink: oklch(0.20 0 0);                      /* #161616 — softer dark gray */
-	--color-ink-secondary: oklch(0.42 0 0);            /* #4D4D4D — body text */
-	--color-ink-tertiary: oklch(0.50 0 0);             /* #636363 — metadata */
-	--color-rule: oklch(0.82 0 0);                     /* #C9C9C9 — visible borders */
-	--color-rule-light: oklch(0.89 0 0);               /* #E0E0E0 — subtle separators */
-	--color-surface: oklch(0.93 0 0);                  /* #E8E8E8 — cards, code bg */
-	--color-surface-nested: oklch(0.88 0 0);           /* #DFDFDF — elements inside surface */
-	--color-selection: oklch(0.85 0 0);                /* #D4D4D4 — text selection */
+	--color-paper: oklch(0.96 0 0); /* #F2F2F2 — dimmer white */
+	--color-ink: oklch(0.2 0 0); /* #161616 — softer dark gray */
+	--color-ink-secondary: oklch(0.42 0 0); /* #4D4D4D — body text */
+	--color-ink-tertiary: oklch(0.5 0 0); /* #636363 — metadata */
+	--color-rule: oklch(0.82 0 0); /* #C9C9C9 — visible borders */
+	--color-rule-light: oklch(0.89 0 0); /* #E0E0E0 — subtle separators */
+	--color-surface: oklch(0.93 0 0); /* #E8E8E8 — cards, code bg */
+	--color-surface-nested: oklch(0.88 0 0); /* #DFDFDF — elements inside surface */
+	--color-selection: oklch(0.85 0 0); /* #D4D4D4 — text selection */
 
 	/* Semantic aliases for Tailwind utilities */
 	--color-global-bg: var(--color-paper);
@@ -233,19 +233,19 @@
 	   --text-display  24px → 32px   Page titles (h1)
 	   --text-hero     28px → 40px   Hero headlines (optional)
 	*/
-	--text-micro: 0.8125rem;                        /* 13px — distinct metadata hierarchy */
-	--text-body: 1rem;                              /* 16px — browser default, proven readable */
-	--text-large: 1.125rem;                         /* 18px */
-	--text-title: clamp(1.25rem, 1rem + 1vw, 1.5rem);     /* 20px → 24px */
+	--text-micro: 0.8125rem; /* 13px — distinct metadata hierarchy */
+	--text-body: 1rem; /* 16px — browser default, proven readable */
+	--text-large: 1.125rem; /* 18px */
+	--text-title: clamp(1.25rem, 1rem + 1vw, 1.5rem); /* 20px → 24px */
 	--text-display: clamp(1.5rem, 1.15rem + 1.5vw, 2rem); /* 24px → 32px */
 	--text-hero: clamp(1.75rem, 1.2rem + 2.25vw, 2.5rem); /* 28px → 40px */
 
 	/* Line heights */
 	--leading-none: 1;
-	--leading-tight: 1.15;      /* Headings */
-	--leading-snug: 1.3;        /* Titles */
-	--leading-normal: 1.5;      /* UI text */
-	--leading-relaxed: 1.6;     /* Body/reading */
+	--leading-tight: 1.15; /* Headings */
+	--leading-snug: 1.3; /* Titles */
+	--leading-normal: 1.5; /* UI text */
+	--leading-relaxed: 1.6; /* Body/reading */
 	--leading-loose: 1.75;
 
 	/* Letter spacing */
@@ -262,22 +262,21 @@
 
 	--space-px: 1px;
 	--space-0: 0;
-	--space-0-5: 0.125rem;   /* 2px */
-	--space-1: 0.25rem;      /* 4px */
-	--space-1-5: 0.375rem;   /* 6px */
-	--space-2: 0.5rem;       /* 8px */
-	--space-2-5: 0.625rem;   /* 10px */
-	--space-3: 0.75rem;      /* 12px */
-	--space-4: 1rem;         /* 16px */
-	--space-5: 1.25rem;      /* 20px */
-	--space-6: 1.5rem;       /* 24px */
-	--space-8: 2rem;         /* 32px */
-	--space-10: 2.5rem;      /* 40px */
-	--space-12: 3rem;        /* 48px */
-	--space-16: 4rem;        /* 64px */
-	--space-20: 5rem;        /* 80px */
-	--space-24: 6rem;        /* 96px */
-
+	--space-0-5: 0.125rem; /* 2px */
+	--space-1: 0.25rem; /* 4px */
+	--space-1-5: 0.375rem; /* 6px */
+	--space-2: 0.5rem; /* 8px */
+	--space-2-5: 0.625rem; /* 10px */
+	--space-3: 0.75rem; /* 12px */
+	--space-4: 1rem; /* 16px */
+	--space-5: 1.25rem; /* 20px */
+	--space-6: 1.5rem; /* 24px */
+	--space-8: 2rem; /* 32px */
+	--space-10: 2.5rem; /* 40px */
+	--space-12: 3rem; /* 48px */
+	--space-16: 4rem; /* 64px */
+	--space-20: 5rem; /* 80px */
+	--space-24: 6rem; /* 96px */
 
 	/* ========================================
 	   BORDER RADIUS — Sharp editorial default
@@ -287,9 +286,9 @@
 	   ======================================== */
 
 	--radius-none: 0;
-	--radius-sm: 0.25rem;                              /* 4px — buttons, inputs */
-	--radius-md: 0.375rem;                             /* 6px — rare, soft cards */
-	--radius-full: 9999px;                             /* Pills, avatars */
+	--radius-sm: 0.25rem; /* 4px — buttons, inputs */
+	--radius-md: 0.375rem; /* 6px — rare, soft cards */
+	--radius-full: 9999px; /* Pills, avatars */
 
 	/* ========================================
 	   EASING CURVES — Refined Transitions
@@ -321,15 +320,15 @@
 			   Same philosophy as light mode.
 			   ======================================== */
 
-			--color-paper: oklch(0.12 0 0);                   /* #060606 — deeper dark */
-			--color-ink: oklch(0.87 0 0);                     /* #D4D4D4 — softer white */
-			--color-ink-secondary: oklch(0.69 0 0);           /* #9B9B9B — body text */
-			--color-ink-tertiary: oklch(0.62 0 0);            /* #868686 — metadata */
-			--color-rule: oklch(0.28 0 0);                    /* #3D3D3D — visible borders */
-			--color-rule-light: oklch(0.22 0 0);              /* #303030 — subtle separators */
-			--color-surface: oklch(0.18 0 0);                 /* #121212 — cards, code bg (more visible) */
-			--color-surface-nested: oklch(0.24 0 0);          /* #363636 — elements inside surface */
-			--color-selection: oklch(0.30 0 0);               /* #454545 — text selection */
+			--color-paper: oklch(0.12 0 0); /* #060606 — deeper dark */
+			--color-ink: oklch(0.87 0 0); /* #D4D4D4 — softer white */
+			--color-ink-secondary: oklch(0.69 0 0); /* #9B9B9B — body text */
+			--color-ink-tertiary: oklch(0.62 0 0); /* #868686 — metadata */
+			--color-rule: oklch(0.28 0 0); /* #3D3D3D — visible borders */
+			--color-rule-light: oklch(0.22 0 0); /* #303030 — subtle separators */
+			--color-surface: oklch(0.18 0 0); /* #121212 — cards, code bg (more visible) */
+			--color-surface-nested: oklch(0.24 0 0); /* #363636 — elements inside surface */
+			--color-selection: oklch(0.3 0 0); /* #454545 — text selection */
 
 			/* Update semantic aliases */
 			--color-global-bg: var(--color-paper);
@@ -353,7 +352,9 @@
 		-moz-osx-font-smoothing: grayscale;
 
 		/* OpenType features — ligatures & contextual alternates */
-		font-feature-settings: "liga" 1, "calt" 1;
+		font-feature-settings:
+			"liga" 1,
+			"calt" 1;
 		font-variant-ligatures: common-ligatures contextual;
 
 		/* Base typography — Geist optimized */
@@ -420,10 +421,14 @@
 	}
 
 	@keyframes vt-fade-out {
-		to { opacity: 0; }
+		to {
+			opacity: 0;
+		}
 	}
 	@keyframes vt-fade-in {
-		from { opacity: 0; }
+		from {
+			opacity: 0;
+		}
 	}
 
 	/* Smooth anchor scrolling */
@@ -497,7 +502,6 @@
 	line-height: var(--leading-normal);
 }
 
-
 /* ============================================================================
    LINK SYSTEM
    ============================================================================
@@ -525,7 +529,9 @@
 	text-decoration: underline;
 	text-underline-offset: 3px;
 	text-decoration-thickness: 1px;
-	transition: color 150ms var(--ease-out), text-decoration-thickness 150ms var(--ease-out);
+	transition:
+		color 150ms var(--ease-out),
+		text-decoration-thickness 150ms var(--ease-out);
 }
 @media (hover: hover) {
 	.link-muted:hover {
@@ -583,7 +589,9 @@ a.tag::after {
 	color: var(--color-ink-secondary);
 	border: 1px solid var(--color-rule);
 	border-radius: var(--radius-none);
-	transition: border-color 150ms var(--ease-out), color 150ms var(--ease-out);
+	transition:
+		border-color 150ms var(--ease-out),
+		color 150ms var(--ease-out);
 }
 @media (hover: hover) {
 	.tag:hover {
@@ -829,7 +837,9 @@ a.tag::after {
 	text-decoration: underline;
 	text-underline-offset: 3px;
 	text-decoration-thickness: 1px;
-	transition: color 150ms var(--ease-out), text-decoration-thickness 150ms var(--ease-out);
+	transition:
+		color 150ms var(--ease-out),
+		text-decoration-thickness 150ms var(--ease-out);
 }
 
 @media (hover: hover) {
@@ -838,7 +848,6 @@ a.tag::after {
 		text-decoration-thickness: 2px;
 	}
 }
-
 
 /* ============================================================================
    BLOCKQUOTE — Geometric Frame with Corner Brackets
@@ -1053,7 +1062,6 @@ blockquote cite::before {
 	content: "№ ";
 }
 
-
 /* Chevron List — Angular list markers (›)
    Usage: <ul class="chevron-list"><li>Item</li></ul>
    ============================================================================ */
@@ -1082,7 +1090,9 @@ blockquote cite::before {
 	font-variant-numeric: tabular-nums;
 	/* Disable ligatures in monospace — code should be literal */
 	font-variant-ligatures: none;
-	font-feature-settings: "liga" 0, "calt" 0;
+	font-feature-settings:
+		"liga" 0,
+		"calt" 0;
 }
 
 /* Geometric Table — Fieldset with legend for label-in-border effect
@@ -1119,7 +1129,9 @@ blockquote cite::before {
 	color: var(--color-ink-secondary);
 	text-decoration: none;
 	border-top: 1px solid var(--color-rule-light);
-	transition: background-color 150ms var(--ease-out), color 150ms var(--ease-out);
+	transition:
+		background-color 150ms var(--ease-out),
+		color 150ms var(--ease-out);
 }
 
 .geo-table-row:first-of-type {
@@ -1135,7 +1147,9 @@ blockquote cite::before {
 
 .geo-table-row span {
 	color: var(--color-ink-tertiary);
-	transition: color 150ms var(--ease-out), transform 150ms var(--ease-out);
+	transition:
+		color 150ms var(--ease-out),
+		transform 150ms var(--ease-out);
 }
 
 @media (hover: hover) {
@@ -1159,7 +1173,6 @@ blockquote cite::before {
 	content: "◆";
 	font-size: var(--text-micro);
 }
-
 
 /* Post Row — Title with leader line to date
    Usage: <li class="post-row">
@@ -1224,7 +1237,6 @@ blockquote cite::before {
 	}
 }
 
-
 /* Reading Progress Bar — Scroll progress indicator for articles
    Usage: <div class="reading-progress"></div> at top of page
    JavaScript required: update --scroll-progress custom property
@@ -1252,7 +1264,6 @@ blockquote cite::before {
 	transform-origin: left;
 	transition: transform 50ms linear;
 }
-
 
 /* Dot Grid — Subtle engineering paper texture background
    Usage: <div class="dot-grid">featured content</div>
@@ -1284,7 +1295,6 @@ blockquote cite::before {
 	height: 1px;
 	background: var(--color-rule);
 }
-
 
 /* ============================================================================
    PRINT STYLESHEET
@@ -1325,13 +1335,18 @@ blockquote cite::before {
 	}
 
 	/* Avoid page breaks inside elements */
-	pre, blockquote, figure, img {
+	pre,
+	blockquote,
+	figure,
+	img {
 		break-inside: avoid;
 	}
 
 	/* Keep headings with their content */
-	h1, h2, h3, h4 {
+	h1,
+	h2,
+	h3,
+	h4 {
 		break-after: avoid;
 	}
 }
-

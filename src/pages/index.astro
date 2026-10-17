@@ -1,13 +1,13 @@
 ---
 import { Image } from "astro:assets";
 import { type CollectionEntry, getCollection, render } from "astro:content";
+import headshot from "@/assets/img/headshot.png";
 import Card from "@/components/Card.astro";
 import FormattedDate from "@/components/FormattedDate.astro";
 import Note from "@/components/note/Note.astro";
 import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import { collectionDateSort } from "@/utils/date";
-import headshot from "@/assets/img/headshot.png";
 
 export const prerender = true;
 
@@ -15,14 +15,14 @@ export const prerender = true;
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
 const allPostsByDate = allPosts
-  .sort(collectionDateSort)
-  .slice(0, MAX_POSTS) as CollectionEntry<"post">[];
+	.sort(collectionDateSort)
+	.slice(0, MAX_POSTS) as CollectionEntry<"post">[];
 
 // Get reading times (runs at build time only)
 const readingTimes = new Map<string, string>();
 for (const post of allPostsByDate) {
-  const { remarkPluginFrontmatter } = await render(post);
-  readingTimes.set(post.id, remarkPluginFrontmatter.readingTime);
+	const { remarkPluginFrontmatter } = await render(post);
+	readingTimes.set(post.id, remarkPluginFrontmatter.readingTime);
 }
 
 // Notes
@@ -31,31 +31,36 @@ const allNotes = await getCollection("note");
 const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 
 // Projects
-const projects: { title: string; to: string; description: string; status: "active" | "archived" }[] = [
-  {
-    title: "Keepsake",
-    to: "https://www.makekeepsake.com",
-    description: "Preserve your family memories",
-    status: "active",
-  },
-  {
-    title: "Google clone",
-    to: "/posts/google-clone/",
-    description: "Search with Google API",
-    status: "archived",
-  },
-  {
-    title: "Panic theme",
-    to: "https://github.com/kirso/logseq-panic-theme",
-    description: "A theme for Logseq",
-    status: "archived",
-  },
-  {
-    title: "Schwiftyverse",
-    to: "https://schwiftyverse.vercel.app/",
-    description: "GIFs on Solana blockchain",
-    status: "archived",
-  },
+const projects: {
+	title: string;
+	to: string;
+	description: string;
+	status: "active" | "archived";
+}[] = [
+	{
+		title: "Keepsake",
+		to: "https://www.makekeepsake.com",
+		description: "Preserve your family memories",
+		status: "active",
+	},
+	{
+		title: "Google clone",
+		to: "/posts/google-clone/",
+		description: "Search with Google API",
+		status: "archived",
+	},
+	{
+		title: "Panic theme",
+		to: "https://github.com/kirso/logseq-panic-theme",
+		description: "A theme for Logseq",
+		status: "archived",
+	},
+	{
+		title: "Schwiftyverse",
+		to: "https://schwiftyverse.vercel.app/",
+		description: "GIFs on Solana blockchain",
+		status: "archived",
+	},
 ];
 ---
 

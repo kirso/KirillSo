@@ -1,119 +1,189 @@
 ---
-import BaseLayout from "@/layouts/Base.astro";
 import Schema from "@/components/Schema.astro";
+import BaseLayout from "@/layouts/Base.astro";
 
 export const prerender = true;
 
 const meta = {
-  title: "About",
-  description: "Product leader, explorer, lifelong learner. Building things and writing about it.",
+	title: "About",
+	description: "Product leader, explorer, lifelong learner. Building things and writing about it.",
 };
 
 // FAQ data for Answer Engine Optimization
 const faqs = [
-  {
-    question: "What's your background?",
-    answer: "I've spent 10+ years building products at startups and scale-ups across 6 countries (Germany, UK, US, Singapore, Australia, Czech Republic). Most recently Principal PM at Delivery Hero, shipping growth features that drove millions in revenue."
-  },
-  {
-    question: "What are you doing now?",
-    answer: "Building Epigraf, a human-centric product studio. Experimenting with AI tools, writing more consistently, and staying curious."
-  },
-  {
-    question: "What do you invest in?",
-    answer: "I invest in calm companies through the Calm Company Fund, focused on software value investing. I back builders who prioritize sustainable growth over hype. Also have small positions in select public tech companies."
-  },
-  {
-    question: "How can I contact you?",
-    answer: "Best ways to reach me: Twitter/X DMs (@kirso_) or LinkedIn. I respond to thoughtful messages about product, startups, or interesting projects."
-  },
-  {
-    question: "What topics do you write about?",
-    answer: "I write about product management, startups, technology, building things, and lifelong learning. My posts often explore the intersection of these areas with personal reflections on craft, experimentation, and working in tech across different cultures."
-  },
-  {
-    question: "What tools do you use?",
-    answer: "I build with Astro, Svelte, and Tailwind. For AI-assisted coding I use Claude Code and Codex CLI. Check out my /uses page for a full breakdown of hardware, software, and setup."
-  },
-  {
-    question: "What books do you recommend?",
-    answer: "Some of my favorites include The Psychology of Money, Thinking Fast and Slow, The Mom Test, and The Almanack of Naval Ravikant. Visit my /reading page for a full list of books that have shaped my thinking."
-  },
-  {
-    question: "How did you get into product management?",
-    answer: "I started with a startup in 2011, moved to Berlin's startup scene in 2012 to join a venture studio, then got hands-on startup experience at Remerge before transitioning into product management at Delivery Hero where I became Principal PM."
-  }
+	{
+		question: "What's your background?",
+		answer:
+			"I've spent 10+ years building products at startups and scale-ups across 6 countries (Germany, UK, US, Singapore, Australia, Czech Republic). Most recently Principal PM at Delivery Hero, shipping growth features that drove millions in revenue.",
+	},
+	{
+		question: "What are you doing now?",
+		answer:
+			"Building Epigraf, a human-centric product studio. Experimenting with AI tools, writing more consistently, and staying curious.",
+	},
+	{
+		question: "What do you invest in?",
+		answer:
+			"I invest in calm companies through the Calm Company Fund, focused on software value investing. I back builders who prioritize sustainable growth over hype. Also have small positions in select public tech companies.",
+	},
+	{
+		question: "How can I contact you?",
+		answer:
+			"Best ways to reach me: Twitter/X DMs (@kirso_) or LinkedIn. I respond to thoughtful messages about product, startups, or interesting projects.",
+	},
+	{
+		question: "What topics do you write about?",
+		answer:
+			"I write about product management, startups, technology, building things, and lifelong learning. My posts often explore the intersection of these areas with personal reflections on craft, experimentation, and working in tech across different cultures.",
+	},
+	{
+		question: "What tools do you use?",
+		answer:
+			"I build with Astro, Svelte, and Tailwind. For AI-assisted coding I use Claude Code and Codex CLI. Check out my /uses page for a full breakdown of hardware, software, and setup.",
+	},
+	{
+		question: "What books do you recommend?",
+		answer:
+			"Some of my favorites include The Psychology of Money, Thinking Fast and Slow, The Mom Test, and The Almanack of Naval Ravikant. Visit my /reading page for a full list of books that have shaped my thinking.",
+	},
+	{
+		question: "How did you get into product management?",
+		answer:
+			"I started with a startup in 2011, moved to Berlin's startup scene in 2012 to join a venture studio, then got hands-on startup experience at Remerge before transitioning into product management at Delivery Hero where I became Principal PM.",
+	},
 ];
 
 interface TimelineEntry {
-  year: string;
-  text: string;
-  link?: { url: string; label: string };
+	year: string;
+	text: string;
+	link?: { url: string; label: string };
 }
 
 const timeline: TimelineEntry[] = [
-  { year: "2024", text: "Left Delivery Hero after shipping growth features that drove millions in revenue. Got married. Started this sabbatical." },
-  { year: "2022", text: "Joined Delivery Hero as Principal PM. Shipped growth features across 50+ countries. Scale changes how you think about tradeoffs." },
-  { year: "2020", text: "Joined Antler to work on ML tooling. Learned about VC economics and intrinsic motivation.", link: { url: "https://www.antler.co/", label: "Antler" } },
-  { year: "2018", text: "Moved to Singapore. Worked on fraud detection using blockchain and external data at SEA's largest C2C marketplace." },
-  { year: "2015", text: "Joined Remerge at 10 people. Left at 100. True 0-to-1 startup experience.", link: { url: "https://venturebeat.com/2014/10/03/1-million-seed-funding-led-by-point-nine-capital-investing-in-remerge-was-a-no-brainer-for-us/", label: "Remerge" } },
-  { year: "2014", text: "Started a mobile UA agency. Hit $30k MRR in month one. Bank shut it down a year later. First taste of digital nomad life in Thailand." },
-  { year: "2012", text: "Moved to Berlin during the startup boom. Joined a venture studio and watched mobile overtake web from front-row seats.", link: { url: "https://www.ioniq.com/", label: "venture studio" } },
-  { year: "2011", text: "First startup. Copied a US business model. Printed business cards before finding customers. Learned the hard way." },
-  { year: "2010", text: "First job at a private equity fund. Helped raise $200m for renewable energy projects in CEE.", link: { url: "https://www.enercap.com/", label: "private equity fund" } },
+	{
+		year: "2024",
+		text: "Left Delivery Hero after shipping growth features that drove millions in revenue. Got married. Started this sabbatical.",
+	},
+	{
+		year: "2022",
+		text: "Joined Delivery Hero as Principal PM. Shipped growth features across 50+ countries. Scale changes how you think about tradeoffs.",
+	},
+	{
+		year: "2020",
+		text: "Joined Antler to work on ML tooling. Learned about VC economics and intrinsic motivation.",
+		link: { url: "https://www.antler.co/", label: "Antler" },
+	},
+	{
+		year: "2018",
+		text: "Moved to Singapore. Worked on fraud detection using blockchain and external data at SEA's largest C2C marketplace.",
+	},
+	{
+		year: "2015",
+		text: "Joined Remerge at 10 people. Left at 100. True 0-to-1 startup experience.",
+		link: {
+			url: "https://venturebeat.com/2014/10/03/1-million-seed-funding-led-by-point-nine-capital-investing-in-remerge-was-a-no-brainer-for-us/",
+			label: "Remerge",
+		},
+	},
+	{
+		year: "2014",
+		text: "Started a mobile UA agency. Hit $30k MRR in month one. Bank shut it down a year later. First taste of digital nomad life in Thailand.",
+	},
+	{
+		year: "2012",
+		text: "Moved to Berlin during the startup boom. Joined a venture studio and watched mobile overtake web from front-row seats.",
+		link: { url: "https://www.ioniq.com/", label: "venture studio" },
+	},
+	{
+		year: "2011",
+		text: "First startup. Copied a US business model. Printed business cards before finding customers. Learned the hard way.",
+	},
+	{
+		year: "2010",
+		text: "First job at a private equity fund. Helped raise $200m for renewable energy projects in CEE.",
+		link: { url: "https://www.enercap.com/", label: "private equity fund" },
+	},
 ];
 
 interface Interest {
-  title: string;
-  description: string;
-  link?: { url: string; label: string };
+	title: string;
+	description: string;
+	link?: { url: string; label: string };
 }
 
 const interests: Interest[] = [
-  { title: "Building", description: "Building software since 2012. Proponent of the builder's mindset. Currently focused on web development and AI tooling.", link: { url: "https://builders.genagorlin.com/p/the-builders-mindset-a-way-out-of", label: "builder's mindset" } },
-  { title: "Design", description: "Believe design is an underrated moat. Inspired by Linear's philosophy of raising the bar.", link: { url: "https://twitter.com/karrisaarinen/status/1762980712863695118", label: "raising the bar" } },
-  { title: "Communities", description: "Obsessed with French Salons as \"raves for the intellect.\" Exploring how to fix loneliness and create third places.", link: { url: "https://thesalonhost.com/what-is-a-salon/", label: "French Salons" } },
-  { title: "Calm companies", description: "Invested in Calm Company Fund. Interested in software value investing.", link: { url: "https://calmfund.com/", label: "Calm Company Fund" } },
+	{
+		title: "Building",
+		description:
+			"Building software since 2012. Proponent of the builder's mindset. Currently focused on web development and AI tooling.",
+		link: {
+			url: "https://builders.genagorlin.com/p/the-builders-mindset-a-way-out-of",
+			label: "builder's mindset",
+		},
+	},
+	{
+		title: "Design",
+		description:
+			"Believe design is an underrated moat. Inspired by Linear's philosophy of raising the bar.",
+		link: {
+			url: "https://twitter.com/karrisaarinen/status/1762980712863695118",
+			label: "raising the bar",
+		},
+	},
+	{
+		title: "Communities",
+		description:
+			'Obsessed with French Salons as "raves for the intellect." Exploring how to fix loneliness and create third places.',
+		link: { url: "https://thesalonhost.com/what-is-a-salon/", label: "French Salons" },
+	},
+	{
+		title: "Calm companies",
+		description: "Invested in Calm Company Fund. Interested in software value investing.",
+		link: { url: "https://calmfund.com/", label: "Calm Company Fund" },
+	},
 ];
 
 const principles = [
-  "Living a calm and examined life",
-  "Beginner's mind, tiny experiments",
-  "Mastery through lifelong learning",
-  "Non-conformity, quietly hungry",
-  "Embracing your own path",
+	"Living a calm and examined life",
+	"Beginner's mind, tiny experiments",
+	"Mastery through lifelong learning",
+	"Non-conformity, quietly hungry",
+	"Embracing your own path",
 ];
 
 const influences = {
-  ideas: [
-    { title: "Awakening from the Meaning Crisis", url: "https://www.meaningcrisis.co/" },
-    { title: "This is Water", url: "https://www.youtube.com/watch?v=OsAd4HGJS4o" },
-    { title: "The Egg", url: "https://www.youtube.com/watch?v=h6fcK_fRYaI" },
-    { title: "Everything is a Remix", url: "https://www.youtube.com/watch?v=X9RYuvPCQUA" },
-  ],
-  people: [
-    { name: "Derek Sivers", url: "https://sive.rs/" },
-    { name: "Charlie Munger", url: "https://commoncog.com/one-definition-of-wisdom/" },
-    { name: "Bruce Lee", url: "https://brucelee.com/" },
-    { name: "Edward Thorp", url: "https://www.edwardothorp.com/" },
-  ],
+	ideas: [
+		{ title: "Awakening from the Meaning Crisis", url: "https://www.meaningcrisis.co/" },
+		{ title: "This is Water", url: "https://www.youtube.com/watch?v=OsAd4HGJS4o" },
+		{ title: "The Egg", url: "https://www.youtube.com/watch?v=h6fcK_fRYaI" },
+		{ title: "Everything is a Remix", url: "https://www.youtube.com/watch?v=X9RYuvPCQUA" },
+	],
+	people: [
+		{ name: "Derek Sivers", url: "https://sive.rs/" },
+		{ name: "Charlie Munger", url: "https://commoncog.com/one-definition-of-wisdom/" },
+		{ name: "Bruce Lee", url: "https://brucelee.com/" },
+		{ name: "Edward Thorp", url: "https://www.edwardothorp.com/" },
+	],
 };
 
 const investments = {
-  private: [
-    { name: "Calm Company Fund", url: "https://calmfund.com/" },
-    { name: "Replit", url: "https://replit.com/" },
-  ],
-  public: [
-    { name: "$VWRA", url: "https://www.vanguardmexico.com/en/product/etf/equity/9679/vanguard-ftse-all-world-ucits-etf-usd-accumulating" },
-    { name: "$U", url: "https://www.google.com/finance/quote/U:NYSE" },
-    { name: "$SE", url: "https://www.google.com/finance/quote/SE:NYSE" },
-  ],
+	private: [
+		{ name: "Calm Company Fund", url: "https://calmfund.com/" },
+		{ name: "Replit", url: "https://replit.com/" },
+	],
+	public: [
+		{
+			name: "$VWRA",
+			url: "https://www.vanguardmexico.com/en/product/etf/equity/9679/vanguard-ftse-all-world-ucits-etf-usd-accumulating",
+		},
+		{ name: "$U", url: "https://www.google.com/finance/quote/U:NYSE" },
+		{ name: "$SE", url: "https://www.google.com/finance/quote/SE:NYSE" },
+	],
 };
 
 const supporting = [
-  { name: "FreeCodeCamp", url: "https://www.freecodecamp.org/donate" },
-  { name: "Charity:water", url: "https://www.charitywater.org/kirso" },
+	{ name: "FreeCodeCamp", url: "https://www.freecodecamp.org/donate" },
+	{ name: "Charity:water", url: "https://www.charitywater.org/kirso" },
 ];
 ---
 

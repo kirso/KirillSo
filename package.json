@@ -14,7 +14,7 @@
 		"preview": "astro preview",
 		"check": "astro check && biome check",
 		"lint": "biome check --write",
-		"format": "prettier -w . --cache",
+		"format": "biome format --write",
 		"generate:embeddings": "bun run scripts/generate-embeddings.ts"
 	},
 	"dependencies": {

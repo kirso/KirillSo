@@ -14,8 +14,7 @@ export const siteConfig: SiteConfig = {
 		},
 	},
 	// Used as the default description meta property and webmanifest description
-	description:
-		"Kirill So — product manager, builder, and occasional writer.",
+	description: "Kirill So — product manager, builder, and occasional writer.",
 	// HTML lang property, found in src/layouts/Base.astro L:18 & astro.config.ts L:48
 	lang: "en-GB",
 	// Meta property, found in src/components/BaseHead.astro L:42

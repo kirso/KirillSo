@@ -1,12 +1,11 @@
 ---
 import { type CollectionEntry, render } from "astro:content";
-
-import Masthead from "@/components/blog/Masthead.astro";
-import Schema from "@/components/Schema.astro";
-import TOC from "@/components/blog/TOC.astro";
-import RelatedPosts from "@/components/blog/RelatedPosts.astro";
 import AuthorBio from "@/components/blog/AuthorBio.astro";
+import Masthead from "@/components/blog/Masthead.astro";
+import RelatedPosts from "@/components/blog/RelatedPosts.astro";
+import TOC from "@/components/blog/TOC.astro";
 import WebMentions from "@/components/blog/webmentions/index.astro";
+import Schema from "@/components/Schema.astro";
 
 import BaseLayout from "./Base.astro";
 
@@ -22,16 +21,17 @@ const { headings, remarkPluginFrontmatter } = await render(post);
 const readingTime: string = remarkPluginFrontmatter.readingTime;
 
 // Extract word count from reading time (format: "X min read")
-const wordCount = remarkPluginFrontmatter.words || Math.round(parseInt(readingTime) * 200);
+const wordCount =
+	remarkPluginFrontmatter.words || Math.round(Number.parseInt(readingTime, 10) * 200);
 
 // Use first tag as article section, fallback to "Blog"
 const articleSection = tags?.[0] || "Blog";
 
 // Breadcrumbs for structured data
 const breadcrumbs = [
-  { name: "Home", url: "/" },
-  { name: "Blog", url: "/posts/" },
-  { name: title, url: Astro.url.pathname }
+	{ name: "Home", url: "/" },
+	{ name: "Blog", url: "/posts/" },
+	{ name: title, url: Astro.url.pathname },
 ];
 ---
 

@@ -1,24 +1,24 @@
 ---
-import BaseLayout from "@/layouts/Base.astro";
+import BooksRead from "@/components/reading/BooksRead.astro";
+import CurrentlyReading from "@/components/reading/CurrentlyReading.astro";
 import Schema from "@/components/Schema.astro";
 import Skeleton from "@/components/Skeleton.astro";
-import CurrentlyReading from "@/components/reading/CurrentlyReading.astro";
-import BooksRead from "@/components/reading/BooksRead.astro";
-import { influentialBooks, GOODREADS_PROFILE_URL } from "@/data/books";
+import { GOODREADS_PROFILE_URL, influentialBooks } from "@/data/books";
+import BaseLayout from "@/layouts/Base.astro";
 
 export const prerender = true;
 
 const meta = {
-  title: "Reading",
-  description: "Books that shaped my thinking.",
+	title: "Reading",
+	description: "Books that shaped my thinking.",
 };
 
 // Flatten books for collection schema
-const bookCollectionItems = influentialBooks.flatMap(cat =>
-  cat.books.map(book => ({
-    name: book.title,
-    description: `by ${book.author}${book.note ? ` — ${book.note}` : ""}`,
-  }))
+const bookCollectionItems = influentialBooks.flatMap((cat) =>
+	cat.books.map((book) => ({
+		name: book.title,
+		description: `by ${book.author}${book.note ? ` — ${book.note}` : ""}`,
+	})),
 );
 ---
 
