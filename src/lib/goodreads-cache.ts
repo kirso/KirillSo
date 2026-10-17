@@ -5,6 +5,11 @@
 
 const CACHE_TTL = 3600; // 1 hour in seconds
 
+// Goodreads returns 403 to requests without a User-Agent (the Workers runtime sends none)
+const FETCH_INIT: RequestInit = {
+  headers: { "User-Agent": "kirillso.com reading page (+https://www.kirillso.com/reading/)" },
+};
+
 export async function fetchCachedGoodreadsXML(url: string): Promise<string | null> {
   try {
     // Try Cloudflare Cache API
@@ -16,7 +21,7 @@ export async function fetchCachedGoodreadsXML(url: string): Promise<string | nul
         return cached.text();
       }
 
-      const response = await fetch(url);
+      const response = await fetch(url, FETCH_INIT);
       if (!response.ok) return null;
 
       const xml = await response.text();
@@ -39,7 +44,7 @@ export async function fetchCachedGoodreadsXML(url: string): Promise<string | nul
 
   // Fallback: direct fetch
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, FETCH_INIT);
     if (!response.ok) return null;
     return response.text();
   } catch {
