@@ -2,6 +2,8 @@
 import BaseLayout from "@/layouts/Base.astro";
 import Schema from "@/components/Schema.astro";
 
+export const prerender = true;
+
 const meta = {
   title: "About",
   description: "Product leader, explorer, lifelong learner. Building things and writing about it.",
@@ -163,9 +165,8 @@ const supporting = [
             <p class="timeline-text">
               {entry.link ? (
                 <>
-                  {entry.text.split(entry.link.label)[0]}
-                  <a href={entry.link.url} class="link" target="_blank" rel="noopener">{entry.link.label}</a>
-                  {entry.text.split(entry.link.label)[1]}
+                  {/* One line: whitespace between these would render as a space before the punctuation */}
+                  {entry.text.split(entry.link.label)[0]}<a href={entry.link.url} class="link" target="_blank" rel="noopener">{entry.link.label}</a>{entry.text.split(entry.link.label)[1]}
                 </>
               ) : (
                 entry.text
@@ -189,9 +190,8 @@ const supporting = [
             <p class="text-text-secondary leading-relaxed">
               {interest.link ? (
                 <>
-                  {interest.description.split(interest.link.label)[0]}
-                  <a href={interest.link.url} class="link" target="_blank" rel="noopener">{interest.link.label}</a>
-                  {interest.description.split(interest.link.label)[1]}
+                  {/* One line: whitespace between these would render as a space before the punctuation */}
+                  {interest.description.split(interest.link.label)[0]}<a href={interest.link.url} class="link" target="_blank" rel="noopener">{interest.link.label}</a>{interest.description.split(interest.link.label)[1]}
                 </>
               ) : (
                 interest.description

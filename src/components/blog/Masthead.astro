@@ -35,6 +35,8 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
             fetchpriority="high"
             loading="eager"
             src={data.coverImage.src}
+            widths={[640, 960, 1280]}
+            sizes="(min-width: 42rem) 38rem, 100vw"
           />
         </div>
         {data.coverImage.credit && (
@@ -85,8 +87,9 @@ const dateTimeOptions: Intl.DateTimeFormatOptions = {
     <Image
       src={headshot}
       alt={siteConfig.author}
-      class="h-10 w-10 rounded-full object-cover grayscale transition-all group-hover:grayscale-0"
+      class="h-10 w-10 rounded-full object-cover grayscale transition-[filter] group-hover:grayscale-0"
       loading="eager"
+      width={47}
     />
     <p class="font-medium leading-tight">{siteConfig.author}</p>
   </a>

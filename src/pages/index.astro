@@ -9,6 +9,8 @@ import PageLayout from "@/layouts/Base.astro";
 import { collectionDateSort } from "@/utils/date";
 import headshot from "@/assets/img/headshot.png";
 
+export const prerender = true;
+
 // Posts
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
@@ -65,6 +67,7 @@ const projects: { title: string; to: string; description: string; status: "activ
         src={headshot}
         alt="Kirill So"
         loading="eager"
+        width={112}
         class="h-24 w-24 shrink-0 rounded-full object-cover grayscale"
       />
       <div class="text-text-secondary flex-1">

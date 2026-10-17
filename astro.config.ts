@@ -25,7 +25,10 @@ import { expressiveCodeOptions, siteConfig } from "./src/site.config";
 export default defineConfig({
 	site: siteConfig.url,
 	image: {
-		domains: ["webmention.io"],
+		// img.youtube.com: video thumbnails in posts get sized and lazy-loaded at build time
+		domains: ["webmention.io", "img.youtube.com"],
+		// Responsive srcset for every image, including Markdown ones; styles live in global.css
+		layout: "constrained",
 	},
 	integrations: [
 		svelte(),
