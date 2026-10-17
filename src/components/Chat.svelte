@@ -42,7 +42,8 @@ const canSubmit = $derived(!isStreaming && !isLoading && inputValue.trim().lengt
 
 // Effects
 $effect(() => {
-	if (isOpen && inputRef) {
+	// Skip autofocus on touch devices so the on-screen keyboard doesn't pop up
+	if (isOpen && inputRef && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
 		inputRef.focus();
 	}
 });
@@ -92,7 +93,8 @@ function startResize(e: MouseEvent) {
 function handleResize(e: MouseEvent) {
 	if (!isResizing) return;
 	const delta = startY - e.clientY;
-	const newHeight = Math.min(Math.max(startHeight + delta, 384), window.innerHeight * 0.8);
+	const minHeight = Math.min(384, window.innerHeight * 0.7);
+	const newHeight = Math.min(Math.max(startHeight + delta, minHeight), window.innerHeight * 0.8);
 	chatHeight = newHeight;
 }
 
@@ -193,22 +195,22 @@ async function handleSubmit(e: Event) {
 
 <div class="fixed right-5 bottom-20 z-50">
 	<button
-		class="border border-[var(--color-border)] bg-[var(--color-global-bg)] px-4 py-2 text-sm font-medium text-[var(--color-global-text)] transition-all hover:border-[var(--color-global-text)] hover:bg-[var(--color-global-text)] hover:text-[var(--color-global-bg)]"
-		aria-label={isOpen ? "Close chat" : "Open chat"}
+		class="min-h-11 border border-[var(--color-border)] bg-[var(--color-global-bg)] px-4 py-2 text-sm font-medium text-[var(--color-global-text)] transition-colors hover:border-[var(--color-global-text)] hover:bg-[var(--color-global-text)] hover:text-[var(--color-global-bg)]"
 		aria-expanded={isOpen}
+		aria-controls="chat-panel"
 		onclick={toggleChat}
 	>
-		Chat →
+		{isOpen ? "Close" : "Chat →"}
 	</button>
 
 	{#if isOpen}
 		<div
 			bind:this={chatWindowRef}
-			class="absolute right-0 bottom-12 flex flex-col overflow-hidden border border-[var(--color-border)] bg-[var(--color-global-bg)] shadow-lg"
-			style="height: {chatHeight}px; width: 320px; max-height: 80vh; min-height: 384px;"
+			id="chat-panel"
+			class="absolute right-0 bottom-14 flex w-[calc(100vw-2.5rem)] flex-col overflow-hidden border border-[var(--color-border)] bg-[var(--color-global-bg)] shadow-lg sm:w-80"
+			style="height: {chatHeight}px; max-height: 80vh; min-height: min(384px, 70vh);"
 			role="dialog"
 			aria-label="Chat window"
-			aria-modal="true"
 			tabindex="-1"
 			onmousedown={startResize}
 		>
@@ -223,11 +225,11 @@ async function handleSubmit(e: Event) {
 			>
 				<span class="text-sm font-medium text-[var(--color-global-text)]">Chat with me</span>
 				<button
-					class="text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-global-text)]"
+					class="-m-3 flex h-11 w-11 items-center justify-center text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-global-text)]"
 					aria-label="Close chat"
 					onclick={closeChat}
 				>
-					<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+					<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
 						<path
 							d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
 						></path>
@@ -279,13 +281,13 @@ async function handleSubmit(e: Event) {
 					bind:value={inputValue}
 					type="text"
 					placeholder="Type your message..."
-					class="mb-2 w-full border border-[var(--color-border)] bg-[var(--color-global-bg)] p-2 text-sm text-[var(--color-global-text)] outline-none focus:border-[var(--color-global-text)] disabled:opacity-50"
+					class="mb-2 w-full border border-[var(--color-border)] bg-[var(--color-global-bg)] p-2 text-base text-[var(--color-global-text)] outline-none focus:border-[var(--color-global-text)] disabled:opacity-50"
 					disabled={isStreaming || isLoading}
 					aria-label="Message input"
 				/>
 				<button
 					type="submit"
-					class="w-full border border-[var(--color-global-text)] bg-[var(--color-global-text)] px-4 py-2 text-sm font-medium text-[var(--color-global-bg)] transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
+					class="min-h-11 w-full border border-[var(--color-global-text)] bg-[var(--color-global-text)] px-4 py-2 text-sm font-medium text-[var(--color-global-bg)] transition-opacity enabled:hover:opacity-80 disabled:cursor-not-allowed disabled:border-[var(--color-border)] disabled:bg-transparent disabled:text-[var(--color-text-tertiary)]"
 					disabled={!canSubmit}
 				>
 					{isLoading ? "Sending..." : "Send"}
@@ -345,5 +347,13 @@ async function handleSubmit(e: Event) {
 		left: 12px;
 		animation: dot-flashing 1s infinite alternate;
 		animation-delay: 1s;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.dot-flashing,
+		.dot-flashing::before,
+		.dot-flashing::after {
+			animation: none;
+		}
 	}
 </style>
