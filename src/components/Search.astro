@@ -6,7 +6,7 @@ import "@/styles/blocks/search.css";
 
 <site-search class="ms-auto" id="search">
   <button
-    class="text-text-secondary hover:text-global-text flex cursor-pointer items-center gap-1.5 transition-colors"
+    class="text-text-secondary hover:text-global-text -m-3 flex cursor-pointer items-center gap-1.5 p-3 transition-colors"
     aria-keyshortcuts="Control+K Meta+K"
     data-open-modal
     disabled>
@@ -67,7 +67,6 @@ import "@/styles/blocks/search.css";
   class SiteSearch extends HTMLElement {
     #closeBtn: HTMLButtonElement;
     #dialog: HTMLDialogElement;
-    #dialogFrame: HTMLDivElement;
     #openBtn: HTMLButtonElement;
     #controller: AbortController;
 
@@ -80,16 +79,13 @@ import "@/styles/blocks/search.css";
         "button[data-close-modal]",
       )!;
       this.#dialog = this.querySelector("dialog")!;
-      this.#dialogFrame = this.querySelector(".dialog-frame")!;
       this.#controller = new AbortController();
 
       // Set up events
       this.#openBtn.addEventListener("click", this.openModal);
       this.#openBtn.disabled = false;
       this.#closeBtn.addEventListener("click", this.closeModal);
-      this.#dialog.addEventListener("close", () => {
-        window.removeEventListener("click", this.onWindowClick);
-      });
+      this.#dialog.addEventListener("click", this.onDialogClick);
 
       // only add pagefind in production
       if (import.meta.env.DEV) return;
@@ -118,26 +114,19 @@ import "@/styles/blocks/search.css";
       this.#controller.abort();
     }
 
-    openModal = (event?: MouseEvent) => {
+    openModal = () => {
       this.#dialog.showModal();
       this.querySelector("input")?.focus();
-      event?.stopPropagation();
-      window.addEventListener("click", this.onWindowClick, {
-        signal: this.#controller.signal,
-      });
     };
 
     closeModal = () => this.#dialog.close();
 
-    onWindowClick = (event: MouseEvent) => {
-      // check if it's a link
-      const isLink = "href" in (event.target || {});
-      // make sure the click is either a link or outside of the dialog
-      if (
-        isLink ||
-        (document.body.contains(event.target as Node) &&
-          !this.#dialogFrame.contains(event.target as Node))
-      ) {
+    // Listening on the dialog (not window) means the click that opened it,
+    // e.g. the 404 page's "Search the site" button, can't immediately close it
+    onDialogClick = (event: MouseEvent) => {
+      const target = event.target as Element;
+      // A click on the dialog itself is a click on its backdrop
+      if (target === this.#dialog || target.closest("a")) {
         this.closeModal();
       }
     };
