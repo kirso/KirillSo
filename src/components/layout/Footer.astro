@@ -14,7 +14,7 @@ const year = new Date().getFullYear();
   <div class="mb-4 flex items-center justify-between">
     <p class="text-text-tertiary">Thoughts on building, products, and life.</p>
     <a
-      class="arrow-link shrink-0"
+      class="arrow-link tap-target shrink-0"
       href="https://kirill.substack.com"
       target="_blank"
       rel="noopener"
@@ -32,16 +32,16 @@ const year = new Date().getFullYear();
       {
         menuLinks.map((link) => (
           <a
-            class="link-muted"
+            class="link-muted tap-target"
             href={link.path}
           >
             {link.title}
           </a>
         ))
       }
-      <a class="link-muted" href="/tags/">Tags</a>
-      <a class="link-muted" href="/rss.xml">RSS</a>
-      <a class="link-muted" href="/privacy/">Privacy</a>
+      <a class="link-muted tap-target" href="/tags/">Tags</a>
+      <a class="link-muted tap-target" href="/rss.xml">RSS</a>
+      <a class="link-muted tap-target" href="/privacy/">Privacy</a>
     </nav>
   </div>
 </footer>

@@ -533,6 +533,18 @@
 	text-underline-offset: 3px;
 }
 
+/* Tap target — grows a small link's hit area to ~44px tall without moving anything */
+.tap-target,
+a.tag {
+	position: relative;
+}
+.tap-target::after,
+a.tag::after {
+	content: "";
+	position: absolute;
+	inset: -0.75rem -0.25rem;
+}
+
 /* Arrow link — "View all →" actions */
 .arrow-link {
 	display: inline-flex;
