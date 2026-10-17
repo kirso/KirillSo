@@ -108,7 +108,8 @@ const breadcrumbs = [
   }
 
   scrollBtn.addEventListener("click", () => {
-    document.documentElement.scrollTo({ behavior: "smooth", top: 0 });
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.documentElement.scrollTo({ behavior: reduceMotion ? "auto" : "smooth", top: 0 });
   });
 
   const observer = new IntersectionObserver(callback);

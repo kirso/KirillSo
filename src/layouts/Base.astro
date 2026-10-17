@@ -22,7 +22,7 @@ const {
 } = Astro.props;
 ---
 
-<html class="scroll-smooth" lang={siteConfig.lang}>
+<html class="motion-safe:scroll-smooth" lang={siteConfig.lang}>
   <head>
     <BaseHead
       articleDate={articleDate}
