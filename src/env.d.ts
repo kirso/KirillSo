@@ -1,7 +1,9 @@
 /// <reference types="astro/client" />
+// Adds hName/hProperties to mdast node data, used by the remark plugins
+/// <reference types="mdast-util-to-hast" />
 
 declare module "@pagefind/default-ui" {
-	declare class PagefindUI {
+	class PagefindUI {
 		constructor(arg: unknown);
 	}
 }
