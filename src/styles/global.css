@@ -278,11 +278,6 @@
 	--space-20: 5rem;        /* 80px */
 	--space-24: 6rem;        /* 96px */
 
-	/* Semantic spacing */
-	--spacing-section: var(--space-16);
-	--spacing-block: var(--space-6);
-	--spacing-element: var(--space-4);
-	--spacing-inline: var(--space-2);
 
 	/* ========================================
 	   BORDER RADIUS — Sharp editorial default

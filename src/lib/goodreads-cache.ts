@@ -33,8 +33,8 @@ export async function fetchCachedGoodreadsXML(url: string): Promise<string | nul
           "Cache-Control": `public, s-maxage=${CACHE_TTL}`,
         },
       });
-      // Don't await - fire and forget
-      cache.put(cacheKey, cacheResponse);
+      // Await: an unawaited put can be cut off when the response ends, caching an empty body
+      await cache.put(cacheKey, cacheResponse);
 
       return xml;
     }
