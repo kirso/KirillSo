@@ -70,16 +70,16 @@ import { menuLinks } from "@/site.config";
     <!-- Mobile menu button -->
     <mobile-button class="sm:hidden">
       <button
+        aria-controls="mobile-menu"
         aria-expanded="false"
-        aria-haspopup="menu"
-        class="relative h-6 w-6 text-text-secondary transition-colors hover:text-global-text"
+        class="relative -m-2.5 box-content h-6 w-6 p-2.5 text-text-secondary transition-colors hover:text-global-text"
         id="toggle-navigation-menu"
         type="button"
       >
         <span class="sr-only">Open main menu</span>
         <svg
           aria-hidden="true"
-          class="absolute inset-0 h-full w-full transition-all group-aria-expanded:scale-0 group-aria-expanded:opacity-0"
+          class="h-full w-full"
           fill="none"
           focusable="false"
           stroke="currentColor"
@@ -99,26 +99,28 @@ import { menuLinks } from "@/site.config";
 
 <!-- Mobile backdrop -->
 <div
-  class="fixed inset-0 z-40 bg-global-text/40 opacity-0 backdrop-blur-sm transition-opacity duration-200 pointer-events-none"
+  class="fixed inset-0 z-40 bg-global-text/40 opacity-0 backdrop-blur-sm transition-opacity duration-200 pointer-events-none sm:hidden"
   id="mobile-backdrop"
   aria-hidden="true"
 ></div>
 
-<!-- Mobile menu (slides down) -->
+<!-- Mobile menu (slides down). Inert while closed so it stays out of the Tab order -->
 <nav
   aria-label="Mobile menu"
-  class="group fixed inset-x-0 top-0 z-50 -translate-y-full bg-global-bg px-5 py-4 shadow-sm transition-transform duration-200 ease-out"
+  class="fixed inset-x-0 top-0 z-50 -translate-y-full bg-global-bg px-5 py-4 shadow-sm transition-transform duration-200 ease-out sm:hidden"
   id="mobile-menu"
+  inert
 >
   <div class="flex items-center justify-between">
     <a href="/" class="font-semibold tracking-tight" style="font-size: var(--text-large);">Kirill So</a>
     <button
-      class="text-text-secondary hover:text-global-text"
+      class="-m-2.5 p-2.5 text-text-secondary hover:text-global-text"
       id="close-mobile-menu"
       type="button"
     >
       <span class="sr-only">Close menu</span>
       <svg
+        aria-hidden="true"
         class="h-6 w-6"
         fill="none"
         stroke="currentColor"
@@ -132,13 +134,13 @@ import { menuLinks } from "@/site.config";
       </svg>
     </button>
   </div>
-  <div class="mt-6 flex flex-col gap-4">
+  <div class="mt-6 flex flex-col gap-1">
     {
       menuLinks.map((link) => (
         <a
           aria-current={Astro.url.pathname === link.path ? "page" : false}
           class:list={[
-            "transition-colors",
+            "py-1.5 transition-colors",
             Astro.url.pathname === link.path
               ? "text-global-text underline underline-offset-4"
               : "link-nav"
@@ -161,31 +163,57 @@ import { menuLinks } from "@/site.config";
       const backdrop = document.getElementById("mobile-backdrop");
       const closeBtn = document.getElementById("close-mobile-menu");
 
+      const isOpen = () => mobileButtonEl?.getAttribute("aria-expanded") === "true";
+
+      // While the menu is open, everything else on the page is inert so focus stays in the menu
+      const pageRegions = () =>
+        [...document.body.children].filter(
+          (el) => el !== mobileMenu && el !== backdrop && el.tagName !== "SCRIPT",
+        );
+
       const openMenu = () => {
+        for (const el of pageRegions()) el.setAttribute("inert", "");
+        mobileMenu?.removeAttribute("inert");
         mobileMenu?.classList.remove("-translate-y-full");
         mobileMenu?.classList.add("translate-y-0");
         backdrop?.classList.remove("opacity-0", "pointer-events-none");
         backdrop?.classList.add("opacity-100", "pointer-events-auto");
         mobileButtonEl?.setAttribute("aria-expanded", "true");
         document.body.style.overflow = "hidden";
+        closeBtn?.focus();
       };
 
-      const closeMenu = () => {
+      const closeMenu = ({ restoreFocus = true } = {}) => {
+        if (!isOpen()) return;
+        for (const el of pageRegions()) el.removeAttribute("inert");
+        mobileMenu?.setAttribute("inert", "");
         mobileMenu?.classList.remove("translate-y-0");
         mobileMenu?.classList.add("-translate-y-full");
         backdrop?.classList.remove("opacity-100", "pointer-events-auto");
         backdrop?.classList.add("opacity-0", "pointer-events-none");
         mobileButtonEl?.setAttribute("aria-expanded", "false");
         document.body.style.overflow = "";
+        if (restoreFocus) mobileButtonEl?.focus();
       };
 
       mobileButtonEl?.addEventListener("click", openMenu);
-      closeBtn?.addEventListener("click", closeMenu);
-      backdrop?.addEventListener("click", closeMenu);
+      closeBtn?.addEventListener("click", () => closeMenu());
+      backdrop?.addEventListener("click", () => closeMenu());
 
-      // Close on link click
+      window.matchMedia("(min-width: 640px)").addEventListener("change", ({ matches }) => {
+        if (matches && isOpen()) {
+          closeMenu({ restoreFocus: false });
+          document.querySelector<HTMLElement>("#main-header a")?.focus();
+        }
+      });
+
+      // Close on link click; focus moves to the new page instead
       mobileMenu?.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", closeMenu);
+        link.addEventListener("click", () => closeMenu({ restoreFocus: false }));
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && isOpen()) closeMenu();
       });
     }
   }
