@@ -12,8 +12,8 @@ const { as: Tag = "div", note, isPreview = false } = Astro.props;
 const { Content } = await render(note);
 ---
 
+{/* Preview: entire card is clickable. Otherwise: full page view */}
 {isPreview ? (
-  <!-- Preview: Entire card is clickable -->
   <a href={`/notes/${note.id}/`} class="note-card block group">
     <div class="flex items-baseline gap-2 mb-1 flex-wrap">
       <Tag class="font-medium group-hover:text-global-text transition-colors">
@@ -32,7 +32,6 @@ const { Content } = await render(note);
     </div>
   </a>
 ) : (
-  <!-- Full page view -->
   <article data-pagefind-body>
     <Tag class="page-title mb-2">{note.data.title}</Tag>
     <FormattedDate

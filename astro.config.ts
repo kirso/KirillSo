@@ -1,10 +1,10 @@
 import fs from "node:fs";
+import cloudflare from "@astrojs/cloudflare";
 // Rehype plugins
-import { rehypeHeadingIds } from "@astrojs/markdown-remark";
+import { rehypeHeadingIds, unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
-import cloudflare from "@astrojs/cloudflare";
 import tailwind from "@tailwindcss/vite";
 import { defineConfig, envField } from "astro/config";
 import expressiveCode from "astro-expressive-code";
@@ -30,7 +30,29 @@ export default defineConfig({
 	integrations: [
 		svelte(),
 		expressiveCode(expressiveCodeOptions),
-		icon(),
+		icon({
+			// Only bundle the icons /uses renders; the full set adds ~7MB to the worker
+			include: {
+				"simple-icons": [
+					"anthropic",
+					"apple",
+					"applemusic",
+					"astro",
+					"beats",
+					"figma",
+					"github",
+					"googlecalendar",
+					"logitech",
+					"obsidian",
+					"openai",
+					"substack",
+					"svelte",
+					"tailwindcss",
+					"vercel",
+					"warp",
+				],
+			},
+		}),
 		sitemap({
 			filter: (page) => {
 				// Exclude /notes/page/1 and /posts/page/1 from sitemap
@@ -75,25 +97,32 @@ export default defineConfig({
 		}),
 	],
 	markdown: {
-		rehypePlugins: [
-			rehypeHeadingIds,
-			[rehypeAutolinkHeadings, { behavior: "wrap", properties: { className: ["not-prose"] } }],
-			[
-				rehypeExternalLinks,
-				{
-					rel: ["noreferrer", "noopener"],
-					target: "_blank",
-				},
+		// Astro 7 defaults to Sätteri; keep the unified pipeline for the remark/rehype plugins below
+		processor: unified({
+			rehypePlugins: [
+				rehypeHeadingIds,
+				[rehypeAutolinkHeadings, { behavior: "wrap", properties: { className: ["not-prose"] } }],
+				[
+					rehypeExternalLinks,
+					{
+						rel: ["noreferrer", "noopener"],
+						target: "_blank",
+					},
+				],
+				rehypeUnwrapImages,
 			],
-			rehypeUnwrapImages,
-		],
-		remarkPlugins: [remarkReadingTime, remarkDirective, remarkGithubCard, remarkAdmonitions],
-		remarkRehype: {
-			footnoteLabelProperties: {
-				className: [""],
+			remarkPlugins: [remarkReadingTime, remarkDirective, remarkGithubCard, remarkAdmonitions],
+			remarkRehype: {
+				footnoteLabelProperties: {
+					className: [""],
+				},
 			},
-		},
+		}),
 	},
+	// Keep pre-v7 whitespace handling; the new 'jsx' default strips spaces between inline elements
+	compressHTML: true,
+	// No sessions are used; avoids provisioning a SESSION KV namespace
+	session: false,
 	// https://docs.astro.build/en/guides/prefetch/
 	prefetch: true,
 	vite: {
@@ -116,20 +145,9 @@ export default defineConfig({
 	},
 	output: "server",
 	adapter: cloudflare({
-		platformProxy: {
-			enabled: true, // Enables local Cloudflare runtime emulation
-		},
 		imageService: "compile", // Uses sharp at build time for images
-		routes: {
-			extend: {
-				exclude: [
-					{ pattern: "/pagefind/*" }, // Serve pagefind search statically
-					{ pattern: "/robots.txt" }, // Serve robots.txt statically
-					{ pattern: "/sitemap-index.xml" }, // Serve sitemap statically
-					{ pattern: "/sitemap-0.xml" }, // Serve sitemap statically
-				],
-			},
-		},
+		// OG image routes use @resvg/resvg-js (native addon) and node:fs, which need Node to prerender
+		prerenderEnvironment: "node",
 	}),
 });
 
