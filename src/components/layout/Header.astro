@@ -200,6 +200,13 @@ import { menuLinks } from "@/site.config";
       closeBtn?.addEventListener("click", () => closeMenu());
       backdrop?.addEventListener("click", () => closeMenu());
 
+      window.matchMedia("(min-width: 640px)").addEventListener("change", ({ matches }) => {
+        if (matches && isOpen()) {
+          closeMenu({ restoreFocus: false });
+          document.querySelector<HTMLElement>("#main-header a")?.focus();
+        }
+      });
+
       // Close on link click; focus moves to the new page instead
       mobileMenu?.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", () => closeMenu({ restoreFocus: false }));
