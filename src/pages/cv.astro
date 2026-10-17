@@ -2,6 +2,8 @@
 import Schema from "@/components/Schema.astro";
 import BaseLayout from "@/layouts/Base.astro";
 
+export const prerender = true;
+
 const meta = {
 	title: "CV",
 	description:
@@ -219,17 +221,19 @@ const otherEducation: OtherEducation[] = [
     <header class="mb-16">
       <h1 class="page-title">Kirill So</h1>
       <p class="mt-2 text-text-secondary">Product Management, Growth, Entrepreneurship</p>
-      <p class="mt-4 max-w-2xl text-text-secondary leading-relaxed" style="font-size: var(--text-micro);">
+      <p class="mt-4 max-w-2xl text-text-secondary leading-relaxed">
         Product manager with 15 years of experience building and scaling B2C and B2B products across adtech, fintech, marketplaces, and ecommerce at startups and large organizations. Independently, I build my own products and explore AI with a bias toward learning by doing.
       </p>
       <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-text-tertiary" style="font-size: var(--text-micro);">
         <span>Singapore, PR</span>
         <span>/</span>
-        <a class="link-muted" href="https://www.kirillso.com">kirillso.com</a>
+        <a class="link-muted tap-target" href="https://www.kirillso.com">kirillso.com</a>
         <span>/</span>
-        <a class="link-muted" href="https://www.linkedin.com/in/kirso" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="link-muted tap-target" href="https://www.linkedin.com/in/kirso" target="_blank" rel="noopener">LinkedIn</a>
         <span>/</span>
-        <a class="link-muted" href="https://github.com/kirso" target="_blank" rel="noopener">GitHub</a>
+        <a class="link-muted tap-target" href="https://github.com/kirso" target="_blank" rel="noopener">GitHub</a>
+        <span>/</span>
+        <a class="link-muted tap-target" href="/resume.pdf" download="Kirill-So-CV.pdf">Download PDF</a>
       </div>
     </header>
 
@@ -253,7 +257,7 @@ const otherEducation: OtherEducation[] = [
               </div>
               <span class="mono text-text-tertiary shrink-0" style="font-size: var(--text-micro);">{role.period}</span>
             </div>
-            <ul class="chevron-list mt-2 text-text-secondary" style="font-size: var(--text-micro);">
+            <ul class="chevron-list mt-2 text-text-secondary">
               {role.highlights.map((h) => <li>{h}</li>)}
             </ul>
           </div>
@@ -293,7 +297,7 @@ const otherEducation: OtherEducation[] = [
             {p.tech && (
               <div class="hidden shrink-0 flex-wrap justify-end gap-1.5 sm:flex">
                 {p.tech.split(", ").map((t) => (
-                  <span class="tag group-hover:border-global-bg/30 group-hover:text-global-bg/70" style="font-size: 10px;">{t}</span>
+                  <span class="tag group-hover:border-global-bg/30 group-hover:text-global-bg/70" style="font-size: 0.75rem;">{t}</span>
                 ))}
               </div>
             )}
