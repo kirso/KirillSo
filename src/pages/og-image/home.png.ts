@@ -3,8 +3,8 @@ export const prerender = true;
 import { Resvg } from "@resvg/resvg-js";
 import type { APIContext } from "astro";
 import satori, { type SatoriOptions } from "satori";
-import GeistRegular from "@/assets/fonts/Geist-Regular.ttf";
 import GeistBold from "@/assets/fonts/Geist-Bold.ttf";
+import GeistRegular from "@/assets/fonts/Geist-Regular.ttf";
 import { headshotBase64 } from "@/assets/img/og-headshot-base64";
 import { siteConfig } from "@/site.config";
 
@@ -66,7 +66,14 @@ const markup = () => ({
 						type: "div",
 						props: {
 							tw: "absolute flex",
-							style: { top: 0, left: 0, width: 60, height: 60, borderTop: `2px solid ${colors.text}`, borderLeft: `2px solid ${colors.text}` },
+							style: {
+								top: 0,
+								left: 0,
+								width: 60,
+								height: 60,
+								borderTop: `2px solid ${colors.text}`,
+								borderLeft: `2px solid ${colors.text}`,
+							},
 						},
 					},
 					// Bottom-right corner
@@ -74,7 +81,14 @@ const markup = () => ({
 						type: "div",
 						props: {
 							tw: "absolute flex",
-							style: { bottom: 0, right: 0, width: 60, height: 60, borderBottom: `2px solid ${colors.text}`, borderRight: `2px solid ${colors.text}` },
+							style: {
+								bottom: 0,
+								right: 0,
+								width: 60,
+								height: 60,
+								borderBottom: `2px solid ${colors.text}`,
+								borderRight: `2px solid ${colors.text}`,
+							},
 						},
 					},
 					// Avatar with ring
@@ -121,7 +135,13 @@ const markup = () => ({
 						type: "div",
 						props: {
 							tw: "absolute flex items-center justify-center",
-							style: { top: 32, right: 32, width: 72, height: 72, border: `2px solid ${colors.text}` },
+							style: {
+								top: 32,
+								right: 32,
+								width: 72,
+								height: 72,
+								border: `2px solid ${colors.text}`,
+							},
 							children: {
 								type: "p",
 								props: {

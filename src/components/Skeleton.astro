@@ -1,9 +1,9 @@
 ---
 interface Props {
-  rows?: number;
-  variant?: "post-row" | "text";
-  /** Stack title and author on narrow screens, like .post-row does */
-  stackOnMobile?: boolean;
+	rows?: number;
+	variant?: "post-row" | "text";
+	/** Stack title and author on narrow screens, like .post-row does */
+	stackOnMobile?: boolean;
 }
 
 const { rows = 5, variant = "post-row", stackOnMobile = false } = Astro.props;

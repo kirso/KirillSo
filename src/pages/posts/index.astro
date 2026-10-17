@@ -1,9 +1,14 @@
 ---
 import { render } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
-import { getAllPosts, getUniqueTags, groupPostsByYear, sortPostsByPinnedAndDate } from "@/data/post";
-import PageLayout from "@/layouts/Base.astro";
 import Schema from "@/components/Schema.astro";
+import {
+	getAllPosts,
+	getUniqueTags,
+	groupPostsByYear,
+	sortPostsByPinnedAndDate,
+} from "@/data/post";
+import PageLayout from "@/layouts/Base.astro";
 
 export const prerender = true;
 
@@ -17,8 +22,8 @@ const totalPosts = allPosts.length;
 // Get reading times (runs at build time only)
 const readingTimes = new Map<string, string>();
 for (const post of sortedPosts) {
-  const { remarkPluginFrontmatter } = await render(post);
-  readingTimes.set(post.id, remarkPluginFrontmatter.readingTime);
+	const { remarkPluginFrontmatter } = await render(post);
+	readingTimes.set(post.id, remarkPluginFrontmatter.readingTime);
 }
 
 const meta = {

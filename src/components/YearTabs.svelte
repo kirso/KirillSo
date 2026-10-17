@@ -3,8 +3,9 @@
  * YearTabs — Year selector for book lists
  * Uses a clean dropdown for many years, follows Quiet Archive design
  */
-import { cleanTitle } from "@/utils/books";
+
 import type { YearData } from "@/utils/books";
+import { cleanTitle } from "@/utils/books";
 
 interface Props {
 	years: YearData[];
@@ -27,9 +28,7 @@ function onYearChange(e: Event) {
 }
 
 // Get books for active year
-const activeBooks = $derived(
-	sortedYears.find((y) => y.year === activeYear)?.books ?? []
-);
+const activeBooks = $derived(sortedYears.find((y) => y.year === activeYear)?.books ?? []);
 </script>
 
 <div class="year-selector">

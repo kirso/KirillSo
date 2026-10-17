@@ -13,8 +13,8 @@ const meta = {
 const MAX_POSTS = 5;
 const allPosts = await getAllPosts();
 const recentPosts = allPosts
-  .sort(collectionDateSort)
-  .slice(0, MAX_POSTS) as CollectionEntry<"post">[];
+	.sort(collectionDateSort)
+	.slice(0, MAX_POSTS) as CollectionEntry<"post">[];
 ---
 
 <PageLayout meta={meta}>

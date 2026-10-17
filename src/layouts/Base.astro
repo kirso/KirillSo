@@ -18,7 +18,14 @@ interface Props {
 }
 
 const {
-	meta: { articleDate, articleSection, articleTags, description = siteConfig.description, ogImage, title },
+	meta: {
+		articleDate,
+		articleSection,
+		articleTags,
+		description = siteConfig.description,
+		ogImage,
+		title,
+	},
 } = Astro.props;
 ---
 

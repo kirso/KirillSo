@@ -32,9 +32,7 @@ scored.sort((a, b) => {
 
 // Take top results; if fewer than MAX_RELATED have tags in common,
 // the rest are filled by most-recent posts (already sorted by date as tiebreaker)
-const related: CollectionEntry<"post">[] = scored
-	.slice(0, MAX_RELATED)
-	.map((s) => s.post);
+const related: CollectionEntry<"post">[] = scored.slice(0, MAX_RELATED).map((s) => s.post);
 ---
 
 {

@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
+import { getAllPosts, getUniqueTags, sortPostsByPinnedAndDate } from "@/data/post";
 import { siteConfig } from "@/site.config";
-import { getAllPosts, sortPostsByPinnedAndDate, getUniqueTags } from "@/data/post";
 
 export const GET: APIRoute = async () => {
 	const allPosts = await getAllPosts();

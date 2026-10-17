@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
+import { getAllPosts, getUniqueTags, sortPostsByPinnedAndDate } from "@/data/post";
 import { siteConfig } from "@/site.config";
-import { getAllPosts, sortPostsByPinnedAndDate, getUniqueTags } from "@/data/post";
 
 export const GET: APIRoute = async () => {
 	const allPosts = await getAllPosts();
@@ -31,7 +31,9 @@ ${tags.map((tag) => `- ${tag}`).join("\n")}
 
 ${sortedPosts
 	.slice(0, 10)
-	.map((post) => `- ${post.data.title}: ${post.data.description} (${siteConfig.url}posts/${post.id}/)`)
+	.map(
+		(post) => `- ${post.data.title}: ${post.data.description} (${siteConfig.url}posts/${post.id}/)`,
+	)
 	.join("\n")}
 
 ## Programmatic Access

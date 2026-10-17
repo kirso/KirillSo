@@ -5,29 +5,29 @@
  * loads instantly with a skeleton fallback.
  */
 import { GOODREADS_CURRENTLY_READING_URL } from "@/data/books";
-import { cleanTitle, parseGoodreadsRSS } from "@/utils/books";
-import type { GoodreadsBook } from "@/utils/books";
 import { fetchCachedGoodreadsXML } from "@/lib/goodreads-cache";
+import type { GoodreadsBook } from "@/utils/books";
+import { cleanTitle, parseGoodreadsRSS } from "@/utils/books";
 
 let currentlyReading: GoodreadsBook[] = [];
 try {
-  const xml = await fetchCachedGoodreadsXML(GOODREADS_CURRENTLY_READING_URL);
-  if (xml) {
-    currentlyReading = parseGoodreadsRSS(xml);
-  }
+	const xml = await fetchCachedGoodreadsXML(GOODREADS_CURRENTLY_READING_URL);
+	if (xml) {
+		currentlyReading = parseGoodreadsRSS(xml);
+	}
 } catch (error) {
-  console.warn("Failed to fetch currently reading:", error);
+	console.warn("Failed to fetch currently reading:", error);
 }
 
 // Fallback if RSS fails
 if (currentlyReading.length === 0) {
-  currentlyReading = [
-    {
-      title: "The Almanack of Naval Ravikant",
-      author: "Eric Jorgenson",
-      link: "https://www.navalmanack.com/",
-    },
-  ];
+	currentlyReading = [
+		{
+			title: "The Almanack of Naval Ravikant",
+			author: "Eric Jorgenson",
+			link: "https://www.navalmanack.com/",
+		},
+	];
 }
 ---
 
