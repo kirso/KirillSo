@@ -30,9 +30,9 @@ const isExternal = to?.startsWith("http") ?? false;
 					<span
 						class:list={[
 							"inline-block border px-1.5 py-0 group-hover:border-global-bg/40 group-hover:text-global-bg/80",
-							status === "active" ? "border-border text-text-tertiary" : "border-border-light text-text-tertiary/60"
+							status === "active" ? "border-border text-text-tertiary" : "border-border-light text-text-tertiary"
 						]}
-						style="font-size: 10px; letter-spacing: 0.05em;"
+						style="font-size: 0.75rem; letter-spacing: 0.05em;"
 					>{status === "active" ? "ACTIVE" : "ARCHIVED"}</span>
 				)}
 			</div>
