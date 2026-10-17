@@ -1,6 +1,7 @@
 {/* Inlined to avoid FOUC. This is a parser blocking script. */}
 <script is:inline>
   const lightModePref = window.matchMedia("(prefers-color-scheme: light)");
+  const themeColors = { light: "#f2f2f2", dark: "#060606" };
 
   function getUserPref() {
     const storedTheme =
@@ -8,7 +9,8 @@
     return storedTheme || (lightModePref.matches ? "light" : "dark");
   }
 
-  function setTheme(newTheme) {
+  // Only an explicit choice (theme-change) is persisted; otherwise the page follows the system
+  function setTheme(newTheme, persist = false) {
     if (newTheme !== "light" && newTheme !== "dark") {
       return console.warn(
         `Invalid theme value '${newTheme}' received. Expected 'light' or 'dark'.`,
@@ -24,13 +26,18 @@
 
     root.setAttribute("data-theme", newTheme);
 
+    // Browser chrome follows the page theme, not just the system preference
+    document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
+      meta.setAttribute("content", themeColors[newTheme]);
+    });
+
     // Sync favicon with theme
     const favicon = document.querySelector('link[rel="icon"][type="image/svg+xml"]:not([media])');
     if (favicon) {
       favicon.setAttribute("href", newTheme === "dark" ? "/icons/icon-light.svg" : "/icons/icon-dark.svg");
     }
 
-    if (typeof localStorage !== "undefined") {
+    if (persist && typeof localStorage !== "undefined") {
       localStorage.setItem("theme", newTheme);
     }
   }
@@ -49,11 +56,13 @@
 
   // listen for theme-change custom event, fired in src/components/ThemeToggle.astro
   document.addEventListener("theme-change", (e) => {
-    setTheme(e.detail.theme);
+    setTheme(e.detail.theme, true);
   });
 
   // listen for prefers-color-scheme change.
-  lightModePref.addEventListener("change", (e) =>
-    setTheme(e.matches ? "light" : "dark"),
-  );
+  // Follow system changes only when the visitor hasn't picked a theme
+  lightModePref.addEventListener("change", (e) => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) return;
+    setTheme(e.matches ? "light" : "dark");
+  });
 </script>

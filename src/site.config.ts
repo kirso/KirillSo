@@ -56,9 +56,9 @@ export const menuLinks: { path: string; title: string }[] = [
 // https://expressive-code.com/reference/configuration/
 export const expressiveCodeOptions: AstroExpressiveCodeOptions = {
 	styleOverrides: {
-		borderRadius: "4px",
-		codeFontFamily:
-			'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;',
+		borderRadius: "0",
+		// Same stack as inline code; a trailing ";" here used to invalidate the whole value
+		codeFontFamily: "var(--font-mono)",
 		codeFontSize: "0.875rem",
 		codeLineHeight: "1.7142857rem",
 		codePaddingInline: "1rem",

@@ -385,6 +385,14 @@
 		scroll-margin-block: 6rem;
 	}
 
+	/* Even out multi-line headings instead of leaving one word on the last line */
+	h1,
+	h2,
+	h3,
+	.page-title {
+		text-wrap: balance;
+	}
+
 	@view-transition {
 		navigation: auto;
 	}
@@ -434,6 +442,12 @@
 			animation-duration: 0.01ms !important;
 			animation-iteration-count: 1 !important;
 			transition-duration: 0.01ms !important;
+		}
+		/* The universal selector doesn't reach view-transition pseudo-elements */
+		::view-transition-group(*),
+		::view-transition-old(*),
+		::view-transition-new(*) {
+			animation: none !important;
 		}
 	}
 
@@ -499,8 +513,10 @@
 	text-decoration-thickness: 1px;
 	transition: text-decoration-thickness 150ms var(--ease-out);
 }
-.link:hover {
-	text-decoration-thickness: 2px;
+@media (hover: hover) {
+	.link:hover {
+		text-decoration-thickness: 2px;
+	}
 }
 
 /* Muted link — Secondary content, tags */
@@ -511,9 +527,11 @@
 	text-decoration-thickness: 1px;
 	transition: color 150ms var(--ease-out), text-decoration-thickness 150ms var(--ease-out);
 }
-.link-muted:hover {
-	color: var(--color-ink);
-	text-decoration-thickness: 2px;
+@media (hover: hover) {
+	.link-muted:hover {
+		color: var(--color-ink);
+		text-decoration-thickness: 2px;
+	}
 }
 
 /* Navigation link — Underline on hover */
@@ -522,10 +540,12 @@
 	text-decoration: none;
 	transition: color 150ms var(--ease-out);
 }
-.link-nav:hover {
-	color: var(--color-ink);
-	text-decoration: underline;
-	text-underline-offset: 3px;
+@media (hover: hover) {
+	.link-nav:hover {
+		color: var(--color-ink);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
 }
 
 /* Tap target — grows a small link's hit area to ~44px tall without moving anything */
@@ -549,8 +569,10 @@ a.tag::after {
 	color: var(--color-ink-secondary);
 	transition: color 150ms var(--ease-out);
 }
-.arrow-link:hover {
-	color: var(--color-ink);
+@media (hover: hover) {
+	.arrow-link:hover {
+		color: var(--color-ink);
+	}
 }
 
 /* Tag/badge — Metadata labels (sharp corners to match cards) */
@@ -563,9 +585,11 @@ a.tag::after {
 	border-radius: var(--radius-none);
 	transition: border-color 150ms var(--ease-out), color 150ms var(--ease-out);
 }
-.tag:hover {
-	border-color: var(--color-ink);
-	color: var(--color-ink);
+@media (hover: hover) {
+	.tag:hover {
+		border-color: var(--color-ink);
+		color: var(--color-ink);
+	}
 }
 
 /* ============================================================================
@@ -582,8 +606,10 @@ a.tag::after {
 	border-radius: var(--radius-none);
 	transition: border-color 150ms var(--ease-out);
 }
-.card:hover {
-	border-color: var(--color-ink-tertiary);
+@media (hover: hover) {
+	.card:hover {
+		border-color: var(--color-ink-tertiary);
+	}
 }
 
 /* Note card — catalog entry with № marker */
@@ -595,8 +621,10 @@ a.tag::after {
 	border-radius: var(--radius-none);
 	transition: border-color 150ms var(--ease-out);
 }
-.note-card:hover {
-	border-color: var(--color-ink-tertiary);
+@media (hover: hover) {
+	.note-card:hover {
+		border-color: var(--color-ink-tertiary);
+	}
 }
 /* № marker — catalog numbering */
 .note-card::before {
@@ -754,8 +782,10 @@ a.tag::after {
 	transition: opacity 150ms var(--ease-out);
 }
 
-.prose :is(h2, h3, h4):hover > a::after {
-	opacity: 1;
+@media (hover: hover) {
+	.prose :is(h2, h3, h4):hover > a::after {
+		opacity: 1;
+	}
 }
 
 /* Spacing between consecutive headings */
@@ -802,9 +832,11 @@ a.tag::after {
 	transition: color 150ms var(--ease-out), text-decoration-thickness 150ms var(--ease-out);
 }
 
-.prose figcaption a:hover {
-	color: var(--color-ink);
-	text-decoration-thickness: 2px;
+@media (hover: hover) {
+	.prose figcaption a:hover {
+		color: var(--color-ink);
+		text-decoration-thickness: 2px;
+	}
 }
 
 
@@ -996,9 +1028,11 @@ blockquote cite::before {
 }
 
 /* Hover state — highlight the node */
-.timeline-entry:hover .timeline-node {
-	background-color: var(--color-ink-tertiary);
-	border-color: var(--color-ink-tertiary);
+@media (hover: hover) {
+	.timeline-entry:hover .timeline-node {
+		background-color: var(--color-ink-tertiary);
+		border-color: var(--color-ink-tertiary);
+	}
 }
 
 .timeline-text {
@@ -1092,9 +1126,11 @@ blockquote cite::before {
 	border-top: none;
 }
 
-.geo-table-row:hover {
-	background-color: var(--color-ink);
-	color: var(--color-paper);
+@media (hover: hover) {
+	.geo-table-row:hover {
+		background-color: var(--color-ink);
+		color: var(--color-paper);
+	}
 }
 
 .geo-table-row span {
@@ -1102,9 +1138,11 @@ blockquote cite::before {
 	transition: color 150ms var(--ease-out), transform 150ms var(--ease-out);
 }
 
-.geo-table-row:hover span {
-	color: var(--color-paper);
-	transform: translateX(2px);
+@media (hover: hover) {
+	.geo-table-row:hover span {
+		color: var(--color-paper);
+		transform: translateX(2px);
+	}
 }
 
 /* End Mark — Subtle section/page ending marker
@@ -1139,10 +1177,12 @@ blockquote cite::before {
 	transition: background-color 150ms var(--ease-out);
 }
 
-.post-row:hover {
-	background-color: var(--color-surface);
-	padding-inline: var(--space-2);
-	margin-inline: calc(-1 * var(--space-2));
+@media (hover: hover) {
+	.post-row:hover {
+		background-color: var(--color-surface);
+		padding-inline: var(--space-2);
+		margin-inline: calc(-1 * var(--space-2));
+	}
 }
 
 .post-row .post-title {
@@ -1205,9 +1245,12 @@ blockquote cite::before {
 	top: 0;
 	left: 0;
 	height: 100%;
-	width: calc(var(--scroll-progress, 0) * 100%);
+	width: 100%;
 	background: var(--color-ink-secondary);
-	transition: width 50ms linear;
+	/* Scale instead of animating width, so it stays on the compositor */
+	transform: scaleX(var(--scroll-progress, 0));
+	transform-origin: left;
+	transition: transform 50ms linear;
 }
 
 

@@ -2,12 +2,14 @@
 interface Props {
   rows?: number;
   variant?: "post-row" | "text";
+  /** Stack title and author on narrow screens, like .post-row does */
+  stackOnMobile?: boolean;
 }
 
-const { rows = 5, variant = "post-row" } = Astro.props;
+const { rows = 5, variant = "post-row", stackOnMobile = false } = Astro.props;
 ---
 
-<div class="skeleton-list">
+<div class:list={["skeleton-list", stackOnMobile && "skeleton-stack"]}>
   {Array.from({ length: rows }).map((_, i) => (
     <div class:list={["skeleton-row", variant === "text" && "skeleton-text"]}>
       <span class="skeleton-title" style={`animation-delay: ${i * 0.1}s`}></span>
@@ -19,16 +21,37 @@ const { rows = 5, variant = "post-row" } = Astro.props;
 </div>
 
 <style>
+  /* Row height and gap mirror the .post-row lists the islands render, so swapping in content doesn't shift the page */
   .skeleton-list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-2);
   }
 
   .skeleton-row {
     display: flex;
     align-items: center;
     gap: var(--space-4);
+    min-height: 1.75rem;
+  }
+
+  @media (max-width: 639px) {
+    .skeleton-stack .skeleton-row {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: var(--space-1-5);
+      min-height: 3.6rem;
+    }
+
+    .skeleton-stack .skeleton-title {
+      flex: none;
+      width: 85%;
+    }
+
+    .skeleton-stack .skeleton-author {
+      width: 40%;
+    }
   }
 
   .skeleton-title {

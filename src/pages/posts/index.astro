@@ -5,6 +5,8 @@ import { getAllPosts, getUniqueTags, groupPostsByYear, sortPostsByPinnedAndDate 
 import PageLayout from "@/layouts/Base.astro";
 import Schema from "@/components/Schema.astro";
 
+export const prerender = true;
+
 const MAX_POSTS_PER_PAGE = 10;
 const MAX_TAGS = 10;
 const allPosts = await getAllPosts();

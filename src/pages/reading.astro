@@ -6,6 +6,8 @@ import CurrentlyReading from "@/components/reading/CurrentlyReading.astro";
 import BooksRead from "@/components/reading/BooksRead.astro";
 import { influentialBooks, GOODREADS_PROFILE_URL } from "@/data/books";
 
+export const prerender = true;
+
 const meta = {
   title: "Reading",
   description: "Books that shaped my thinking.",
@@ -43,7 +45,7 @@ const bookCollectionItems = influentialBooks.flatMap(cat =>
       <Fragment slot="fallback">
         <section class="mb-12">
           <div class="section-rule"><span>Currently Reading</span></div>
-          <Skeleton rows={2} />
+          <Skeleton rows={8} stackOnMobile />
         </section>
       </Fragment>
     </CurrentlyReading>
@@ -53,7 +55,7 @@ const bookCollectionItems = influentialBooks.flatMap(cat =>
       <Fragment slot="fallback">
         <section class="mb-12">
           <div class="section-rule"><span>Books Read</span></div>
-          <Skeleton rows={8} />
+          <Skeleton rows={5} />
         </section>
       </Fragment>
     </BooksRead>
@@ -74,7 +76,7 @@ const bookCollectionItems = influentialBooks.flatMap(cat =>
                 <span class="post-date mono">{book.author}</span>
               </div>
               {book.note && (
-                <p class="mt-0.5 text-text-tertiary pl-0" style={`font-size: var(--text-micro); ${categoryIndex === 0 ? 'padding-left: 2.5rem;' : ''}`}>
+                <p class:list={["mt-0.5 text-text-tertiary", categoryIndex === 0 && "sm:pl-10"]} style="font-size: var(--text-micro);">
                   {book.note}
                 </p>
               )}
