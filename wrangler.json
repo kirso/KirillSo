@@ -4,6 +4,10 @@
 	"main": "@astrojs/cloudflare/entrypoints/server",
 	"compatibility_date": "2026-09-01",
 	"compatibility_flags": ["nodejs_compat"],
+	"routes": [
+		{ "pattern": "www.kirillso.com", "custom_domain": true },
+		{ "pattern": "kirillso.com", "custom_domain": true }
+	],
 	"assets": {
 		"directory": "./dist",
 		"binding": "ASSETS"
