@@ -1,6 +1,6 @@
 import { GOOGLE_AI_API_KEY } from "astro:env/server";
 import { env } from "cloudflare:workers";
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, ThinkingLevel } from "@google/genai";
 import type { APIRoute } from "astro";
 import { MAX_CHAT_MESSAGE_LENGTH } from "../../lib/chat-limits";
 import { findSimilarContent } from "../../lib/embeddings";
@@ -144,13 +144,12 @@ export const POST: APIRoute = async ({ request }) => {
 		// Generate streaming response with Gemini
 		const genAI = getGeminiClient();
 		const result = await genAI.models.generateContentStream({
-			model: "gemini-2.5-flash",
+			model: "gemini-3.5-flash-lite",
 			contents: message,
 			config: {
 				systemInstruction: createSystemMessage(similarContent),
 				maxOutputTokens: MAX_OUTPUT_TOKENS,
-				// Thinking tokens are billed as output; short answers from supplied context don't need them
-				thinkingConfig: { thinkingBudget: 0 },
+				thinkingConfig: { thinkingLevel: ThinkingLevel.MINIMAL },
 			},
 		});
 
@@ -180,7 +179,7 @@ export const POST: APIRoute = async ({ request }) => {
 		});
 	} catch (error) {
 		// Details stay in the Worker logs; the client gets a generic message
-		console.error("Chat error:", error);
+		console.error("Chat error:", error instanceof Error ? error.message : error);
 		return new Response("Chat is temporarily unavailable", { status: 500 });
 	}
 };
