@@ -113,58 +113,10 @@
 @plugin "@tailwindcss/typography";
 @config "../../tailwind.config.ts";
 
-/* ============================================================================
-   GEIST — Vercel's Modern Sans-Serif
-   Clean, tight, excellent for dense UI and catalog aesthetics.
-   ============================================================================ */
-
-@font-face {
-	font-family: "Geist";
-	src: url("/fonts/Geist-Regular.woff2") format("woff2");
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Geist";
-	src: url("/fonts/Geist-Medium.woff2") format("woff2");
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Geist";
-	src: url("/fonts/Geist-SemiBold.woff2") format("woff2");
-	font-weight: 600;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Geist";
-	src: url("/fonts/Geist-Bold.woff2") format("woff2");
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
-
-/* Geist Mono — For dates, counts, code */
-@font-face {
-	font-family: "Geist Mono";
-	src: url("/fonts/GeistMono-Regular.woff2") format("woff2");
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Geist Mono";
-	src: url("/fonts/GeistMono-Medium.woff2") format("woff2");
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
+/* Geist and Geist Mono come from Astro's Fonts API (astro.config.ts, <Font /> in BaseHead) */
+@theme inline {
+	--font-sans: var(--font-geist);
+	--font-mono: var(--font-geist-mono);
 }
 
 /* Dark mode selector strategy */
@@ -217,9 +169,6 @@
 	/* ========================================
 	   TYPOGRAPHY — Geist + Major Third Scale (1.25)
 	   ======================================== */
-
-	--font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
-	--font-mono: "Geist Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
 	/*
 	   TYPE SCALE — 16px base, fluid clamp() for larger sizes

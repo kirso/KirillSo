@@ -35,8 +35,8 @@ Every element earns its place through purpose, not decoration.
 ### Font Stack
 
 ```css
---font-sans: "Geist", system-ui, sans-serif;
---font-mono: "Geist Mono", ui-monospace, monospace;
+--font-sans: var(--font-geist); /* Astro Fonts API */
+--font-mono: var(--font-geist-mono);
 ```
 
 **Geist** by Vercel — Clean, tight, excellent for dense UI and catalog aesthetics.
@@ -406,7 +406,7 @@ Scroll progress indicator for articles.
 |------|---------|
 | `src/styles/global.css` | Design tokens, utilities, components |
 | `tailwind.config.ts` | Prose typography configuration |
-| `public/fonts/` | Geist font files (woff2) |
+| `src/assets/fonts/` | Geist font files (woff2 via the Fonts API in `astro.config.ts`; ttf for OG images) |
 | `src/data/books.ts` | Influential books data for /reading page |
 | `DS.md` | This design system documentation |
 
