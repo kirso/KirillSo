@@ -146,7 +146,13 @@ async function generateAllEmbeddings() {
 				console.log(`  Processing ${relativePath}`);
 
 				const content = fs.readFileSync(filePath, "utf-8");
-				const { content: mdContent } = matter(content);
+				const { content: mdContent, data } = matter(content);
+
+				// The chat answers from this file publicly; unpublished drafts stay out
+				if (data.draft === true) {
+					console.log(`  Skipping ${relativePath} (draft)`);
+					continue;
+				}
 
 				// Parse markdown to HTML and ensure it's not undefined
 				const parsedContent = await marked.parse(mdContent);
