@@ -82,7 +82,7 @@ const {
     <Header />
     <main id="main" style="view-transition-name: main-content;">
       <slot />
-      {showChat && <Chat client:idle />}
+      {showChat && <Chat client:idle={{ timeout: 2000 }} />}
     </main>
     <Footer />
   </body>
