@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 import { WEBMENTION_PINGBACK, WEBMENTION_URL } from "astro:env/client";
 import { siteConfig } from "@/site.config";
 import type { SiteMeta } from "@/types";
@@ -25,8 +26,9 @@ const socialImageURL = new URL(ogImage ? ogImage : defaultOgImage, Astro.url).hr
 <meta name="color-scheme" content="light dark" />
 <title>{siteTitle}</title>
 
-<link rel="preload" href="/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="preload" href="/fonts/GeistMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+{/* Only the regular weights are needed above the fold */}
+<Font cssVariable="--font-geist" preload={[{ weight: 400 }]} />
+<Font cssVariable="--font-geist-mono" preload={[{ weight: 400 }]} />
 
 {/* Preconnect to external domains for faster resource loading */}
 <link rel="dns-prefetch" href="https://webmention.io" />

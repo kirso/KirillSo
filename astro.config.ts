@@ -1,21 +1,21 @@
 import fs from "node:fs";
 import cloudflare from "@astrojs/cloudflare";
-// Rehype plugins
-import { rehypeHeadingIds, unified } from "@astrojs/markdown-remark";
+import { satteri, satteriHeadingIdsPlugin } from "@astrojs/markdown-satteri";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import tailwind from "@tailwindcss/vite";
-import { defineConfig, envField } from "astro/config";
+import { defineConfig, envField, fontProviders } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
 import robotsTxt from "astro-robots-txt";
 import webmanifest from "astro-webmanifest";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypeExternalLinks from "rehype-external-links";
-import rehypeUnwrapImages from "rehype-unwrap-images";
-// Remark plugins
-import { remarkReadingTime } from "./src/plugins/remark-reading-time";
+import {
+	hastAutolinkHeadings,
+	hastExternalLinks,
+	hastUnwrapImages,
+	mdastReadingTime,
+} from "./src/plugins/satteri";
 import { expressiveCodeOptions, siteConfig } from "./src/site.config";
 
 // https://astro.build/config
@@ -24,9 +24,38 @@ export default defineConfig({
 	image: {
 		// img.youtube.com: video thumbnails in posts get sized and lazy-loaded at build time
 		domains: ["webmention.io", "img.youtube.com"],
-		// Responsive srcset for every image, including Markdown ones; styles live in global.css
+		// Responsive srcset for every image, including Markdown ones
 		layout: "constrained",
+		responsiveStyles: true,
 	},
+	fonts: [
+		{
+			provider: fontProviders.local(),
+			name: "Geist",
+			cssVariable: "--font-geist",
+			fallbacks: ["ui-sans-serif", "system-ui", "-apple-system", "sans-serif"],
+			options: {
+				variants: [
+					{ src: ["./src/assets/fonts/Geist-Regular.woff2"], weight: 400, style: "normal" },
+					{ src: ["./src/assets/fonts/Geist-Medium.woff2"], weight: 500, style: "normal" },
+					{ src: ["./src/assets/fonts/Geist-SemiBold.woff2"], weight: 600, style: "normal" },
+					{ src: ["./src/assets/fonts/Geist-Bold.woff2"], weight: 700, style: "normal" },
+				],
+			},
+		},
+		{
+			provider: fontProviders.local(),
+			name: "Geist Mono",
+			cssVariable: "--font-geist-mono",
+			fallbacks: ["ui-monospace", "SFMono-Regular", "SF Mono", "Menlo", "Consolas", "monospace"],
+			options: {
+				variants: [
+					{ src: ["./src/assets/fonts/GeistMono-Regular.woff2"], weight: 400, style: "normal" },
+					{ src: ["./src/assets/fonts/GeistMono-Medium.woff2"], weight: 500, style: "normal" },
+				],
+			},
+		},
+	],
 	integrations: [
 		svelte(),
 		expressiveCode(expressiveCodeOptions),
@@ -97,30 +126,17 @@ export default defineConfig({
 		}),
 	],
 	markdown: {
-		// Astro 7 defaults to Sätteri; keep the unified pipeline for the remark/rehype plugins below
-		processor: unified({
-			rehypePlugins: [
-				rehypeHeadingIds,
-				[rehypeAutolinkHeadings, { behavior: "wrap", properties: { className: ["not-prose"] } }],
-				[
-					rehypeExternalLinks,
-					{
-						rel: ["noreferrer", "noopener"],
-						target: "_blank",
-					},
-				],
-				rehypeUnwrapImages,
+		processor: satteri({
+			mdastPlugins: [mdastReadingTime],
+			// Heading ids first so the autolink plugin can read them
+			hastPlugins: [
+				satteriHeadingIdsPlugin(),
+				hastAutolinkHeadings,
+				hastExternalLinks,
+				hastUnwrapImages,
 			],
-			remarkPlugins: [remarkReadingTime],
-			remarkRehype: {
-				footnoteLabelProperties: {
-					className: [""],
-				},
-			},
 		}),
 	},
-	// Keep pre-v7 whitespace handling; the new 'jsx' default strips spaces between inline elements
-	compressHTML: true,
 	// No sessions are used; avoids provisioning a SESSION KV namespace
 	session: false,
 	// https://docs.astro.build/en/guides/prefetch/

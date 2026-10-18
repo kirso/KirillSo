@@ -276,12 +276,13 @@ const uses: Category[] = [
                         rel="noopener noreferrer"
                         class="font-medium group-hover:underline"
                       >
-                        {item.name}
+                        {item.name}{" "}
                         <span class="ml-1 inline-block text-text-tertiary transition-transform group-hover:translate-x-0.5 group-hover:text-global-bg">&nearr;</span>
                       </a>
                     ) : (
                       <span class="font-medium">{item.name}</span>
                     )}
+                    {item.isNew && " "}
                     {item.isNew && (
                       <span class="ml-2 inline-block border border-border px-1.5 py-0 align-middle text-text-tertiary group-hover:border-global-bg/40 group-hover:text-global-bg/80" style="font-size: 10px; letter-spacing: 0.05em;">NEW</span>
                     )}
