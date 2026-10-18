@@ -15,7 +15,6 @@ const { nextUrl, prevUrl } = Astro.props;
       {prevUrl ? (
         <a
           class="arrow-link"
-          data-astro-prefetch
           href={prevUrl.url}
         >
           <span aria-hidden="true">←</span>
@@ -28,7 +27,6 @@ const { nextUrl, prevUrl } = Astro.props;
       {nextUrl && (
         <a
           class="arrow-link"
-          data-astro-prefetch
           href={nextUrl.url}
         >
           {nextUrl.srLabel && <span class="sr-only">{nextUrl.srLabel}</span>}

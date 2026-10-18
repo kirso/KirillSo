@@ -140,8 +140,14 @@ export default defineConfig({
 	compressHTML: true,
 	// No sessions are used; avoids provisioning a SESSION KV namespace
 	session: false,
-	// https://docs.astro.build/en/guides/prefetch/
-	prefetch: true,
+	// https://docs.astro.build/en/guides/prefetch/ — hover-prefetch every internal link; in browsers with
+	// the Speculation Rules API (Chromium) clientPrerender prerenders them instead
+	prefetch: {
+		prefetchAll: true,
+	},
+	experimental: {
+		clientPrerender: true,
+	},
 	vite: {
 		optimizeDeps: {
 			exclude: ["@resvg/resvg-js"],

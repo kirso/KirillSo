@@ -35,7 +35,7 @@ const recentPosts = allPosts
       <ul class="space-y-1">
         {recentPosts.map((p) => (
           <li class="post-row">
-            <a class="post-title link" data-astro-prefetch href={`/posts/${p.id}/`}>
+            <a class="post-title link" href={`/posts/${p.id}/`}>
               {p.data.title}
             </a>
             <span class="post-leader"></span>
