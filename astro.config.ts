@@ -137,8 +137,6 @@ export default defineConfig({
 			],
 		}),
 	},
-	// Keep pre-v7 whitespace handling; the new 'jsx' default strips spaces between inline elements
-	compressHTML: true,
 	// No sessions are used; avoids provisioning a SESSION KV namespace
 	session: false,
 	// https://docs.astro.build/en/guides/prefetch/ — hover-prefetch every internal link; in browsers with
