@@ -40,9 +40,12 @@ function rateLimitKey(request: Request): string {
 	const [head = "", tail = ""] = ip.split("::");
 	const headGroups = head ? head.split(":") : [];
 	const tailGroups = tail ? tail.split(":") : [];
+	const missing = Math.max(8 - headGroups.length - tailGroups.length, 0);
 	const groups = ip.includes("::")
-		? [...headGroups, ...Array(8 - headGroups.length - tailGroups.length).fill("0"), ...tailGroups]
+		? [...headGroups, ...Array(missing).fill("0"), ...tailGroups]
 		: headGroups;
+	// Malformed address: key by the raw string rather than guess a prefix
+	if (groups.length !== 8 || groups.some((g) => !/^[0-9a-f]{1,4}$/.test(g))) return ip;
 	const prefix = groups.slice(0, 4).map((g) => Number.parseInt(g || "0", 16).toString(16));
 	return `${prefix.join(":")}::/64`;
 }
