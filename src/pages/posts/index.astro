@@ -67,7 +67,7 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
           <ul class="space-y-1">
             {groupedByYear[yearKey]?.map((p) => (
               <li class="post-row">
-                <a class="post-title link" href={`/posts/${p.id}/`}>
+                <a class="post-title link" data-astro-prefetch href={`/posts/${p.id}/`}>
                   {p.data.pinned && <span class="text-text-tertiary" title="Pinned">↑ </span>}
                   {p.data.draft && <span class="text-amber-600 dark:text-amber-400" title="Draft">[draft] </span>}
                   {p.data.title}

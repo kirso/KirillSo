@@ -66,7 +66,7 @@ const paginationProps = {
       {
         page.data.map((p) => (
           <li class="post-row">
-            <a class="post-title link" href={`/posts/${p.id}/`}>
+            <a class="post-title link" data-astro-prefetch href={`/posts/${p.id}/`}>
               {p.data.pinned && <span class="text-text-tertiary" title="Pinned">↑ </span>}
               {p.data.title}
             </a>

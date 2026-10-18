@@ -42,6 +42,38 @@ const {
       title={title}
     />
     {isHomepage && <Schema type="website" />}
+    <!-- Speculation Rules API for faster navigation -->
+    <script type="speculationrules">
+      {
+        "prerender": [
+          {
+            "source": "document",
+            "where": {
+              "and": [
+                { "href_matches": "/*" },
+                { "not": { "href_matches": "/pagefind/*" } },
+                { "not": { "href_matches": "/*\\?*" } },
+                { "not": { "selector_matches": "[data-no-prerender]" } },
+                { "not": { "selector_matches": ".no-prerender" } }
+              ]
+            },
+            "eagerness": "moderate"
+          }
+        ],
+        "prefetch": [
+          {
+            "source": "document",
+            "where": {
+              "and": [
+                { "href_matches": "/*" },
+                { "not": { "href_matches": "/pagefind/*" } }
+              ]
+            },
+            "eagerness": "moderate"
+          }
+        ]
+      }
+    </script>
   </head>
   <body
     class="bg-global-bg text-global-text mx-auto flex min-h-screen max-w-[42rem] flex-col px-5 pt-16 pb-12 font-normal antialiased sm:px-8 lg:px-4">
