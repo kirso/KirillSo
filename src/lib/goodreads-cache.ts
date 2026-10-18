@@ -26,7 +26,10 @@ export async function fetchCachedGoodreadsXML(
 			}
 
 			const response = await fetch(url, FETCH_INIT);
-			if (!response.ok) return null;
+			if (!response.ok) {
+				console.warn(`Goodreads fetch failed: ${response.status} ${url}`);
+				return null;
+			}
 
 			const xml = await response.text();
 
@@ -45,16 +48,21 @@ export async function fetchCachedGoodreadsXML(
 
 			return xml;
 		}
-	} catch {
-		// Cache API not available (local dev), fall through
+	} catch (error) {
+		// Cache API not available (local dev) or the fetch threw; retry directly
+		console.warn("Goodreads cached fetch failed:", error);
 	}
 
 	// Fallback: direct fetch
 	try {
 		const response = await fetch(url, FETCH_INIT);
-		if (!response.ok) return null;
+		if (!response.ok) {
+			console.warn(`Goodreads fetch failed: ${response.status} ${url}`);
+			return null;
+		}
 		return response.text();
-	} catch {
+	} catch (error) {
+		console.error("Goodreads fetch error:", error);
 		return null;
 	}
 }
