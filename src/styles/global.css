@@ -405,17 +405,6 @@
 		}
 	}
 
-	/* Astro image responsive styles */
-	:where([data-astro-image]) {
-		object-fit: var(--fit);
-		object-position: var(--pos);
-	}
-	[data-astro-image="full-width"] {
-		width: 100%;
-	}
-	[data-astro-image="constrained"] {
-		max-width: 100%;
-	}
 }
 
 /* ============================================================================

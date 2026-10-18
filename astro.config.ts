@@ -24,8 +24,9 @@ export default defineConfig({
 	image: {
 		// img.youtube.com: video thumbnails in posts get sized and lazy-loaded at build time
 		domains: ["webmention.io", "img.youtube.com"],
-		// Responsive srcset for every image, including Markdown ones; styles live in global.css
+		// Responsive srcset for every image, including Markdown ones
 		layout: "constrained",
+		responsiveStyles: true,
 	},
 	fonts: [
 		{
