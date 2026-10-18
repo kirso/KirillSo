@@ -32,6 +32,21 @@ Use the following context to answer questions:
 ${formattedContent}`;
 }
 
+/** Rate-limit key: the client IP, with IPv6 cut to its /64 since one connection owns the whole prefix. */
+function rateLimitKey(request: Request): string {
+	// Read the header directly: Astro's clientAddress getter throws when it's missing or invalid
+	const ip = (request.headers.get("cf-connecting-ip") ?? "unknown").toLowerCase();
+	if (!ip.includes(":") || ip.includes(".")) return ip;
+	const [head = "", tail = ""] = ip.split("::");
+	const headGroups = head ? head.split(":") : [];
+	const tailGroups = tail ? tail.split(":") : [];
+	const groups = ip.includes("::")
+		? [...headGroups, ...Array(8 - headGroups.length - tailGroups.length).fill("0"), ...tailGroups]
+		: headGroups;
+	const prefix = groups.slice(0, 4).map((g) => Number.parseInt(g || "0", 16).toString(16));
+	return `${prefix.join(":")}::/64`;
+}
+
 /** Reads the body as text, or returns null as soon as it passes `limit` bytes (the rest is never read). */
 async function readBodyWithin(request: Request, limit: number): Promise<string | null> {
 	if (Number(request.headers.get("content-length") ?? 0) > limit) return null;
@@ -45,7 +60,7 @@ async function readBodyWithin(request: Request, limit: number): Promise<string |
 		if (done) break;
 		size += value.byteLength;
 		if (size > limit) {
-			// Stop reading; the runtime discards the rest (cancel() trips wrangler dev's proxy)
+			// Stop reading; the rest of the body is never consumed
 			reader.releaseLock();
 			return null;
 		}
@@ -88,15 +103,19 @@ async function readMessage(request: Request): Promise<string | Response> {
 	return message.trim();
 }
 
-export const POST: APIRoute = async ({ request, clientAddress }) => {
+export const POST: APIRoute = async ({ request }) => {
 	// Runtime switch: the same var also hides the chat button at build time
 	if (env.PUBLIC_ENABLE_CHAT !== "true") {
 		return new Response("Chat is disabled", { status: 503 });
 	}
 
-	// Shared across isolates, counted per Cloudflare location
-	const { success } = await env.CHAT_RATE_LIMITER.limit({ key: clientAddress ?? "anonymous" });
-	if (!success) {
+	// Shared across isolates, counted per Cloudflare location. Per visitor first, so a blocked
+	// visitor doesn't use up the site-wide ceiling
+	const visitor = await env.CHAT_RATE_LIMITER.limit({ key: rateLimitKey(request) });
+	const allowed = visitor.success
+		? (await env.CHAT_GLOBAL_RATE_LIMITER.limit({ key: "global" })).success
+		: false;
+	if (!allowed) {
 		return new Response("Too many requests. Please try again later.", {
 			status: 429,
 			headers: {

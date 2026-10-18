@@ -12,7 +12,8 @@
 			"!**/.astro",
 			"!**/.claude",
 			"!**/.data",
-			"!src/data/embeddings"
+			"!src/data/embeddings",
+			"!worker-configuration.d.ts"
 		]
 	},
 	"formatter": {
