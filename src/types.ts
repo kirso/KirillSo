@@ -26,6 +26,8 @@ export interface SiteMeta {
 	description?: string;
 	ogImage?: string | undefined;
 	title: string;
+	/** Error pages: emit robots noindex and no canonical/og:url */
+	noindex?: boolean | undefined;
 }
 
 /** Webmentions */

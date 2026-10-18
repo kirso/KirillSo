@@ -12,7 +12,7 @@
 		"build": "astro build",
 		"postbuild": "pagefind --site dist/client",
 		"preview": "astro preview",
-		"check": "bun run types && astro check && biome check",
+		"check": "wrangler types --check --strict-vars=false && astro check && biome check",
 		"types": "wrangler types --strict-vars=false",
 		"lint": "biome check --write",
 		"format": "biome format --write",
