@@ -36,7 +36,6 @@ export const GET: APIRoute = async () => {
 	return new Response(JSON.stringify(response, null, 2), {
 		headers: {
 			"Content-Type": "application/json; charset=utf-8",
-			"Cache-Control": "public, max-age=3600",
 		},
 	});
 };

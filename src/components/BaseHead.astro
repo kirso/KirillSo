@@ -6,7 +6,8 @@ import "@/styles/global.css";
 
 type Props = SiteMeta;
 
-const { articleDate, articleSection, articleTags, description, ogImage, title } = Astro.props;
+const { articleDate, articleSection, articleTags, description, noindex, ogImage, title } =
+	Astro.props;
 
 const titleSeparator = "|";
 const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`;
@@ -40,7 +41,13 @@ const socialImageURL = new URL(ogImage ? ogImage : defaultOgImage, Astro.url).hr
 <link href="/manifest.webmanifest" rel="manifest" />
 
 {/* Canonical URL */}
-<link href={canonicalURL} rel="canonical" />
+{
+  noindex ? (
+    <meta name="robots" content="noindex" />
+  ) : (
+    <link href={canonicalURL} rel="canonical" />
+  )
+}
 
 {/* Primary Meta Tags */}
 <meta content={siteTitle} name="title" />
@@ -51,7 +58,7 @@ const socialImageURL = new URL(ogImage ? ogImage : defaultOgImage, Astro.url).hr
 <meta content={articleDate ? "article" : "website"} property="og:type" />
 <meta content={title} property="og:title" />
 <meta content={description} property="og:description" />
-<meta content={canonicalURL} property="og:url" />
+{!noindex && <meta content={canonicalURL} property="og:url" />}
 <meta content={siteConfig.title} property="og:site_name" />
 <meta content={siteConfig.ogLocale} property="og:locale" />
 <meta content={socialImageURL} property="og:image" />
@@ -70,7 +77,7 @@ const socialImageURL = new URL(ogImage ? ogImage : defaultOgImage, Astro.url).hr
 
 {/* Twitter */}
 <meta content="summary_large_image" property="twitter:card" />
-<meta content={canonicalURL} property="twitter:url" />
+{!noindex && <meta content={canonicalURL} property="twitter:url" />}
 <meta content={title} property="twitter:title" />
 <meta content={description} property="twitter:description" />
 <meta content={socialImageURL} property="twitter:image" />

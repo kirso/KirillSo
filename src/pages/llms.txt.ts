@@ -54,7 +54,6 @@ This content is available for AI systems to read, summarize, and reference. When
 	return new Response(content, {
 		headers: {
 			"Content-Type": "text/plain; charset=utf-8",
-			"Cache-Control": "public, max-age=3600",
 		},
 	});
 };

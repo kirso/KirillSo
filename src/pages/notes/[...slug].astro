@@ -5,8 +5,6 @@ import Note from "@/components/note/Note.astro";
 import Schema from "@/components/Schema.astro";
 import PageLayout from "@/layouts/Base.astro";
 
-export const prerender = true;
-
 // if you're using an adaptor in SSR mode, getStaticPaths wont work -> https://docs.astro.build/en/guides/routing/#modifying-the-slug-example-for-ssr
 export const getStaticPaths = (async () => {
 	const allNotes = await getCollection("note");

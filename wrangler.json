@@ -1,17 +1,25 @@
 {
 	"$schema": "./node_modules/wrangler/config-schema.json",
 	"name": "kirillso",
-	"main": "@astrojs/cloudflare/entrypoints/server",
 	"compatibility_date": "2026-09-01",
 	"compatibility_flags": ["nodejs_compat"],
+	"observability": { "enabled": true },
 	"routes": [
 		{ "pattern": "www.kirillso.com", "custom_domain": true },
 		{ "pattern": "kirillso.com", "custom_domain": true }
 	],
-	"assets": {
-		"directory": "./dist",
-		"binding": "ASSETS"
-	},
+	"ratelimits": [
+		{
+			"name": "CHAT_RATE_LIMITER",
+			"namespace_id": "1018",
+			"simple": { "limit": 10, "period": 60 }
+		},
+		{
+			"name": "CHAT_GLOBAL_RATE_LIMITER",
+			"namespace_id": "1019",
+			"simple": { "limit": 30, "period": 60 }
+		}
+	],
 	"vars": {
 		"PUBLIC_ENABLE_CHAT": "true",
 		"WEBMENTION_URL": "https://webmention.io/www.kirillso.com/webmention",

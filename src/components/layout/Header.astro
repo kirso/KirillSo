@@ -180,7 +180,8 @@ import { menuLinks } from "@/site.config";
         backdrop?.classList.add("opacity-100", "pointer-events-auto");
         mobileButtonEl?.setAttribute("aria-expanded", "true");
         document.body.style.overflow = "hidden";
-        closeBtn?.focus();
+        // preventScroll: the header isn't sticky, so a plain focus() scrolls the page back to the top
+        closeBtn?.focus({ preventScroll: true });
       };
 
       const closeMenu = ({ restoreFocus = true } = {}) => {
@@ -193,7 +194,7 @@ import { menuLinks } from "@/site.config";
         backdrop?.classList.add("opacity-0", "pointer-events-none");
         mobileButtonEl?.setAttribute("aria-expanded", "false");
         document.body.style.overflow = "";
-        if (restoreFocus) mobileButtonEl?.focus();
+        if (restoreFocus) mobileButtonEl?.focus({ preventScroll: true });
       };
 
       mobileButtonEl?.addEventListener("click", openMenu);
@@ -203,7 +204,7 @@ import { menuLinks } from "@/site.config";
       window.matchMedia("(min-width: 640px)").addEventListener("change", ({ matches }) => {
         if (matches && isOpen()) {
           closeMenu({ restoreFocus: false });
-          document.querySelector<HTMLElement>("#main-header a")?.focus();
+          document.querySelector<HTMLElement>("#main-header a")?.focus({ preventScroll: true });
         }
       });
 

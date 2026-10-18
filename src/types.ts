@@ -26,6 +26,8 @@ export interface SiteMeta {
 	description?: string;
 	ogImage?: string | undefined;
 	title: string;
+	/** Error pages: emit robots noindex and no canonical/og:url */
+	noindex?: boolean | undefined;
 }
 
 /** Webmentions */
@@ -83,5 +85,3 @@ export interface Summary {
 	"content-type": string;
 	value: string;
 }
-
-export type AdmonitionType = "tip" | "note" | "important" | "caution" | "warning";

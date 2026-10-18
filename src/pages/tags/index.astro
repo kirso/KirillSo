@@ -3,8 +3,6 @@ import Schema from "@/components/Schema.astro";
 import { getAllPosts, getUniqueTagsWithCount } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 
-export const prerender = true;
-
 const allPosts = await getAllPosts();
 const allTags = getUniqueTagsWithCount(allPosts);
 const totalPosts = allPosts.length;

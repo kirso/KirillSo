@@ -11,7 +11,10 @@ import { cleanTitle, parseGoodreadsRSS } from "@/utils/books";
 
 let currentlyReading: GoodreadsBook[] = [];
 try {
-	const xml = await fetchCachedGoodreadsXML(GOODREADS_CURRENTLY_READING_URL);
+	const xml = await fetchCachedGoodreadsXML(
+		GOODREADS_CURRENTLY_READING_URL,
+		Astro.locals.cfContext,
+	);
 	if (xml) {
 		currentlyReading = parseGoodreadsRSS(xml);
 	}
