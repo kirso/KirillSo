@@ -1,8 +1,16 @@
 import { GOOGLE_AI_API_KEY } from "astro:env/server";
+import { env } from "cloudflare:workers";
 import { GoogleGenAI } from "@google/genai";
 import type { APIRoute } from "astro";
+import { MAX_CHAT_MESSAGE_LENGTH } from "../../lib/chat-limits";
 import { findSimilarContent } from "../../lib/embeddings";
-import { chatRateLimiter } from "../../lib/rateLimit";
+
+// The only on-demand route besides server islands
+export const prerender = false;
+
+// Bounds every request before it reaches Gemini
+const MAX_BODY_BYTES = 4_096;
+const MAX_OUTPUT_TOKENS = 1_024;
 
 function getGeminiClient() {
 	if (!GOOGLE_AI_API_KEY) {
@@ -24,41 +32,53 @@ Use the following context to answer questions:
 ${formattedContent}`;
 }
 
-export const POST: APIRoute = async ({ request, clientAddress }) => {
+/** Reads `{ "message": string }` from a JSON body, or returns the error response to send. */
+async function readMessage(request: Request): Promise<string | Response> {
+	if (!request.headers.get("content-type")?.includes("application/json")) {
+		return new Response("Unsupported content type", { status: 415 });
+	}
+
+	const body = await request.text();
+	if (body.length > MAX_BODY_BYTES) {
+		return new Response("Request too large", { status: 413 });
+	}
+
+	let message: unknown;
 	try {
-		// Check rate limit
-		const identifier = clientAddress ?? "anonymous";
-		const isLimited = await chatRateLimiter.isLimited(identifier);
+		message = (JSON.parse(body) as { message?: unknown } | null)?.message;
+	} catch {
+		return new Response("Invalid JSON", { status: 400 });
+	}
 
-		if (isLimited) {
-			return new Response("Too many requests. Please try again later.", {
-				status: 429,
-				headers: {
-					"Retry-After": "60",
-				},
-			});
-		}
+	if (typeof message !== "string" || message.trim().length === 0) {
+		return new Response("Message is required", { status: 400 });
+	}
+	if (message.length > MAX_CHAT_MESSAGE_LENGTH) {
+		return new Response("Message too long", { status: 413 });
+	}
+	return message.trim();
+}
 
-		// Check content type
-		const contentType = request.headers.get("content-type");
-		let message: string | undefined;
+export const POST: APIRoute = async ({ request, clientAddress }) => {
+	// Runtime switch: the same var also hides the chat button at build time
+	if (env.PUBLIC_ENABLE_CHAT !== "true") {
+		return new Response("Chat is disabled", { status: 503 });
+	}
 
-		if (contentType?.includes("application/json")) {
-			const json = await request.json();
-			message = json.message;
-		} else if (
-			contentType?.includes("application/x-www-form-urlencoded") ||
-			contentType?.includes("multipart/form-data")
-		) {
-			const formData = await request.formData();
-			message = formData.get("message")?.toString();
-		} else {
-			return new Response("Unsupported content type", { status: 415 });
-		}
+	// Shared across isolates, counted per Cloudflare location
+	const { success } = await env.CHAT_RATE_LIMITER.limit({ key: clientAddress ?? "anonymous" });
+	if (!success) {
+		return new Response("Too many requests. Please try again later.", {
+			status: 429,
+			headers: {
+				"Retry-After": "60",
+			},
+		});
+	}
 
-		if (!message) {
-			return new Response("Message is required", { status: 400 });
-		}
+	try {
+		const message = await readMessage(request);
+		if (message instanceof Response) return message;
 
 		// Get relevant context from the bundled content index.
 		const similarContent = await findSimilarContent(message);
@@ -77,6 +97,9 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 			contents: message,
 			config: {
 				systemInstruction: createSystemMessage(similarContent),
+				maxOutputTokens: MAX_OUTPUT_TOKENS,
+				// Thinking tokens are billed as output; short answers from supplied context don't need them
+				thinkingConfig: { thinkingBudget: 0 },
 			},
 		});
 
@@ -105,9 +128,8 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 			},
 		});
 	} catch (error) {
+		// Details stay in the Worker logs; the client gets a generic message
 		console.error("Chat error:", error);
-		const errorMessage = error instanceof Error ? error.message : "Unknown error";
-		console.error("Error details:", errorMessage);
-		return new Response(`Error: ${errorMessage}`, { status: 500 });
+		return new Response("Chat is temporarily unavailable", { status: 500 });
 	}
 };

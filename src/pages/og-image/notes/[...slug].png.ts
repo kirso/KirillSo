@@ -1,5 +1,3 @@
-export const prerender = true;
-
 import { getCollection } from "astro:content";
 import { Resvg } from "@resvg/resvg-js";
 import type { APIContext, InferGetStaticPropsType } from "astro";
@@ -190,7 +188,6 @@ export async function GET(context: APIContext) {
 	const png = new Resvg(svg).render().asPng();
 	return new Response(png as unknown as BodyInit, {
 		headers: {
-			"Cache-Control": "public, max-age=31536000, immutable",
 			"Content-Type": "image/png",
 		},
 	});

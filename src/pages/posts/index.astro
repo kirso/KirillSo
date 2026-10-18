@@ -10,8 +10,6 @@ import {
 } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 
-export const prerender = true;
-
 const MAX_POSTS_PER_PAGE = 10;
 const MAX_TAGS = 10;
 const allPosts = await getAllPosts();

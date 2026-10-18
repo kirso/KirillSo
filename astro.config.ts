@@ -15,9 +15,6 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeUnwrapImages from "rehype-unwrap-images";
 // Remark plugins
-import remarkDirective from "remark-directive"; /* Handle ::: directives as nodes */
-import { remarkAdmonitions } from "./src/plugins/remark-admonitions"; /* Add admonitions */
-import { remarkGithubCard } from "./src/plugins/remark-github-card";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time";
 import { expressiveCodeOptions, siteConfig } from "./src/site.config";
 
@@ -114,7 +111,7 @@ export default defineConfig({
 				],
 				rehypeUnwrapImages,
 			],
-			remarkPlugins: [remarkReadingTime, remarkDirective, remarkGithubCard, remarkAdmonitions],
+			remarkPlugins: [remarkReadingTime],
 			remarkRehype: {
 				footnoteLabelProperties: {
 					className: [""],
@@ -146,7 +143,7 @@ export default defineConfig({
 			GOOGLE_AI_API_KEY: envField.string({ context: "server", access: "secret", optional: true }),
 		},
 	},
-	output: "server",
+	// Static by default; on-demand routes opt out with `export const prerender = false`
 	adapter: cloudflare({
 		imageService: "compile", // Uses sharp at build time for images
 		// OG image routes use @resvg/resvg-js (native addon) and node:fs, which need Node to prerender

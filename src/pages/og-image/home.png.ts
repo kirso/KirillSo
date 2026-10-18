@@ -1,5 +1,3 @@
-export const prerender = true;
-
 import { Resvg } from "@resvg/resvg-js";
 import type { APIContext } from "astro";
 import satori, { type SatoriOptions } from "satori";
@@ -162,7 +160,6 @@ export async function GET(_context: APIContext) {
 	const png = new Resvg(svg).render().asPng();
 	return new Response(png as unknown as BodyInit, {
 		headers: {
-			"Cache-Control": "public, max-age=31536000, immutable",
 			"Content-Type": "image/png",
 		},
 	});

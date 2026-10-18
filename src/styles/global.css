@@ -469,11 +469,6 @@
 	}
 }
 
-@layer components {
-	@import "./components/admonition.css";
-	@import "./components/github-card.css";
-}
-
 /* ============================================================================
    TYPOGRAPHY COMPONENT CLASSES
    ============================================================================

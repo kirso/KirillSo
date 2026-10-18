@@ -1,6 +1,4 @@
 /// <reference types="astro/client" />
-// Adds hName/hProperties to mdast node data, used by the remark plugins
-/// <reference types="mdast-util-to-hast" />
 
 declare module "@pagefind/default-ui" {
 	class PagefindUI {
@@ -8,8 +6,8 @@ declare module "@pagefind/default-ui" {
 	}
 }
 
+// GOOGLE_AI_API_KEY is read through astro:env; only the build script reads it from process.env
 interface ImportMetaEnv {
-	readonly GOOGLE_AI_API_KEY: string;
 	readonly PUBLIC_ENABLE_CHAT: string;
 }
 

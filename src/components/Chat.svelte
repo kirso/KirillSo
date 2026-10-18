@@ -1,4 +1,6 @@
 <script lang="ts">
+import { MAX_CHAT_MESSAGE_LENGTH } from "@/lib/chat-limits";
+
 interface Message {
 	id: string;
 	text: string;
@@ -280,6 +282,7 @@ async function handleSubmit(e: Event) {
 					bind:this={inputRef}
 					bind:value={inputValue}
 					type="text"
+					maxlength={MAX_CHAT_MESSAGE_LENGTH}
 					placeholder="Type your message..."
 					class="mb-2 w-full border border-[var(--color-border)] bg-[var(--color-global-bg)] p-2 text-base text-[var(--color-global-text)] outline-none focus:border-[var(--color-global-text)] disabled:opacity-50"
 					disabled={isStreaming || isLoading}

@@ -10,10 +10,14 @@ const FETCH_INIT: RequestInit = {
 	headers: { "User-Agent": "kirillso.com reading page (+https://www.kirillso.com/reading/)" },
 };
 
-export async function fetchCachedGoodreadsXML(url: string): Promise<string | null> {
+/** Pass `Astro.locals.cfContext` so the cache write runs after the response is sent. */
+export async function fetchCachedGoodreadsXML(
+	url: string,
+	ctx?: Pick<ExecutionContext, "waitUntil">,
+): Promise<string | null> {
 	try {
-		// Try Cloudflare Cache API
-		const cache = (caches as any).default;
+		// Try Cloudflare Cache API (the DOM lib's CacheStorage type has no Workers `default`)
+		const cache = (caches as unknown as { default?: Cache }).default;
 		if (cache) {
 			const cacheKey = new Request(url);
 			const cached = await cache.match(cacheKey);
@@ -33,8 +37,11 @@ export async function fetchCachedGoodreadsXML(url: string): Promise<string | nul
 					"Cache-Control": `public, s-maxage=${CACHE_TTL}`,
 				},
 			});
-			// Await: an unawaited put can be cut off when the response ends, caching an empty body
-			await cache.put(cacheKey, cacheResponse);
+			// A bare unawaited put can be cut off when the response ends, caching an empty body;
+			// waitUntil keeps it alive without delaying the response
+			const put = cache.put(cacheKey, cacheResponse);
+			if (ctx) ctx.waitUntil(put);
+			else await put;
 
 			return xml;
 		}

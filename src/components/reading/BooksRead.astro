@@ -12,7 +12,7 @@ import { parseGoodreadsRSS } from "@/utils/books";
 
 let booksReadByYear: YearData[] = [];
 try {
-	const xml = await fetchCachedGoodreadsXML(GOODREADS_READ_URL);
+	const xml = await fetchCachedGoodreadsXML(GOODREADS_READ_URL, Astro.locals.cfContext);
 	if (xml) {
 		const booksWithDates = parseGoodreadsRSS(xml, true);
 
